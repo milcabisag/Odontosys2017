@@ -19,6 +19,7 @@ public class Odontosys20 {
         // TODO code application logic here
         
         int asd;
+        int der;
     }
     
 }
