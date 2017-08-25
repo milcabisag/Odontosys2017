@@ -200,6 +200,9 @@ public class DetalleUsuario extends javax.swing.JFrame {
             if(i > 0){                                  //Validación exitosa
                 JOptionPane.showMessageDialog(null, "Usuario Registrado Correctamente", "Insertar Usuario", JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
+                ObtenerUsuarios jFrame = new ObtenerUsuarios();
+                this.setVisible(false);
+                jFrame.setVisible(true);
             }
         }else{
             obtenerModificacion();
@@ -207,8 +210,15 @@ public class DetalleUsuario extends javax.swing.JFrame {
             if(i != 0){
                 JOptionPane.showMessageDialog(null, "Usuario Modificado Correctamente", "Modificar Usuario", JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
+                ObtenerUsuarios jFrame = new ObtenerUsuarios();
+                this.setVisible(false);
+                jFrame.setVisible(true);
             }else{
-            JOptionPane.showMessageDialog(null, "Usuario No Actualizado", "Usuario Controlador", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Usuario No Actualizado", "Usuario Controlador", JOptionPane.INFORMATION_MESSAGE);
+                  limpiar();
+                ObtenerUsuarios jFrame = new ObtenerUsuarios();
+                this.setVisible(false);
+                jFrame.setVisible(true);
             }
         }
         
@@ -217,7 +227,8 @@ public class DetalleUsuario extends javax.swing.JFrame {
     private void jButtonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtrasActionPerformed
         limpiar();
         llamado = "";
-        this.setVisible(false);
+        ObtenerUsuarios jFrame = new ObtenerUsuarios();   // abre de nuevo la consulta de usuarios
+         this.setVisible(false);
     }//GEN-LAST:event_jButtonAtrasActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
@@ -236,8 +247,15 @@ public class DetalleUsuario extends javax.swing.JFrame {
             if(i == 0){
                 JOptionPane.showMessageDialog(null, "Usuario Inactivado Correctamente", "Inactivar Usuario", JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
+                ObtenerUsuarios jFrame = new ObtenerUsuarios();   // abre de nuevo la consulta de usuarios
+                this.setVisible(false);
+                jFrame.setVisible(true);
             }else{
             JOptionPane.showMessageDialog(null, "No se pudo inactivar Usuario", "Usuario Controlador", JOptionPane.INFORMATION_MESSAGE);
+            limpiar();
+            ObtenerUsuarios jFrame = new ObtenerUsuarios();   // abre de nuevo la consulta de usuarios
+            this.setVisible(false);
+            jFrame.setVisible(true);
             }
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed

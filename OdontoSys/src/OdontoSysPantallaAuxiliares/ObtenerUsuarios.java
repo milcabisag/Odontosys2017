@@ -33,8 +33,8 @@ public class ObtenerUsuarios extends javax.swing.JFrame {
             public void mouseClicked(MouseEvent e){
                 int fila = jTableUsuarios.rowAtPoint(e.getPoint());
                 if (fila > -1){
-                    DetalleUsuarioDoctor.user = lista.get(fila);  //Pasa a DetalleUsuarioDoctor el user seleccionado
-                    DetalleUsuarioDoctor jFrame= new DetalleUsuarioDoctor();
+                    DetalleUsuario.user = lista.get(fila);  //Pasa a DetalleUsuario el user seleccionado
+                    DetalleUsuario jFrame= new DetalleUsuario();
                     jFrame.setVisible(true); //Abre Form Usuario
                     ocultarFrame();
                 }
@@ -136,8 +136,8 @@ public class ObtenerUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonMenuActionPerformed
 
     private void jButtonInsertarUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarUserActionPerformed
-        DetalleUsuarioDoctor.llamado = "Insertar";
-        DetalleUsuarioDoctor jFrame = new DetalleUsuarioDoctor();
+        DetalleUsuario.llamado = "Insertar";
+        DetalleUsuario jFrame = new DetalleUsuario();
         jFrame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonInsertarUserActionPerformed

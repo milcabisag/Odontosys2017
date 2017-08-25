@@ -10,7 +10,7 @@ import OdontoSysModelo.Usuario;
 import OdontoSysPantalla.Pacientes;
 import OdontoSysPantalla.Doctores;
 import OdontoSysPantallaAuxiliares.BuscarConvenio;
-import OdontoSysPantallaAuxiliares.DetalleUsuarioDoctor;
+import OdontoSysPantallaAuxiliares.DetalleUsuario;
 import OdontoSysPantallaAuxiliares.ObtenerServicios;
 import OdontoSysPantallaAuxiliares.ObtenerUsuarios;
 import OdontoSysPantallaAuxiliares.obtenerFechas;
