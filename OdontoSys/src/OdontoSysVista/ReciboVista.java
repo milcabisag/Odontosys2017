@@ -29,8 +29,8 @@ public class ReciboVista {
         String est = recibo.getFactura().getEstado();
         int monto = recibo.getMonto();
         int user = recibo.getUsuario().getIdusuario();
+        System.out.println("User"+user);
         if((nom == null) || (monto == 0) || (est == null) || (user <= 0)){
-            System.out.println("Paciente "+ nom+" Estado "+est+" Monto "+monto+" User "+user);
             JOptionPane.showMessageDialog(null, "Favor complete todos los campos", "Validación de datos Recibo", WIDTH);
             return null;
         }

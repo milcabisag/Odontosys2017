@@ -17,6 +17,7 @@ import OdontoSysModelo.Factura;
 import OdontoSysModelo.FacturaConvenio;
 import OdontoSysModelo.OrdenServicio;
 import OdontoSysModelo.Paciente;
+import OdontoSysModelo.Usuario;
 import OdontoSysPantallaAuxiliares.OrdenDeServicio;
 import OdontoSysUtil.Configuraciones;
 import OdontoSysUtil.NewHibernateUtil;
@@ -426,6 +427,7 @@ public class Facturas extends javax.swing.JFrame {
                     boolean t = guardarFacturaConvenio(sesion);
             }
             //Abrir un recibo
+            Recibos.user = user;
             Recibos.pac = pacActual;
             Recibos.fac = facActual;
             Recibos.main(null);
@@ -538,6 +540,7 @@ public class Facturas extends javax.swing.JFrame {
     DecimalFormat formateador = new DecimalFormat("###,###");
     int total;
     int subt;
+    public static Usuario user;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAceptar;

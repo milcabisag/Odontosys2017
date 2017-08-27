@@ -296,6 +296,7 @@ public class OrdenDeServicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFacturarActionPerformed
+        Facturas.user = user;
         Facturas.ordenActual = ordenActual;
         Facturas.pacActual = ordenActual.getPaciente();
         Facturas jFrame = new Facturas();
@@ -419,7 +420,7 @@ public class OrdenDeServicio extends javax.swing.JFrame {
     public static Odontograma odonActual;                              //Debe recibir del odontograma padre
     public static OrdenServicio ordenActual = null;
     int totales = 0;
-    public static Usuario user = null;                                  //Debe recibir del odontograma padre
+    public static Usuario user;                                  //Debe recibir del odontograma padre
     ArrayList<DetalleOrden> detOrden = null;
     DefaultTableModel tabla = new DefaultTableModel(){
         public boolean isCellEditable(int row, int column) {

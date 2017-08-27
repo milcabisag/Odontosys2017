@@ -303,8 +303,14 @@ public class Recibos extends javax.swing.JFrame {
         reciboActual.setFactura(fac);
         reciboActual.setUsuario(user);
         
-        detalle = ReciboVista.validarRecibo(reciboActual, detalle);
-        if(detalle != null){           
+        ArrayList<DetalleRecibo> detalleActual= null;
+        
+        System.out.println("Fecha = " + reciboActual.getFecha());
+         System.out.println("Detalle = " + detalle.get(0).getMonto());
+         
+         
+        detalleActual = ReciboVista.validarRecibo(reciboActual, detalle);
+        if(detalleActual != null){           
             reciboActual = ReciboControlador.InsertarRecibo(reciboActual, sesion);
             Movimiento m = new Movimiento();
             m = ReciboControlador.insertarMovimientoRecibo(reciboActual, sesion);
