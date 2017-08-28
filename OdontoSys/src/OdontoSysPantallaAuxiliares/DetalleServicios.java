@@ -241,10 +241,11 @@ public class DetalleServicios extends javax.swing.JFrame {
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         int confirm = JOptionPane.showConfirmDialog(null, "Está seguro de eliminar servicio "+serv.getDescripcion()+"?", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION);
         if(confirm == JOptionPane.YES_OPTION){
-            int i = ServicioControlador.eliminarServicio(serv);
-            if(i != 0){
+            boolean i = ServicioControlador.eliminarServicio(serv);
+            if(i){
                 JOptionPane.showMessageDialog(null, "Servicio inactivado correctamente", "Inactivar Servicio", JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
+                jButtonAtras.doClick();
             }else{
             JOptionPane.showMessageDialog(null, "No se pudo inactivar Servicio", "Inactivar Servicio", JOptionPane.INFORMATION_MESSAGE);
             }

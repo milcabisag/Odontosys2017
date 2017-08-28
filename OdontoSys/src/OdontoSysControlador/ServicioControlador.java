@@ -112,8 +112,8 @@ public class ServicioControlador {
        return i; 
     }
     
-    public static int eliminarServicio(Servicio serv) {
-        int i = 0;
+    public static boolean eliminarServicio(Servicio serv) {
+        boolean i = false;
         try{         
             Session session = NewHibernateUtil.getSessionFactory().openSession();
             Transaction tx = session.beginTransaction();
@@ -122,6 +122,7 @@ public class ServicioControlador {
             updatedEntities.executeUpdate();
             tx.commit();
             session.close();
+            i = true;
        }catch(HibernateException ex){
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Eliminar Servicio", WIDTH );
        }        
