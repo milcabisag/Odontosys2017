@@ -35,10 +35,12 @@ public class ObtenerServicios extends javax.swing.JFrame {
                 if (fila > -1){
                     DetalleServicios.serv = lista.get(fila);
                     DetalleServicios jFrame= new DetalleServicios();
-                    jFrame.setVisible(true); //Abre Form Usuario
+                    jFrame.setVisible(true); //Abre Form Servicios
+                    dispose();
+                    }
                 }
             }
-        });
+        );
         
     }
 
@@ -129,6 +131,7 @@ public class ObtenerServicios extends javax.swing.JFrame {
         DetalleServicios.llamado = "Insertar";
         DetalleServicios jFrame = new DetalleServicios();
         jFrame.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButtonInsertarActionPerformed
 
     /**
@@ -189,7 +192,8 @@ public class ObtenerServicios extends javax.swing.JFrame {
         for(Servicio nuevo : lista){                
                 Object[] rowData = new Object[2];
                 rowData[0] = String.valueOf(nuevo.getDescripcion());
-                rowData[1] = nuevo.getPrecio();                
+                rowData[1] = nuevo.getPrecio();
+                //rowData[2] = nuevo.getIdservicio();
                 tabla.addRow(rowData);
                 jTableServicios.setValueAt(formateador.format(rowData[1]), tabla.getRowCount()-1, 1);
             }

@@ -192,35 +192,43 @@ public class DetalleServicios extends javax.swing.JFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         int i = 0;
-        obtenerServicio();
-        boolean val = ServicioVista.validarServicio(serv);
-        if(val){
-            if(llamado == "Insertar"){          
-                serv = ServicioControlador.insertarServicio(serv);
-                boolean ins = registrarConv();
-                if(ins){
-                    JOptionPane.showMessageDialog(null, "Servicio Registrado Correctamente", "Insertar Servicio", JOptionPane.INFORMATION_MESSAGE);
-                    limpiar();
-                }else{
-                    JOptionPane.showMessageDialog(null, "Servicio No Registrado", "Insertar Servicio", JOptionPane.INFORMATION_MESSAGE);
+        boolean val = false;
+            if(llamado == "Insertar"){
+                nuevoServicio();
+                val = ServicioVista.validarServicio(nServ);
+                if(val){
+                    nServ = ServicioControlador.insertarServicio(nServ);
+                 boolean ins = registrarConv();
+                    if(ins){
+                       JOptionPane.showMessageDialog(null, "Servicio Registrado Correctamente", "Insertar Servicio", JOptionPane.INFORMATION_MESSAGE);
+                        limpiar();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Servicio No Registrado", "Insertar Servicio", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
             }else{
-                boolean mod = ServicioControlador.modificarServicio(serv);
-                if(mod){
-                    JOptionPane.showMessageDialog(null, "Servicio modificado correctamente", "Modificar Servicio", JOptionPane.INFORMATION_MESSAGE);
-                    limpiar();
-                }else{
-                    JOptionPane.showMessageDialog(null, "Servicio No Actualizado", "Modificar Servicio", JOptionPane.INFORMATION_MESSAGE);
+                obtenerServicio();
+                val = ServicioVista.validarServicio(serv);
+                if(val){
+                    boolean mod = ServicioControlador.modificarServicio(serv);
+                    if(mod){
+                        JOptionPane.showMessageDialog(null, "Servicio modificado correctamente", "Modificar Servicio", JOptionPane.INFORMATION_MESSAGE);
+                        limpiar();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Servicio No Actualizado", "Modificar Servicio", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
             }
-        }
         
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtrasActionPerformed
         limpiar();
         llamado = "";
+        ObtenerServicios jFrame = new ObtenerServicios();
+        jFrame.setVisible(true);
         this.setVisible(false);
+        
     }//GEN-LAST:event_jButtonAtrasActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
@@ -300,8 +308,9 @@ public class DetalleServicios extends javax.swing.JFrame {
 
     //Variables
     public static Servicio serv;
+    public static Servicio nServ;
     public static String llamado;
-    DecimalFormat formateador = new DecimalFormat("###,###");
+    DecimalFormat formateador = new DecimalFormat("###,###,###");
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtras;
@@ -317,12 +326,21 @@ public class DetalleServicios extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void obtenerServicio() {
-        serv = new Servicio();
-        serv.setDescripcion(jTextFieldDescripcion.getText());
-        serv.setPrecio(Integer.parseInt(jTextFieldPrecio.getText()));
-        serv.setEstado("Activo");
+        String d = jTextFieldDescripcion.getText().toString();
+        serv.setDescripcion(d);
+        
+        String pr = jTextFieldPrecio.getText();
+        int p = Integer.parseInt(pr);
+        serv.setPrecio(p);
     }
-
+    private void nuevoServicio() {
+        nServ = new Servicio();
+        //nServ.setDescripcion(jTextFieldDescripcion.getText());
+        nServ.setPrecio(Integer.parseInt(jTextFieldPrecio.getText()));
+        nServ.setDescripcion("PP");
+        //nServ.setPrecio(111);
+        nServ.setEstado("Activo");
+    }
     private void limpiar() {
         jTextFieldDescripcion.setText("");
         jTextFieldPrecio.setText("");

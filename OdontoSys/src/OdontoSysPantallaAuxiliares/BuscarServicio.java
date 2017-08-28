@@ -182,7 +182,7 @@ public class BuscarServicio extends javax.swing.JDialog {
             
             doClose(elServicio);
         }else{
-            JOptionPane.showMessageDialog(rootPane, "Seleccione un Diente", "BuacarDiente", WIDTH);
+            JOptionPane.showMessageDialog(rootPane, "Seleccione un Servicio", "Buscar Servicio", WIDTH);
         }  
     }//GEN-LAST:event_okButtonActionPerformed
 
