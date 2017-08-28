@@ -80,20 +80,21 @@ public class ServicioControlador {
         return lisServicio;
     }
     
-    public static Servicio insertarServicio(Servicio serv) {          
+    public static boolean insertarServicio(Servicio serv) { 
+        boolean i = false;
+        try{
             Session session = NewHibernateUtil.getSessionFactory().openSession();
-            Transaction tx = session.getTransaction();
-         try{        
+            Transaction tx = session.getTransaction();     
                 tx.begin();
                 session.save(serv);
                 session.refresh(serv);
                 tx.commit();
+                i = true;
         }catch(HibernateException ex){
-            tx.rollback();
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Servicio Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
          
-         return serv;
+         return i;
     }
     
     public static boolean modificarServicio(Servicio serv) {
@@ -116,7 +117,7 @@ public class ServicioControlador {
         try{         
             Session session = NewHibernateUtil.getSessionFactory().openSession();
             Transaction tx = session.beginTransaction();
-            String hqlUpdate = "UPDATE Servicio SET estado = 'Inactivo'";
+            String hqlUpdate = "UPDATE Servicio SET estado = 'Inactivo' WHERE idservicio = " + serv.getIdservicio();
             Query updatedEntities = session.createQuery( hqlUpdate );
             updatedEntities.executeUpdate();
             tx.commit();

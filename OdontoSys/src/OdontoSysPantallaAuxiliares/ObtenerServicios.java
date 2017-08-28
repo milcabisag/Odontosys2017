@@ -171,7 +171,7 @@ public class ObtenerServicios extends javax.swing.JFrame {
     //Variables
     DefaultTableModel tabla = new DefaultTableModel();
     ArrayList<Servicio> lista = null;
-    DecimalFormat formateador = new DecimalFormat("###,###");
+    DecimalFormat formateador = new DecimalFormat("###,###,###");
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonInsertar;

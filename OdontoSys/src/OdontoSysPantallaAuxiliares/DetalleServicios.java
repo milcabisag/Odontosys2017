@@ -33,8 +33,6 @@ public class DetalleServicios extends javax.swing.JFrame {
             jButtonInsertar.doClick();
         }else{
             inicializar();
-            jTextFieldDescripcion.setText(serv.getDescripcion());
-            jTextFieldPrecio.setText(String.valueOf(formateador.format(serv.getPrecio())));
         }
     }
 
@@ -197,9 +195,8 @@ public class DetalleServicios extends javax.swing.JFrame {
                 nuevoServicio();
                 val = ServicioVista.validarServicio(nServ);
                 if(val){
-                    nServ = ServicioControlador.insertarServicio(nServ);
-                 boolean ins = registrarConv();
-                    if(ins){
+                    val = ServicioControlador.insertarServicio(nServ);
+                    if(val){
                        JOptionPane.showMessageDialog(null, "Servicio Registrado Correctamente", "Insertar Servicio", JOptionPane.INFORMATION_MESSAGE);
                         limpiar();
                     }else{
@@ -213,7 +210,7 @@ public class DetalleServicios extends javax.swing.JFrame {
                     boolean mod = ServicioControlador.modificarServicio(serv);
                     if(mod){
                         JOptionPane.showMessageDialog(null, "Servicio modificado correctamente", "Modificar Servicio", JOptionPane.INFORMATION_MESSAGE);
-                        limpiar();
+                        inicializar();
                     }else{
                         JOptionPane.showMessageDialog(null, "Servicio No Actualizado", "Modificar Servicio", JOptionPane.INFORMATION_MESSAGE);
                     }
@@ -233,6 +230,7 @@ public class DetalleServicios extends javax.swing.JFrame {
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         jTextFieldDescripcion.setEditable(true);
+        jTextFieldPrecio.setText(String.valueOf(serv.getPrecio()));
         jTextFieldPrecio.setEditable(true);
         jButtonGuardar.setVisible(true);
         jButtonModificar.setVisible(false);
@@ -330,22 +328,19 @@ public class DetalleServicios extends javax.swing.JFrame {
         serv.setDescripcion(d);
         
         String pr = jTextFieldPrecio.getText();
-        int p = Integer.parseInt(pr);
+        int p = Integer.parseInt(pr.trim());
         serv.setPrecio(p);
     }
     private void nuevoServicio() {
         nServ = new Servicio();
-        //nServ.setDescripcion(jTextFieldDescripcion.getText());
+        nServ.setDescripcion(jTextFieldDescripcion.getText());
         nServ.setPrecio(Integer.parseInt(jTextFieldPrecio.getText()));
-        nServ.setDescripcion("PP");
-        //nServ.setPrecio(111);
         nServ.setEstado("Activo");
     }
     private void limpiar() {
         jTextFieldDescripcion.setText("");
         jTextFieldPrecio.setText("");
         
-        jButtonInsertar.setVisible(true);
         jButtonGuardar.setVisible(false);
     }
 
@@ -357,32 +352,9 @@ public class DetalleServicios extends javax.swing.JFrame {
         jButtonAtras.setVisible(true);
         jButtonEliminar.setVisible(true);
         jButtonModificar.setVisible(true);
-    }
-
-    private boolean registrarConv() {
-        boolean i = false;
-        ArrayList<Convenio> conv = new ArrayList();
-    //Buscar todos los pacientes que tengan por lo menos un convenio
-        ArrayList<Paciente> lisP = ConvenioControlador.BuscarConvenioPaciente();
-    //Buscar las empresas relacionadas por cada paciente
-        for(Paciente p : lisP){
-            ArrayList<Empresa> lisE = ConvenioControlador.BuscarConvenioEmpresa(p);
-    //Con el paciente y la empresa, insertar un nuevo convenio con el nuevo servicio
-            for(Empresa e : lisE){
-                Convenio nuevo = new Convenio();
-                nuevo.setEmpresa(e);
-                nuevo.setEstado("Activo");
-                nuevo.setObservacion("");
-                nuevo.setPaciente(p);
-                nuevo.setPorcentaje(0);
-                nuevo.setServicio(serv);
-                
-                conv.add(nuevo);
-            }
-        }
         
-        i = ConvenioControlador.insertarConvenio(conv);
-        return i;
+        jTextFieldDescripcion.setText(serv.getDescripcion());
+        jTextFieldPrecio.setText(String.valueOf(formateador.format(serv.getPrecio())));
     }
 
 }
