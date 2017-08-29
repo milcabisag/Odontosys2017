@@ -104,19 +104,21 @@ public class ConvenioControlador {
         Session sesion;
         Transaction tr = null;
         ArrayList<Empresa> lis = new ArrayList();
-        String hql;
+        String hql = null;
         try{        
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             tr = sesion.beginTransaction();
-            if(pac == null){
-                hql = "SELECT DISTINCT c.empresa FROM Convenio c WHERE c.estado = 'Activo'";
-            }else{
-                hql = "SELECT DISTINCT c.empresa FROM Convenio c WHERE c.estado = 'Activo' AND c.paciente = "+pac.getIdPaciente();
-            }
-            Query query = sesion.createQuery(hql); 
-            Iterator<Empresa> it = query.iterate();
-            while(it.hasNext()){
-                lis.add(it.next());
+            if(pac != null){
+                hql = "SELECT DISTINCT empresa FROM Convenio WHERE estado = 'Activo' AND paciente = "+pac.getIdPaciente();
+                
+                if(hql != null){
+                    Query query = sesion.createQuery(hql); 
+                    Iterator<Empresa> it = query.iterate();
+                
+                    while(it.hasNext()){
+                        lis.add(it.next());
+                    }
+                }
             }
         }catch(HibernateException ex){
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Convenio Controlador", JOptionPane.INFORMATION_MESSAGE);

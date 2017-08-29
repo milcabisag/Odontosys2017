@@ -15,8 +15,8 @@ import OdontoSysModelo.Movimiento;
 import OdontoSysModelo.OrdenServicio;
 import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Usuario;
-import OdontoSysPantallaAuxiliares.BuscarConvenio;
 import OdontoSysPantallaAuxiliares.BuscarOrdenServicio;
+import OdontoSysPantallaAuxiliares.DetalleAgenda;
 import static OdontoSysPantallaAuxiliares.ObtenerPaciente.pac;
 import OdontoSysPantallaAuxiliares.obtenerFechas;
 import OdontoSysUtil.Configuraciones;
@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -779,8 +778,8 @@ public class Pacientes extends javax.swing.JFrame {
         if(cedula > 0){
             pacienteActual = PacienteControlador.BuscarCedula(cedula);
             if (pacienteActual != null) {
-                escribirPaciente(pacienteActual);
                 habilitarBotones();
+                escribirPaciente(pacienteActual);
             } else {
                 JOptionPane.showMessageDialog(null, "Paciente no encontrado!" , "Paciente Controlador" , JOptionPane.QUESTION_MESSAGE );
             } 
@@ -825,6 +824,8 @@ public class Pacientes extends javax.swing.JFrame {
         habilitarDatos();
         jButtonModificar.setVisible(true);
         jButtonAtras.setVisible(true);
+        jButtonModPaciente.setVisible(false);
+        jButtonElimPaciente.setVisible(false);
     }//GEN-LAST:event_jButtonModPacienteActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -869,8 +870,8 @@ public class Pacientes extends javax.swing.JFrame {
     private void jButtonElimPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonElimPacienteActionPerformed
        int eliminar = JOptionPane.showConfirmDialog( null, "Eliminar paciente "+pacienteActual.getNombres()+"con Ci"+pacienteActual.getNroCi()+"??");
         if(JOptionPane.YES_OPTION == eliminar){
-            int i = PacienteControlador.Eliminar(pacienteActual);
-            if(i > 0 ){
+            boolean i = PacienteControlador.Eliminar(pacienteActual);
+            if(i){
                 JOptionPane.showMessageDialog(rootPane, "Se eliminó correctamente", "Eliminar Paciente", WIDTH);
                 limpiar();
                 BotonInvisibles();
@@ -905,8 +906,10 @@ public class Pacientes extends javax.swing.JFrame {
             int i = PacienteVista.UpDatePaciente(pacienteActual);
             if(i > 0 ){
                 JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Paciente", WIDTH);
-                limpiar();
-                BotonInvisibles();
+                escribirPaciente(pacienteActual);
+                jButtonModificar.setVisible(false);
+                jButtonModPaciente.setVisible(true);
+                jButtonElimPaciente.setVisible(true);
             }else if(i == -1){
                 JOptionPane.showMessageDialog(rootPane, "Ingreso Datos incorrectos, no deje ningún campo vacio", "Modificar Paciente", WIDTH);
             }else{
@@ -976,7 +979,7 @@ public class Pacientes extends javax.swing.JFrame {
         NotasCreditos.main(null);
         this.dispose();
     }//GEN-LAST:event_jButtonNotaCreditoActionPerformed
-
+  
     private void jTableConveniosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConveniosMouseClicked
         int fila = jTableConvenios.getSelectedRow();
         Empresa e = con.get(fila);
@@ -1123,6 +1126,9 @@ public class Pacientes extends javax.swing.JFrame {
         jTextFieldDTel.setText("");
         
         pacienteActual = null;
+        mov = null;
+        agen = null;
+        con = null;
 
     }
 
@@ -1202,9 +1208,9 @@ public class Pacientes extends javax.swing.JFrame {
         
         if(i > 0){
             //registro insertado correctamente
-        JOptionPane.showMessageDialog(rootPane, "Registro insertado correctamente", "Insertar Paciente", WIDTH);
-        BotonInvisibles();  
-        limpiar();        
+            JOptionPane.showMessageDialog(rootPane, "Registro insertado correctamente", "Insertar Paciente", WIDTH);
+            BotonInvisibles();  
+            escribirPaciente(p);
         }else if(i == -1){
             JOptionPane.showMessageDialog(rootPane, "Ingrese Datos Correctamente", "Insertar Paciente", WIDTH);
             jTextFieldDNombres.requestFocus();
@@ -1215,25 +1221,27 @@ public class Pacientes extends javax.swing.JFrame {
     }
 
     private void escribirPaciente(Paciente paciente) {
-        if(paciente!=null){    
+        if(paciente.getIdPaciente() != null){    
             jTextFieldDNombres.setText(paciente.getNombres());
             jTextFieldDApellidos.setText(paciente.getApellidos());
             jTextFieldDCI.setText(String.valueOf(formateador.format(paciente.getNroCi())));
             jDateChooserEdad.setDate(paciente.getFechaNac());                     
+            
             if(paciente.getSexo().compareTo("M") == 0){
                 jComboBoxSexo.setSelectedIndex(0);
             }else{
                 jComboBoxSexo.setSelectedIndex(1);
             }
+            
             jTextFieldDTel.setText(paciente.getTelLb());
             jTextFieldDCel.setText(paciente.getTelCel());
             jTextFieldDDireccion.setText(paciente.getDireccion());
             jTextFieldDCiudad.setText(paciente.getCiudad());
             jTextFieldDEmail.setText(paciente.getEmail());
             
-            recuperarEstadoCuenta();
-            recuperarCitas();
-            recuperarConvenios();
+            recuperarEstadoCuenta(paciente);
+            recuperarCitas(paciente);
+            recuperarConvenios(paciente);
             
         }else{
             JOptionPane.showMessageDialog(rootPane, "Paciente No encontrado", "aviso", WIDTH);
@@ -1279,18 +1287,35 @@ public class Pacientes extends javax.swing.JFrame {
         if(OrdenServicioControlador.BuscarOrdenPendiente(pacienteActual.getIdPaciente()) != null){ 
             jButtonOrdenServicio.setVisible(true);
         }      
-    }
-
-    private void recuperarEstadoCuenta() {
+        
+        
+        // Tabla Estado de Cuenta
         tablaEstado.addColumn("Fecha");
         tablaEstado.addColumn("Descripción");
         tablaEstado.addColumn("Debe");
         tablaEstado.addColumn("Haber");
         
+        // Tabla Agenda
+        tablaAgenda.addColumn("Fecha");
+        tablaAgenda.addColumn("Hora");
+        tablaAgenda.addColumn("Motivo");
+        tablaAgenda.addColumn("Doctor");
+        tablaAgenda.addColumn("Estado");
+        tablaAgenda.addColumn("Cod. Orden");
+        
+        // Tabla Convenios
+        tablaConvenio.addColumn("Empresa");
+        tablaConvenio.addColumn("RUC");
+        tablaConvenio.addColumn("Teléfono");
+        
+    }
+
+    private void recuperarEstadoCuenta(Paciente pac) {
+        
         int saldo = 0;
         
         mov = new ArrayList();
-        mov = PacienteControlador.HistoricoDeEstado(pacienteActual);
+        mov = PacienteControlador.HistoricoDeEstado(pac);
         if(mov != null){
             for(Movimiento m : mov){
                 Object[] est = new Object[4];
@@ -1309,16 +1334,10 @@ public class Pacientes extends javax.swing.JFrame {
         
     }
 
-    private void recuperarCitas() {
-        tablaAgenda.addColumn("Fecha");
-        tablaAgenda.addColumn("Hora");
-        tablaAgenda.addColumn("Motivo");
-        tablaAgenda.addColumn("Doctor");
-        tablaAgenda.addColumn("Estado");
-        tablaAgenda.addColumn("Cod. Orden");
+    private void recuperarCitas(Paciente pac) {
         
         agen = new ArrayList();
-        agen = AgendaControlador.HistoricoCitasPaciente(pacienteActual);
+        agen = AgendaControlador.HistoricoCitasPaciente(pac);
         if(agen != null){
             for(Agenda a : agen){
                 Object[] age = new Object[6];
@@ -1337,13 +1356,10 @@ public class Pacientes extends javax.swing.JFrame {
         }
     }
 
-    private void recuperarConvenios() {
-        tablaConvenio.addColumn("Empresa");
-        tablaConvenio.addColumn("RUC");
-        tablaConvenio.addColumn("Teléfono");
+    private void recuperarConvenios(Paciente pac) {
         
         con = new ArrayList();
-        con = ConvenioControlador.BuscarConvenioEmpresa(pacienteActual);
+        con = ConvenioControlador.BuscarConvenioEmpresa(pac);
         if(con != null){
             for(Empresa e : con){
                 Object[] emp = new Object[3];

@@ -105,6 +105,7 @@ public class ObtenerPaciente extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabelSeleccionApellido = new javax.swing.JLabel();
         jLabelSeleccionNombre = new javax.swing.JLabel();
+        jButtonBuscar = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -145,6 +146,14 @@ public class ObtenerPaciente extends javax.swing.JDialog {
         jLabelSeleccionNombre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelSeleccionNombre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
+        jButtonBuscar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButtonBuscar.setText("Buscar por Cédula");
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,7 +162,8 @@ public class ObtenerPaciente extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(okButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton))
@@ -165,17 +175,17 @@ public class ObtenerPaciente extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelSeleccionApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(143, 143, 143)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(144, 144, 144))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(21, 21, 21)
+                .addGap(22, 22, 22)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,10 +193,11 @@ public class ObtenerPaciente extends javax.swing.JDialog {
                         .addComponent(jLabel2)
                         .addComponent(jLabelSeleccionApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabelSeleccionNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
-                    .addComponent(okButton))
+                    .addComponent(okButton)
+                    .addComponent(jButtonBuscar))
                 .addContainerGap())
         );
 
@@ -210,6 +221,41 @@ public class ObtenerPaciente extends javax.swing.JDialog {
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(pac);
     }//GEN-LAST:event_closeDialog
+
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+
+        String cedulaString;
+        int  cedula = 0;
+        boolean bandera;
+        do{
+            try{
+                cedulaString = JOptionPane.showInputDialog ( null, "Ingrese Ci de Paciente" , "Buscar Paciente" , JOptionPane.QUESTION_MESSAGE ) ;        
+                if(cedulaString == null){
+                    bandera = true;
+                }else{
+                    cedula= Integer.parseInt(cedulaString);
+                    bandera = true;
+                }
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Solo se permiten numeros" , "Buscar por CI" , JOptionPane.QUESTION_MESSAGE );
+                bandera = false;
+                cedula = -1;
+            }
+        }while(!bandera); 
+        if(cedula > 0){
+            Paciente pacie = new Paciente();
+            pacie = PacienteControlador.BuscarCedula(cedula);
+            if (pacie != null) {
+                pac = pacie;
+                jLabelSeleccionNombre.setText(pac.getNombres());
+                jLabelSeleccionApellido.setText(pac.getApellidos());
+            } else {
+                JOptionPane.showMessageDialog(null, "Paciente no encontrado!" , "Paciente Controlador" , JOptionPane.QUESTION_MESSAGE );
+            } 
+        }
+        
+          
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
     
     private void doClose(Paciente retStatus) {
         returnStatus = retStatus;
@@ -267,6 +313,7 @@ public class ObtenerPaciente extends javax.swing.JDialog {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
+    private javax.swing.JButton jButtonBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelSeleccionApellido;

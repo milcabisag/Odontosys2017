@@ -6,15 +6,10 @@
 
 package OdontoSysPantallaAuxiliares;
 
-import OdontoSysControlador.ConvenioControlador;
 import OdontoSysControlador.ServicioControlador;
-import OdontoSysModelo.Convenio;
-import OdontoSysModelo.Empresa;
-import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Servicio;
 import OdontoSysVista.ServicioVista;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**

@@ -37,7 +37,8 @@ public class PacienteControlador {
             Query query = sesion.createQuery(hql); 
             Iterator it = query.iterate();
             if(it.hasNext()){
-             p = (Paciente)it.next();
+                p = new Paciente();
+                p = (Paciente)it.next();
             }else{
                return null;
             }            
@@ -85,16 +86,17 @@ public class PacienteControlador {
        return i; 
     }
 
-    public static int Eliminar(Paciente pacienteActual) {
-        int i = 0;
+    public static boolean Eliminar(Paciente pacienteActual) {
+        boolean i = false;
         try{         
             Session session = NewHibernateUtil.getSessionFactory().openSession();
             Transaction tx = session.beginTransaction();
-            String hqlUpdate = "UPDATE Paciente SET estado = 'Inactivo'";
+            String hqlUpdate = "UPDATE Paciente SET estado = 'Inactivo' WHERE idPaciente = " + pacienteActual.getIdPaciente();
             Query updatedEntities = session.createQuery( hqlUpdate );
             updatedEntities.executeUpdate();
             tx.commit();
             session.close();
+            i = true;
        }catch(HibernateException ex){
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Eliminar Paciente", WIDTH );
        }        
