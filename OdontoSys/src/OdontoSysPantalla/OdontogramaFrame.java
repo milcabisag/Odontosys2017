@@ -45,16 +45,27 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         
         if(odon == null){ 
             elUsuario = usuario;
-            elDoctor = elUsuario.getDoctor();
-            
-   //         if(diag == 0){                          //Llamado desde el inicio
-   //              seleccionTipoOdontograma();
-   //         }else{          //Llamado desde frame Diagnóstico, para insertar un Examen
-                mostrarDoctorPaciente();        
-                jButtonSelectTratamiento.doClick();
-   //         }
+            if(elUsuario.getRol().compareTo("Doctor") == 0){
+                elDoctor = elUsuario.getDoctor();
+            }
+            else{
+                elDoctor = null;
+            }
+                mostrarDoctorPaciente();
+                Object seleccion = JOptionPane.showInputDialog(null, "Seleccione un tipo de odontograma", "Ventana Odontograma",
+                    JOptionPane.QUESTION_MESSAGE, null, new Object[] { "O. Examen", "O. Tratamiento"}, 0);
+                if(seleccion.toString().compareTo("O. Examen") == 0){
+                    jButtonSelectHallazgo.doClick();
+                }else{
+                    jButtonSelectTratamiento.doClick();
+                }
         }else{                          //Llamado a consultar odontograma
-            elDoctor = elUsuario.getDoctor();
+            if(elUsuario.getRol().compareTo("Doctor") == 0){
+                elDoctor = elUsuario.getDoctor();
+            }
+            else{
+                elDoctor = null;
+            }
             
             mostrarDoctorPaciente();
             setearModelo();
@@ -1364,9 +1375,13 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             jTextFieldelDoctor.setText(elDoctor.getNombre()+" "+elDoctor.getApellido());
             jTextFieldelPaciente.setText(elPaciente.getNombres()+" "+elPaciente.getApellidos());
         }else{
-            jTextFieldelDoctor.setText(elDoctor.getNombre()+" "+elDoctor.getApellido());
-            jButtonBuscarPaciente.setEnabled(true);
-            jButtonBuscarPaciente.doClick();
+            if(elDoctor == null){   //Rol Administrador
+                jTextFieldelDoctor.setText(elUsuario.getRol()+" "+elUsuario.getNombre());
+            }else{
+                jTextFieldelDoctor.setText(elDoctor.getNombre()+" "+elDoctor.getApellido());
+            }
+                jButtonBuscarPaciente.setEnabled(true);
+                jButtonBuscarPaciente.doClick();
         }
     }
     

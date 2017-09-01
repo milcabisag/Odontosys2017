@@ -363,7 +363,8 @@ public class Recibos extends javax.swing.JFrame {
 
     private void jButtonFormaPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFormaPagoActionPerformed
         Object[] fila = new Object[2];        
-        fila[0] = JOptionPane.showInputDialog(null, "Seleccione una forma de pago", "Forma de Pago", JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Efectivo", "Tarjeta Crédito", "Tarjeta Débito", "Cheque"}, 0);
+        fila[0] = JOptionPane.showInputDialog(null, "Seleccione una forma de pago", "Forma de Pago", 
+            JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Efectivo", "Tarjeta Crédito", "Tarjeta Débito", "Cheque"}, 0);
         if(fila[0] != null){
         boolean bandera;
         do{

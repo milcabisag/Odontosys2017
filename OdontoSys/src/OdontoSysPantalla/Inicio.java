@@ -301,16 +301,29 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPacientesActionPerformed
-        
-        if(usuario.getRol().compareTo("Secretaria") == 0){
-            Pacientes.user = usuario;
-            System.out.println(usuario.getNombre());
-            Pacientes.main(null); //Abre Form Pacientes
+        if(usuario.getRol().compareTo("Administrador") == 0){
+            Object seleccion = JOptionPane.showInputDialog(null, "Seleccione una opción", "Ventana Pacientes",
+                    JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Datos del Paciente", "Hoja Clínica del Paciente"}, 0);
+            if(seleccion.toString().compareTo("Datos del Paciente") == 0){
+                 Pacientes.user = usuario;
+                 Pacientes.main(null); //Abre Form Pacientes
+            }
+            else{
+                PacienteHojaClinica.user = usuario;
+                PacienteHojaClinica jFrame = new PacienteHojaClinica();
+                jFrame.setVisible(true);
+            }
         }
         else{
-            PacienteHojaClinica.user = usuario;
-            PacienteHojaClinica jFrame = new PacienteHojaClinica();
-            jFrame.setVisible(true);
+            if(usuario.getRol().compareTo("Secretaria") == 0){
+                Pacientes.user = usuario;
+                Pacientes.main(null); //Abre Form Pacientes
+            }
+            else{
+                PacienteHojaClinica.user = usuario;
+                PacienteHojaClinica jFrame = new PacienteHojaClinica();
+                jFrame.setVisible(true);
+            }
         }
     }//GEN-LAST:event_jButtonPacientesActionPerformed
 
@@ -319,12 +332,12 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDoctoresActionPerformed
 
     private void jButtonAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgendaActionPerformed
-        if(usuario.getRol().compareTo("Secretaria") == 0){
-            ConsultarAgenda jFrame= new ConsultarAgenda();
-            jFrame.setVisible(true); //Abre Form 
-        }else{      //usuario = Doctor
+        if(usuario.getRol().compareTo("Doctor") == 0){
             AgendaDoctor.idDoctor = usuario.getDoctor().getIdDoctor();
             AgendaDoctor jFrame= new AgendaDoctor();
+            jFrame.setVisible(true); //Abre Form 
+        }else{      //usuario = Secretaria o Administrador
+            ConsultarAgenda jFrame= new ConsultarAgenda();
             jFrame.setVisible(true); //Abre Form 
         }
     }//GEN-LAST:event_jButtonAgendaActionPerformed
@@ -448,14 +461,14 @@ public class Inicio extends javax.swing.JFrame {
 
     private void rolAdmin() {
         jButtonUsuarios.setVisible(true);
-        jButtonAgenda.setVisible(false);
-        jButtonDoctores.setVisible(false);
-        jButtonOdontograma.setVisible(false);
-        jButtonPacientes.setVisible(false);
-        jButtonEmpresas.setVisible(false);
+        jButtonAgenda.setVisible(true);
+        jButtonDoctores.setVisible(true);
+        jButtonOdontograma.setVisible(true);
+        jButtonPacientes.setVisible(true);
+        jButtonEmpresas.setVisible(true);
         jButtonServicios.setVisible(true);
-        jButtonReporteServicios.setVisible(false);
-        jButtonReporteCaja.setVisible(false);
+        jButtonReporteServicios.setVisible(true);
+        jButtonReporteCaja.setVisible(true);
     }
 
     private void rolSecret() {
