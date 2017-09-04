@@ -95,16 +95,17 @@ public class DoctorControlador {
        return i; 
     }
      
-     public static int Eliminar(Doctor doctorActual) {
-        int i = 0;
+     public static boolean Eliminar(Doctor doctorActual) {
+        boolean i = false;
         try{         
             Session session = NewHibernateUtil.getSessionFactory().openSession();
             Transaction tx = session.beginTransaction();
-            String hqlUpdate = "UPDATE Doctor SET estado = 'Inactivo'";
+            String hqlUpdate = "UPDATE Doctor SET estado = 'Inactivo' WHERE iddoctor = "+doctorActual.getIdDoctor();
             Query updatedEntities = session.createQuery( hqlUpdate );
             updatedEntities.executeUpdate();
             tx.commit();
             session.close();
+            i = true;
        }catch(HibernateException ex){
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Eliminar Doctor", WIDTH );
        }        

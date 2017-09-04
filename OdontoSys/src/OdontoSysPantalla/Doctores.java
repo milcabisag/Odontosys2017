@@ -359,15 +359,17 @@ public class Doctores extends javax.swing.JFrame {
         if(nombreBoton.compareTo("Guardar") == 0){
             int r = DoctorControlador.BuscarRegistro(doctorActual.getRegProf());
             if(r == 1){
-                insertarDoctor();   
+                insertarDoctor();
+                limpiar();
+                BotonesInvisibles();   
             }else{
                 JOptionPane.showMessageDialog(null, "El Registro Profesional ya existe, no se puede insertar" , "Validación de Doctor" , WIDTH);
             }
         }else if(nombreBoton.compareTo("Modificar") == 0){
-            modificarDoctor();     
+            modificarDoctor();
+            mostrarBotones();
+            deshabilitarDatos();
             }
-        limpiar();
-        BotonesInvisibles();
     }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -379,10 +381,11 @@ public class Doctores extends javax.swing.JFrame {
     private void jButtonEliminarDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarDoctorActionPerformed
         int eliminar = JOptionPane.showConfirmDialog(null, "Eliminar Doctor "+doctorActual.getNombre()+" con Ci Nro "+doctorActual.getNroCi()+"??");
         if (eliminar == JOptionPane.YES_OPTION){
-             int i = DoctorControlador.Eliminar(doctorActual);
-             if(i > 0 ){
+             boolean i = DoctorControlador.Eliminar(doctorActual);
+             if(i){
                 JOptionPane.showMessageDialog(rootPane, "Se eliminó correctamente", "Eliminar Doctor", WIDTH);
                 limpiar();
+                jButtonAtras.doClick();
             }else{
                 JOptionPane.showMessageDialog(rootPane, "No se pudo eliminar doctor", "Eliminar Doctor", WIDTH);
             }
@@ -549,7 +552,20 @@ public class Doctores extends javax.swing.JFrame {
         jTextFieldDocEmail.setEditable(true);
         jTextFieldDocReg.setEditable(true);
     }
-
+    
+    private void deshabilitarDatos() {
+        jTextFieldDocNomb.setEditable(false);
+        jTextFieldDocApe.setEditable(false);
+        jTextFieldDocCed.setEditable(false);
+        jDateChooserDocFecha.setEnabled(false);
+        jComboBoxSexo.setEnabled(false);
+        jTextFieldDocTel.setEditable(false);
+        jTextFieldDocCel.setEditable(false);
+        jTextFieldDocDir.setEditable(false);
+        jTextFieldDocCiudad.setEditable(false);
+        jTextFieldDocEmail.setEditable(false);
+        jTextFieldDocReg.setEditable(false);
+    }
     private void habilitarBotonModificar() {
         jButtonGuardar.setVisible(true);
         jButtonGuardar.setText("Modificar");        
@@ -568,7 +584,7 @@ public class Doctores extends javax.swing.JFrame {
     int i = DoctorControlador.insertarDoctor(doctorActual);
     if(i > 0){
             //registro insertado correctamente
-        JOptionPane.showMessageDialog(rootPane, "Registro "+i+" insertado", "Insertar Doctor", WIDTH);
+        JOptionPane.showMessageDialog(rootPane, "Doctor "+doctorActual.getNombre()+" insertado", "Insertar Doctor", WIDTH);
         }else{
             //no insertado
         JOptionPane.showMessageDialog(rootPane, "No se pudo Insertar Doctor", "Insertar Doctor", WIDTH);      
@@ -621,6 +637,7 @@ public class Doctores extends javax.swing.JFrame {
         jButtonAtras.setVisible(true);
         jButtonInsertarDoctor.setVisible(false);
         jButtonConsultarDoctor.setVisible(false);
+        jButtonGuardar.setVisible(false);
     }  
 
     
