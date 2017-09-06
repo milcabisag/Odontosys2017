@@ -72,6 +72,10 @@ public class Empresas extends javax.swing.JFrame {
         jButtonAtras = new javax.swing.JButton();
         jButtonGuardarModificacion = new javax.swing.JButton();
         jLabelTitulo = new javax.swing.JLabel();
+        jPanelConvenios = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableConvenios = new javax.swing.JTable();
+        jLabelTitulo1 = new javax.swing.JLabel();
         jPanelPendientes = new javax.swing.JPanel();
         jLabelTitulo3 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -79,10 +83,6 @@ public class Empresas extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextFieldPendiente = new javax.swing.JTextField();
         jButtonFacturar = new javax.swing.JButton();
-        jPanelConvenios = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTableConvenios = new javax.swing.JTable();
-        jLabelTitulo1 = new javax.swing.JLabel();
         jPanelEstadoCuenta = new javax.swing.JPanel();
         jLabelTitulo2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -362,6 +362,42 @@ public class Empresas extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Datos", new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/persona.png")), jPanelDatos); // NOI18N
 
+        jTableConvenios.setModel(tablaConvenios);
+        jTableConvenios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableConveniosMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTableConvenios);
+
+        jLabelTitulo1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        jLabelTitulo1.setText("Convenios de la Empresa");
+
+        javax.swing.GroupLayout jPanelConveniosLayout = new javax.swing.GroupLayout(jPanelConvenios);
+        jPanelConvenios.setLayout(jPanelConveniosLayout);
+        jPanelConveniosLayout.setHorizontalGroup(
+            jPanelConveniosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelConveniosLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConveniosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelTitulo1)
+                .addGap(230, 230, 230))
+        );
+        jPanelConveniosLayout.setVerticalGroup(
+            jPanelConveniosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelConveniosLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabelTitulo1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Convenios", new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/orden.png")), jPanelConvenios); // NOI18N
+
         jLabelTitulo3.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabelTitulo3.setText("Pendientes de Facturar");
 
@@ -419,42 +455,6 @@ public class Empresas extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Pendientes", new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/hoja.png")), jPanelPendientes); // NOI18N
-
-        jTableConvenios.setModel(tablaConvenios);
-        jTableConvenios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableConveniosMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(jTableConvenios);
-
-        jLabelTitulo1.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
-        jLabelTitulo1.setText("Convenios de la Empresa");
-
-        javax.swing.GroupLayout jPanelConveniosLayout = new javax.swing.GroupLayout(jPanelConvenios);
-        jPanelConvenios.setLayout(jPanelConveniosLayout);
-        jPanelConveniosLayout.setHorizontalGroup(
-            jPanelConveniosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelConveniosLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConveniosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelTitulo1)
-                .addGap(230, 230, 230))
-        );
-        jPanelConveniosLayout.setVerticalGroup(
-            jPanelConveniosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelConveniosLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabelTitulo1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Convenios", new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/orden.png")), jPanelConvenios); // NOI18N
 
         jLabelTitulo2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabelTitulo2.setText("Estado de Cuenta de la Empresa");
@@ -644,6 +644,7 @@ public class Empresas extends javax.swing.JFrame {
         if(empresaActual != null){
             escribirEmpresa(empresaActual);
             habilitarBotones();
+            deshabilitarDatos();
         } else {
             JOptionPane.showMessageDialog(null, "No se pudo recuperar la empresa" , "Obtener Empresa" , JOptionPane.QUESTION_MESSAGE );
         } 
@@ -668,13 +669,13 @@ public class Empresas extends javax.swing.JFrame {
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
        int eliminar = JOptionPane.showConfirmDialog( null, "Eliminar empresa "+empresaActual.getNombre()+"con RUC "+empresaActual.getRuc()+"??");
         if(JOptionPane.YES_OPTION == eliminar){
-            int i = EmpresaControlador.Eliminar(empresaActual);
-            if(i > 0 ){
+            boolean i = EmpresaControlador.Eliminar(empresaActual);
+            if(i){
                 JOptionPane.showMessageDialog(rootPane, "Se eliminó correctamente", "Eliminar Empresa", WIDTH);
                 limpiar();
                 BotonInvisibles();
             }else{
-                JOptionPane.showMessageDialog(rootPane, "No se pudo eliminar paciente", "Eliminar Empresa", WIDTH);
+                JOptionPane.showMessageDialog(rootPane, "No se pudo eliminar empresa", "Eliminar Empresa", WIDTH);
             }
         }else{
             //cancelado
@@ -717,8 +718,9 @@ public class Empresas extends javax.swing.JFrame {
                 int i = EmpresaControlador.UpDatePaciente(empresaActual);
                 if(i>0){
                     JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Paciente", WIDTH);
-                    limpiar();
-                    BotonInvisibles();
+                    deshabilitarDatos();
+                    habilitarBotones();
+                    jButtonGuardarModificacion.setVisible(false);
                 }else{
                     JOptionPane.showMessageDialog(rootPane, "No se logró actualizar paciente", "Modificar Paciente", WIDTH);
                 }
@@ -1119,5 +1121,16 @@ public class Empresas extends javax.swing.JFrame {
         if(total > 0){
             jButtonFacturar.setVisible(true);
         }
+    }
+
+    private void deshabilitarDatos() {
+        jTextFieldDNombres.setEditable(false);
+        jTextFieldRUC.setEditable(false);
+        jTextFieldDDireccion.setEditable(false);
+        jTextFieldDEmail.setEditable(false);
+        jTextFieldDTel.setEditable(false);        
+        jTextFieldNombreContacto.setEditable(false);
+        jTextFieldObservaciones.setEditable(false);
+        jTextFieldTeléfonoContacto.setEditable(false);
     }
 }

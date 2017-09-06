@@ -64,8 +64,8 @@ public class EmpresaControlador {
        return i; 
     }
     
-    public static int Eliminar(Empresa empActual) {
-        int i = 0;
+    public static boolean Eliminar(Empresa empActual) {
+        boolean i = false;
         try{         
             Session session = NewHibernateUtil.getSessionFactory().openSession();
             Transaction tx = session.beginTransaction();
@@ -74,6 +74,7 @@ public class EmpresaControlador {
             updatedEntities.executeUpdate();
             tx.commit();
             session.close();
+            i = true;
        }catch(HibernateException ex){
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Eliminar Empresa", WIDTH );
        }        
@@ -87,7 +88,7 @@ public class EmpresaControlador {
         try {            
             session = NewHibernateUtil.getSessionFactory().openSession();
             tr = session.beginTransaction();
-            String hql = "FROM Empresa";
+            String hql = "FROM Empresa WHERE estado = 'Activo'";
             Query query = session.createQuery(hql);
             Iterator it = query.iterate();
             if(it.hasNext()){

@@ -224,7 +224,7 @@ public class ConvenioControlador {
         try{        
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             tr = sesion.beginTransaction();
-            hql = "SELECT DISTINCT c.paciente FROM Convenio c WHERE c.estado = 'Activo' AND c.empresa = "+emp.getIdempresa();
+            hql = "SELECT DISTINCT c.paciente FROM Convenio AS c WHERE c.estado = 'Activo' AND c.empresa = "+emp.getIdempresa();
             Query query = sesion.createQuery(hql); 
             Iterator<Paciente> it = query.iterate();
             if(it.hasNext()){
