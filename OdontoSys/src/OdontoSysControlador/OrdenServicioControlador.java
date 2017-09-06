@@ -78,7 +78,8 @@ public class OrdenServicioControlador {
             
             session = NewHibernateUtil.getSessionFactory().openSession();
             tr = session.beginTransaction();
-            String hql = "FROM OrdenServicio WHERE paciente = " + idPaciente + " ORDER BY fecha DESC";
+            String hql = "SELECT o FROM OrdenServicio o WHERE o.paciente IN (SELECT a.paciente FROM Agenda AS a "
+                    + "WHERE a.paciente = "+idPaciente+" AND a.estado = 'Pendiente' AND a.ordenServicio IS NULL)";
             Query query = session.createQuery(hql);
             Iterator it = query.iterate(); 
             if(it.hasNext()){

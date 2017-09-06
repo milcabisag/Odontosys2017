@@ -69,7 +69,10 @@ public class ObtenerOrdenServicio extends javax.swing.JDialog {
         tabla.addColumn("Fecha");
         tabla.addColumn("Estado");
       
-        Lista = OrdenServicioControlador.BuscarOrdenPaciente(idPaciente);        
+        Lista = OrdenServicioControlador.BuscarOrdenPaciente(idPaciente);  
+        
+        System.out.println("Paciente "+idPaciente);
+        
         if(Lista != null){
             for (OrdenServicio o : Lista){
                 Object[] fila = new Object[3];
@@ -79,8 +82,6 @@ public class ObtenerOrdenServicio extends javax.swing.JDialog {
             
                 tabla.addRow(fila);
             }
-        }else{
-            JOptionPane.showMessageDialog(null,"No existe orden de servicio, favor ingresar.", "Orden de Servicio Inexistente", WIDTH );
         }
         
     }

@@ -37,6 +37,7 @@ public class ConsultarAgenda extends javax.swing.JFrame {
         tabla.addColumn("Paciente");
         tabla.addColumn("Motivo");
         tabla.addColumn("Doctor");
+        tabla.addColumn("Estado");
         jTableAgenda.setModel(tabla);
         
         realizarConsulta();
@@ -272,17 +273,18 @@ public class ConsultarAgenda extends javax.swing.JFrame {
         datos = AgendaControlador.ConsultarAgenda(mes, anho);
         if(datos != null){
             for(Agenda a : datos){
-                Object[] f = new Object[5];
+                Object[] f = new Object[6];
                 f[0] = fecha.format(a.getFecha());
                 f[1] = a.getHora();
                 f[2] = a.getPaciente().getNombres()+" "+a.getPaciente().getApellidos();
                 f[3] = a.getServicio().getDescripcion();
                 f[4] = a.getDoctor().getNombre() + " " + a.getDoctor().getApellido();
+                f[5] = a.getEstado();
                 tabla.addRow(f);
             }
             jTableAgenda.setModel(tabla);
         }else{
-            JOptionPane.showMessageDialog(rootPane, "No se encontraron registros con las fechas especificadas", "Consultar Agenda", WIDTH);
+            JOptionPane.showMessageDialog(rootPane, "Sin citas pendientes en fecha", "Consultar Agenda", WIDTH);
         }
     }
 

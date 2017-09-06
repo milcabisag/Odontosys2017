@@ -70,20 +70,22 @@ public class AgendaVista {
                                     return -1;
                                 }else{
                                     int disp = AgendaControlador.ExisteDisp(agenda.getFecha(), agenda.getDoctor().getIdDoctor(), agenda.getHora());
-                                    System.out.println("ExisteDisp: "+disp);
                                     if(disp == 0){
-                                        int cita = AgendaControlador.ExisteCita(agenda.getFecha(), agenda.getPaciente().getIdPaciente());
-                                        System.out.println("Cita: "+cita);
-                                        if(cita == 0){
-                                            return 0;
-                                        }else{
-                                            JOptionPane.showMessageDialog(null, "El Paciente ya posee una cita en la misma fecha");
-                                        return -1;
-                                        }
-                                    }else{
+                                         if(agenda.getIdAgenda() == null){  //Llamado a insertar nueva cita
+                                            int cita = AgendaControlador.ExisteCita(agenda.getFecha(), agenda.getPaciente().getIdPaciente());
+                                            if(cita == 0){
+                                                return 0;
+                                            }else{
+                                                JOptionPane.showMessageDialog(null, "El Paciente ya posee una cita en la misma fecha");
+                                                return -1;
+                                            }
+                                         }else{
+                                             return 0;
+                                         }
+                                     }else{
                                         JOptionPane.showMessageDialog(null, "El Doctor ya posee una cita a la misma hora");
                                         return -1;
-                                    }
+                                     }
                                 }
                             }
                         }

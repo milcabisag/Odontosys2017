@@ -10,6 +10,8 @@ import OdontoSysControlador.AgendaControlador;
 import OdontoSysModelo.Agenda;
 import OdontoSysModelo.Doctor;
 import OdontoSysModelo.OrdenServicio;
+import OdontoSysModelo.Paciente;
+import OdontoSysPantalla.ConsultarAgenda;
 import OdontoSysVista.AgendaVista;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -28,8 +30,10 @@ public class DetalleAgenda extends javax.swing.JFrame {
     public DetalleAgenda() {
         initComponents();
         buscarAgenda();
+        deshabilitarcampos();
         jButtonGuardar.setVisible(false);
         jButtonBuscarDoctor.setVisible(false);
+        jButtonBuscarPaciente.setVisible(false);
         
     }
 
@@ -63,6 +67,7 @@ public class DetalleAgenda extends javax.swing.JFrame {
         jButtonGuardar = new javax.swing.JButton();
         jFormattedTextFieldHHora = new javax.swing.JFormattedTextField();
         jButtonBuscarDoctor = new javax.swing.JButton();
+        jButtonBuscarPaciente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -74,7 +79,6 @@ public class DetalleAgenda extends javax.swing.JFrame {
 
         jDateChooserFecha.setBackground(new java.awt.Color(255, 255, 255));
         jDateChooserFecha.setForeground(new java.awt.Color(255, 255, 255));
-        jDateChooserFecha.setEnabled(false);
         jDateChooserFecha.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jDateChooserFecha.setPreferredSize(new java.awt.Dimension(87, 25));
 
@@ -102,32 +106,26 @@ public class DetalleAgenda extends javax.swing.JFrame {
         jTextFieldDoctor.setEditable(false);
         jTextFieldDoctor.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldDoctor.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jTextFieldDoctor.setEnabled(false);
 
         jTextFieldTelefono.setEditable(false);
         jTextFieldTelefono.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldTelefono.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jTextFieldTelefono.setEnabled(false);
 
         jTextFieldPaciente.setEditable(false);
         jTextFieldPaciente.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldPaciente.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jTextFieldPaciente.setEnabled(false);
 
         jTextFieldEmail.setEditable(false);
         jTextFieldEmail.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldEmail.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jTextFieldEmail.setEnabled(false);
 
         jTextFieldMotivo.setEditable(false);
         jTextFieldMotivo.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldMotivo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jTextFieldMotivo.setEnabled(false);
 
         jComboBoxEstado.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jComboBoxEstado.setForeground(new java.awt.Color(255, 255, 255));
         jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pendiente", "Cancelado", "Realizado" }));
-        jComboBoxEstado.setEnabled(false);
 
         jButtonModificar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/modificar.png"))); // NOI18N
@@ -166,7 +164,6 @@ public class DetalleAgenda extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextFieldHHora.setEnabled(false);
 
         jButtonBuscarDoctor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/buscar.png"))); // NOI18N
         jButtonBuscarDoctor.setMargin(new java.awt.Insets(2, 5, 2, 5));
@@ -176,25 +173,52 @@ public class DetalleAgenda extends javax.swing.JFrame {
             }
         });
 
+        jButtonBuscarPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/buscar.png"))); // NOI18N
+        jButtonBuscarPaciente.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        jButtonBuscarPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarPacienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 223, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(200, 200, 200))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonModificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                             .addComponent(jTextFieldMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                             .addComponent(jDateChooserFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jFormattedTextFieldHHora))
+                            .addComponent(jFormattedTextFieldHHora)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonBuscarDoctor)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -202,32 +226,21 @@ public class DetalleAgenda extends javax.swing.JFrame {
                                 .addComponent(jLabel9))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel7)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel8)))
+                                .addComponent(jLabel8))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextFieldEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextFieldDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonBuscarDoctor)))
-                        .addGap(20, 20, 20))
+                        .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(200, 200, 200))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonGuardar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonModificar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32))))))
+                        .addComponent(jTextFieldPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonBuscarPaciente))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jTextFieldEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,33 +258,33 @@ public class DetalleAgenda extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jFormattedTextFieldHHora, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)))
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jTextFieldDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonBuscarDoctor)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel6)
-                                .addComponent(jTextFieldDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButtonBuscarDoctor)))
+                                .addComponent(jTextFieldPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4))
+                            .addComponent(jButtonBuscarPaciente))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(33, 33, 33)
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonModificar)
                     .addComponent(jButtonCancelar)
@@ -284,29 +297,36 @@ public class DetalleAgenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        this.setVisible(false);
+        ConsultarAgenda jFrame = new ConsultarAgenda();
+        jFrame.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         jButtonModificar.setVisible(false);
         jButtonGuardar.setVisible(true);
+        
         jDateChooserFecha.setEnabled(true);
-        jFormattedTextFieldHHora.setEnabled(true);
         jFormattedTextFieldHHora.setEditable(true);
-        jTextFieldMotivo.setEnabled(true);
         jTextFieldMotivo.setEditable(true);
         jComboBoxEstado.setEnabled(true);
+        
         jButtonBuscarDoctor.setVisible(true);
+        jButtonBuscarPaciente.setVisible(true);
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         modificarDatos();
+        deshabilitarcampos();
         jButtonGuardar.setVisible(false);
         jButtonModificar.setVisible(true);
         jButtonBuscarDoctor.setVisible(false);
+        jButtonBuscarPaciente.setVisible(false);
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonBuscarDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarDoctorActionPerformed
+        doc = new Doctor();
+        
         ObtenerDoctor jDialog= new ObtenerDoctor(null, true);
         jDialog.setVisible(true);
         
@@ -315,7 +335,28 @@ public class DetalleAgenda extends javax.swing.JFrame {
                    String doctor = doc.getNombre() +" "+ doc.getApellido();
                    jTextFieldDoctor.setText(doctor);
                 }
+                else{
+                    doc = agenda.getDoctor();
+                }
     }//GEN-LAST:event_jButtonBuscarDoctorActionPerformed
+
+    private void jButtonBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarPacienteActionPerformed
+        Paciente npac = new Paciente();
+        
+        ObtenerPaciente jDialog = new ObtenerPaciente(null, true);
+        jDialog.setVisible(true);
+        
+        npac = jDialog.getReturnStatus();
+        if(npac != null){   // Cargar nuevo paciente
+            jTextFieldPaciente.setText(npac.getNombres() + " " + npac.getApellidos());
+            jTextFieldTelefono.setText(npac.getTelLb() + "  " + npac.getTelCel());
+            jTextFieldEmail.setText(npac.getEmail());
+        }
+        else{   // En caso de cancelado, dejar el paciente anterior
+            npac = agenda.getPaciente();
+        }
+        
+    }//GEN-LAST:event_jButtonBuscarPacienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -358,10 +399,13 @@ public class DetalleAgenda extends javax.swing.JFrame {
     //Variables Globales
     public static int idAgenda;
     Agenda agenda;
-    Doctor doc = new Doctor();
+    Doctor doc;
+    Paciente npac;
+    Agenda modificar;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscarDoctor;
+    private javax.swing.JButton jButtonBuscarPaciente;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonModificar;
@@ -385,15 +429,19 @@ public class DetalleAgenda extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void modificarDatos() {
-        Agenda modificar = new Agenda();
+        modificar = new Agenda();
         modificar = agenda;
         modificar.setFecha(jDateChooserFecha.getDate());
         modificar.setHora(jFormattedTextFieldHHora.getText());
         modificar.setEstado(String.valueOf(jComboBoxEstado.getSelectedItem()));
         modificar.setDoctor(doc);
+        modificar.setPaciente(npac);
+        
         if(modificar.getEstado().compareTo("Realizado") == 0){
+            ObtenerOrdenServicio.idPaciente = npac.getIdPaciente();
             ObtenerOrdenServicio jDialog = new ObtenerOrdenServicio(null, true);
             jDialog.setVisible(true);
+            
             OrdenServicio orden = jDialog.getReturnStatus();
             if(orden != null){
                 modificar.setOrdenServicio(orden);
@@ -430,6 +478,7 @@ public class DetalleAgenda extends javax.swing.JFrame {
     }
 
     private void buscarAgenda() {
+        agenda = new Agenda();
         agenda = AgendaControlador.BuscarAgenda(idAgenda);
         jDateChooserFecha.setDate(agenda.getFecha());
         jFormattedTextFieldHHora.setText(agenda.getHora());
@@ -444,5 +493,18 @@ public class DetalleAgenda extends javax.swing.JFrame {
         else{
             jComboBoxEstado.setSelectedItem("Pendiente");
         }
+        doc = agenda.getDoctor();
+        npac = agenda.getPaciente();
+    }
+
+    private void deshabilitarcampos() {
+        jDateChooserFecha.setEnabled(false);
+        jFormattedTextFieldHHora.setEditable(false);
+        jTextFieldPaciente.setEditable(false);
+        jTextFieldMotivo.setEditable(false);
+        jTextFieldDoctor.setEditable(false);
+        jTextFieldTelefono.setEditable(false);
+        jTextFieldEmail.setEditable(false);
+        jComboBoxEstado.setEnabled(false);
     }
 }
