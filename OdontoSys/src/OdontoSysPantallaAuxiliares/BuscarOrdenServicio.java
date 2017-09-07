@@ -13,7 +13,6 @@ import OdontoSysModelo.Convenio;
 import OdontoSysModelo.OrdenServicio;
 import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Usuario;
-import OdontoSysPantalla.ConveniosPacientes;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;

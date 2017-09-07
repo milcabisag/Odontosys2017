@@ -5,6 +5,7 @@
  */
 package OdontoSysPantalla;
 
+import OdontoSysPantallaAuxiliares.DetalleConvenio;
 import OdontoSysControlador.ConvenioControlador;
 import OdontoSysControlador.EmpresaControlador;
 import OdontoSysModelo.Empresa;
@@ -361,6 +362,12 @@ public class Empresas extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Datos", new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/persona.png")), jPanelDatos); // NOI18N
+
+        jScrollPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane2MouseClicked(evt);
+            }
+        });
 
         jTableConvenios.setModel(tablaConvenios);
         jTableConvenios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -800,10 +807,14 @@ public class Empresas extends javax.swing.JFrame {
     private void jTableConveniosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConveniosMouseClicked
         int fila = jTableConvenios.getSelectedRow();
         Paciente p = listaPac.get(fila);
-        ConveniosPacientes.empresaActual = empresaActual;
-        ConveniosPacientes.pacActual = p;
-        ConveniosPacientes.main(null);
+        DetalleConvenio.empresaActual = empresaActual;
+        DetalleConvenio.pacActual = p;
+        DetalleConvenio.main(null);
     }//GEN-LAST:event_jTableConveniosMouseClicked
+
+    private void jScrollPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane2MouseClicked
 
     /**
      * @param args the command line arguments

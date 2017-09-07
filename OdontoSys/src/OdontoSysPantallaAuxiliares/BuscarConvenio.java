@@ -11,7 +11,6 @@ import OdontoSysControlador.ConvenioControlador;
 import OdontoSysModelo.Convenio;
 import OdontoSysModelo.Empresa;
 import OdontoSysModelo.Paciente;
-import OdontoSysPantalla.ConveniosPacientes;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -34,8 +33,8 @@ public class BuscarConvenio extends javax.swing.JFrame {
                 int fila = jTableUsuarios.rowAtPoint(e.getPoint());
                 if (fila > -1){
                     if(elPaciente != null){
-                        ConveniosPacientes.empresaActual = lista.get(fila);
-                        ConveniosPacientes.pacActual = elPaciente;                    
+                        DetalleConvenio.empresaActual = lista.get(fila);
+                        DetalleConvenio.pacActual = elPaciente;                    
                         irConvenios();      
                     }
                 }
@@ -128,7 +127,7 @@ public class BuscarConvenio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonMenuActionPerformed
 
     private void jButtonInsertarUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarUserActionPerformed
-        ConveniosPacientes jFrame = new ConveniosPacientes();
+        DetalleConvenio jFrame = new DetalleConvenio();
         jFrame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonInsertarUserActionPerformed
@@ -200,7 +199,7 @@ public class BuscarConvenio extends javax.swing.JFrame {
     }
     
     private void irConvenios() {
-        ConveniosPacientes jFrame= new ConveniosPacientes();
+        DetalleConvenio jFrame= new DetalleConvenio();
         jFrame.setVisible(true); //Abre Form Usuario 
         this.setVisible(false);
     }

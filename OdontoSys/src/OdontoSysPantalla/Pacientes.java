@@ -5,6 +5,7 @@
  */
 package OdontoSysPantalla;
 
+import OdontoSysPantallaAuxiliares.DetalleConvenio;
 import OdontoSysControlador.AgendaControlador;
 import OdontoSysControlador.ConvenioControlador;
 import OdontoSysControlador.OrdenServicioControlador;
@@ -968,7 +969,7 @@ public class Pacientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGenerarReporteActionPerformed
 
     private void jButtonInsertarConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarConvenioActionPerformed
-        ConveniosPacientes jFrame = new ConveniosPacientes();
+        DetalleConvenio jFrame = new DetalleConvenio();
         jFrame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonInsertarConvenioActionPerformed
@@ -983,9 +984,9 @@ public class Pacientes extends javax.swing.JFrame {
     private void jTableConveniosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConveniosMouseClicked
         int fila = jTableConvenios.getSelectedRow();
         Empresa e = con.get(fila);
-        ConveniosPacientes.empresaActual = e;
-        ConveniosPacientes.pacActual = pacienteActual;
-        ConveniosPacientes.main(null);
+        DetalleConvenio.empresaActual = e;
+        DetalleConvenio.pacActual = pacienteActual;
+        DetalleConvenio.main(null);
     }//GEN-LAST:event_jTableConveniosMouseClicked
 
     /**

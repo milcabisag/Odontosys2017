@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package OdontoSysPantalla;
+package OdontoSysPantallaAuxiliares;
 
 import OdontoSysControlador.ConvenioControlador;
 import OdontoSysControlador.ServicioControlador;
@@ -12,12 +12,14 @@ import OdontoSysModelo.Convenio;
 import OdontoSysModelo.Empresa;
 import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Servicio;
+import OdontoSysPantallaAuxiliares.BuscarServicio;
 import OdontoSysPantallaAuxiliares.ObtenerEmpresa;
 import OdontoSysPantallaAuxiliares.ObtenerPaciente;
 import OdontoSysUtil.Configuraciones;
 import OdontoSysVista.ConvenioVista;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.util.ArrayList;
+import static javassist.CtMethod.ConstParameter.string;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,12 +27,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author user
  */
-public class ConveniosPacientes extends javax.swing.JFrame {
+public class DetalleConvenio extends javax.swing.JFrame {
 
     /**
      * Creates new form ConveniosPacientes
      */
-    public ConveniosPacientes() {
+    public DetalleConvenio() {
         initComponents();
         crearTabla();
         if(empresaActual != null && pacActual != null){      //Llamado desde frame consultar convenios
@@ -38,6 +40,8 @@ public class ConveniosPacientes extends javax.swing.JFrame {
         }else{                          //Llamado a insertar
             jButtonModificar.setVisible(false);
             jButtonEliminar.setVisible(false);
+            jButtonInsertarServicio.setVisible(true);
+            Servicio serv = new Servicio();
             setearTabla();
         }
         
@@ -65,6 +69,8 @@ public class ConveniosPacientes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConvenios = new javax.swing.JTable();
         jButtonEliminar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jButtonInsertarServicio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -141,6 +147,19 @@ public class ConveniosPacientes extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel4.setText("Servicios");
+
+        jButtonInsertarServicio.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButtonInsertarServicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/agregar.png"))); // NOI18N
+        jButtonInsertarServicio.setText("Insertar nuevo");
+        jButtonInsertarServicio.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        jButtonInsertarServicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInsertarServicioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,11 +171,22 @@ public class ConveniosPacientes extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(34, 34, 34))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButtonEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonModificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonCancelar)
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
                                 .addGap(56, 56, 56)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -166,18 +196,9 @@ public class ConveniosPacientes extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jTextFieldEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonBuscarEmpresa))))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(44, 44, 44))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonModificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancelar)
-                        .addGap(20, 20, 20))))
+                                        .addComponent(jButtonBuscarEmpresa))
+                                    .addComponent(jButtonInsertarServicio))))
+                        .addGap(44, 44, 44))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,9 +217,13 @@ public class ConveniosPacientes extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jButtonBuscarPaciente))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonInsertarServicio))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonGuardar)
@@ -292,6 +317,30 @@ public class ConveniosPacientes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
+    private void jButtonInsertarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarServicioActionPerformed
+
+        BuscarServicio jDialog = new BuscarServicio(null, true);
+        jDialog.setVisible(true);
+        Servicio nserv = jDialog.getReturnStatus();
+        
+        if(nserv != null){
+            int c = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese porcentaje del convenio en el servicio seleccionado",
+                "Convenio", JOptionPane.QUESTION_MESSAGE));
+        
+            String ob = JOptionPane.showInputDialog(null, "Ingrese observación", "Convenio", JOptionPane.QUESTION_MESSAGE);
+        
+            Object[] nfila = new Object[3];
+            nfila[0] = nserv.getDescripcion();
+            nfila[1] = c + "%";
+            nfila[2] = ob;
+        
+            tabla.addRow(nfila);
+            
+            serv.add(nserv);
+        }
+        
+    }//GEN-LAST:event_jButtonInsertarServicioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -309,13 +358,13 @@ public class ConveniosPacientes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConveniosPacientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetalleConvenio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConveniosPacientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetalleConvenio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConveniosPacientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetalleConvenio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConveniosPacientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetalleConvenio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -323,7 +372,7 @@ public class ConveniosPacientes extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new ConveniosPacientes().setVisible(true);
+                new DetalleConvenio().setVisible(true);
             }
         });
     }
@@ -348,10 +397,12 @@ public class ConveniosPacientes extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
+    private javax.swing.JButton jButtonInsertarServicio;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableConvenios;
     private javax.swing.JTextField jTextFieldEmpresa;
@@ -385,13 +436,18 @@ public class ConveniosPacientes extends javax.swing.JFrame {
 
     private ArrayList<Convenio> obtenerConvenio() {
         ArrayList<Convenio> convenios = new ArrayList();
+        Convenio c  = new Convenio();
         for(int x=0;x<tabla.getRowCount();x++){
-            Convenio c  = new Convenio();
-            c.setIdconvenio(conv.get(x).getIdconvenio());
             c.setEmpresa(empresaActual);
             c.setPaciente(pacActual);
             c.setServicio(serv.get(x));
-            c.setPorcentaje(Integer.parseInt(jTableConvenios.getValueAt(x, 1).toString()));
+            
+            String por = jTableConvenios.getValueAt(x, 1).toString();       //Sacar el % del string
+            String[] cort = por.split("%");
+            
+            c.setPorcentaje(Integer.parseInt(cort[0]));
+            System.out.println("Porcentaje "+cort[0]);
+            
             c.setObservacion(jTableConvenios.getValueAt(x, 2).toString());
             c.setEstado("Activo");
             convenios.add(c);
@@ -405,7 +461,7 @@ public class ConveniosPacientes extends javax.swing.JFrame {
             Object[] f = new Object[3];
             f[0] = c.getServicio().getDescripcion();
             serv.add(c.getServicio());
-            f[1] = c.getPorcentaje();
+            f[1] = c.getPorcentaje()+"%";
             f[2] = c.getObservacion();
             tabla.addRow(f);
         }

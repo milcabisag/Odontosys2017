@@ -6,6 +6,7 @@
 
 package OdontoSysPantalla;
 
+import OdontoSysPantallaAuxiliares.DetalleConvenio;
 import OdontoSysModelo.Usuario;
 import OdontoSysPantalla.Pacientes;
 import OdontoSysPantalla.Doctores;
@@ -73,6 +74,7 @@ public class Inicio extends javax.swing.JFrame {
         jButtonReporteServicios = new javax.swing.JButton();
         jButtonAyuda = new javax.swing.JButton();
         jButtonReporteCaja = new javax.swing.JButton();
+        jButtonConvenios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -174,7 +176,7 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         jButtonReporteServicios.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
-        jButtonReporteServicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/orden.png"))); // NOI18N
+        jButtonReporteServicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/grafico.png"))); // NOI18N
         jButtonReporteServicios.setText("Reporte Servicios");
         jButtonReporteServicios.setToolTipText("Crea un reporte de servicios hechos");
         jButtonReporteServicios.setMargin(new java.awt.Insets(2, 7, 2, 7));
@@ -196,13 +198,23 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         jButtonReporteCaja.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
-        jButtonReporteCaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/orden.png"))); // NOI18N
+        jButtonReporteCaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/grafico.png"))); // NOI18N
         jButtonReporteCaja.setText("Reporte Caja");
         jButtonReporteCaja.setToolTipText("Crea un reporte de caja en un rango de fechas");
         jButtonReporteCaja.setMargin(new java.awt.Insets(2, 7, 2, 7));
         jButtonReporteCaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonReporteCajaActionPerformed(evt);
+            }
+        });
+
+        jButtonConvenios.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
+        jButtonConvenios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/orden.png"))); // NOI18N
+        jButtonConvenios.setText("Convenios");
+        jButtonConvenios.setToolTipText("ABMC de Convenios");
+        jButtonConvenios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConveniosActionPerformed(evt);
             }
         });
 
@@ -213,70 +225,78 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonReporteCaja)
+                    .addComponent(jButtonCerrarSesion)
+                    .addComponent(jButtonAyuda))
+                .addGap(76, 76, 76)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(35, 35, 35))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(84, 84, 84)))
+                .addComponent(jLabel3)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonCerrarSesion)
+                            .addComponent(jButtonConvenios)
+                            .addComponent(jButtonEmpresas))
+                        .addGap(474, 474, 474))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonDoctores)
                             .addComponent(jButtonOdontograma)
-                            .addComponent(jButtonAyuda)
-                            .addComponent(jButtonPacientes)
-                            .addComponent(jButtonEmpresas))
+                            .addComponent(jButtonPacientes))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(35, 35, 35))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(84, 84, 84)))
-                                .addComponent(jLabel3))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButtonUsuarios)
-                                    .addComponent(jButtonServicios))
-                                .addGap(242, 242, 242))))
-                    .addComponent(jButtonReporteServicios))
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jButtonUsuarios)
+                            .addComponent(jButtonServicios)
+                            .addComponent(jButtonReporteCaja)
+                            .addComponent(jButtonReporteServicios))
+                        .addGap(138, 138, 138))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButtonAyuda)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonCerrarSesion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonOdontograma))
+                        .addComponent(jButtonCerrarSesion))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jLabel1)
                         .addGap(29, 29, 29)
                         .addComponent(jLabel2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonAgenda)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButtonUsuarios)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonServicios)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonReporteServicios)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonReporteCaja))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButtonOdontograma)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonAgenda)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonPacientes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonDoctores)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonEmpresas)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonPacientes)
-                    .addComponent(jButtonUsuarios))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonDoctores)
-                    .addComponent(jButtonServicios))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonEmpresas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonReporteServicios)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonReporteCaja)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addComponent(jButtonConvenios)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -292,8 +312,8 @@ public class Inicio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(10, 10, 10))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -399,6 +419,13 @@ public class Inicio extends javax.swing.JFrame {
        // Ver reporte
     }//GEN-LAST:event_jButtonReporteCajaActionPerformed
 
+    private void jButtonConveniosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConveniosActionPerformed
+        
+        Convenios jFrame = new Convenios();
+        jFrame.setVisible(true);
+        
+    }//GEN-LAST:event_jButtonConveniosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -445,6 +472,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAgenda;
     private javax.swing.JButton jButtonAyuda;
     private javax.swing.JButton jButtonCerrarSesion;
+    private javax.swing.JButton jButtonConvenios;
     private javax.swing.JButton jButtonDoctores;
     private javax.swing.JButton jButtonEmpresas;
     private javax.swing.JButton jButtonOdontograma;
