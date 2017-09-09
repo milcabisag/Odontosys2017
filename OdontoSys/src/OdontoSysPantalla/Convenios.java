@@ -52,7 +52,7 @@ public class Convenios extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabelTipo = new javax.swing.JLabel();
         jTextFieldTipo = new javax.swing.JTextField();
-        jButtonVolver = new javax.swing.JButton();
+        jButtonCancel = new javax.swing.JButton();
         jButtonBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConvenios = new javax.swing.JTable();
@@ -70,12 +70,12 @@ public class Convenios extends javax.swing.JFrame {
         jTextFieldTipo.setEditable(false);
         jTextFieldTipo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
-        jButtonVolver.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jButtonVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
-        jButtonVolver.setText("Volver");
-        jButtonVolver.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
+        jButtonCancel.setText("Cancelar");
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVolverActionPerformed(evt);
+                jButtonCancelActionPerformed(evt);
             }
         });
 
@@ -128,7 +128,7 @@ public class Convenios extends javax.swing.JFrame {
                         .addComponent(jLabelTipo)
                         .addGap(18, 18, 18)
                         .addComponent(jTextFieldTipo))
-                    .addComponent(jButtonVolver, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonCancel, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34))
             .addGroup(layout.createSequentialGroup()
@@ -152,13 +152,13 @@ public class Convenios extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                    .addComponent(jTextFieldTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(jLabelTipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonVolver)
+                .addComponent(jButtonCancel)
                 .addContainerGap())
         );
 
@@ -199,16 +199,17 @@ public class Convenios extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
-    private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverActionPerformed
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         limpiar();
         jButtonBuscar.setVisible(true);
         jButtonInsertar.setVisible(true);
-    }//GEN-LAST:event_jButtonVolverActionPerformed
+    }//GEN-LAST:event_jButtonCancelActionPerformed
 
     private void jButtonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarActionPerformed
 
         DetalleConvenio jFrame = new DetalleConvenio();
         jFrame.setVisible(true);
+        dispose();
                 
     }//GEN-LAST:event_jButtonInsertarActionPerformed
 
@@ -227,6 +228,7 @@ public class Convenios extends javax.swing.JFrame {
         }
         DetalleConvenio jFrame = new DetalleConvenio();
         jFrame.setVisible(true);
+        dispose();
         
     }
     
@@ -282,8 +284,8 @@ public class Convenios extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;
+    private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonInsertar;
-    private javax.swing.JButton jButtonVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelTipo;
     private javax.swing.JLabel jLabelTipo1;
@@ -335,6 +337,9 @@ public class Convenios extends javax.swing.JFrame {
                 emp[2] = e.getTelefono();
                 tabla.addRow(emp);
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "El paciente no posee convenios" , "Convenios de Paciente" , JOptionPane.QUESTION_MESSAGE );
+            limpiar();
         }
     }
 
@@ -350,10 +355,13 @@ public class Convenios extends javax.swing.JFrame {
             for(Paciente p : pac){
                 Object[] pa = new Object[3];
                 pa[0] = p.getNombres()+" "+p.getApellidos();
-                pa[1] = p.getIdPaciente();
+                pa[1] = p.getNroCi();
                 pa[2] = p.getTelCel()+"     "+p.getTelLb();
                 tabla.addRow(pa);
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "La Empresa no posee convenios" , "Convenios de Empresa" , JOptionPane.QUESTION_MESSAGE );
+            limpiar();
         }
     
     }    

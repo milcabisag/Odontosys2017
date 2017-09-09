@@ -67,7 +67,7 @@ public class ConvenioControlador {
         return c;
     }
     
-    public static ArrayList<Convenio> BuscarConvenios(Paciente idPac, Empresa idEmp){
+    public static ArrayList<Convenio> BuscarConvenios(Paciente Pac, Empresa Emp){
         Session sesion;
         Transaction tr = null;
         ArrayList<Convenio> lis = new ArrayList();;
@@ -75,17 +75,13 @@ public class ConvenioControlador {
         try{        
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             tr = sesion.beginTransaction();
-            if(idPac == null && idEmp != null){                         
-                //Lamado desde empresa; convenios asociados a empresa = idEmp
-                hql = "FROM Convenio WHERE estado = 'Activo' AND empresa = "+idEmp.getIdempresa();
-            }else if(idPac != null && idEmp != null){  
-                //convenios con paciente = idPac y empresa = idEmp
-                hql = "FROM Convenio WHERE estado = 'Activo' AND paciente = "+ idPac.getIdPaciente() +" AND empresa = "+ idEmp.getIdempresa();
-            }else if(idPac != null && idEmp == null){
-                //convenios asociado a paciente = idPac
-                hql = "FROM Convenio WHERE estado = 'Activo' AND paciente = "+ idPac.getIdPaciente();
-            }else{
-                //lista de convenios idPac = idEmp = NULL
+            if(Pac == null && Emp != null){             //Lamado desde empresa; convenios asociados a empresa = Emp
+                hql = "FROM Convenio WHERE estado = 'Activo' AND empresa = "+Emp.getIdempresa();
+            }else if(Pac != null &&Emp != null){        //convenios con paciente = Pac y empresa = Emp
+                hql = "FROM Convenio WHERE estado = 'Activo' AND paciente = "+ Pac.getIdPaciente() +" AND empresa = "+ Emp.getIdempresa();
+            }else if(Pac != null && Emp == null){       //convenios asociado a paciente = Pac
+                hql = "FROM Convenio WHERE estado = 'Activo' AND paciente = "+ Pac.getIdPaciente();
+            }else{                                      //lista de convenios Pac = Emp = NULL
                 hql = "FROM Convenio WHERE estado = 'Activo'";
             }
             
@@ -145,7 +141,7 @@ public class ConvenioControlador {
        
             val = true;
         }catch(HibernateException ex){
-            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Convenio", WIDTH );
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Convenio", WIDTH );
        }        
         return val;
     }
@@ -178,16 +174,15 @@ public class ConvenioControlador {
             session = NewHibernateUtil.getSessionFactory().openSession();
             Transaction tr = session.beginTransaction();   
             Iterator<Convenio> it = conv.iterator();
-            Convenio c;
+            Convenio c = new Convenio();
             while(it.hasNext()){
                 c = (Convenio) it.next();
                 c.setEstado("Inactivo");
-                session.merge(c);                       
-            }           
-                 
-            tr.commit();      
+                session.merge(c);
+            }
+            tr.commit();           
             session.close();  
-       
+            
             val = true;
         }catch(HibernateException ex){
             JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Convenio", WIDTH );

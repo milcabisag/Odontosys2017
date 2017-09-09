@@ -114,6 +114,11 @@ public class BuscarServicio extends javax.swing.JDialog {
 
         jTable1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jTable1.setModel(tabla);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         labelDescripcion.setAlignment(java.awt.Label.CENTER);
@@ -202,6 +207,14 @@ public class BuscarServicio extends javax.swing.JDialog {
         String desc = jTextFieldDescripcion.getText();
         cargarModelo(rootPaneCheckingEnabled, desc);        
     }//GEN-LAST:event_describiendokeyPress
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+
+        int f = jTable1.getSelectedRow();
+        String d = servicios.get(f).getDescripcion();
+        jTextFieldDescripcion.setText(d);
+        
+    }//GEN-LAST:event_jTable1MouseClicked
     
     private void doClose(Servicio retStatus) {
         returnStatus = retStatus;

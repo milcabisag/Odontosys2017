@@ -12,6 +12,7 @@ import OdontoSysModelo.Convenio;
 import OdontoSysModelo.Empresa;
 import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Servicio;
+import OdontoSysPantalla.Convenios;
 import OdontoSysPantallaAuxiliares.BuscarServicio;
 import OdontoSysPantallaAuxiliares.ObtenerEmpresa;
 import OdontoSysPantallaAuxiliares.ObtenerPaciente;
@@ -36,13 +37,16 @@ public class DetalleConvenio extends javax.swing.JFrame {
         initComponents();
         crearTabla();
         if(empresaActual != null && pacActual != null){      //Llamado desde frame consultar convenios
+            llamado = "consulta";
             mostrarConvenio();
+            
         }else{                          //Llamado a insertar
+            llamado = "insertar";
             jButtonModificar.setVisible(false);
             jButtonEliminar.setVisible(false);
             jButtonInsertarServicio.setVisible(true);
-            Servicio serv = new Servicio();
-            setearTabla();
+            jButtonElimConv.setVisible(false);
+            jButtonModConv.setVisible(false);
         }
         
     }
@@ -71,6 +75,8 @@ public class DetalleConvenio extends javax.swing.JFrame {
         jButtonEliminar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jButtonInsertarServicio = new javax.swing.JButton();
+        jButtonElimConv = new javax.swing.JButton();
+        jButtonModConv = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -134,6 +140,11 @@ public class DetalleConvenio extends javax.swing.JFrame {
             }
         });
 
+        jTableConvenios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableConveniosMouseClicked(evt);
+            }
+        });
         jTableConvenios.setModel(tabla
         );
         jScrollPane1.setViewportView(jTableConvenios);
@@ -160,16 +171,29 @@ public class DetalleConvenio extends javax.swing.JFrame {
             }
         });
 
+        jButtonElimConv.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButtonElimConv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/borrar.png"))); // NOI18N
+        jButtonElimConv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonElimConvActionPerformed(evt);
+            }
+        });
+
+        jButtonModConv.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButtonModConv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/modificar.png"))); // NOI18N
+        jButtonModConv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModConvActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 40, Short.MAX_VALUE)
+                .addGap(0, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(34, 34, 34))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -179,9 +203,16 @@ public class DetalleConvenio extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCancelar)
                         .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonElimConv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonModConv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -198,7 +229,7 @@ public class DetalleConvenio extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButtonBuscarEmpresa))
                                     .addComponent(jButtonInsertarServicio))))
-                        .addGap(44, 44, 44))))
+                        .addGap(62, 62, 62))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,8 +253,15 @@ public class DetalleConvenio extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonInsertarServicio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButtonElimConv)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonModConv)
+                        .addGap(93, 93, 93)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonGuardar)
@@ -261,18 +299,33 @@ public class DetalleConvenio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonBuscarPacienteActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        conv = obtenerConvenio();
-        boolean v = ConvenioVista.validarConvenio(conv);
-        if(v){
-            v = ConvenioControlador.insertarConvenio(conv);
+        
+        boolean v= false;
+        if(llamado.compareTo("insertar") == 0){
+            obtenerNuevoConvenio();
+            v = ConvenioVista.validarConvenio(conv);
+            if(v){
+                v = ConvenioControlador.insertarConvenio(conv);
+                if(v){
+                    JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
+                    limpiar();
+                }else {
+                    JOptionPane.showMessageDialog(null, "No se pudo guardar el convenio" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
+                }
+            }
+        }else{          //Llamado a modificar
+            v = ConvenioControlador.modificarConvenio(conv);
             if(v){
                 JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
                 limpiar();
-                this.setVisible(false);
+                abrirConvenio();
+                dispose();
             }else {
-            JOptionPane.showMessageDialog(null, "No se pudo guardar el convenio" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
-            }
+                JOptionPane.showMessageDialog(null, "No se pudo guardar el convenio" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
+            } 
         }
+                   
+        
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -281,36 +334,25 @@ public class DetalleConvenio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
-        if(jButtonModificar.getText().compareTo("Modificar") == 0){
-            jButtonModificar.setText("Aceptar");
-            jTableConvenios.setEnabled(true);
-            jButtonBuscarPaciente.setVisible(true);
-            jButtonBuscarEmpresa.setVisible(true);
-            jButtonEliminar.setVisible(false);
-        }else{
-            ArrayList<Convenio> c = obtenerConvenio();
-            boolean v = ConvenioVista.validarConvenio(c);
-            if(v){
-                v = ConvenioControlador.modificarConvenio(c);
-                if(v){
-                    JOptionPane.showMessageDialog(null, "Convenio actualizado", "Convenios", WIDTH);
-                    limpiar();
-                    this.setVisible(false);
-                }else {
-                JOptionPane.showMessageDialog(null, "No se pudo actualizar el convenio" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
-                }
-            }
-        }
+       
+        jTableConvenios.setEnabled(true);
+        jButtonEliminar.setVisible(false);
+        jButtonGuardar.setVisible(true);
+        jButtonInsertarServicio.setVisible(true);
+        jButtonModificar.setVisible(false);
+        
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
        
-        int confirm = JOptionPane.showConfirmDialog(null, "Está seguro de eliminar el convenio de "+empresaActual.getNombre()+" y "+pacActual.getNombres()+"?", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el convenio entre Empresa "
+                +empresaActual.getNombre()+" y Paciente "+pacActual.getNombres()+" "+pacActual.getApellidos()+"?", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION);
         if(confirm == JOptionPane.YES_OPTION){
             boolean i = ConvenioControlador.eliminarConvenio(conv);
             if(i){
                 JOptionPane.showMessageDialog(null, "Convenio inactivado correctamente", "Inactivar Convenio", JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
+                dispose();
             }else{
             JOptionPane.showMessageDialog(null, "No se pudo inactivar Convenio", "Inactivar Convenio", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -323,24 +365,91 @@ public class DetalleConvenio extends javax.swing.JFrame {
         jDialog.setVisible(true);
         Servicio nserv = jDialog.getReturnStatus();
         
+        Convenio nc = new Convenio();
+        
         if(nserv != null){
-            int c = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese porcentaje del convenio en el servicio seleccionado",
+            int c = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese porcentaje",
                 "Convenio", JOptionPane.QUESTION_MESSAGE));
+            boolean v = validarPorcentaje(c);
+            if(v){
+                String ob = JOptionPane.showInputDialog(null, "Ingrese observación", "Convenio", JOptionPane.QUESTION_MESSAGE);
         
-            String ob = JOptionPane.showInputDialog(null, "Ingrese observación", "Convenio", JOptionPane.QUESTION_MESSAGE);
+                Object[] nfila = new Object[3];
+                nfila[0] = nserv.getDescripcion();
+                nfila[1] = c + "%";
+                nfila[2] = ob;
         
-            Object[] nfila = new Object[3];
-            nfila[0] = nserv.getDescripcion();
-            nfila[1] = c + "%";
-            nfila[2] = ob;
-        
-            tabla.addRow(nfila);
+                tabla.addRow(nfila);
+                
+                serv.add(nserv);
+                
+                nc.setEmpresa(empresaActual);
+                nc.setPaciente(pacActual);
+                nc.setEstado("Activo");
+                nc.setObservacion(ob);
+                nc.setPorcentaje(c);
+                nc.setServicio(nserv);
             
-            serv.add(nserv);
+                conv.add(nc);
+            }
         }
         
     }//GEN-LAST:event_jButtonInsertarServicioActionPerformed
 
+    private void jButtonElimConvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonElimConvActionPerformed
+
+        int confirm = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION);
+        if(confirm == JOptionPane.YES_OPTION){
+            Convenio c = new Convenio();
+            c = conv.get(fila);
+            c.setEstado("Inactivo");
+            conv.set(fila, c);
+            tabla.removeRow(fila);
+        }
+        
+    }//GEN-LAST:event_jButtonElimConvActionPerformed
+
+    private void jButtonModConvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModConvActionPerformed
+
+        Convenio m = new Convenio();
+        m = conv.get(fila);
+        boolean v = false;
+        int p;
+        String modif = JOptionPane.showInputDialog(null, "Modificar:", "Modificar Detalle de Convenio", 
+            JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Porcentaje", "Observación"}, 0).toString();
+        
+        if(modif.compareTo("Porcentaje") == 0){
+            do{
+                p = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese nuevo porcentaje del convenio en el servicio "+serv.get(fila).getDescripcion(),
+                "Convenio", JOptionPane.QUESTION_MESSAGE));
+                v = validarPorcentaje(p);
+            }while (v = false);
+            if(v){
+                m.setPorcentaje(p);
+                conv.set(fila, m);
+                tabla.setValueAt(p, fila, 1);
+            }
+        }else{              //Modificar Observación
+            String o = JOptionPane.showInputDialog(null, "Ingrese observación del convenio para el servicio "+serv.get(fila).getDescripcion(),
+                "Convenio", JOptionPane.QUESTION_MESSAGE).toString();
+            m.setObservacion(o);
+            conv.set(fila, m);
+            tabla.setValueAt(o, fila, 2);
+        }
+       
+        
+    }//GEN-LAST:event_jButtonModConvActionPerformed
+ 
+    private void jTableConveniosMouseClicked(java.awt.event.MouseEvent evt) {                                             
+        boolean v = jButtonModificar.isVisible();
+        System.out.println("V "+v);
+        if(v == false){
+            fila = jTableConvenios.getSelectedRow();       
+            jButtonElimConv.setVisible(true);
+            jButtonModConv.setVisible(true);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -377,10 +486,12 @@ public class DetalleConvenio extends javax.swing.JFrame {
         });
     }
     //Variables
+    String llamado = null;
     ArrayList<Convenio> conv = new ArrayList();
     ArrayList<Servicio> serv = new ArrayList();
     public static Empresa empresaActual = null;
     public static Paciente pacActual = null;
+    int fila = 0;
     DefaultTableModel tabla = new DefaultTableModel(){
         public boolean isCellEditable(int row, int column) {   
             if(column == 1 || column == 2){
@@ -395,9 +506,11 @@ public class DetalleConvenio extends javax.swing.JFrame {
     private javax.swing.JButton jButtonBuscarEmpresa;
     private javax.swing.JButton jButtonBuscarPaciente;
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonElimConv;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonInsertarServicio;
+    private javax.swing.JButton jButtonModConv;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -416,6 +529,17 @@ public class DetalleConvenio extends javax.swing.JFrame {
         jTextFieldPaciente.setText("");
         pacActual = null;
         empresaActual = null;
+        
+        jButtonBuscarEmpresa.setVisible(true);
+        jButtonBuscarPaciente.setVisible(true);
+        jButtonInsertarServicio.setVisible(true);
+        jButtonGuardar.setVisible(true);
+        
+        jButtonElimConv.setVisible(false);
+        jButtonModConv.setVisible(false);
+        jTextFieldEmpresa.setEditable(false);
+        jTextFieldPaciente.setEditable(false);
+        jTableConvenios.setEnabled(false);
     }
 
     private void mostrarConvenio() {
@@ -425,6 +549,9 @@ public class DetalleConvenio extends javax.swing.JFrame {
         jButtonBuscarEmpresa.setVisible(false);
         jButtonBuscarPaciente.setVisible(false);
         jButtonGuardar.setVisible(false);
+        jButtonElimConv.setVisible(false);
+        jButtonModConv.setVisible(false);
+        jButtonInsertarServicio.setVisible(false);
         
         jTextFieldEmpresa.setEditable(false);
         jTextFieldPaciente.setEditable(false);
@@ -434,25 +561,14 @@ public class DetalleConvenio extends javax.swing.JFrame {
        
     }
 
-    private ArrayList<Convenio> obtenerConvenio() {
-        ArrayList<Convenio> convenios = new ArrayList();
-        Convenio c  = new Convenio();
-        for(int x=0;x<tabla.getRowCount();x++){
-            c.setEmpresa(empresaActual);
-            c.setPaciente(pacActual);
-            c.setServicio(serv.get(x));
-            
-            String por = jTableConvenios.getValueAt(x, 1).toString();       //Sacar el % del string
-            String[] cort = por.split("%");
-            
-            c.setPorcentaje(Integer.parseInt(cort[0]));
-            System.out.println("Porcentaje "+cort[0]);
-            
-            c.setObservacion(jTableConvenios.getValueAt(x, 2).toString());
-            c.setEstado("Activo");
-            convenios.add(c);
-        }
-        return convenios;
+    private void obtenerNuevoConvenio() {
+
+        for(int x=0;x<conv.size();x++){
+            conv.get(x).setEmpresa(empresaActual);
+            conv.get(x).setPaciente(pacActual);
+            conv.get(x).setServicio(serv.get(x));
+            }
+        
     }
 
     private void obtenerTabla() {        
@@ -467,23 +583,26 @@ public class DetalleConvenio extends javax.swing.JFrame {
         }
     }
 
-    private void setearTabla() {
-        serv = ServicioControlador.BuscarPorNombre("");
-        for(Servicio s : serv){
-            Object[] f = new Object[3];
-            f[0] = s.getDescripcion();
-            f[1] = 0;
-            f[2] = "";
-            tabla.addRow(f);
-            Convenio c = new Convenio();
-            c.setServicio(s);
-            conv.add(c);
-        }
-    }
-
     private void crearTabla() {
         tabla.addColumn("Servicio");
         tabla.addColumn("Porcentaje Convenio");
         tabla.addColumn("Observación");
+    }
+
+    private boolean validarPorcentaje(int p) {
+        boolean v = false;
+        if(p <= 0 || p > 100){
+            JOptionPane.showMessageDialog(null, "El porcentaje debe ser mayor a 0 y no superar a 100", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE );
+        }else{
+            v = true;
+        }
+        return v;
+    }
+
+    private void abrirConvenio() {
+    
+        Convenios jFrame = new Convenios();
+        jFrame.setVisible(true);
+        
     }
 }
