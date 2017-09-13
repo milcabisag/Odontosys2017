@@ -318,7 +318,6 @@ public class DetalleConvenio extends javax.swing.JFrame {
             if(v){
                 JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
                 limpiar();
-                abrirConvenio();
                 dispose();
             }else {
                 JOptionPane.showMessageDialog(null, "No se pudo guardar el convenio" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
@@ -420,18 +419,17 @@ public class DetalleConvenio extends javax.swing.JFrame {
         
         if(modif.compareTo("Porcentaje") == 0){
             do{
-                p = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese nuevo porcentaje del convenio en el servicio "+serv.get(fila).getDescripcion(),
-                "Convenio", JOptionPane.QUESTION_MESSAGE));
+                p = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese nuevo porcentaje", "Convenio", JOptionPane.QUESTION_MESSAGE));
                 v = validarPorcentaje(p);
-            }while (v = false);
+            }while (v == false);
             if(v){
                 m.setPorcentaje(p);
                 conv.set(fila, m);
-                tabla.setValueAt(p, fila, 1);
+                String n = p + "%";
+                tabla.setValueAt(n, fila, 1);
             }
         }else{              //Modificar Observación
-            String o = JOptionPane.showInputDialog(null, "Ingrese observación del convenio para el servicio "+serv.get(fila).getDescripcion(),
-                "Convenio", JOptionPane.QUESTION_MESSAGE).toString();
+            String o = JOptionPane.showInputDialog(null, "Ingrese observación", "Convenio", JOptionPane.QUESTION_MESSAGE).toString();
             m.setObservacion(o);
             conv.set(fila, m);
             tabla.setValueAt(o, fila, 2);
@@ -442,7 +440,6 @@ public class DetalleConvenio extends javax.swing.JFrame {
  
     private void jTableConveniosMouseClicked(java.awt.event.MouseEvent evt) {                                             
         boolean v = jButtonModificar.isVisible();
-        System.out.println("V "+v);
         if(v == false){
             fila = jTableConvenios.getSelectedRow();       
             jButtonElimConv.setVisible(true);
@@ -597,12 +594,5 @@ public class DetalleConvenio extends javax.swing.JFrame {
             v = true;
         }
         return v;
-    }
-
-    private void abrirConvenio() {
-    
-        Convenios jFrame = new Convenios();
-        jFrame.setVisible(true);
-        
     }
 }
