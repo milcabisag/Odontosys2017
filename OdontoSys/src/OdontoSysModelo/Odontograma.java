@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 17/09/2017 10:00:28 PM by Hibernate Tools 3.6.0
+// Generated 18/09/2017 01:21:52 PM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -27,10 +27,9 @@ public class Odontograma  implements java.io.Serializable {
     }
 
 	
-    public Odontograma(Usuario usuario, Paciente paciente, Doctor doctor, Date fecha, String tipo) {
+    public Odontograma(Usuario usuario, Paciente paciente, Date fecha, String tipo) {
         this.usuario = usuario;
         this.paciente = paciente;
-        this.doctor = doctor;
         this.fecha = fecha;
         this.tipo = tipo;
     }

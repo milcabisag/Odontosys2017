@@ -34,16 +34,21 @@ public class Diagnosticos extends javax.swing.JFrame {
         jTextFieldObservaciones.setLineWrap(true);
         jTextFieldObservaciones.setWrapStyleWord(true);
         
-        if(idDiagnostico == 0){     //Llamada a insertar
+        if(dactual == null){     //Llamada a insertar
             actual = PacienteControlador.BuscarID(idPaciente);                      //Obtiene el paciente actual
             jLabelPaciente.setText(actual.getNombres() + " " + actual.getApellidos());
             habilitarTodo();
             jButtonModificar.setVisible(false);
+            jButtonModCambios.setVisible(false);
             jLabel7.setVisible(false);
             jTextFieldEmpresa.setVisible(false);
         }else{                      //Llamada a ver y/o modificar
             jButtonGuardar.setVisible(false);
+            jButtonModificar.setVisible(true);
+            jButtonModCambios.setVisible(false);
             jButtonIngresarOdontograma.setVisible(false);
+            jTextFieldResumenHallazgos.setEditable(false);
+            jTextFieldPlanTratamiento.setEditable(false);
             recuperarDiagnostico();
         }
         
@@ -82,6 +87,7 @@ public class Diagnosticos extends javax.swing.JFrame {
         jTextFieldPlanTratamiento = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextFieldObservaciones = new javax.swing.JTextArea();
+        jButtonModCambios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -186,6 +192,15 @@ public class Diagnosticos extends javax.swing.JFrame {
         jTextFieldObservaciones.setRows(4);
         jScrollPane3.setViewportView(jTextFieldObservaciones);
 
+        jButtonModCambios.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButtonModCambios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/ingresar.png"))); // NOI18N
+        jButtonModCambios.setText("Modificar");
+        jButtonModCambios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModCambiosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -215,11 +230,10 @@ public class Diagnosticos extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jDateChooserFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabelPaciente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldEmpresa, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabelPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextFieldEmpresa)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane2)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
@@ -229,7 +243,7 @@ public class Diagnosticos extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(41, 41, 41)
                                         .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel8)
                                         .addGap(18, 18, 18)
                                         .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -237,6 +251,8 @@ public class Diagnosticos extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonModCambios)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonModificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonGuardar)
@@ -293,7 +309,8 @@ public class Diagnosticos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonGuardar)
-                    .addComponent(jButtonModificar))
+                    .addComponent(jButtonModificar)
+                    .addComponent(jButtonModCambios))
                 .addGap(19, 19, 19))
         );
 
@@ -323,13 +340,16 @@ public class Diagnosticos extends javax.swing.JFrame {
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         habilitarTodo();
         jButtonModificar.setVisible(false);
-        jButtonGuardar.setVisible(true);
+        jButtonGuardar.setVisible(false);
+        jButtonModCambios.setVisible(true);
+        jButtonIngresarOdontograma.setVisible(true);
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     private void jButtonIngresarOdontogramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarOdontogramaActionPerformed
         OdontogramaFrame.diag = 1;
         OdontogramaFrame.elPaciente = actual;
-        OdontogramaFrame jFrame = new OdontogramaFrame(user);
+        OdontogramaFrame.elUsuario = user;
+        OdontogramaFrame jFrame = new OdontogramaFrame();
         jFrame.setVisible(true);
         
     }//GEN-LAST:event_jButtonIngresarOdontogramaActionPerformed
@@ -346,7 +366,7 @@ public class Diagnosticos extends javax.swing.JFrame {
                 jLabel9.setVisible(true);
                 jTextFieldOdontograma.setVisible(true);
                 jLabel7.setVisible(false);
-                if(idDiagnostico == 0){     //Llamada a insertar
+                if(dactual == null){     //Llamada a insertar
                     jButtonIngresarOdontograma.setVisible(true);                
                 }else{
                     jButtonIngresarOdontograma.setVisible(false);
@@ -362,6 +382,20 @@ public class Diagnosticos extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jComboBoxTipoItemStateChanged
+
+    private void jButtonModCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModCambiosActionPerformed
+
+        obtenerCambios();
+        if(dactual != null){
+            int ok = DiagnosticoVista.ValidarCambios(dactual);
+            if(ok > 0){
+                JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Diagnóstico", WIDTH);
+                
+                deshabilitar();
+            }
+        }
+        
+    }//GEN-LAST:event_jButtonModCambiosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -398,7 +432,7 @@ public class Diagnosticos extends javax.swing.JFrame {
         });
     }
     //Variables Globales
-    public static int idDiagnostico = 0;
+    public static Diagnostico dactual = null;
     public static int idPaciente;
     public static Usuario user = null;
     Diagnostico nuevo = null;
@@ -409,6 +443,7 @@ public class Diagnosticos extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonIngresarOdontograma;
+    private javax.swing.JButton jButtonModCambios;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JComboBox jComboBoxTipo;
     private com.toedter.calendar.JDateChooser jDateChooserFecha;
@@ -458,7 +493,8 @@ public class Diagnosticos extends javax.swing.JFrame {
         jTextFieldResumenHallazgos.setText("");
         jLabelPaciente.setText("");
         jDateChooserFecha.setDate(null);
-        idDiagnostico = 0;
+        dactual = null;
+        actual = null;
         
     }
 
@@ -469,32 +505,64 @@ public class Diagnosticos extends javax.swing.JFrame {
         jTextFieldPlanTratamiento.setEditable(true);
         jTextFieldResumenHallazgos.setEditable(true);
         jDateChooserFecha.setEnabled(true);
+        
     }
 
     private void recuperarDiagnostico() {
-        Diagnostico actual = DiagnosticoControlador.BuscarID(idDiagnostico);
-        if(actual != null){
-            if(actual.getTipo().compareTo("Interno") == 0){
+        if(dactual != null){
+            if(dactual.getTipo().compareTo("Interno") == 0){
                 jComboBoxTipo.setSelectedIndex(0);
                 jLabel7.setVisible(false);
                 jTextFieldEmpresa.setVisible(false);
-                jTextFieldOdontograma.setText(actual.getOdontograma().getIdodontograma().toString());
+                jTextFieldOdontograma.setText(dactual.getOdontograma().getIdodontograma().toString());
             }else{
                 jComboBoxTipo.setSelectedIndex(1);                
                 jLabel7.setVisible(true);
-                jTextFieldEmpresa.setText(actual.getEmpresa());
+                jTextFieldEmpresa.setText(dactual.getEmpresa());
                 jLabel9.setVisible(false);
                 jTextFieldOdontograma.setVisible(false);
             }
-            jLabelPaciente.setText(actual.getPaciente().getNombres() + " " + actual.getPaciente().getApellidos());
-            jDateChooserFecha.setDate(actual.getFecha());
-            jTextFieldResumenHallazgos.setText(actual.getResumenHallazgos());
-            jTextFieldPlanTratamiento.setText(actual.getPlanTratamiento());
-            jTextFieldObservaciones.setText(actual.getObservaciones());            
+            jLabelPaciente.setText(dactual.getPaciente().getNombres() + " " + dactual.getPaciente().getApellidos());
+            jDateChooserFecha.setDate(dactual.getFecha());
+            jTextFieldResumenHallazgos.setText(dactual.getResumenHallazgos());
+            jTextFieldPlanTratamiento.setText(dactual.getPlanTratamiento());
+            jTextFieldObservaciones.setText(dactual.getObservaciones());            
         }
     }
     
     static void asociarOdontograma() {
        jTextFieldOdontograma.setText(String.valueOf(odont.getIdodontograma()));
+    }
+
+    private void obtenerCambios() {
+    
+        if(jDateChooserFecha.getDate() != null && jTextFieldResumenHallazgos.getText() != null && jTextFieldPlanTratamiento.getText() != null){
+            dactual.setTipo(jComboBoxTipo.getSelectedItem().toString());
+            dactual.setFecha(jDateChooserFecha.getDate());
+            dactual.setEmpresa(jTextFieldEmpresa.getText());
+            dactual.setResumenHallazgos(jTextFieldResumenHallazgos.getText());
+            dactual.setPlanTratamiento(jTextFieldPlanTratamiento.getText());
+            dactual.setObservaciones(jTextFieldObservaciones.getText());
+            if(odont != null){
+                dactual.setOdontograma(odont);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,"Favor complete todos los campos", "Validar Diagnóstico", WIDTH );
+        }
+        
+    }
+
+    private void deshabilitar() {
+    
+        jButtonGuardar.setVisible(false);
+        jButtonModificar.setVisible(true);
+        jButtonModCambios.setVisible(false);
+        jButtonIngresarOdontograma.setVisible(false);
+        
+        jDateChooserFecha.setEnabled(false);
+        jTextFieldResumenHallazgos.setEditable(false);
+        jTextFieldPlanTratamiento.setEditable(false);
+        jTextFieldObservaciones.setEditable(false);     
+        
     }
 }

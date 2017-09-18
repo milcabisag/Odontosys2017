@@ -295,9 +295,6 @@ public class FacturaControlador {
             m.setMovimiento("Factura Credito Nro "+nuevo.getNroFactura());
             m.setFecha(nuevo.getFecha());
             m.setDebe(nuevo.getMontoTotal());
-            m.setFactura(nuevo);
-            m.setNotaCredito(null);
-            m.setRecibo(null);
             m.setHaber(0);
             sesion.save(m);
             sesion.refresh(m);

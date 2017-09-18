@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 17/09/2017 10:00:28 PM by Hibernate Tools 3.6.0
+// Generated 18/09/2017 01:21:52 PM by Hibernate Tools 3.6.0
 
 
 
@@ -13,7 +13,6 @@ public class DetalleHallazgo  implements java.io.Serializable {
      private Odontograma odontograma;
      private Diente diente;
      private Hallazgo hallazgo;
-     private String sigla;
      private String ubicacion;
      private String especificacion;
 
@@ -21,18 +20,16 @@ public class DetalleHallazgo  implements java.io.Serializable {
     }
 
 	
-    public DetalleHallazgo(Odontograma odontograma, Diente diente, Hallazgo hallazgo, String sigla, String ubicacion) {
+    public DetalleHallazgo(Odontograma odontograma, Diente diente, Hallazgo hallazgo, String ubicacion) {
         this.odontograma = odontograma;
         this.diente = diente;
         this.hallazgo = hallazgo;
-        this.sigla = sigla;
         this.ubicacion = ubicacion;
     }
-    public DetalleHallazgo(Odontograma odontograma, Diente diente, Hallazgo hallazgo, String sigla, String ubicacion, String especificacion) {
+    public DetalleHallazgo(Odontograma odontograma, Diente diente, Hallazgo hallazgo, String ubicacion, String especificacion) {
        this.odontograma = odontograma;
        this.diente = diente;
        this.hallazgo = hallazgo;
-       this.sigla = sigla;
        this.ubicacion = ubicacion;
        this.especificacion = especificacion;
     }
@@ -64,13 +61,6 @@ public class DetalleHallazgo  implements java.io.Serializable {
     
     public void setHallazgo(Hallazgo hallazgo) {
         this.hallazgo = hallazgo;
-    }
-    public String getSigla() {
-        return this.sigla;
-    }
-    
-    public void setSigla(String sigla) {
-        this.sigla = sigla;
     }
     public String getUbicacion() {
         return this.ubicacion;

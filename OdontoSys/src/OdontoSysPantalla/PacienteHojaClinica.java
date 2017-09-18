@@ -49,13 +49,17 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
             {
                 int fila = jTableDiagnosticos.rowAtPoint(e.getPoint());
                 if (fila > -1){
-                    Diagnosticos.idDiagnostico = Lista.get(fila).getIdDiagnostico();
+                    Diagnosticos.dactual = Lista.get(fila);
                     Diagnosticos jFrame= new Diagnosticos();
                     jFrame.setVisible(true); //Abre Form Diagnosticos
          }
       }
    });
         
+        if(pacienteActual != null){
+            escribirPaciente(pacienteActual);
+            habilitarBotones();
+        }
     }
 
     /**
@@ -624,8 +628,8 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
                 fila[0] = nuevo.getTipo();
                 fila[1] =  String.valueOf(nuevo.getFecha());
                 if(nuevo.getTipo().compareTo("Interno") == 0){
-                    if(nuevo.getUsuario().getRol().compareTo("Admin") == 0){
-                        fila[2] = "Usuario" + nuevo.getUsuario().getNombre();
+                    if(nuevo.getUsuario().getDoctor() == null){
+                        fila[2] = "Usuario " + nuevo.getUsuario().getNombre();
                     }else{                                                      //Rol Doctor
                         fila[2] = nuevo.getUsuario().getDoctor().getNombre() +" "+ nuevo.getUsuario().getDoctor().getApellido();
                     }
@@ -653,7 +657,11 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
                 Object[] f = new Object[3];
                 f[0] = fecha.format(o.getFecha());
                 f[1] = o.getTipo();
-                f[2] = o.getDoctor().getNombre() + " " + o.getDoctor().getApellido();
+                if(o.getUsuario().getDoctor() == null){
+                    f[2] = "Usuario "+ o.getUsuario().getNombre();
+                }else{
+                    f[2] = o.getUsuario().getDoctor().getNombre() + " " + o.getUsuario().getDoctor().getApellido();
+                }
                 tablaOdontograma.addRow(f);
             }
         }

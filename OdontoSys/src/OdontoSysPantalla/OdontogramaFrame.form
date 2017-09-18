@@ -117,7 +117,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonSelectTratamiento" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jTextFieldelDoctor" min="-2" pref="220" max="-2" attributes="0"/>
+                          <Component id="jTextFieldlUsuario" min="-2" pref="220" max="-2" attributes="0"/>
                           <Component id="jTextFieldelPaciente" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -132,7 +132,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jLabel1" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="jTextFieldelDoctor" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="jTextFieldlUsuario" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -159,7 +159,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Calibri Light" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Doctor"/>
+                <Property name="text" type="java.lang.String" value="Usuario"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
                     <BevelBorder/>
@@ -167,7 +167,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextFieldelDoctor">
+            <Component class="javax.swing.JTextField" name="jTextFieldlUsuario">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Calibri" size="14" style="0"/>
@@ -179,7 +179,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldelDoctorActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldlUsuarioActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelElPaciente">

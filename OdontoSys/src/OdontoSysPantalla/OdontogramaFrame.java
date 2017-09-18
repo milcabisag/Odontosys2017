@@ -14,8 +14,6 @@ import OdontoSysModelo.Odontograma;
 import OdontoSysModelo.DetalleHallazgo;
 import OdontoSysModelo.Diente;
 import OdontoSysModelo.Paciente;
-import OdontoSysModelo.Doctor;
-import OdontoSysModelo.Hallazgo;
 import OdontoSysModelo.Tratamiento;
 import OdontoSysModelo.Usuario;
 import OdontoSysPantallaAuxiliares.InsertarHallazgoAct;
@@ -36,38 +34,29 @@ import javax.swing.table.DefaultTableModel;
 public class OdontogramaFrame extends javax.swing.JFrame {
     
     
-    public OdontogramaFrame(Usuario usuario){
+    public OdontogramaFrame(){
         initComponents(); 
         columName(); 
         jButtonEliminar.setVisible(false);
         
+        if(diag == 0){
         if(odon == null){ 
-            elUsuario = usuario;
-            if(elUsuario.getRol().compareTo("Doctor") == 0){
-                elDoctor = elUsuario.getDoctor();
-            }
-            else{
-                elDoctor = null;
-            }
-                mostrarDoctorPaciente();
-                Object seleccion = JOptionPane.showInputDialog(null, "Seleccione un tipo de odontograma", "Ventana Odontograma",
-                    JOptionPane.QUESTION_MESSAGE, null, new Object[] { "O. Examen", "O. Tratamiento"}, 0);
-                if(seleccion.toString().compareTo("O. Examen") == 0){
-                    jButtonSelectHallazgo.doClick();
-                }else{
-                    jButtonSelectTratamiento.doClick();
-                }
+           mostrarDoctorPaciente();
+           Object seleccion = JOptionPane.showInputDialog(null, "Seleccione un tipo de odontograma", "Ventana Odontograma",
+           JOptionPane.QUESTION_MESSAGE, null, new Object[] { "O. Examen", "O. Tratamiento"}, 0);
+           if(seleccion.toString().compareTo("O. Examen") == 0){
+              jButtonSelectHallazgo.doClick();
+           }else{
+              jButtonSelectTratamiento.doClick();
+           }
         }else{                          //Llamado a consultar odontograma
-            if(elUsuario.getRol().compareTo("Doctor") == 0){
-                elDoctor = elUsuario.getDoctor();
-            }
-            else{
-                elDoctor = null;
-            }
-            
+           mostrarDoctorPaciente();
+           setearModelo();
+           llenarTabla();
+        }
+        }else if(diag == 1){        // Llamado a ingresar odontograma examen
             mostrarDoctorPaciente();
-            setearModelo();
-            llenarTabla();
+            jButtonSelectHallazgo.doClick();
         }
         
     }
@@ -86,7 +75,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanelDatosOdontograma = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextFieldelDoctor = new javax.swing.JTextField();
+        jTextFieldlUsuario = new javax.swing.JTextField();
         jLabelElPaciente = new javax.swing.JLabel();
         jTextFieldelPaciente = new javax.swing.JTextField();
         jButtonBuscarPaciente = new javax.swing.JButton();
@@ -149,14 +138,14 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         jPanelDatosOdontograma.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel1.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
-        jLabel1.setText("Doctor");
+        jLabel1.setText("Usuario");
         jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jTextFieldelDoctor.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jTextFieldelDoctor.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jTextFieldelDoctor.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldlUsuario.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jTextFieldlUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextFieldlUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldelDoctorActionPerformed(evt);
+                jTextFieldlUsuarioActionPerformed(evt);
             }
         });
 
@@ -212,7 +201,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
                         .addComponent(jButtonSelectHallazgo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonSelectTratamiento))
-                    .addComponent(jTextFieldelDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldlUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldelPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,7 +213,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldelDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldlUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -790,9 +779,9 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldelDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldelDoctorActionPerformed
+    private void jTextFieldlUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldlUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldelDoctorActionPerformed
+    }//GEN-LAST:event_jTextFieldlUsuarioActionPerformed
 
     private void jButtonD47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD47ActionPerformed
         // TODO add your handling code here:
@@ -1064,31 +1053,37 @@ public class OdontogramaFrame extends javax.swing.JFrame {
 
     private void jButtonGuardarOdontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarOdontoActionPerformed
         boolean x = false;
-        Odontograma newOdont = new Odontograma();
-        newOdont.setPaciente(elPaciente);
-        newOdont.setDoctor(elDoctor);
         Date fecha = new Date();
-        newOdont.setFecha(fecha);
+        Odontograma newOdont = new Odontograma();
         
+        newOdont.setUsuario(elUsuario);
+        newOdont.setPaciente(elPaciente);
+        newOdont.setFecha(fecha);
+        if(elUsuario.getDoctor() != null){
+            newOdont.setDoctor(elUsuario.getDoctor());
+        }else{
+            newOdont.setDoctor(null);
+        }
         if(tipoTransaction == 1){
             newOdont.setTipo("Examen");
         }else{ 
             newOdont.setTipo("Tratamiento");
         }
         newOdont = OdontogramaControlador.insertarOdontograma(newOdont);
-        //newOdont.setIdodontograma(idPersistencia);
         if(tipoTransaction == 1){
-            Iterator<DetalleHallazgo> it = hallazgosSet.iterator();
-            DetalleHallazgo h;
-            while(it.hasNext()){
-                h = it.next();
-                h.setOdontograma(newOdont);
+            
+            for(int a=0;a<hallazgosSet.size();a++){
+                hallazgosSet.get(a).setOdontograma(newOdont);       //Setear el id Odontograma
             }
+            
             x = DetalleHallazgoControlador.insertarDetalleHallazgos(hallazgosSet);
+            if(x){
+               JOptionPane.showMessageDialog(rootPane, "Se Guardó correctamente", "Insertar Odontograma", WIDTH);
+            }
             
             if(diag != 0){
-            Diagnosticos.odont = newOdont;
-            Diagnosticos.asociarOdontograma();
+                Diagnosticos.odont = newOdont;
+                Diagnosticos.asociarOdontograma();
             }
              
             elPaciente = null;
@@ -1187,7 +1182,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                OdontogramaFrame tr = new OdontogramaFrame(elUsuario);//.setVisible(true);
+                OdontogramaFrame tr = new OdontogramaFrame();//.setVisible(true);
                 tr.setVisible(true);
                 //tr.seleccionTipoOdontograma();
             }
@@ -1259,10 +1254,10 @@ public class OdontogramaFrame extends javax.swing.JFrame {
     }*/
     
     private void cargarTablaHallago(DetalleHallazgo nuevoHallazgo) {
-        String row[] = new String[5];
+        Object row[] = new Object[5];
         row[0] = nuevoHallazgo.getHallazgo().getNombre();
         row[1] = nuevoHallazgo.getDiente().getNombre();
-        row[2] = String.valueOf(nuevoHallazgo.getDiente().getNomenclatura());
+        row[2] = nuevoHallazgo.getDiente().getNomenclatura();
         row[3] = nuevoHallazgo.getUbicacion();
         row[4] = nuevoHallazgo.getEspecificacion();
         
@@ -1293,7 +1288,6 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             dienteActual = DienteControlador.BuscarDiente(nomDiente);
             
             InsertarHallazgoAct InsertH = new InsertarHallazgoAct(this, true);
-            //InsertH.GraficarDiente(String.valueOf(dienteActual.getNomenclatura()));
             InsertH.GraficarDiente(String.valueOf(nomDiente));
             InsertH.setVisible(rootPaneCheckingEnabled);
             nuevoHallazgo = InsertH.getReturnStatus();
@@ -1303,7 +1297,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
                 cargarTablaHallago(nuevoHallazgo);
                 jButtonGuardarOdonto.setEnabled(true);
             }else{
-                JOptionPane.showMessageDialog(null, "No ha Generado ningun Hallazgo", "Generar Hallazgo", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No ha generado ningún hallazgo", "Generar Hallazgo", JOptionPane.ERROR_MESSAGE);
             }
             
         }else if(tipoTransaction == 2){
@@ -1327,11 +1321,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         }
     }
 
-    public static void pasarDoctorPaciente(Doctor doctor, Paciente paciente){      
-        
-        elDoctor = doctor;
-        elPaciente = paciente;     
-    }
+    
     
     /*private void runEventSiguient(String evento) {        
         int i = hallazgosSet.size();
@@ -1370,24 +1360,26 @@ public class OdontogramaFrame extends javax.swing.JFrame {
     private void mostrarDoctorPaciente() {
         if(elPaciente!=null){
             jButtonBuscarPaciente.setVisible(false);
-            jTextFieldelDoctor.setText(elDoctor.getNombre()+" "+elDoctor.getApellido());
             jTextFieldelPaciente.setText(elPaciente.getNombres()+" "+elPaciente.getApellidos());
-        }else{
-            if(elDoctor == null){   //Rol Administrador
-                jTextFieldelDoctor.setText(elUsuario.getRol()+" "+elUsuario.getNombre());
-            }else{
-                jTextFieldelDoctor.setText(elDoctor.getNombre()+" "+elDoctor.getApellido());
-            }
-                jButtonBuscarPaciente.setEnabled(true);
-                jButtonBuscarPaciente.doClick();
+        }else{    
+             jButtonBuscarPaciente.setEnabled(true);
+             jButtonBuscarPaciente.doClick();
         }
+        
+        if(elUsuario.getRol().compareTo("Administrador") == 0){   //Rol Administrador
+                jLabel1.setText("Usuario");
+                jTextFieldlUsuario.setText(elUsuario.getRol()+" "+elUsuario.getNombre());
+            }else{
+                jLabel1.setText("Doctor");
+                jTextFieldlUsuario.setText(elUsuario.getDoctor().getNombre()+" "+elUsuario.getDoctor().getApellido());
+            }
     }
     
     //Variables
             
-    Diente dienteActual;
-    DetalleHallazgo nuevoHallazgo;
-    Tratamiento nuevoTratamiento;
+    Diente dienteActual = null;
+    DetalleHallazgo nuevoHallazgo = null;
+    Tratamiento nuevoTratamiento = null;
     
     private static DefaultTableModel modeloH = new DefaultTableModel(){
         public boolean isCellEditable(int row, int column) {
@@ -1406,7 +1398,6 @@ public class OdontogramaFrame extends javax.swing.JFrame {
     private static ArrayList<Tratamiento> listaTratamientos = new ArrayList();
     
     public static Paciente elPaciente = null;
-    public static Doctor elDoctor;
     public static Usuario elUsuario;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1460,8 +1451,8 @@ public class OdontogramaFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelDatosOdontograma;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableContenedorDatos;
-    private javax.swing.JTextField jTextFieldelDoctor;
     private javax.swing.JTextField jTextFieldelPaciente;
+    private javax.swing.JTextField jTextFieldlUsuario;
     // End of variables declaration//GEN-END:variables
 
     private void llenarTabla() {

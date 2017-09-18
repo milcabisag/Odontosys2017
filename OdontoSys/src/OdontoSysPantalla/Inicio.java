@@ -6,12 +6,7 @@
 
 package OdontoSysPantalla;
 
-import OdontoSysPantallaAuxiliares.DetalleConvenio;
 import OdontoSysModelo.Usuario;
-import OdontoSysPantalla.Pacientes;
-import OdontoSysPantalla.Doctores;
-import OdontoSysPantallaAuxiliares.BuscarConvenio;
-import OdontoSysPantallaAuxiliares.DetalleUsuario;
 import OdontoSysPantallaAuxiliares.ObtenerServicios;
 import OdontoSysPantallaAuxiliares.ObtenerUsuarios;
 import OdontoSysPantallaAuxiliares.obtenerFechas;
@@ -363,7 +358,8 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAgendaActionPerformed
 
     private void jButtonOdontogramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOdontogramaActionPerformed
-        OdontogramaFrame jFrame = new OdontogramaFrame(usuario);
+        OdontogramaFrame jFrame = new OdontogramaFrame();
+        OdontogramaFrame.elUsuario = usuario;
         jFrame.setVisible(true);
     }//GEN-LAST:event_jButtonOdontogramaActionPerformed
 

@@ -41,29 +41,26 @@ public class DetalleHallazgoControlador {
     
     //return true si persistio todos los hallazgos
     public static boolean insertarDetalleHallazgos(ArrayList<DetalleHallazgo> hallazgoSet){
-        int i = 0;
-        int cantEle = hallazgoSet.size();
-        int id = 0;
         
+        boolean v = false;
+        Session sesion;
         try{
-            Session sesion;
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             sesion.getTransaction().begin();
             Iterator<DetalleHallazgo> it = hallazgoSet.iterator();
-            DetalleHallazgo elDetalleAct;
+            DetalleHallazgo d;
             while(it.hasNext()){
-                elDetalleAct = it.next();
-                id = (int)sesion.save(elDetalleAct);
-                elDetalleAct.setIddetalleHallazgo(id);
-                i++;
+                d = (DetalleHallazgo) it.next();
+                sesion.save(d);
             }
             sesion.getTransaction().commit();
-            
+            v = true;
         }catch(HibernateException ex){
             JOptionPane.showMessageDialog(null, ex, "Detalle Hallazgo Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
         
-       return (i == cantEle);
+       return v;
     }
     
+            
 }

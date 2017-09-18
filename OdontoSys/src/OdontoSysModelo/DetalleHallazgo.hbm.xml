@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 17/09/2017 10:00:31 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 18/09/2017 01:21:54 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.DetalleHallazgo" table="detalle_hallazgo" catalog="odontosys">
         <id name="iddetalleHallazgo" type="java.lang.Integer">
@@ -17,9 +17,6 @@
         <many-to-one name="hallazgo" class="OdontoSysModelo.Hallazgo" fetch="select">
             <column name="fk_hallazgo" not-null="true" />
         </many-to-one>
-        <property name="sigla" type="string">
-            <column name="sigla" length="4" not-null="true" />
-        </property>
         <property name="ubicacion" type="string">
             <column name="ubicacion" length="50" not-null="true" />
         </property>

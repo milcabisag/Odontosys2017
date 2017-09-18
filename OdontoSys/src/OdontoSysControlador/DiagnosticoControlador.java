@@ -82,4 +82,21 @@ public class DiagnosticoControlador {
        }        
         return i;
     }
+    
+    public static int modificarDiagnostico(Diagnostico nuevo) {
+        int i = 0;
+        Session sesion;
+        try{
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            Transaction tr = sesion.beginTransaction();        
+            sesion.merge(nuevo);
+            tr.commit();      
+            sesion.close();   
+            i = nuevo.getIdDiagnostico();
+        }catch(HibernateException ex){
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Diagnóstico", WIDTH );
+       }        
+        return i;
+    }
+    
 }

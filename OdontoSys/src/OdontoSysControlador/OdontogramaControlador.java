@@ -25,23 +25,27 @@ import org.hibernate.Transaction;
  * @author Tito
  */
 public class OdontogramaControlador {
+    
     public static Odontograma insertarOdontograma(Odontograma elOdontograma){
-        int idOdontograma = 0;
+        int i = 0;
         Session sesion;
         try{
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             sesion.getTransaction().begin();
 
-            idOdontograma = (int)sesion.save(elOdontograma);
+            i = (int)sesion.save(elOdontograma);
             sesion.refresh(elOdontograma);
 
             sesion.getTransaction().commit();
-        }catch(HibernateException ex){
             
+        }catch(HibernateException ex){
+            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al insertar nuevo odontograma", "Odontograma Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
         
         return elOdontograma;
     }
+
     
     public static Odontograma BuscarID(int idOdont){
         Session sesion;
@@ -59,6 +63,7 @@ public class OdontogramaControlador {
                return null;
             }
         }catch(HibernateException ex){
+            System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Odontograma Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
         return o;
@@ -84,6 +89,7 @@ public class OdontogramaControlador {
                 return null;
             }
         }catch(HibernateException ex){
+            System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Odontograma Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
         return lis;
