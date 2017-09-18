@@ -100,8 +100,7 @@ public class OrdenServicioControlador {
         Session session;
         Transaction tr = null;
         
-        try {
-            
+        try {            
             session = NewHibernateUtil.getSessionFactory().openSession();
             tr = session.beginTransaction();
             session.save(ordenActual);

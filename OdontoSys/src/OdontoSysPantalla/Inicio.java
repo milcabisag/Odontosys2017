@@ -358,8 +358,8 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAgendaActionPerformed
 
     private void jButtonOdontogramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOdontogramaActionPerformed
-        OdontogramaFrame jFrame = new OdontogramaFrame();
         OdontogramaFrame.elUsuario = usuario;
+        OdontogramaFrame jFrame = new OdontogramaFrame();        
         jFrame.setVisible(true);
     }//GEN-LAST:event_jButtonOdontogramaActionPerformed
 

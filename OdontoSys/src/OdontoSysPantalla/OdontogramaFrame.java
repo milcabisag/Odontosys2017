@@ -38,7 +38,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         initComponents(); 
         columName(); 
         jButtonEliminar.setVisible(false);
-        
+                
         if(diag == 0){
         if(odon == null){ 
            mostrarDoctorPaciente();
@@ -52,9 +52,10 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         }else{                          //Llamado a consultar odontograma
            mostrarDoctorPaciente();
            setearModelo();
-           llenarTabla();
+           llenarTabla(); 
+           consulta = true;             //Los odontogramas no se pueden modificar
         }
-        }else if(diag == 1){        // Llamado a ingresar odontograma examen
+        }else if(diag == 1){        // Llamado a ingresar odontograma examen desde Diagnóstico
             mostrarDoctorPaciente();
             jButtonSelectHallazgo.doClick();
         }
@@ -156,7 +157,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         jTextFieldelPaciente.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jTextFieldelPaciente.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jButtonBuscarPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/agregar.png"))); // NOI18N
+        jButtonBuscarPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/buscar.png"))); // NOI18N
         jButtonBuscarPaciente.setEnabled(false);
         jButtonBuscarPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -785,56 +786,74 @@ public class OdontogramaFrame extends javax.swing.JFrame {
 
     private void jButtonD47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD47ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 47;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 47;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD47ActionPerformed
 
     private void jButtonD44ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD44ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 44;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 44;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD44ActionPerformed
 
     private void jButtonD22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD22ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 22;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 22;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD22ActionPerformed
 
     private void jButtonD25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD25ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 25;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 25;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD25ActionPerformed
 
     private void jButtonD17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD17ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 17;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 17;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD17ActionPerformed
 
     private void jButtonD14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD14ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 14;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 14;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD14ActionPerformed
 
     private void jButtonD32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD32ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 32;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 32;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD32ActionPerformed
 
     private void jButtonD35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD35ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 35;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 35;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD35ActionPerformed
 
     private void jButtonD11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD11ActionPerformed
         //tipoTransaction = jComboBoxTipos.getSelectedIndex();
-        int nomDiente = 11;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 11;
+            procesarDiente(nomDiente);
+        }
         
     }//GEN-LAST:event_jButtonD11ActionPerformed
 
@@ -866,140 +885,186 @@ public class OdontogramaFrame extends javax.swing.JFrame {
 
     private void jButtonD12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD12ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 12;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 12;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD12ActionPerformed
 
     private void jButtonD13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD13ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 13;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 13;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD13ActionPerformed
 
     private void jButtonD15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD15ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 15;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 15;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD15ActionPerformed
 
     private void jButtonD16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD16ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 16;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 16;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD16ActionPerformed
 
     private void jButtonD18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD18ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 18;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 18;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD18ActionPerformed
 
     private void jButtonD21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD21ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 21;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 21;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD21ActionPerformed
 
     private void jButtonD23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD23ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 23;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 23;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD23ActionPerformed
 
     private void jButtonD24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD24ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 24;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 24;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD24ActionPerformed
 
     private void jButtonD26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD26ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 26;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 26;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD26ActionPerformed
 
     private void jButtonD27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD27ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 27;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 27;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD27ActionPerformed
 
     private void jButtonD28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD28ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 28;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 28;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD28ActionPerformed
 
     private void jButtonD41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD41ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 41;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 41;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD41ActionPerformed
 
     private void jButtonD42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD42ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 42;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 42;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD42ActionPerformed
 
     private void jButtonD43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD43ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 43;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 43;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD43ActionPerformed
 
     private void jButtonD45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD45ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 45;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 45;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD45ActionPerformed
 
     private void jButtonD46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD46ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 46;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 46;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD46ActionPerformed
 
     private void jButtonD48ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD48ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 48;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 48;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD48ActionPerformed
 
     private void jButtonD31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD31ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 31;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 31;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD31ActionPerformed
 
     private void jButtonD33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD33ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 33;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 33;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD33ActionPerformed
 
     private void jButtonD34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD34ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 34;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 34;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD34ActionPerformed
 
     private void jButtonD36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD36ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 36;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 36;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD36ActionPerformed
 
     private void jButtonD37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD37ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 37;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 37;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD37ActionPerformed
 
     private void jButtonD38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonD38ActionPerformed
         // TODO add your handling code here:
-        int nomDiente = 38;
-        procesarDiente(nomDiente);
+        if(consulta != true){
+            int nomDiente = 38;
+            procesarDiente(nomDiente);
+        }
     }//GEN-LAST:event_jButtonD38ActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -1070,6 +1135,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             newOdont.setTipo("Tratamiento");
         }
         newOdont = OdontogramaControlador.insertarOdontograma(newOdont);
+        
         if(tipoTransaction == 1){
             
             for(int a=0;a<hallazgosSet.size();a++){
@@ -1090,11 +1156,8 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             this.setVisible(false); 
             
         }else{
-            Iterator<Tratamiento> it = listaTratamientos.iterator();
-            Tratamiento T;
-            while(it.hasNext()){
-                T = it.next();
-                T.setOdontograma(newOdont);
+            for(int a=0;a<listaTratamientos.size();a++){
+                listaTratamientos.get(a).setOdontograma(newOdont);       //Setear el id Odontograma
             }
             x = TratamientoControlador.insertarTratamientos(listaTratamientos);
         
@@ -1119,24 +1182,28 @@ public class OdontogramaFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGuardarOdontoActionPerformed
 
     private void jTableContenedorDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableContenedorDatosMouseClicked
-        int fila = jTableContenedorDatos.rowAtPoint(evt.getPoint());
+        if(consulta != true){
+            int fila = jTableContenedorDatos.rowAtPoint(evt.getPoint());
                 if (fila > -1){
                     jButtonEliminar.setVisible(true);
                 }
+        }
     }//GEN-LAST:event_jTableContenedorDatosMouseClicked
 
     private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverActionPerformed
-        elPaciente = null;
+        limpiar();
         this.setVisible(false);
     }//GEN-LAST:event_jButtonVolverActionPerformed
 
     private void jTableContenedorDatosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableContenedorDatosFocusGained
-        int fila = jTableContenedorDatos.rowAtPoint(evt.getComponent().getLocation());
-         if (fila > -1){        //El foco tiene una fila
-             jButtonEliminar.setVisible(true);
-         }else{
-             jButtonEliminar.setVisible(false);
-         }
+        if(consulta != true){
+            int fila = jTableContenedorDatos.rowAtPoint(evt.getComponent().getLocation());
+            if (fila > -1){        //El foco tiene una fila
+                jButtonEliminar.setVisible(true);
+            }else{
+                jButtonEliminar.setVisible(false);
+            }
+        }
     }//GEN-LAST:event_jTableContenedorDatosFocusGained
 
     private void jTableContenedorDatosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableContenedorDatosFocusLost
@@ -1234,26 +1301,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         return s;
     }
     
-/*    private void seleccionTipoOdontograma(){
-        Object s = JOptionPane.showInputDialog(null, "Selecione tipo de Odontograma", "Tipo de Odontograma", JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Examen", "Tratamiento"}, 0);
-        if(s != null){
-            String tipo = s.toString();
-            if(tipo.compareTo("Examen") == 0){
-                if(elPaciente == null)
-                    mostrarDoctorPaciente();
-                    jButtonSelectHallazgo.doClick();
-            }else if(tipo.compareTo("Tratamiento") == 0){
-                if(elPaciente == null)
-                    mostrarDoctorPaciente();            
-                    jButtonSelectTratamiento.doClick();
-                }
-         }else{
-            jButtonVolver.doClick();
-                this.setVisible(false);
-         }
-    }*/
-    
-    private void cargarTablaHallago(DetalleHallazgo nuevoHallazgo) {
+    private void cargarTablaHallazgo(DetalleHallazgo nuevoHallazgo) {
         Object row[] = new Object[5];
         row[0] = nuevoHallazgo.getHallazgo().getNombre();
         row[1] = nuevoHallazgo.getDiente().getNombre();
@@ -1262,7 +1310,6 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         row[4] = nuevoHallazgo.getEspecificacion();
         
         modeloH.addRow(row);
-        hallazgosSet.add(nuevoHallazgo);
     }
     
     private void cargarTablaTratamiento(Tratamiento nuevoTratamiento) {
@@ -1275,7 +1322,6 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         row[5] = nuevoTratamiento.getEspecificacion();
 
         modeloT.addRow(row);
-        listaTratamientos.add(nuevoTratamiento);
     }
     
     private void procesarDiente(int nomDiente) {
@@ -1294,7 +1340,8 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             
             if(nuevoHallazgo != null){
                 nuevoHallazgo.setDiente(dienteActual);
-                cargarTablaHallago(nuevoHallazgo);
+                cargarTablaHallazgo(nuevoHallazgo);
+                hallazgosSet.add(nuevoHallazgo);
                 jButtonGuardarOdonto.setEnabled(true);
             }else{
                 JOptionPane.showMessageDialog(null, "No ha generado ningún hallazgo", "Generar Hallazgo", JOptionPane.ERROR_MESSAGE);
@@ -1312,6 +1359,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             if(nuevoTratamiento != null){
                 nuevoTratamiento.setDiente(dienteActual);
                 cargarTablaTratamiento(nuevoTratamiento);
+                listaTratamientos.add(nuevoTratamiento);
                 jButtonGuardarOdonto.setEnabled(true);
             }else{
                 JOptionPane.showMessageDialog(rootPane, "No ha Generado ningun Tratamiento", "Generar Tratamiento", JOptionPane.WARNING_MESSAGE);
@@ -1320,42 +1368,6 @@ public class OdontogramaFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un Tipo de Odontograma", "Setear Odontograma", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    
-    
-    /*private void runEventSiguient(String evento) {        
-        int i = hallazgosSet.size();
-        int j = listaTratamientos.size();
-        //eliminar los hallazgos y tratamientos 
-        for(int k = 0; k < i; k++)
-            hallazgosSet.remove(0);
-        
-        for(int l = 0; l < j; l++)
-            listaTratamientos.remove(0);
-        
-        modeloH = Configuraciones.limpiarModelo(modeloH);
-        modeloT = Configuraciones.limpiarModelo(modeloT);
-        
-        if(evento.compareToIgnoreCase("Tratamiento paciente actual") == 0){
-            //jButtonSelectHallazgo.doClick();
-            jButtonSelectTratamiento.doClick();
-            mostrarDoctorPaciente();
-        }else if(evento.compareToIgnoreCase("Hallazgo paciente actual") == 0){
-            //jButtonSelectTratamiento.doClick();
-            jButtonSelectHallazgo.doClick();
-            mostrarDoctorPaciente();
-        }else if(evento.compareToIgnoreCase("Odontograma NewPaciente") == 0){
-            elPaciente = null;
-            seleccionTipoOdontograma();
-            
-        }else{
-            //finalizar salir    
-            this.setVisible(false);
-            Inicio jFrame = new Inicio(elUsuario);
-            jFrame.setVisible(true);
-        }
-   }
-*/
     
     private void mostrarDoctorPaciente() {
         if(elPaciente!=null){
@@ -1399,6 +1411,9 @@ public class OdontogramaFrame extends javax.swing.JFrame {
     
     public static Paciente elPaciente = null;
     public static Usuario elUsuario;
+    
+    Boolean consulta = false; 
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscarPaciente;
@@ -1458,18 +1473,17 @@ public class OdontogramaFrame extends javax.swing.JFrame {
     private void llenarTabla() {
                       
         if(odon.getTipo().compareTo("Examen") == 0){
-            ArrayList<DetalleHallazgo> hallEnc = new ArrayList();
-            hallEnc = OdontogramaControlador.BuscarHallazgos(odon);
-            if(hallEnc != null){
-                for(DetalleHallazgo det : hallEnc){
-                    cargarTablaHallago(det);
+            hallazgosSet = OdontogramaControlador.BuscarHallazgos(odon);
+            
+            if(hallazgosSet != null){
+                for(DetalleHallazgo det : hallazgosSet){
+                    cargarTablaHallazgo(det);
                 }
             }
         }else if(odon.getTipo().compareTo("Tratamiento") == 0){
-            ArrayList<Tratamiento> tratEnc = new ArrayList();
-            tratEnc = OdontogramaControlador.BuscarTratamientos(odon);
-            if(tratEnc  != null){
-                for(Tratamiento tr : tratEnc){
+            listaTratamientos= OdontogramaControlador.BuscarTratamientos(odon);
+            if(listaTratamientos  != null){
+                for(Tratamiento tr : listaTratamientos){
                     cargarTablaTratamiento(tr);
                 }
             }
@@ -1484,5 +1498,24 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         }
     }
 
+    private void limpiar() {
     
+        dienteActual = null;
+        nuevoHallazgo = null;
+        nuevoTratamiento = null;
+        
+        Configuraciones.limpiarModelo(modeloH);
+        Configuraciones.limpiarModelo(modeloT);
+
+        tipoTransaction = 0;
+        diag = 0;
+        odon = null;
+        
+        hallazgosSet = null;
+        listaTratamientos = null;
+        
+        elPaciente = null;
+        consulta = false;
+        
+    }    
 }

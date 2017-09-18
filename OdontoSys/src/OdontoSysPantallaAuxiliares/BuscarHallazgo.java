@@ -270,13 +270,11 @@ public class BuscarHallazgo extends javax.swing.JDialog {
         }else{            
             modeloTabla.addColumn("IdHallazgo");
             modeloTabla.addColumn("NombreHallazgo");
-            modeloTabla.addColumn("SimboloHallazgo");
             ArrayList<Hallazgo> losHallazgos = HallazgoVista.BuscarPorNombre(nombre);
             for( Hallazgo hallazgo: losHallazgos ){
                 String[] rowData = new String[3];
                 rowData[0] = String.valueOf(hallazgo.getIdhallazgo());
                 rowData[1] = hallazgo.getNombre();
-                rowData[2] = hallazgo.getSimbolol();
                 modeloTabla.addRow(rowData);
             } 
         }

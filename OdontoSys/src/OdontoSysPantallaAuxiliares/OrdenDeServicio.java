@@ -497,6 +497,7 @@ public class OrdenDeServicio extends javax.swing.JFrame {
         ordenActual.setFecha(new Date());
         ordenActual.setOdontograma(odonActual);
         ordenActual.setPaciente(pacActual);
+        ordenActual.setUsuario(user);
     }
 
     private ArrayList<DetalleOrden> obtenerDetalleOrden() {

@@ -228,7 +228,6 @@ public class Convenios extends javax.swing.JFrame {
         }
         DetalleConvenio jFrame = new DetalleConvenio();
         jFrame.setVisible(true);
-        dispose();
         
     }
     
