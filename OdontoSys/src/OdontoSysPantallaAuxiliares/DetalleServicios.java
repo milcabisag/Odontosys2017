@@ -337,7 +337,7 @@ public class DetalleServicios extends javax.swing.JFrame {
         jTextFieldDescripcion.setText("");
         jTextFieldPrecio.setText("");
         
-        jButtonGuardar.setVisible(false);
+        jButtonGuardar.setVisible(true);
     }
 
     private void inicializar() {

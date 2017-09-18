@@ -75,12 +75,14 @@ public class ObtenerEmpresa extends javax.swing.JDialog {
         tabla.addColumn("Direccion");
       
         datos = EmpresaControlador.ConsultarEmpresa();     
-        for (Empresa n : datos){
-            Object[] fila = new Object[3];
-            fila[0] = n.getNombre();
-            fila[1] = n.getRuc();
-            fila[2] = n.getDireccion();
-            tabla.addRow(fila);
+        if(datos != null){
+            for (Empresa n : datos){
+                Object[] fila = new Object[3];
+                fila[0] = n.getNombre();
+                fila[1] = n.getRuc();
+                fila[2] = n.getDireccion();
+                tabla.addRow(fila);
+            }
         }
         
     }

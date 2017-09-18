@@ -389,20 +389,20 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
     if(pacienteActual == null){
-            limpiar();
-            String cedulaString = JOptionPane.showInputDialog ( null, "Ingrese CI de Paciente" , "ModificarPaciente" , JOptionPane.QUESTION_MESSAGE ) ;
-            int  cedula= Integer.parseInt(cedulaString);
-            pacienteActual = PacienteControlador.BuscarCedula(cedula);
-            if (pacienteActual != null) {
-                escribirPaciente(pacienteActual);
-                habilitarBotones();
-            } else {
-                JOptionPane.showMessageDialog(null, "Paciente no encontrado!" , "PacienteControlador" , JOptionPane.QUESTION_MESSAGE );
-            }
-        }else{
-            escribirPaciente(pacienteActual);
-            habilitarBotones();
+        limpiar();
+        String cedulaString = JOptionPane.showInputDialog ( null, "Ingrese CI de Paciente" , "ModificarPaciente" , JOptionPane.QUESTION_MESSAGE ) ;
+        int  cedula= Integer.parseInt(cedulaString);
+        pacienteActual = PacienteControlador.BuscarCedula(cedula);
+        if (pacienteActual != null) {
+           escribirPaciente(pacienteActual);
+           habilitarBotones();
+        } else {
+           JOptionPane.showMessageDialog(null, "Paciente no encontrado!" , "PacienteControlador" , JOptionPane.QUESTION_MESSAGE );
         }
+     }else{
+        escribirPaciente(pacienteActual);
+        habilitarBotones();
+     }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuActionPerformed
@@ -425,16 +425,12 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         actualizarPaciente(pacienteActual);
         if(pacienteActual != null && pacienteActual.getIdPaciente() > 0){
-            if(Lista != null){
-                int i = PacienteVista.UpDateHojaClinica(pacienteActual);
-                if(i > 0){
-                    JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Paciente", WIDTH);
-                    limpiar();
-                    deshabilitarTodo();
-                }
-            }else{
-                JOptionPane.showMessageDialog(rootPane, "Debe ingresar por lo menos un diagnóstico", "Guardar Paciente", WIDTH);
-            }
+           int i = PacienteVista.UpDateHojaClinica(pacienteActual);
+           if(i > 0){
+              JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Paciente", WIDTH);
+              limpiar();
+              deshabilitarTodo();
+           }
         }        
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
@@ -571,14 +567,22 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
         jTextFieldHCirug.setText("");
         jTextFieldHObs.setText("");
         jLabelNombrePaciente.setText("");
+        
         Configuraciones.limpiarModelo(tabla);
         Configuraciones.limpiarModelo(tablaOdontograma);
+        
         pacienteActual = null;
+        
+        jTextFieldHPeso.setEditable(false);
+        jTextFieldHEnferm.setEditable(false);
+        jTextFieldHMedic.setEditable(false);
+        jTextFieldHAlerg.setEditable(false);
+        jTextFieldHCirug.setEditable(false);
+        jTextFieldHObs.setEditable(false);
     }
 
     private void habilitarDatos() {
         jTextFieldHPeso.setEditable(true);
-        jTextFieldHPeso.requestFocus();
         jTextFieldHEnferm.setEditable(true);
         jTextFieldHMedic.setEditable(true);
         jTextFieldHAlerg.setEditable(true);
@@ -619,8 +623,15 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
                 String[] fila = new String[3];
                 fila[0] = nuevo.getTipo();
                 fila[1] =  String.valueOf(nuevo.getFecha());
-                fila[2] = nuevo.getDoctor().getNombre() + " " + nuevo.getDoctor().getApellido();
-                
+                if(nuevo.getTipo().compareTo("Interno") == 0){
+                    if(nuevo.getUsuario().getRol().compareTo("Admin") == 0){
+                        fila[2] = "Usuario" + nuevo.getUsuario().getNombre();
+                    }else{                                                      //Rol Doctor
+                        fila[2] = nuevo.getUsuario().getDoctor().getNombre() +" "+ nuevo.getUsuario().getDoctor().getApellido();
+                    }
+                }else{
+                    fila[2] = "Empresa " + nuevo.getEmpresa();
+                }
                 tabla.addRow(fila);
                
             }

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 24/07/2014 08:45:43 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 17/09/2017 10:00:31 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.Usuario" table="usuario" catalog="odontosys">
         <id name="idusuario" type="java.lang.Integer">
@@ -32,6 +32,12 @@
             </key>
             <one-to-many class="OdontoSysModelo.ReciboEmpresa" />
         </set>
+        <set name="diagnosticos" table="diagnostico" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_usuario" not-null="true" />
+            </key>
+            <one-to-many class="OdontoSysModelo.Diagnostico" />
+        </set>
         <set name="notaCreditos" table="nota_credito" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="fk_usuario" not-null="true" />
@@ -44,11 +50,47 @@
             </key>
             <one-to-many class="OdontoSysModelo.NotaCreditoEmpresa" />
         </set>
+        <set name="facturaEmpresas" table="factura_empresa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_usuario" not-null="true" />
+            </key>
+            <one-to-many class="OdontoSysModelo.FacturaEmpresa" />
+        </set>
+        <set name="facturas" table="factura" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_usuario" not-null="true" />
+            </key>
+            <one-to-many class="OdontoSysModelo.Factura" />
+        </set>
         <set name="recibos" table="recibo" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="fk_usuario" not-null="true" />
             </key>
             <one-to-many class="OdontoSysModelo.Recibo" />
+        </set>
+        <set name="ordenServicios" table="orden_servicio" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_usuario" not-null="true" />
+            </key>
+            <one-to-many class="OdontoSysModelo.OrdenServicio" />
+        </set>
+        <set name="odontogramas" table="odontograma" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_usuario" not-null="true" />
+            </key>
+            <one-to-many class="OdontoSysModelo.Odontograma" />
+        </set>
+        <set name="cajas" table="caja" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_usuario" not-null="true" />
+            </key>
+            <one-to-many class="OdontoSysModelo.Caja" />
+        </set>
+        <set name="facturaConvenios" table="factura_convenio" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_usuario" not-null="true" />
+            </key>
+            <one-to-many class="OdontoSysModelo.FacturaConvenio" />
         </set>
     </class>
 </hibernate-mapping>

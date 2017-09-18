@@ -46,6 +46,26 @@ public class Pacientes extends javax.swing.JFrame {
     public Pacientes() {
         initComponents();
         BotonInvisibles();
+                
+        // Tabla Estado de Cuenta
+        tablaEstado.addColumn("Fecha");
+        tablaEstado.addColumn("Descripción");
+        tablaEstado.addColumn("Debe");
+        tablaEstado.addColumn("Haber");
+        
+        // Tabla Agenda
+        tablaAgenda.addColumn("Fecha");
+        tablaAgenda.addColumn("Hora");
+        tablaAgenda.addColumn("Motivo");
+        tablaAgenda.addColumn("Doctor");
+        tablaAgenda.addColumn("Estado");
+        tablaAgenda.addColumn("Cod. Orden");
+        
+        // Tabla Convenios
+        tablaConvenio.addColumn("Empresa");
+        tablaConvenio.addColumn("RUC");
+        tablaConvenio.addColumn("Teléfono");
+        
     }
 
  
@@ -764,7 +784,7 @@ public class Pacientes extends javax.swing.JFrame {
         boolean bandera;
         do{
             try{
-                cedulaString = JOptionPane.showInputDialog ( null, "Ingrese Ci de Paciente" , "Buscar Paciente" , JOptionPane.QUESTION_MESSAGE ) ;        
+                cedulaString = JOptionPane.showInputDialog ( null, "Ingrese CI de Paciente" , "Buscar Paciente" , JOptionPane.QUESTION_MESSAGE ) ;        
                 if(cedulaString == null){
                     bandera = true;
                 }else{
@@ -870,7 +890,7 @@ public class Pacientes extends javax.swing.JFrame {
     }//GEN-LAST:event_PacienteKeyReleased
 
     private void jButtonElimPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonElimPacienteActionPerformed
-       int eliminar = JOptionPane.showConfirmDialog( null, "Eliminar paciente "+pacienteActual.getNombres()+"con Ci"+pacienteActual.getNroCi()+"??");
+       int eliminar = JOptionPane.showConfirmDialog( null, "Eliminar paciente "+pacienteActual.getNombres()+"con CI "+pacienteActual.getNroCi()+"?");
         if(JOptionPane.YES_OPTION == eliminar){
             boolean i = PacienteControlador.Eliminar(pacienteActual);
             if(i){
@@ -1196,15 +1216,18 @@ public class Pacientes extends javax.swing.JFrame {
         jButtonGuardar.setVisible(false);
         jButtonModificar.setVisible(false);
         jButtonAtras.setVisible(false);
+        
         jButtonModPaciente.setVisible(false);
         jButtonElimPaciente.setVisible(false);
+        
         jButtonOrdenServicio.setVisible(false);
-        jButtonInsPaciente.setVisible(true);
-        jButtonBuscar.setVisible(true);
         jButtonRealizarPago.setVisible(false);
         jButtonGenerarReporte.setVisible(false);
         jButtonInsertarConvenio.setVisible(false);
         jButtonNotaCredito.setVisible(false);
+        
+        jButtonInsPaciente.setVisible(true);
+        jButtonBuscar.setVisible(true);
     }
 
     private void insertarPaciente() {
@@ -1249,6 +1272,16 @@ public class Pacientes extends javax.swing.JFrame {
             recuperarCitas(paciente);
             recuperarConvenios(paciente);
             
+             jButtonGuardar.setVisible(false);
+             jButtonModificar.setVisible(false);
+             jButtonAtras.setVisible(true);
+        
+             jButtonModPaciente.setVisible(true);
+             jButtonElimPaciente.setVisible(true);
+        
+             jButtonInsPaciente.setVisible(false);
+             jButtonBuscar.setVisible(false);
+            
         }else{
             JOptionPane.showMessageDialog(rootPane, "Paciente No encontrado", "aviso", WIDTH);
             jButtonModPaciente.doClick();
@@ -1279,6 +1312,7 @@ public class Pacientes extends javax.swing.JFrame {
     private void habilitarBotones() {
         jButtonInsPaciente.setVisible(false);
         jButtonBuscar.setVisible(false);
+        
         jButtonModPaciente.setVisible(true);
         jButtonElimPaciente.setVisible(true);
         jButtonAtras.setVisible(true);  
@@ -1292,28 +1326,8 @@ public class Pacientes extends javax.swing.JFrame {
         
         if(OrdenServicioControlador.BuscarOrdenPendiente(pacienteActual.getIdPaciente()) != null){ 
             jButtonOrdenServicio.setVisible(true);
-        }      
-        
-        
-        // Tabla Estado de Cuenta
-        tablaEstado.addColumn("Fecha");
-        tablaEstado.addColumn("Descripción");
-        tablaEstado.addColumn("Debe");
-        tablaEstado.addColumn("Haber");
-        
-        // Tabla Agenda
-        tablaAgenda.addColumn("Fecha");
-        tablaAgenda.addColumn("Hora");
-        tablaAgenda.addColumn("Motivo");
-        tablaAgenda.addColumn("Doctor");
-        tablaAgenda.addColumn("Estado");
-        tablaAgenda.addColumn("Cod. Orden");
-        
-        // Tabla Convenios
-        tablaConvenio.addColumn("Empresa");
-        tablaConvenio.addColumn("RUC");
-        tablaConvenio.addColumn("Teléfono");
-        
+        }    
+                
     }
 
     private void recuperarEstadoCuenta(Paciente pac) {

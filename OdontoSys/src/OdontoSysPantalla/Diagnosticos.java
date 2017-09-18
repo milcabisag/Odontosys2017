@@ -441,9 +441,9 @@ public class Diagnosticos extends javax.swing.JFrame {
             nuevo.setResumenHallazgos(jTextFieldResumenHallazgos.getText());
             nuevo.setPlanTratamiento(jTextFieldPlanTratamiento.getText());
             nuevo.setObservaciones(jTextFieldObservaciones.getText());
-            nuevo.setDoctor(user.getDoctor());
             nuevo.setPaciente(actual);
             nuevo.setOdontograma(odont);
+            nuevo.setUsuario(user);
         }else{
             JOptionPane.showMessageDialog(null,"Favor complete todos los campos", "Validar Diagnóstico", WIDTH );
         }

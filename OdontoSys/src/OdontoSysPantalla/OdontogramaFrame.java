@@ -8,7 +8,6 @@ package OdontoSysPantalla;
 
 import OdontoSysControlador.DetalleHallazgoControlador;
 import OdontoSysControlador.DienteControlador;
-import OdontoSysControlador.DoctorControlador;
 import OdontoSysControlador.OdontogramaControlador;
 import OdontoSysControlador.TratamientoControlador;
 import OdontoSysModelo.Odontograma;
@@ -19,7 +18,6 @@ import OdontoSysModelo.Doctor;
 import OdontoSysModelo.Hallazgo;
 import OdontoSysModelo.Tratamiento;
 import OdontoSysModelo.Usuario;
-import OdontoSysPantalla.Inicio;
 import OdontoSysPantallaAuxiliares.InsertarHallazgoAct;
 import OdontoSysPantallaAuxiliares.InsertarTratamientoAct;
 import OdontoSysPantallaAuxiliares.ObtenerPaciente;

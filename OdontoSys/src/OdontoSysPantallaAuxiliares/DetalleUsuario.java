@@ -361,13 +361,10 @@ System.out.println("Rol nuevo "+nuevo.getRol());
     }
 
     private void obtenerDoctor() {
-        Doctor doc = null;
-        while(doc == null){
-            ObtenerDoctor jDialog= new ObtenerDoctor(null, true);
-            jDialog.setVisible(true); 
-            doc = new Doctor();
-            doc = jDialog.getReturnStatus();
-            elDoctor = doc;
-        }
+        Doctor doc =  new Doctor();
+        ObtenerDoctor jDialog= new ObtenerDoctor(null, true);
+        jDialog.setVisible(true);
+        doc = jDialog.getReturnStatus();
+        elDoctor = doc;
     }
 }
