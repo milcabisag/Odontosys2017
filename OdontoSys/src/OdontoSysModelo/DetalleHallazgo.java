@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 18/09/2017 01:21:52 PM by Hibernate Tools 3.6.0
+// Generated 20/09/2017 01:46:33 PM by Hibernate Tools 3.6.0
 
 
 

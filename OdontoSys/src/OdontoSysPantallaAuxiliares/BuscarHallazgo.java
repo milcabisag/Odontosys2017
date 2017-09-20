@@ -164,13 +164,11 @@ public class BuscarHallazgo extends javax.swing.JDialog {
         
         if (fila > -1) {
             Integer id = Integer.parseInt((String)modeloTabla.getValueAt(fila, 0));
-            String nombreHallazgo = (String)modeloTabla.getValueAt(fila, 1);            
-            String simboloHallazgo = (String)modeloTabla.getValueAt(fila, 2);
+            String nombreHallazgo = (String)modeloTabla.getValueAt(fila, 1);   
             
             elHallazgo = new Hallazgo();           
             elHallazgo.setIdhallazgo(id);
             elHallazgo.setNombre(nombreHallazgo);
-            elHallazgo.setSimbolol(simboloHallazgo);
             
             doClose(elHallazgo);
         }else{

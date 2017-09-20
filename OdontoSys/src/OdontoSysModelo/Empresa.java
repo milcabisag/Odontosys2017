@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 18/09/2017 01:21:52 PM by Hibernate Tools 3.6.0
+// Generated 20/09/2017 01:46:33 PM by Hibernate Tools 3.6.0
 
 
 import java.util.HashSet;
@@ -12,8 +12,9 @@ public class Empresa  implements java.io.Serializable {
 
 
      private Integer idempresa;
+     private Ciudad ciudad;
      private String nombre;
-     private int ruc;
+     private String ruc;
      private String direccion;
      private String telefono;
      private String email;
@@ -32,14 +33,15 @@ public class Empresa  implements java.io.Serializable {
     }
 
 	
-    public Empresa(String nombre, int ruc, String direccion, String telefono, String estado) {
+    public Empresa(String nombre, String ruc, String direccion, String telefono, String estado) {
         this.nombre = nombre;
         this.ruc = ruc;
         this.direccion = direccion;
         this.telefono = telefono;
         this.estado = estado;
     }
-    public Empresa(String nombre, int ruc, String direccion, String telefono, String email, String nombreContacto, String telContacto, String observaciones, String estado, Set convenios, Set facturaConvenios, Set reciboEmpresas, Set movimientoEmpresas, Set notaCreditoEmpresas, Set facturaEmpresas) {
+    public Empresa(Ciudad ciudad, String nombre, String ruc, String direccion, String telefono, String email, String nombreContacto, String telContacto, String observaciones, String estado, Set convenios, Set facturaConvenios, Set reciboEmpresas, Set movimientoEmpresas, Set notaCreditoEmpresas, Set facturaEmpresas) {
+       this.ciudad = ciudad;
        this.nombre = nombre;
        this.ruc = ruc;
        this.direccion = direccion;
@@ -64,6 +66,13 @@ public class Empresa  implements java.io.Serializable {
     public void setIdempresa(Integer idempresa) {
         this.idempresa = idempresa;
     }
+    public Ciudad getCiudad() {
+        return this.ciudad;
+    }
+    
+    public void setCiudad(Ciudad ciudad) {
+        this.ciudad = ciudad;
+    }
     public String getNombre() {
         return this.nombre;
     }
@@ -71,11 +80,11 @@ public class Empresa  implements java.io.Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public int getRuc() {
+    public String getRuc() {
         return this.ruc;
     }
     
-    public void setRuc(int ruc) {
+    public void setRuc(String ruc) {
         this.ruc = ruc;
     }
     public String getDireccion() {

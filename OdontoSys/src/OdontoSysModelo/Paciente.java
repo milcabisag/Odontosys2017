@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 18/09/2017 01:21:52 PM by Hibernate Tools 3.6.0
+// Generated 20/09/2017 01:46:33 PM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -13,6 +13,7 @@ public class Paciente  implements java.io.Serializable {
 
 
      private Integer idPaciente;
+     private Ciudad ciudad;
      private String nombres;
      private String apellidos;
      private int nroCi;
@@ -21,7 +22,6 @@ public class Paciente  implements java.io.Serializable {
      private String telLb;
      private String telCel;
      private String direccion;
-     private String ciudad;
      private String email;
      private int peso;
      private String enfermedades;
@@ -44,14 +44,13 @@ public class Paciente  implements java.io.Serializable {
     }
 
 	
-    public Paciente(String nombres, String apellidos, int nroCi, Date fechaNac, String sexo, String direccion, String ciudad, int peso, String enfermedades, String medicamentos, String alergias, String cirugias, String observaciones, String estado) {
+    public Paciente(String nombres, String apellidos, int nroCi, Date fechaNac, String sexo, String direccion, int peso, String enfermedades, String medicamentos, String alergias, String cirugias, String observaciones, String estado) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.nroCi = nroCi;
         this.fechaNac = fechaNac;
         this.sexo = sexo;
         this.direccion = direccion;
-        this.ciudad = ciudad;
         this.peso = peso;
         this.enfermedades = enfermedades;
         this.medicamentos = medicamentos;
@@ -60,7 +59,8 @@ public class Paciente  implements java.io.Serializable {
         this.observaciones = observaciones;
         this.estado = estado;
     }
-    public Paciente(String nombres, String apellidos, int nroCi, Date fechaNac, String sexo, String telLb, String telCel, String direccion, String ciudad, String email, int peso, String enfermedades, String medicamentos, String alergias, String cirugias, String observaciones, String estado, Set facturas, Set agendas, Set ordenServicios, Set diagnosticos, Set movimientos, Set convenios, Set odontogramas, Set recibos, Set notaCreditos) {
+    public Paciente(Ciudad ciudad, String nombres, String apellidos, int nroCi, Date fechaNac, String sexo, String telLb, String telCel, String direccion, String email, int peso, String enfermedades, String medicamentos, String alergias, String cirugias, String observaciones, String estado, Set facturas, Set agendas, Set ordenServicios, Set diagnosticos, Set movimientos, Set convenios, Set odontogramas, Set recibos, Set notaCreditos) {
+       this.ciudad = ciudad;
        this.nombres = nombres;
        this.apellidos = apellidos;
        this.nroCi = nroCi;
@@ -69,7 +69,6 @@ public class Paciente  implements java.io.Serializable {
        this.telLb = telLb;
        this.telCel = telCel;
        this.direccion = direccion;
-       this.ciudad = ciudad;
        this.email = email;
        this.peso = peso;
        this.enfermedades = enfermedades;
@@ -95,6 +94,13 @@ public class Paciente  implements java.io.Serializable {
     
     public void setIdPaciente(Integer idPaciente) {
         this.idPaciente = idPaciente;
+    }
+    public Ciudad getCiudad() {
+        return this.ciudad;
+    }
+    
+    public void setCiudad(Ciudad ciudad) {
+        this.ciudad = ciudad;
     }
     public String getNombres() {
         return this.nombres;
@@ -151,13 +157,6 @@ public class Paciente  implements java.io.Serializable {
     
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-    public String getCiudad() {
-        return this.ciudad;
-    }
-    
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
     }
     public String getEmail() {
         return this.email;

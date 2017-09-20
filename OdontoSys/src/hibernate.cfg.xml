@@ -17,6 +17,7 @@
     <mapping resource="OdontoSysModelo/FacturaConvenio.hbm.xml"/>
     <mapping resource="OdontoSysModelo/OrdenServicio.hbm.xml"/>
     <mapping resource="OdontoSysModelo/Hallazgo.hbm.xml"/>
+    <mapping resource="OdontoSysModelo/Ciudad.hbm.xml"/>
     <mapping resource="OdontoSysModelo/DetalleNota.hbm.xml"/>
     <mapping resource="OdontoSysModelo/Paciente.hbm.xml"/>
     <mapping resource="OdontoSysModelo/Factura.hbm.xml"/>
