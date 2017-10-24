@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 20/09/2017 01:46:33 PM by Hibernate Tools 3.6.0
+// Generated 24/10/2017 08:56:38 AM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -31,11 +31,11 @@ public class Paciente  implements java.io.Serializable {
      private String observaciones;
      private String estado;
      private Set facturas = new HashSet(0);
+     private Set convPacientes = new HashSet(0);
      private Set agendas = new HashSet(0);
      private Set ordenServicios = new HashSet(0);
      private Set diagnosticos = new HashSet(0);
      private Set movimientos = new HashSet(0);
-     private Set convenios = new HashSet(0);
      private Set odontogramas = new HashSet(0);
      private Set recibos = new HashSet(0);
      private Set notaCreditos = new HashSet(0);
@@ -59,7 +59,7 @@ public class Paciente  implements java.io.Serializable {
         this.observaciones = observaciones;
         this.estado = estado;
     }
-    public Paciente(Ciudad ciudad, String nombres, String apellidos, int nroCi, Date fechaNac, String sexo, String telLb, String telCel, String direccion, String email, int peso, String enfermedades, String medicamentos, String alergias, String cirugias, String observaciones, String estado, Set facturas, Set agendas, Set ordenServicios, Set diagnosticos, Set movimientos, Set convenios, Set odontogramas, Set recibos, Set notaCreditos) {
+    public Paciente(Ciudad ciudad, String nombres, String apellidos, int nroCi, Date fechaNac, String sexo, String telLb, String telCel, String direccion, String email, int peso, String enfermedades, String medicamentos, String alergias, String cirugias, String observaciones, String estado, Set facturas, Set convPacientes, Set agendas, Set ordenServicios, Set diagnosticos, Set movimientos, Set odontogramas, Set recibos, Set notaCreditos) {
        this.ciudad = ciudad;
        this.nombres = nombres;
        this.apellidos = apellidos;
@@ -78,11 +78,11 @@ public class Paciente  implements java.io.Serializable {
        this.observaciones = observaciones;
        this.estado = estado;
        this.facturas = facturas;
+       this.convPacientes = convPacientes;
        this.agendas = agendas;
        this.ordenServicios = ordenServicios;
        this.diagnosticos = diagnosticos;
        this.movimientos = movimientos;
-       this.convenios = convenios;
        this.odontogramas = odontogramas;
        this.recibos = recibos;
        this.notaCreditos = notaCreditos;
@@ -221,6 +221,13 @@ public class Paciente  implements java.io.Serializable {
     public void setFacturas(Set facturas) {
         this.facturas = facturas;
     }
+    public Set getConvPacientes() {
+        return this.convPacientes;
+    }
+    
+    public void setConvPacientes(Set convPacientes) {
+        this.convPacientes = convPacientes;
+    }
     public Set getAgendas() {
         return this.agendas;
     }
@@ -248,13 +255,6 @@ public class Paciente  implements java.io.Serializable {
     
     public void setMovimientos(Set movimientos) {
         this.movimientos = movimientos;
-    }
-    public Set getConvenios() {
-        return this.convenios;
-    }
-    
-    public void setConvenios(Set convenios) {
-        this.convenios = convenios;
     }
     public Set getOdontogramas() {
         return this.odontogramas;

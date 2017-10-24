@@ -407,15 +407,18 @@ public class Empresas extends javax.swing.JFrame {
                                     .addComponent(jCBciudad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabelnomb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabelruc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabeltel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabeldir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabelemail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addComponent(jLabelncon, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
                                     .addComponent(jLabeltcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabelobs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addGroup(jPanelDatosLayout.createSequentialGroup()
+                                        .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jLabelnomb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabelruc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabeltel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabeldir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabelemail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(jLabelobs, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addGap(32, 32, 32))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -455,7 +458,6 @@ public class Empresas extends javax.swing.JFrame {
                 .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCBciudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDatosLayout.createSequentialGroup()
                         .addGap(93, 93, 93)
@@ -740,14 +742,14 @@ public class Empresas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonAtras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(428, 428, 428)
                         .addComponent(jButtonMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(168, 168, 168)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -807,6 +809,7 @@ public class Empresas extends javax.swing.JFrame {
         // TODO add your handling code here:
         habilitarDatos();
         jTextFieldDNombres.requestFocus(rootPaneCheckingEnabled);
+        jButtonInsertar.setVisible(false);
         jButtonGuardar.setVisible(true);
         jButtonAtras.setVisible(true);
     }//GEN-LAST:event_jButtonInsertarActionPerformed
@@ -856,21 +859,23 @@ public class Empresas extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNombreContactoActionPerformed
 
     private void jButtonGuardarModificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarModificacionActionPerformed
-        validaciones();
-        actualizarEmpresa(empresaActual);
-        if(empresaActual != null && empresaActual.getIdempresa() > 0){
-            boolean v = EmpresaVista.validarEmpresa(empresaActual);
-            if(v){
-                int i = EmpresaControlador.UpDatePaciente(empresaActual);
-                if(i>0){
-                    JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Paciente", WIDTH);
-                    deshabilitarDatos();
-                    habilitarBotones();
-                    jButtonGuardarModificacion.setVisible(false);
-                }else{
-                    JOptionPane.showMessageDialog(rootPane, "No se logró actualizar paciente", "Modificar Paciente", WIDTH);
+        boolean v = validaciones();
+        if(v){
+            actualizarEmpresa(empresaActual);
+            if(empresaActual != null && empresaActual.getIdempresa() > 0){
+                v = EmpresaVista.validarEmpresa(empresaActual);
+                if(v){
+                    int i = EmpresaControlador.UpDatePaciente(empresaActual);
+                    if(i>0){
+                        JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Paciente", WIDTH);
+                        deshabilitarDatos();
+                        habilitarBotones();
+                        jButtonGuardarModificacion.setVisible(false);
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "No se logró actualizar paciente", "Modificar Paciente", WIDTH);
+                    }
                 }
-            }
+            }   
         }
     }//GEN-LAST:event_jButtonGuardarModificacionActionPerformed
 
@@ -880,9 +885,11 @@ public class Empresas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAtrasActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        validaciones();
-        insertarEmpresa();
-        BotonInvisibles();
+        boolean v = validaciones();
+        if(v){
+            insertarEmpresa();
+            BotonInvisibles();
+        }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void PacienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PacienteKeyReleased
@@ -960,7 +967,6 @@ public class Empresas extends javax.swing.JFrame {
         String n = jTextFieldDNombres.getText();
         if(n.length() < 3 || n.length() > 30){
             jLabelnomb.setVisible(true);
-            jTextFieldDNombres.requestFocus();
         }else{
             jLabelnomb.setVisible(false);
         }
@@ -970,7 +976,6 @@ public class Empresas extends javax.swing.JFrame {
         String r = jTextFieldRUC.getText();
         if(r.length() < 6 || r.length() > 15){
             jLabelruc.setVisible(true);
-            jTextFieldRUC.requestFocus();
         }else{
             jLabelruc.setVisible(false);
         }
@@ -980,7 +985,6 @@ public class Empresas extends javax.swing.JFrame {
         String t = jTextFieldDTel.getText();
         if(t.length() < 6 || t.length() > 20){
             jLabeltel.setVisible(true);
-            jTextFieldDTel.requestFocus();
         }else{
             jLabeltel.setVisible(false);
         }
@@ -990,7 +994,6 @@ public class Empresas extends javax.swing.JFrame {
         String d = jTextFieldDDireccion.getText();
         if(d.length() < 5 || d.length() > 50){
             jLabeldir.setVisible(true);
-            jTextFieldDDireccion.requestFocus();
         }else{
             jLabeldir.setVisible(false);
         }
@@ -1000,7 +1003,6 @@ public class Empresas extends javax.swing.JFrame {
         String e = jTextFieldDEmail.getText();
         if(e.length() > 30){
             jLabelemail.setVisible(true);
-            jTextFieldDEmail.requestFocus();
         }else{
             jLabelemail.setVisible(false);
         }
@@ -1010,7 +1012,6 @@ public class Empresas extends javax.swing.JFrame {
         String n = jTextFieldNombreContacto.getText();
         if(n.length() < 5 || n.length() > 50){
             jLabelncon.setVisible(true);
-            jTextFieldNombreContacto.requestFocus();
         }else{
             jLabelncon.setVisible(false);
         }
@@ -1020,7 +1021,6 @@ public class Empresas extends javax.swing.JFrame {
         String t = jTextFieldTeléfonoContacto.getText();
         if(t.length() > 20){
             jLabeltcon.setVisible(true);
-            jTextFieldTeléfonoContacto.requestFocus();
         }else{
             jLabeltcon.setVisible(false);
         }
@@ -1030,7 +1030,6 @@ public class Empresas extends javax.swing.JFrame {
         String o = jTextFieldObservaciones.getText();
         if(o.length() > 100){
             jLabelobs.setVisible(true);
-            jTextFieldObservaciones.requestFocus();
         }else{
             jLabelobs.setVisible(false);
         }
@@ -1261,7 +1260,7 @@ public class Empresas extends javax.swing.JFrame {
             jTextFieldRUC.setText(String.valueOf(empresa.getRuc()));
             jTextFieldDTel.setText(empresa.getTelefono());
             jTextFieldDDireccion.setText(empresa.getDireccion());
-            jCBciudad.setSelectedIndex(empresa.getCiudad().getIdciudad());
+            jCBciudad.setSelectedItem(empresa.getCiudad().getNombre());
             jTextFieldDEmail.setText(empresa.getEmail());
             jTextFieldNombreContacto.setText(empresa.getNombreContacto());
             jTextFieldTeléfonoContacto.setText(empresa.getTelContacto());
@@ -1392,12 +1391,16 @@ public class Empresas extends javax.swing.JFrame {
         jTextFieldTeléfonoContacto.setEditable(false);
     }
 
-    private void validaciones() {
+    private boolean validaciones() {
+        boolean v = false;
         if(jLabelnomb.isVisible() == true || jLabelruc.isVisible() == true || jLabeldir.isVisible() == true || 
                 jLabelemail.isVisible() == true || jLabeltel.isVisible() == true || jLabelncon.isVisible() == true || 
                 jLabeltcon.isVisible() == true || jLabelobs.isVisible() == true){
             JOptionPane.showMessageDialog(null, "Favor complete correctamente los campos");
+        }else{
+            v = true;
         }
+        return v;
     }
 
     private void recuperarCiudades() {

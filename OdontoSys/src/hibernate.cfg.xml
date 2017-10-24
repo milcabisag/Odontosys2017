@@ -14,6 +14,7 @@
     <mapping resource="OdontoSysModelo/NotaCreditoEmpresa.hbm.xml"/>
     <mapping resource="OdontoSysModelo/DetalleHallazgo.hbm.xml"/>
     <mapping resource="OdontoSysModelo/FacturaEmpresa.hbm.xml"/>
+    <mapping resource="OdontoSysModelo/DetalleConvenio.hbm.xml"/>
     <mapping resource="OdontoSysModelo/FacturaConvenio.hbm.xml"/>
     <mapping resource="OdontoSysModelo/OrdenServicio.hbm.xml"/>
     <mapping resource="OdontoSysModelo/Hallazgo.hbm.xml"/>
@@ -28,6 +29,7 @@
     <mapping resource="OdontoSysModelo/Empresa.hbm.xml"/>
     <mapping resource="OdontoSysModelo/Movimiento.hbm.xml"/>
     <mapping resource="OdontoSysModelo/DetalleOrden.hbm.xml"/>
+    <mapping resource="OdontoSysModelo/ConvPaciente.hbm.xml"/>
     <mapping resource="OdontoSysModelo/Tratamiento.hbm.xml"/>
     <mapping resource="OdontoSysModelo/NotaCredito.hbm.xml"/>
     <mapping resource="OdontoSysModelo/ReciboEmpresa.hbm.xml"/>

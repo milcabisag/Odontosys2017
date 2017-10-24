@@ -12,7 +12,7 @@ import OdontoSysModelo.Convenio;
 import OdontoSysModelo.Empresa;
 import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Servicio;
-import OdontoSysPantalla.Convenios;
+import OdontoSysPantalla.Convenios2;
 import OdontoSysPantallaAuxiliares.BuscarServicio;
 import OdontoSysPantallaAuxiliares.ObtenerEmpresa;
 import OdontoSysPantallaAuxiliares.ObtenerPaciente;
@@ -31,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
 public class DetalleConvenio extends javax.swing.JFrame {
 
     /**
-     * Creates new form ConveniosPacientes
+     * Creates new form Convenios2Pacientes
      */
     public DetalleConvenio() {
         initComponents();

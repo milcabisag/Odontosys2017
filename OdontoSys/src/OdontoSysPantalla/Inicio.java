@@ -417,7 +417,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButtonConveniosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConveniosActionPerformed
         
-        Convenios jFrame = new Convenios();
+        Convenios2 jFrame = new Convenios2();
         jFrame.setVisible(true);
         
     }//GEN-LAST:event_jButtonConveniosActionPerformed

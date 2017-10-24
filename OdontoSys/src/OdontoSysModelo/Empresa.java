@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 20/09/2017 01:46:33 PM by Hibernate Tools 3.6.0
+// Generated 24/10/2017 08:56:38 AM by Hibernate Tools 3.6.0
 
 
 import java.util.HashSet;

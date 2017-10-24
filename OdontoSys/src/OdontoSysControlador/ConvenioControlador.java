@@ -9,6 +9,7 @@ package OdontoSysControlador;
 import OdontoSysModelo.Convenio;
 import OdontoSysModelo.Empresa;
 import OdontoSysModelo.Paciente;
+import OdontoSysModelo.DetalleConvenio;
 import OdontoSysUtil.NewHibernateUtil;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.util.ArrayList;
@@ -25,18 +26,21 @@ import org.hibernate.Transaction;
  */
 public class ConvenioControlador {
  
-    public static boolean insertarConvenio(ArrayList<Convenio> conv) {
-        int i = 0;
+    public static boolean insertarConvenio(Convenio conv, ArrayList<DetalleConvenio> det) {
         boolean val = false;
         Session sesion;
         try{
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             sesion.getTransaction().begin();
-            Iterator<Convenio> it = conv.iterator();
-            Convenio c;
+            
+            sesion.save(conv);                          //Guarda el convenio
+            
+            Iterator<DetalleConvenio> it = det.iterator();
+            DetalleConvenio d = new DetalleConvenio();
             while(it.hasNext()){
-                c = (Convenio) it.next();
-                sesion.save(c);                       
+                d = (DetalleConvenio) it.next();
+                d.setConvenio(conv);
+                sesion.save(d);                       //Guarda el detalle del convenio
             }
             sesion.getTransaction().commit();
             val = true;
@@ -46,7 +50,7 @@ public class ConvenioControlador {
         return val;
     }
     
-    public static boolean BuscarConvenio(Convenio conv){
+    /*public static boolean BuscarConvenio(Convenio conv){
         Session sesion;
         Transaction tr = null;
         boolean c = false;
@@ -66,29 +70,25 @@ public class ConvenioControlador {
         }
         return c;
     }
+   */
     
-    public static ArrayList<Convenio> BuscarConvenios(Paciente Pac, Empresa Emp){
+    public static ArrayList<DetalleConvenio> BuscarDetalleConvenio(Convenio conv){
         Session sesion;
         Transaction tr = null;
-        ArrayList<Convenio> lis = new ArrayList();;
+        ArrayList<DetalleConvenio> lis = null;
         String hql;
         try{        
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             tr = sesion.beginTransaction();
-            if(Pac == null && Emp != null){             //Lamado desde empresa; convenios asociados a empresa = Emp
-                hql = "FROM Convenio WHERE estado = 'Activo' AND empresa = "+Emp.getIdempresa();
-            }else if(Pac != null &&Emp != null){        //convenios con paciente = Pac y empresa = Emp
-                hql = "FROM Convenio WHERE estado = 'Activo' AND paciente = "+ Pac.getIdPaciente() +" AND empresa = "+ Emp.getIdempresa();
-            }else if(Pac != null && Emp == null){       //convenios asociado a paciente = Pac
-                hql = "FROM Convenio WHERE estado = 'Activo' AND paciente = "+ Pac.getIdPaciente();
-            }else{                                      //lista de convenios Pac = Emp = NULL
-                hql = "FROM Convenio WHERE estado = 'Activo'";
-            }
+            hql = "FROM detalle_convenio WHERE estado = 'Activo' AND convenio = "+conv.getIdconvenio();
             
             Query query = sesion.createQuery(hql); 
-            Iterator<Convenio> it = query.iterate();
-            while(it.hasNext()){
-                lis.add(it.next());
+            Iterator<DetalleConvenio> it = query.iterate();
+            if(hql != null){
+                lis = new ArrayList();
+                while(it.hasNext()){
+                    lis.add(it.next());
+                }
             }
         }catch(HibernateException ex){
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Convenio Controlador", JOptionPane.INFORMATION_MESSAGE);
@@ -122,18 +122,20 @@ public class ConvenioControlador {
         return lis;
     }
     
-    public static boolean modificarConvenio(ArrayList<Convenio> conv) {
-        int i = 0;
+    public static boolean modificarConvenio(Convenio conv, ArrayList<DetalleConvenio> det) {
         boolean val = false;
         Session session;
         try{
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Transaction tr = session.beginTransaction();   
-            Iterator<Convenio> it = conv.iterator();
-            Convenio c;
+            Transaction tr = session.beginTransaction();
+            
+            session.merge(conv);
+            
+            Iterator<DetalleConvenio> it = det.iterator();
+            DetalleConvenio d;
             while(it.hasNext()){
-                c = (Convenio) it.next();
-                session.merge(c);                       
+                d = (DetalleConvenio) it.next();
+                session.merge(d);                       
             }           
                  
             tr.commit();      
@@ -166,19 +168,22 @@ public class ConvenioControlador {
         return lis;
     }
     
-    public static boolean eliminarConvenio(ArrayList<Convenio> conv) {
-        int i = 0;
+    public static boolean eliminarConvenio(Convenio conv, ArrayList<DetalleConvenio> det) {
         boolean val = false;
         Session session;
         try{
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Transaction tr = session.beginTransaction();   
-            Iterator<Convenio> it = conv.iterator();
-            Convenio c = new Convenio();
+            Transaction tr = session.beginTransaction(); 
+            
+            conv.setEstado("Inactivo");
+            session.merge(conv);
+            
+            Iterator<DetalleConvenio> it = det.iterator();
+            DetalleConvenio d = new DetalleConvenio();
             while(it.hasNext()){
-                c = (Convenio) it.next();
-                c.setEstado("Inactivo");
-                session.merge(c);
+                d = (DetalleConvenio) it.next();
+                d.setEstado("Inactivo");
+                session.merge(d);
             }
             tr.commit();           
             session.close();  

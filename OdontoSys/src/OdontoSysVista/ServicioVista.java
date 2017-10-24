@@ -8,6 +8,7 @@ package OdontoSysVista;
 
 import OdontoSysControlador.ServicioControlador;
 import OdontoSysModelo.Servicio;
+import static java.awt.image.ImageObserver.WIDTH;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -33,12 +34,16 @@ public class ServicioVista {
         int desc = serv.getDescripcion().trim().compareTo("");//n == 0 si existe cadena vacía
         int prec = serv.getPrecio();
         
-        if(desc!=0 && prec>0){
-            return true;
-        }else{
-            JOptionPane.showMessageDialog(null, "Favor complete todos los campos");
+        if(desc==0  || desc < 3 || desc > 20){
+            JOptionPane.showMessageDialog(null, "El servicio debe tener entre 3 y 20 caracteres", "Validación de Usuario", WIDTH);
             return false;
-        } 
-    }
-    
-}
+        }else if(prec == 0 || prec > 0){
+            JOptionPane.showMessageDialog(null, "El precio del servicio debe ser mayor a 0", "Validación de Usuario", WIDTH);
+            return false;
+        }else{
+                return true;
+        }
+        
+     }
+        
+ }

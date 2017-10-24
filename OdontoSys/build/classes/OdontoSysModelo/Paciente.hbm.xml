@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 20/09/2017 01:46:36 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 24/10/2017 08:56:48 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.Paciente" table="paciente" catalog="odontosys">
         <id name="idPaciente" type="java.lang.Integer">
@@ -65,6 +65,12 @@
             </key>
             <one-to-many class="OdontoSysModelo.Factura" />
         </set>
+        <set name="convPacientes" table="conv_paciente" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_paciente" not-null="true" />
+            </key>
+            <one-to-many class="OdontoSysModelo.ConvPaciente" />
+        </set>
         <set name="agendas" table="agenda" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="fk_paciente" not-null="true" />
@@ -88,12 +94,6 @@
                 <column name="fk_paciente" not-null="true" />
             </key>
             <one-to-many class="OdontoSysModelo.Movimiento" />
-        </set>
-        <set name="convenios" table="convenio" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="fk_paciente" not-null="true" />
-            </key>
-            <one-to-many class="OdontoSysModelo.Convenio" />
         </set>
         <set name="odontogramas" table="odontograma" inverse="true" lazy="true" fetch="select">
             <key>

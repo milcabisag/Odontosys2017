@@ -25,14 +25,14 @@ public class UsuarioVista {
         if(r == "Doctor" && nuevo.getDoctor().getIdDoctor() == null){
             JOptionPane.showMessageDialog(null, "Favor ingrese un Doctor", "Validación de Usuario", WIDTH);
             return -1;
-        }    
-        if(n!=0 && c!=0){
-                return UsuarioControlador.InsertarUsuario(nuevo);
-        }else{
-            JOptionPane.showMessageDialog(null, "Favor complete todos los campos", "Validación de Usuario", WIDTH);
+        }else if(n==0  || n < 3 || n > 10){
+            JOptionPane.showMessageDialog(null, "El nombre debe tener entre 3 y 10 caracteres", "Validación de Usuario", WIDTH);
             return -1;
-        }    
-    }
-      
-    
-}
+        }else if(c == 0 || c < 4 || c > 10){
+            JOptionPane.showMessageDialog(null, "La contraseña debe tener entre 4 y 10 caracteres", "Validación de Usuario", WIDTH);
+            return -1;
+        }else
+                return UsuarioControlador.InsertarUsuario(nuevo);
+        } 
+    }      
+

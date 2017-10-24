@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 20/09/2017 01:46:33 PM by Hibernate Tools 3.6.0
+// Generated 24/10/2017 08:56:38 AM by Hibernate Tools 3.6.0
 
 
 import java.util.HashSet;
@@ -15,8 +15,8 @@ public class Servicio  implements java.io.Serializable {
      private String descripcion;
      private int precio;
      private String estado;
+     private Set detalleConvenios = new HashSet(0);
      private Set detalleOrdens = new HashSet(0);
-     private Set convenios = new HashSet(0);
      private Set agendas = new HashSet(0);
      private Set tratamientos = new HashSet(0);
 
@@ -29,12 +29,12 @@ public class Servicio  implements java.io.Serializable {
         this.precio = precio;
         this.estado = estado;
     }
-    public Servicio(String descripcion, int precio, String estado, Set detalleOrdens, Set convenios, Set agendas, Set tratamientos) {
+    public Servicio(String descripcion, int precio, String estado, Set detalleConvenios, Set detalleOrdens, Set agendas, Set tratamientos) {
        this.descripcion = descripcion;
        this.precio = precio;
        this.estado = estado;
+       this.detalleConvenios = detalleConvenios;
        this.detalleOrdens = detalleOrdens;
-       this.convenios = convenios;
        this.agendas = agendas;
        this.tratamientos = tratamientos;
     }
@@ -67,19 +67,19 @@ public class Servicio  implements java.io.Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+    public Set getDetalleConvenios() {
+        return this.detalleConvenios;
+    }
+    
+    public void setDetalleConvenios(Set detalleConvenios) {
+        this.detalleConvenios = detalleConvenios;
+    }
     public Set getDetalleOrdens() {
         return this.detalleOrdens;
     }
     
     public void setDetalleOrdens(Set detalleOrdens) {
         this.detalleOrdens = detalleOrdens;
-    }
-    public Set getConvenios() {
-        return this.convenios;
-    }
-    
-    public void setConvenios(Set convenios) {
-        this.convenios = convenios;
     }
     public Set getAgendas() {
         return this.agendas;
