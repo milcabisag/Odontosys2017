@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 25/10/2017 11:24:35 AM by Hibernate Tools 3.6.0
+// Generated 25/10/2017 12:54:45 PM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -13,13 +13,12 @@ public class Factura  implements java.io.Serializable {
 
 
      private Integer idfactura;
+     private Talonario talonario;
      private OrdenServicio ordenServicio;
      private Usuario usuario;
      private Paciente paciente;
      private Date fecha;
      private String tipoFactura;
-     private int timbrado;
-     private String nroFactura;
      private int descuento;
      private String estado;
      private int montoTotal;
@@ -32,27 +31,25 @@ public class Factura  implements java.io.Serializable {
     }
 
 	
-    public Factura(OrdenServicio ordenServicio, Usuario usuario, Paciente paciente, Date fecha, String tipoFactura, int timbrado, String nroFactura, int descuento, String estado, int montoTotal, int saldo) {
+    public Factura(Talonario talonario, OrdenServicio ordenServicio, Usuario usuario, Paciente paciente, Date fecha, String tipoFactura, int descuento, String estado, int montoTotal, int saldo) {
+        this.talonario = talonario;
         this.ordenServicio = ordenServicio;
         this.usuario = usuario;
         this.paciente = paciente;
         this.fecha = fecha;
         this.tipoFactura = tipoFactura;
-        this.timbrado = timbrado;
-        this.nroFactura = nroFactura;
         this.descuento = descuento;
         this.estado = estado;
         this.montoTotal = montoTotal;
         this.saldo = saldo;
     }
-    public Factura(OrdenServicio ordenServicio, Usuario usuario, Paciente paciente, Date fecha, String tipoFactura, int timbrado, String nroFactura, int descuento, String estado, int montoTotal, int saldo, Set notaCreditos, Set recibos, Set facturaConvenios) {
+    public Factura(Talonario talonario, OrdenServicio ordenServicio, Usuario usuario, Paciente paciente, Date fecha, String tipoFactura, int descuento, String estado, int montoTotal, int saldo, Set notaCreditos, Set recibos, Set facturaConvenios) {
+       this.talonario = talonario;
        this.ordenServicio = ordenServicio;
        this.usuario = usuario;
        this.paciente = paciente;
        this.fecha = fecha;
        this.tipoFactura = tipoFactura;
-       this.timbrado = timbrado;
-       this.nroFactura = nroFactura;
        this.descuento = descuento;
        this.estado = estado;
        this.montoTotal = montoTotal;
@@ -68,6 +65,13 @@ public class Factura  implements java.io.Serializable {
     
     public void setIdfactura(Integer idfactura) {
         this.idfactura = idfactura;
+    }
+    public Talonario getTalonario() {
+        return this.talonario;
+    }
+    
+    public void setTalonario(Talonario talonario) {
+        this.talonario = talonario;
     }
     public OrdenServicio getOrdenServicio() {
         return this.ordenServicio;
@@ -103,20 +107,6 @@ public class Factura  implements java.io.Serializable {
     
     public void setTipoFactura(String tipoFactura) {
         this.tipoFactura = tipoFactura;
-    }
-    public int getTimbrado() {
-        return this.timbrado;
-    }
-    
-    public void setTimbrado(int timbrado) {
-        this.timbrado = timbrado;
-    }
-    public String getNroFactura() {
-        return this.nroFactura;
-    }
-    
-    public void setNroFactura(String nroFactura) {
-        this.nroFactura = nroFactura;
     }
     public int getDescuento() {
         return this.descuento;

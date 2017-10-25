@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 25/10/2017 11:24:35 AM by Hibernate Tools 3.6.0
+// Generated 25/10/2017 12:54:45 PM by Hibernate Tools 3.6.0
 
 
 import java.util.HashSet;
@@ -13,7 +13,9 @@ public class Convenio  implements java.io.Serializable {
 
      private Integer idconvenio;
      private Empresa empresa;
-     private String nombre;
+     private Servicio servicio;
+     private Paciente paciente;
+     private int porcentaje;
      private String observacion;
      private String estado;
      private Set convPacientes = new HashSet(0);
@@ -23,14 +25,18 @@ public class Convenio  implements java.io.Serializable {
     }
 
 	
-    public Convenio(Empresa empresa, String nombre, String estado) {
+    public Convenio(Empresa empresa, Servicio servicio, Paciente paciente, int porcentaje, String estado) {
         this.empresa = empresa;
-        this.nombre = nombre;
+        this.servicio = servicio;
+        this.paciente = paciente;
+        this.porcentaje = porcentaje;
         this.estado = estado;
     }
-    public Convenio(Empresa empresa, String nombre, String observacion, String estado, Set convPacientes, Set detalleConvenios) {
+    public Convenio(Empresa empresa, Servicio servicio, Paciente paciente, int porcentaje, String observacion, String estado, Set convPacientes, Set detalleConvenios) {
        this.empresa = empresa;
-       this.nombre = nombre;
+       this.servicio = servicio;
+       this.paciente = paciente;
+       this.porcentaje = porcentaje;
        this.observacion = observacion;
        this.estado = estado;
        this.convPacientes = convPacientes;
@@ -51,12 +57,26 @@ public class Convenio  implements java.io.Serializable {
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
-    public String getNombre() {
-        return this.nombre;
+    public Servicio getServicio() {
+        return this.servicio;
     }
     
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
+    }
+    public Paciente getPaciente() {
+        return this.paciente;
+    }
+    
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+    public int getPorcentaje() {
+        return this.porcentaje;
+    }
+    
+    public void setPorcentaje(int porcentaje) {
+        this.porcentaje = porcentaje;
     }
     public String getObservacion() {
         return this.observacion;

@@ -37,6 +37,7 @@
     <mapping resource="OdontoSysModelo/Doctor.hbm.xml"/>
     <mapping resource="OdontoSysModelo/Diente.hbm.xml"/>
     <mapping resource="OdontoSysModelo/Recibo.hbm.xml"/>
+    <mapping resource="OdontoSysModelo/Datos.hbm.xml"/>
     <mapping resource="OdontoSysModelo/DetalleRecibo.hbm.xml"/>
     <mapping resource="OdontoSysModelo/Convenio.hbm.xml"/>
     <mapping resource="OdontoSysModelo/Odontograma.hbm.xml"/>

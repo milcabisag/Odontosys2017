@@ -1,21 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 25/10/2017 11:24:42 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 25/10/2017 12:54:51 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.Empresa" table="empresa" catalog="odontosys">
         <id name="idempresa" type="java.lang.Integer">
             <column name="idempresa" />
             <generator class="identity" />
         </id>
-        <many-to-one name="ciudad" class="OdontoSysModelo.Ciudad" fetch="select">
-            <column name="fk_ciudad" />
-        </many-to-one>
         <property name="nombre" type="string">
             <column name="nombre" length="100" not-null="true" />
         </property>
-        <property name="ruc" type="string">
-            <column name="ruc" length="15" not-null="true" />
+        <property name="ruc" type="int">
+            <column name="ruc" not-null="true" />
         </property>
         <property name="direccion" type="string">
             <column name="direccion" length="100" not-null="true" />

@@ -98,9 +98,9 @@ public class ReciboControlador {
             m = new Movimiento();
             m.setPaciente(r.getPaciente());
             if(r.getFactura().getTipoFactura().compareTo("Contado") == 0){
-                m.setMovimiento("Factura Contado Nro "+r.getFactura().getNroFactura());
+                m.setMovimiento("Factura Contado Nro "+r.getFactura().getTalonario().getNroFactura());
             }else{
-                m.setMovimiento("Recibo por Factura Nro "+r.getFactura().getNroFactura());
+                m.setMovimiento("Recibo por Factura Nro "+r.getFactura().getTalonario().getNroFactura());
             }
             m.setFecha(r.getFecha());
             m.setDebe(0);

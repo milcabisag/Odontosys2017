@@ -5,6 +5,13 @@
  */
 package OdontoSysPantalla;
 
+import OdontoSysModelo.Datos;
+import OdontoSysUtil.NewHibernateUtil;
+import static java.awt.image.ImageObserver.WIDTH;
+import javax.swing.JOptionPane;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+
 /**
  *
  * @author user
@@ -12,8 +19,11 @@ package OdontoSysPantalla;
 public class DatosEmpresa extends javax.swing.JFrame {
 
     /**
-     * Creates new form DatosEmpresa
+     * Variables
      */
+    
+    Datos dat = new Datos();
+    
     public DatosEmpresa() {
         initComponents();
     }
@@ -94,6 +104,11 @@ public class DatosEmpresa extends javax.swing.JFrame {
         jButtonGua.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonGua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/guardar.png"))); // NOI18N
         jButtonGua.setText("Guardar");
+        jButtonGua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuaActionPerformed(evt);
+            }
+        });
 
         jButtonCanc.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonCanc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
@@ -185,6 +200,20 @@ public class DatosEmpresa extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonGuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuaActionPerformed
+        // Esta información se sobreescribe sobre el id 1 de la tabla datos
+        dat.setNombreEmpresa(jTextFieldEmp.getText());
+        dat.setNombrePropietario(jTextFieldProp.getText());
+        dat.setRuc(jTextFieldRUC.getText());
+        dat.setActividad(jTextFieldAct.getText());
+        dat.setDireccion(jTextFieldDir.getText());
+        dat.setCiudad(jTextFieldCiu.getText());
+        dat.setTelefono(jTextFieldTel.getText());
+        
+        validar();
+        
+    }//GEN-LAST:event_jButtonGuaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -240,4 +269,48 @@ public class DatosEmpresa extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldRUC;
     private javax.swing.JTextField jTextFieldTel;
     // End of variables declaration//GEN-END:variables
+
+    private void validar() {
+        
+        if(dat.getNombreEmpresa() == null || dat.getNombreEmpresa().length() > 100){
+            JOptionPane.showMessageDialog(null, "Favor complete el nombre de la Empresa", "Datos de la Empresa", JOptionPane.INFORMATION_MESSAGE);   
+        }else if(dat.getNombrePropietario() == null || dat.getNombrePropietario().length() > 100){
+            JOptionPane.showMessageDialog(null, "Favor complete el nombre del Propietario", "Datos de la Empresa", JOptionPane.INFORMATION_MESSAGE);
+        }else if(dat.getRuc() == null || dat.getRuc().length() > 8){
+            JOptionPane.showMessageDialog(null, "Favor complete el RUC de la Empresa, hasta 8 caracteres", "Datos de la Empresa", JOptionPane.INFORMATION_MESSAGE);
+        }else if(dat.getActividad() == null || dat.getActividad().length() > 200){
+            JOptionPane.showMessageDialog(null, "Favor complete la actividad de la Empresa, hasta 200 caracteres", "Datos de la Empresa", JOptionPane.INFORMATION_MESSAGE);
+        }else if(dat.getDireccion() == null || dat.getDireccion().length() > 100){
+            JOptionPane.showMessageDialog(null, "Favor complete la dirección de la Empresa, hasta 100 caracteres", "Datos de la Empresa", JOptionPane.INFORMATION_MESSAGE);
+        }else if(dat.getCiudad() == null || dat.getCiudad().length() > 50){
+            JOptionPane.showMessageDialog(null, "Favor complete la ciudad - pais de la Empresa, hasta 50 caracteres", "Datos de la Empresa", JOptionPane.INFORMATION_MESSAGE);
+        }else if(dat.getTelefono() == null || dat.getTelefono().length() > 10){
+            JOptionPane.showMessageDialog(null, "Favor complete el teléfono de la Empresa, hasta 10 caracteres", "Datos de la Empresa", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            guardar();
+        }
+    }
+
+    private void guardar() {
+        
+        Session sesion;
+        try{
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            sesion.getTransaction().begin();
+            String hqlUpdate = "UPDATE Factura SET saldo = " + facturaActual.getSaldo() + " WHERE idFactura = " + facturaActual.getIdfactura();
+        Query updatedEntities = session.createQuery( hqlUpdate );
+        updatedEntities.executeUpdate();
+        tx.commit();
+            sesion.merge(dat);
+            sesion.refresh(dat);            
+                       
+            sesion.getTransaction().commit(); 
+            sesion.close();
+            
+        }catch(HibernateException ex){
+            System.out.println(ex.getMessage());
+           JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Datos de Empresa", WIDTH );
+        }  
+        
+    }
 }

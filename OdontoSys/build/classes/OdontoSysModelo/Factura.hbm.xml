@@ -1,13 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 25/10/2017 11:24:42 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 25/10/2017 12:54:51 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.Factura" table="factura" catalog="odontosys">
         <id name="idfactura" type="java.lang.Integer">
             <column name="idfactura" />
             <generator class="identity" />
         </id>
+        <many-to-one name="talonario" class="OdontoSysModelo.Talonario" fetch="select">
+            <column name="fk_talonario" not-null="true" />
+        </many-to-one>
         <many-to-one name="ordenServicio" class="OdontoSysModelo.OrdenServicio" fetch="select">
             <column name="fk_orden" not-null="true" />
         </many-to-one>
@@ -22,12 +25,6 @@
         </property>
         <property name="tipoFactura" type="string">
             <column name="tipo_factura" length="20" not-null="true" />
-        </property>
-        <property name="timbrado" type="int">
-            <column name="timbrado" not-null="true" />
-        </property>
-        <property name="nroFactura" type="string">
-            <column name="nro_factura" length="15" not-null="true" />
         </property>
         <property name="descuento" type="int">
             <column name="descuento" not-null="true" />

@@ -1,16 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 25/10/2017 11:24:42 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 25/10/2017 12:54:51 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.Doctor" table="doctor" catalog="odontosys">
         <id name="idDoctor" type="java.lang.Integer">
             <column name="idDoctor" />
             <generator class="identity" />
         </id>
-        <many-to-one name="ciudad" class="OdontoSysModelo.Ciudad" fetch="select">
-            <column name="fk_ciudad" />
-        </many-to-one>
         <property name="nombre" type="string">
             <column name="Nombre" not-null="true" />
         </property>
@@ -35,6 +32,9 @@
         <property name="direccion" type="string">
             <column name="Direccion" length="500" not-null="true" />
         </property>
+        <property name="ciudad" type="string">
+            <column name="Ciudad" length="50" not-null="true" />
+        </property>
         <property name="email" type="string">
             <column name="Email" length="50" />
         </property>
@@ -58,7 +58,7 @@
         </set>
         <set name="odontogramas" table="odontograma" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="fk_doctor" />
+                <column name="fk_doctor" not-null="true" />
             </key>
             <one-to-many class="OdontoSysModelo.Odontograma" />
         </set>

@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 25/10/2017 11:24:35 AM by Hibernate Tools 3.6.0
+// Generated 25/10/2017 12:54:45 PM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -13,7 +13,6 @@ public class Doctor  implements java.io.Serializable {
 
 
      private Integer idDoctor;
-     private Ciudad ciudad;
      private String nombre;
      private String apellido;
      private int nroCi;
@@ -22,6 +21,7 @@ public class Doctor  implements java.io.Serializable {
      private String teLb;
      private String telCel;
      private String direccion;
+     private String ciudad;
      private String email;
      private String regProf;
      private String estado;
@@ -33,17 +33,17 @@ public class Doctor  implements java.io.Serializable {
     }
 
 	
-    public Doctor(String nombre, String apellido, int nroCi, Date fechaNac, String sexo, String direccion, String regProf) {
+    public Doctor(String nombre, String apellido, int nroCi, Date fechaNac, String sexo, String direccion, String ciudad, String regProf) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.nroCi = nroCi;
         this.fechaNac = fechaNac;
         this.sexo = sexo;
         this.direccion = direccion;
+        this.ciudad = ciudad;
         this.regProf = regProf;
     }
-    public Doctor(Ciudad ciudad, String nombre, String apellido, int nroCi, Date fechaNac, String sexo, String teLb, String telCel, String direccion, String email, String regProf, String estado, Set agendas, Set usuarios, Set odontogramas) {
-       this.ciudad = ciudad;
+    public Doctor(String nombre, String apellido, int nroCi, Date fechaNac, String sexo, String teLb, String telCel, String direccion, String ciudad, String email, String regProf, String estado, Set agendas, Set usuarios, Set odontogramas) {
        this.nombre = nombre;
        this.apellido = apellido;
        this.nroCi = nroCi;
@@ -52,6 +52,7 @@ public class Doctor  implements java.io.Serializable {
        this.teLb = teLb;
        this.telCel = telCel;
        this.direccion = direccion;
+       this.ciudad = ciudad;
        this.email = email;
        this.regProf = regProf;
        this.estado = estado;
@@ -66,13 +67,6 @@ public class Doctor  implements java.io.Serializable {
     
     public void setIdDoctor(Integer idDoctor) {
         this.idDoctor = idDoctor;
-    }
-    public Ciudad getCiudad() {
-        return this.ciudad;
-    }
-    
-    public void setCiudad(Ciudad ciudad) {
-        this.ciudad = ciudad;
     }
     public String getNombre() {
         return this.nombre;
@@ -129,6 +123,13 @@ public class Doctor  implements java.io.Serializable {
     
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+    public String getCiudad() {
+        return this.ciudad;
+    }
+    
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
     public String getEmail() {
         return this.email;
