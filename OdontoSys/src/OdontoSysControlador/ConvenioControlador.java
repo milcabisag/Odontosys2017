@@ -6,6 +6,7 @@
 
 package OdontoSysControlador;
 
+import OdontoSysModelo.ConvPaciente;
 import OdontoSysModelo.Convenio;
 import OdontoSysModelo.Empresa;
 import OdontoSysModelo.Paciente;
@@ -50,27 +51,45 @@ public class ConvenioControlador {
         return val;
     }
     
-    /*public static boolean BuscarConvenio(Convenio conv){
+    public static boolean insertarConvenioPaciente(ConvPaciente conv) {
+        boolean val = false;
+        Session sesion;
+        try{
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            sesion.getTransaction().begin();
+            
+            sesion.save(conv);                          //Guarda el convenio
+            
+            sesion.getTransaction().commit();
+            val = true;
+        }catch(HibernateException ex){
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Convenio", WIDTH );
+       }        
+        return val;
+    }
+    
+    public static ArrayList<Convenio> BuscarConvenioEmpresa(Empresa emp){
         Session sesion;
         Transaction tr = null;
-        boolean c = false;
+        ArrayList<Convenio> c = null;
         try{        
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             tr = sesion.beginTransaction();
-            String hql = "FROM Convenio WHERE paciente = "+ conv.getPaciente().getIdPaciente()+" AND empresa = "+ conv.getEmpresa().getIdempresa();
+            String hql = "FROM Convenio WHERE empresa = "+ emp.getIdempresa()+" AND estado = 'Activo'";
             Query query = sesion.createQuery(hql); 
-            Iterator it = query.iterate();
-            if(it.hasNext()){
-                c = true;
-            }else{
-                c = false;
+            Iterator<Convenio> it = query.iterate();
+            if(hql != null){
+                c = new ArrayList();
+                while(it.hasNext()){
+                    c.add(it.next());
+                }
             }
         }catch(HibernateException ex){
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Convenio Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
         return c;
     }
-   */
+
     
     public static ArrayList<DetalleConvenio> BuscarDetalleConvenio(Convenio conv){
         Session sesion;
@@ -96,21 +115,21 @@ public class ConvenioControlador {
         return lis;
     }
     
-    public static ArrayList<Empresa> BuscarConvenioEmpresa(Paciente pac){
+    public static ArrayList<ConvPaciente> BuscarConvenioPaciente(Paciente pac){
         Session sesion;
         Transaction tr = null;
-        ArrayList<Empresa> lis = new ArrayList();
+        ArrayList<ConvPaciente> lis = null;
         String hql = null;
         try{        
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             tr = sesion.beginTransaction();
             if(pac != null){
-                hql = "SELECT DISTINCT empresa FROM Convenio WHERE estado = 'Activo' AND paciente = "+pac.getIdPaciente();
+                hql = "FROM ConvPaciente WHERE estado = 'Activo' AND paciente = "+pac.getIdPaciente();
                 
                 if(hql != null){
                     Query query = sesion.createQuery(hql); 
-                    Iterator<Empresa> it = query.iterate();
-                
+                    Iterator<ConvPaciente> it = query.iterate();
+                    lis = new ArrayList();
                     while(it.hasNext()){
                         lis.add(it.next());
                     }
@@ -148,6 +167,25 @@ public class ConvenioControlador {
         return val;
     }
 
+    public static boolean modificarConvenioPaciente(ConvPaciente conv) {
+        boolean val = false;
+        Session session;
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Transaction tr = session.beginTransaction();
+            
+            session.merge(conv);
+            
+            tr.commit();      
+            session.close();  
+       
+            val = true;
+        }catch(HibernateException ex){
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Convenio", WIDTH );
+       }        
+        return val;
+    }
+    
     public static ArrayList<Paciente> BuscarConvenioPaciente() {
         Session sesion;
         Transaction tr = null;
@@ -190,11 +228,31 @@ public class ConvenioControlador {
             
             val = true;
         }catch(HibernateException ex){
-            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Convenio", WIDTH );
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Eliminar Convenio", WIDTH );
        }        
         return val;
     }
 
+    public static boolean eliminarConvenioPaciente(ConvPaciente conv) {
+        boolean val = false;
+        Session session;
+        try{
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            Transaction tr = session.beginTransaction(); 
+            
+            conv.setEstado("Inactivo");
+            session.merge(conv);
+            
+            tr.commit();           
+            session.close();  
+            
+            val = true;
+        }catch(HibernateException ex){
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Eliminar Convenio", WIDTH );
+       }        
+        return val;
+    }
+    
     public static int BuscarPorcentajeConvenio(int pac, int idempresa, int idservicio, Session sesion) {
         //Session sesion;
         //Transaction tr = null;

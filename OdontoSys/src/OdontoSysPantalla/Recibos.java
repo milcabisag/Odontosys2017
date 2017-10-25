@@ -291,11 +291,7 @@ public class Recibos extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldRecPacActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-         Session sesion;
-         sesion = NewHibernateUtil.getSessionFactory().openSession();
-         Transaction tx = sesion.beginTransaction();
-         sesion.getTransaction().begin();          
-         
+        
         reciboActual = new Recibo();
         reciboActual.setFecha(new Date());
         reciboActual.setMonto(monto);
@@ -311,17 +307,17 @@ public class Recibos extends javax.swing.JFrame {
          
         detalleActual = ReciboVista.validarRecibo(reciboActual, detalle);
         if(detalleActual != null){           
-            reciboActual = ReciboControlador.InsertarRecibo(reciboActual, sesion);
+            reciboActual = ReciboControlador.InsertarRecibo(reciboActual);
             Movimiento m = new Movimiento();
-            m = ReciboControlador.insertarMovimientoRecibo(reciboActual, sesion);
+            m = ReciboControlador.insertarMovimientoRecibo(reciboActual);
             for(DetalleRecibo d : detalle){
                 d.setRecibo(reciboActual);
-                ReciboControlador.InsertarDetalle(d, m, sesion);
+                ReciboControlador.InsertarDetalle(d, m, user);
             }
             JOptionPane.showMessageDialog(rootPane, "Registro insertado correctamente", "Insertar Recibo", WIDTH);
             if(fac.getTipoFactura().compareTo("Contado") != 0){
                 fac.setSaldo(fac.getSaldo() - reciboActual.getMonto());
-                FacturaControlador.ModificarSaldo(fac, sesion);
+                FacturaControlador.ModificarSaldo(fac);
                 this.setVisible(false);
             }else{
                 imprimirFactura();
@@ -331,8 +327,6 @@ public class Recibos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "No se pudo Insertar Recibo", "Insertar Recibo", WIDTH);      
         }
         
-        sesion.getTransaction().commit();            
-        sesion.close();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonBuscarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarFacturaActionPerformed

@@ -10,6 +10,7 @@ import OdontoSysControlador.ConvenioControlador;
 import OdontoSysControlador.FacturaControlador;
 import OdontoSysControlador.NumberToLetterConverter;
 import OdontoSysControlador.OrdenServicioControlador;
+import OdontoSysModelo.ConvPaciente;
 import OdontoSysModelo.Convenio;
 import OdontoSysModelo.DetalleOrden;
 import OdontoSysModelo.Empresa;
@@ -415,16 +416,12 @@ public class Facturas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
-        Session sesion;
-         sesion = NewHibernateUtil.getSessionFactory().openSession();
-         Transaction tx = sesion.beginTransaction();
-         sesion.getTransaction().begin();
-        
+              
         obtenerFactura();
-        facActual = FacturaControlador.insertarFactura(facActual, sesion);  
+        facActual = FacturaControlador.insertarFactura(facActual);  
         if(facActual.getTipoFactura().compareTo("Contado") == 0){
-            if(empresas != null){         //Existen convenios del paciente
-                    boolean t = guardarFacturaConvenio(sesion);
+            if(cp != null){         //Existen convenios del paciente
+                    //boolean t = guardarFacturaConvenio();
             }
             //Abrir un recibo
             Recibos.user = user;
@@ -432,22 +429,19 @@ public class Facturas extends javax.swing.JFrame {
             Recibos.fac = facActual;
             Recibos.main(null);
             this.dispose();
-        }else{                  
+        }/*else{                  
             if(facActual != null){
                 FacturaControlador.agregarMovimientoFacturaCredito(facActual, sesion);
                 JOptionPane.showMessageDialog(null, "Factura guardada correctamente", "Factura", WIDTH);
-                if(empresas != null){         //Existen convenios del paciente
-                    boolean t = guardarFacturaConvenio(sesion);                    
+                if(cp != null){         //Existen convenios del paciente
+                    //boolean t = guardarFacturaConvenio(sesion);                    
                     jButtonCancelar.doClick();                    
                 }else{
                     jButtonCancelar.doClick();
                 }
                 imprimirFactura();
             }
-         }
-        
-        sesion.getTransaction().commit();            
-        sesion.close();
+         }*/
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonVerOrdenServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerOrdenServicioActionPerformed
@@ -529,7 +523,7 @@ public class Facturas extends javax.swing.JFrame {
     public static Paciente pacActual = null;                    //A pasarse desde el frame padre
     public static OrdenServicio ordenActual = null;             //A pasarse desde el frame padre
     public static ArrayList<DetalleOrden> lista = null;         //A pasarse desde el frame padre
-    ArrayList<Empresa> empresas = null;
+    ArrayList<ConvPaciente> cp = null;
     ArrayList<Convenio> convenios = null;
     DefaultTableModel tabla = new DefaultTableModel(){
         public boolean isCellEditable(int row, int column) {            
@@ -600,8 +594,8 @@ public class Facturas extends javax.swing.JFrame {
     private void obtenerDetalle() {
         lista = new ArrayList();
         lista = OrdenServicioControlador.BuscarDetalleOrden(ordenActual.getIdordenServicio());
-        empresas = new ArrayList();
-        empresas = ConvenioControlador.BuscarConvenioEmpresa(pacActual);
+        cp = new ArrayList();
+        cp = ConvenioControlador.BuscarConvenioPaciente(pacActual);
         for(DetalleOrden n : lista){
             Object[] f = new Object[5];
             f[0] = n.getServicio().getDescripcion();
@@ -648,6 +642,8 @@ public class Facturas extends javax.swing.JFrame {
             facActual.setNroFactura(jFormattedTextFieldFactNro.getText());
             facActual.setDescuento(subt-total);
             facActual.setMontoTotal(total);
+            facActual.setUsuario(user);
+            
         }else{
             JOptionPane.showMessageDialog(rootPane, "Favor complete todos los campos", "Validez de Campo", WIDTH);
         }
@@ -666,14 +662,15 @@ public class Facturas extends javax.swing.JFrame {
         sesion.getTransaction().begin();
          
         int sum = 0;
-        if(empresas != null){       //El paciente tiene convenio
-            for(Empresa e : empresas){
+        /*
+        if(cp != null){       //El paciente tiene convenio
+            for(ConvPaciente c : cp){
                 int a = ConvenioControlador.BuscarPorcentajeConvenio(pacActual.getIdPaciente(), e.getIdempresa(), det.getServicio().getIdservicio(), sesion);
                 int desc = det.getPrecio() * a /100;
                 sum = desc + sum;
             }            
         }
-        
+        */
         sesion.getTransaction().commit();            
         sesion.close();
         
@@ -682,7 +679,7 @@ public class Facturas extends javax.swing.JFrame {
 
     private boolean guardarFacturaConvenio(Session sesion) {
         boolean v = false;       
-        for(Empresa e : empresas){
+        /*for(Empresa e : empresas){
             int total = 0;
             for(DetalleOrden d : lista){
                 int c = ConvenioControlador.BuscarPorcentajeConvenio(pacActual.getIdPaciente(), e.getIdempresa(), d.getServicio().getIdservicio(), sesion);
@@ -698,7 +695,7 @@ public class Facturas extends javax.swing.JFrame {
                 FacturaControlador.insertarFacturaConvenio(fc, sesion);
             }
             v = true;
-        }
+        }*/
         return v;
     }
 

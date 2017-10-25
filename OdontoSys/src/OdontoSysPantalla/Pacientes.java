@@ -13,6 +13,7 @@ import OdontoSysControlador.OrdenServicioControlador;
 import OdontoSysControlador.PacienteControlador;
 import OdontoSysModelo.Agenda;
 import OdontoSysModelo.Ciudad;
+import OdontoSysModelo.ConvPaciente;
 import OdontoSysModelo.Empresa;
 import OdontoSysModelo.Movimiento;
 import OdontoSysModelo.OrdenServicio;
@@ -67,6 +68,7 @@ public class Pacientes extends javax.swing.JFrame {
         tablaAgenda.addColumn("Cod. Orden");
         
         // Tabla Convenios
+        tablaConvenio.addColumn("Nombre convenio");
         tablaConvenio.addColumn("Empresa");
         tablaConvenio.addColumn("RUC");
         tablaConvenio.addColumn("Teléfono");
@@ -1109,9 +1111,10 @@ public class Pacientes extends javax.swing.JFrame {
   
     private void jTableConveniosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConveniosMouseClicked
         int fila = jTableConvenios.getSelectedRow();
-        Empresa e = con.get(fila);
-        DetalleConvenio.empresaActual = e;
+        ConvPaciente ce = con.get(fila);
+        DetalleConvenio.empresaActual = ce.getConvenio().getEmpresa();
         DetalleConvenio.pacActual = pacienteActual;
+        DetalleConvenio.conv = ce;
         DetalleConvenio.main(null);
     }//GEN-LAST:event_jTableConveniosMouseClicked
 
@@ -1263,7 +1266,7 @@ public class Pacientes extends javax.swing.JFrame {
     
     ArrayList<Movimiento> mov = null;
     ArrayList<Agenda> agen = null;
-    ArrayList<Empresa> con = null;
+    ArrayList<ConvPaciente> con = null;
     ArrayList<Ciudad> ciudades = null;
     
     
@@ -1361,11 +1364,12 @@ public class Pacientes extends javax.swing.JFrame {
         jTextFieldDCI.setEditable(true);
         jDateChooserEdad.setEnabled(true);
         jTextFieldDCel.setEditable(true);
-        jCBciudad.setEditable(true);
+        jCBciudad.setEnabled(true);
         jTextFieldDDireccion.setEditable(true);
         jTextFieldDEmail.setEditable(true);
         jComboBoxSexo.setEnabled(true);
         jTextFieldDTel.setEditable(true);
+        
     }
 
     
@@ -1581,13 +1585,14 @@ public class Pacientes extends javax.swing.JFrame {
     private void recuperarConvenios(Paciente pac) {
         
         con = new ArrayList();
-        con = ConvenioControlador.BuscarConvenioEmpresa(pac);
+        con = ConvenioControlador.BuscarConvenioPaciente(pac);
         if(con != null){
-            for(Empresa e : con){
-                Object[] emp = new Object[3];
-                emp[0] = e.getNombre();
-                emp[1] = e.getRuc();
-                emp[2] = e.getTelefono();
+            for(ConvPaciente c : con){
+                Object[] emp = new Object[4];
+                emp[0] = c.getConvenio().getNombre();
+                emp[1] = c.getConvenio().getEmpresa().getNombre();
+                emp[2] = c.getConvenio().getEmpresa().getRuc();
+                emp[3] = c.getConvenio().getEmpresa().getTelefono();
                 tablaConvenio.addRow(emp);
             }
         }

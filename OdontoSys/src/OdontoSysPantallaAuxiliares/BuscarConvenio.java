@@ -11,37 +11,61 @@ import OdontoSysControlador.ConvenioControlador;
 import OdontoSysModelo.Convenio;
 import OdontoSysModelo.Empresa;
 import OdontoSysModelo.Paciente;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
     
-public class BuscarConvenio extends javax.swing.JFrame {
+public class BuscarConvenio extends javax.swing.JDialog{
 
     /**
      * Creates new form BuscarConvenio
      */
-    public BuscarConvenio() {
+   private static Convenio conv = null;
+    
+    public BuscarConvenio(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         inicializarTabla();        
         realizarConsulta();
         
+        this.setLocationRelativeTo(null);
+        
+        // Close the dialog when Esc is pressed
+        String cancelName = "cancel";
+        InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), cancelName);
+        ActionMap actionMap = getRootPane().getActionMap();
+        actionMap.put(cancelName, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                doClose(conv);
+            }
+        });
         
         jTableUsuarios.addMouseListener(new MouseAdapter(){
             public void mouseClicked(MouseEvent e){
                 int fila = jTableUsuarios.rowAtPoint(e.getPoint());
                 if (fila > -1){
-                    if(elPaciente != null){
-                        DetalleConvenio.empresaActual = lista.get(fila);
-                        DetalleConvenio.pacActual = elPaciente;                    
-                        irConvenios();      
-                    }
+                        jLabelNom.setText(tabla.getValueAt(fila, 0).toString());
+                        returnStatus = lista.get(fila);
                 }
             }
         });
     }
 
+    public Convenio getReturnStatus() {
+        return returnStatus;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,12 +79,16 @@ public class BuscarConvenio extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableUsuarios = new javax.swing.JTable();
         jButtonMenu = new javax.swing.JButton();
-        jButtonInsertarUser = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabelEmp = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabelNom = new javax.swing.JLabel();
+        jButtonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        jLabel1.setText("Convenios del Paciente");
+        jLabel1.setText("Convenios de la Empresa");
 
         jTableUsuarios.setModel(tabla);
         jScrollPane1.setViewportView(jTableUsuarios);
@@ -75,13 +103,25 @@ public class BuscarConvenio extends javax.swing.JFrame {
             }
         });
 
-        jButtonInsertarUser.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jButtonInsertarUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/agregar.png"))); // NOI18N
-        jButtonInsertarUser.setText("Insertar Convenio");
-        jButtonInsertarUser.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        jButtonInsertarUser.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel2.setText("Empresa");
+
+        jLabelEmp.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelEmp.setText("Empresa");
+
+        jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel3.setText("Convenio");
+
+        jLabelNom.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelNom.setText("Nombre");
+
+        jButtonOk.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButtonOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/ingresar.png"))); // NOI18N
+        jButtonOk.setText("Aceptar");
+        jButtonOk.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        jButtonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonInsertarUserActionPerformed(evt);
+                jButtonOkActionPerformed(evt);
             }
         });
 
@@ -92,28 +132,45 @@ public class BuscarConvenio extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonInsertarUser)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 442, Short.MAX_VALUE)
-                        .addComponent(jButtonMenu)))
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelNom, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonOk)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonMenu))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 8, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(217, 217, 217)
+                .addGap(160, 160, 160)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(19, 19, 19)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabelEmp))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonMenu)
-                    .addComponent(jButtonInsertarUser))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabelNom)
+                    .addComponent(jButtonOk))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -126,12 +183,27 @@ public class BuscarConvenio extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonMenuActionPerformed
 
-    private void jButtonInsertarUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarUserActionPerformed
-        DetalleConvenio jFrame = new DetalleConvenio();
-        jFrame.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jButtonInsertarUserActionPerformed
+    private void jButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOkActionPerformed
+        
+        doClose(returnStatus);
+        setVisible(false);
+        dispose();
+        
+    }//GEN-LAST:event_jButtonOkActionPerformed
 
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        doClose(null);
+    } 
+    
+    private void closeDialog(java.awt.event.WindowEvent evt) {                             
+        doClose(null);
+    }
+    
+    private void doClose(Convenio retStatus) {
+        returnStatus = retStatus;
+        setVisible(false);
+        dispose();
+    }
     /**
      * @param args the command line arguments
      */
@@ -163,44 +235,54 @@ public class BuscarConvenio extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new BuscarConvenio().setVisible(true);
+                BuscarConvenio dialog = new BuscarConvenio(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
+    
     //Variables
     private DefaultTableModel tabla = new DefaultTableModel();
-    private ArrayList<Empresa> lista = new ArrayList();
-    public static Paciente elPaciente;
+    private ArrayList<Convenio> lista = new ArrayList();
+    public static Empresa emp;
+    
+    private Convenio returnStatus = null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonInsertarUser;
     private javax.swing.JButton jButtonMenu;
+    private javax.swing.JButton jButtonOk;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelEmp;
+    private javax.swing.JLabel jLabelNom;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableUsuarios;
     // End of variables declaration//GEN-END:variables
 
     private void inicializarTabla() {
-        tabla.addColumn("Empresa");
+        tabla.addColumn("Nombre Convenio");
+        tabla.addColumn("Observación");
+        
+        jLabelEmp.setText(emp.getNombre());
     }
 
     private void realizarConsulta() {
-        if(elPaciente == null){
-            jLabel1.setText("Empresas con Convenios Registrados");
-            lista = ConvenioControlador.BuscarConvenioEmpresa(null);
-        }else{
-            jLabel1.setText("Empresas con Convenios del Paciente");
-            lista = ConvenioControlador.BuscarConvenioEmpresa(elPaciente);
-        }                  
-        
-        for(Empresa nuevo : lista){
-            tabla.addRow(new Object[]{nuevo.getNombre()});
+        lista = ConvenioControlador.BuscarConvenioEmpresa(emp);
+        if(lista != null){
+            for(Convenio nuevo : lista){
+                Object[] f = new Object[2];
+                f[0] = nuevo.getNombre();
+                f[1] = nuevo.getObservacion();
+                tabla.addRow(f);
+            }
         }
     }
     
-    private void irConvenios() {
-        DetalleConvenio jFrame= new DetalleConvenio();
-        jFrame.setVisible(true); //Abre Form Usuario 
-        this.setVisible(false);
-    }
 }

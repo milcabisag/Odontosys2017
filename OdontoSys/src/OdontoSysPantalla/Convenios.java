@@ -35,7 +35,7 @@ public class Convenios extends javax.swing.JFrame {
     public Convenios() {
         initComponents();
         crearTabla();
-        if(empresaActual != null && pacActual != null){      //Llamado desde frame consultar convenios
+        if(empresaActual != null){      //Llamado desde frame consultar convenios
             llamado = "consulta";
             mostrarConvenio();
             
@@ -46,6 +46,8 @@ public class Convenios extends javax.swing.JFrame {
             jButtonInsertarServicio.setVisible(true);
             jButtonElimConv.setVisible(false);
             jButtonModConv.setVisible(false);
+            jTextFieldObs.setEditable(true);
+            jTextFieldNombre.setEditable(true);
         }
         
     }
@@ -284,6 +286,7 @@ public class Convenios extends javax.swing.JFrame {
 
         ObtenerEmpresa jDialog= new ObtenerEmpresa(null, true);
         jDialog.setVisible(true);
+        empresaActual = new Empresa();
         empresaActual = jDialog.getReturnStatus();
         if(empresaActual != null){
             jTextFieldEmpresa.setText(empresaActual.getNombre());
@@ -339,8 +342,8 @@ public class Convenios extends javax.swing.JFrame {
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
        
-        int confirm = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el convenio entre Empresa "
-                +empresaActual.getNombre()+" y Paciente "+pacActual.getNombres()+" "+pacActual.getApellidos()+"?", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el convenio de la Empresa "
+                +empresaActual.getNombre()+"?", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION);
         if(confirm == JOptionPane.YES_OPTION){
             boolean i = ConvenioControlador.eliminarConvenio(conv, det);
             if(i){
@@ -471,7 +474,6 @@ public class Convenios extends javax.swing.JFrame {
     ArrayList<Servicio> serv = new ArrayList();
     ArrayList<DetalleConvenio> det = new ArrayList();
     public static Empresa empresaActual = null;
-    public static Paciente pacActual = null;
     int fila = 0;
     DefaultTableModel tabla = new DefaultTableModel(){
         public boolean isCellEditable(int row, int column) {   
@@ -509,7 +511,7 @@ public class Convenios extends javax.swing.JFrame {
         Configuraciones.limpiarModelo(tabla);
         jTextFieldEmpresa.setText("");
         jTextFieldNombre.setText("");
-        pacActual = null;
+        jTextFieldObs.setText("");
         empresaActual = null;
         
         jButtonBuscarEmpresa.setVisible(true);
@@ -544,16 +546,12 @@ public class Convenios extends javax.swing.JFrame {
 
     private void obtenerNuevoConvenio() {
 
+        conv = new Convenio();
         conv.setEmpresa(empresaActual);
         conv.setNombre(jTextFieldNombre.getText());
         conv.setObservacion(jTextFieldObs.getText());
         conv.setEstado("Activo");
         
-        /*for(int x=0;x<det.size();x++){
-            det.get(x).set;
-            det.get(x).setServicio(serv.get(x));
-            }
-        */
     }
 
     private void obtenerTabla() {        

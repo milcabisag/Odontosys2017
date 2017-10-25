@@ -64,7 +64,7 @@ public class PacienteVista {
         }else if(ci < 10000 || ci > 99999999 ){
             JOptionPane.showMessageDialog(null, "La cédula debe tener entre 5 y 8 cifras");
             return -1;
-        }else if(f < 0 ){
+        }else if(f > 0 ){
             JOptionPane.showMessageDialog(null, "Elija la fecha de nacimiento");
             return -1;
         }else if(s != 0){

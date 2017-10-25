@@ -343,7 +343,8 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPacientesActionPerformed
 
     private void jButtonDoctoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDoctoresActionPerformed
-        Doctores.main(null); //Abre Form Doctores
+        Doctores jFrame = new Doctores();        //Abre Form Doctores
+        jFrame.setVisible(true);
     }//GEN-LAST:event_jButtonDoctoresActionPerformed
 
     private void jButtonAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgendaActionPerformed
@@ -417,7 +418,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButtonConveniosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConveniosActionPerformed
         
-        Convenios2 jFrame = new Convenios2();
+        Convenios jFrame = new Convenios();
         jFrame.setVisible(true);
         
     }//GEN-LAST:event_jButtonConveniosActionPerformed

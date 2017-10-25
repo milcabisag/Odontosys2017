@@ -13,6 +13,7 @@ import OdontoSysModelo.Movimiento;
 import OdontoSysModelo.MovimientoEmpresa;
 import OdontoSysModelo.Recibo;
 import OdontoSysModelo.ReciboEmpresa;
+import OdontoSysModelo.Usuario;
 import OdontoSysUtil.NewHibernateUtil;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.util.ArrayList;
@@ -54,41 +55,47 @@ public class ReciboControlador {
         return datos;
     }
     
-    public static Recibo InsertarRecibo(Recibo nuevo, Session sesion) {       
-        //Session sesion;
+    public static Recibo InsertarRecibo(Recibo nuevo) {       
+        Session sesion;
+        Recibo r = null;
         try{
-        //    sesion = NewHibernateUtil.getSessionFactory().openSession();
-        //    sesion.getTransaction().begin();            
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            sesion.getTransaction().begin();            
             sesion.save(nuevo);
-            sesion.refresh(nuevo);           
-       //     sesion.getTransaction().commit();
+            sesion.refresh(nuevo);   
+            r = new Recibo();
+            r = nuevo;
+            sesion.getTransaction().commit();
+            sesion.close();
         }catch(HibernateException ex){
              JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Recibo Controlador", JOptionPane.INFORMATION_MESSAGE);   
         }        
-        return nuevo;
+        return r;
     }
 
-    public static void InsertarDetalle(DetalleRecibo d, Movimiento m, Session sesion) {
-        //Session sesion;
+    public static void InsertarDetalle(DetalleRecibo d, Movimiento m, Usuario u) {
+        Session sesion;
         try{
-            //sesion = NewHibernateUtil.getSessionFactory().openSession();
-            //sesion.getTransaction().begin();            
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            sesion.getTransaction().begin();            
             sesion.save(d);
             sesion.refresh(d);
-            //sesion.getTransaction().commit();
-            agregarMovimientoCaja(m, d, null, null, sesion);
+            sesion.getTransaction().commit();
+            sesion.close();
+            agregarMovimientoCaja(m, d, null, null, u);
         }catch(HibernateException ex){
              JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Recibo Controlador", JOptionPane.INFORMATION_MESSAGE);   
         }
     }
 
-    public static Movimiento insertarMovimientoRecibo(Recibo r, Session sesion) {
-        Movimiento m = new Movimiento();
-        //Session sesion;
+    public static Movimiento insertarMovimientoRecibo(Recibo r) {
+        Movimiento m = null;
+        Session sesion;
         try{
-            //sesion = NewHibernateUtil.getSessionFactory().openSession();
-            //sesion.getTransaction().begin();
-
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            sesion.getTransaction().begin();
+            
+            m = new Movimiento();
             m.setPaciente(r.getPaciente());
             if(r.getFactura().getTipoFactura().compareTo("Contado") == 0){
                 m.setMovimiento("Factura Contado Nro "+r.getFactura().getNroFactura());
@@ -102,7 +109,8 @@ public class ReciboControlador {
             sesion.save(m);
             sesion.refresh(m);            
                        
-            //sesion.getTransaction().commit();   
+            sesion.getTransaction().commit(); 
+            sesion.close();
             
         }catch(HibernateException ex){
             System.out.println(ex.getMessage());
@@ -153,16 +161,15 @@ public class ReciboControlador {
         return nuevo;
     }
     
-    public static void InsertarDetalleEmpresa(DetalleReciboemp d, MovimientoEmpresa m, Session sesion) {
-       // Session sesion;
+    public static void InsertarDetalleEmpresa(DetalleReciboemp d, MovimientoEmpresa m, Usuario u) {
+        Session sesion;
         try{
-       //     sesion = NewHibernateUtil.getSessionFactory().openSession();
-       //     sesion.getTransaction().begin();            
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            sesion.getTransaction().begin();            
             sesion.save(d);
             sesion.refresh(d);
-       //     sesion.getTransaction().commit();
-       //     sesion.close();
-            agregarMovimientoCaja(null, null, m, d, sesion);
+            sesion.getTransaction().commit();
+            agregarMovimientoCaja(null, null, m, d, u);
         }catch(HibernateException ex){
              JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Recibo Controlador", JOptionPane.INFORMATION_MESSAGE);   
         }
@@ -196,12 +203,12 @@ public class ReciboControlador {
         return m;
     }
 
-    private static void agregarMovimientoCaja(Movimiento m, DetalleRecibo det, MovimientoEmpresa e, DetalleReciboemp detemp, Session sesion) {
+    private static void agregarMovimientoCaja(Movimiento m, DetalleRecibo det, MovimientoEmpresa e, DetalleReciboemp detemp, Usuario u) {
         Caja c = new Caja();
-        //Session sesion;
+        Session sesion;
         try{
-            //sesion = NewHibernateUtil.getSessionFactory().openSession();
-            //sesion.getTransaction().begin();
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            sesion.getTransaction().begin();
             
             if(m != null && det != null){
                 c.setDescripcion(m.getMovimiento());
@@ -210,6 +217,8 @@ public class ReciboControlador {
                 c.setSalida(0);
                 c.setTipo(det.getFormaPago());
                 c.setMovimientoEmpresa(null);
+                c.setUsuario(u);
+                c.setDescripcion("Entrada");
             } else if(e != null && detemp != null){
                 c.setDescripcion(e.getMovimiento());
                 c.setEntrada(detemp.getMonto());
@@ -217,13 +226,15 @@ public class ReciboControlador {
                 c.setSalida(0);
                 c.setTipo(detemp.getFormaPago());
                 c.setMovimiento(null);
+                c.setUsuario(u);
+                c.setDescripcion("Entrada");
             }
             
             sesion.save(c);
             sesion.refresh(c);
                        
-        //    sesion.getTransaction().commit();            
-        //    sesion.close();
+            sesion.getTransaction().commit();            
+            sesion.close();
         }catch(HibernateException ex){
             System.out.println(ex.getMessage());
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Movimiento Caja", WIDTH );

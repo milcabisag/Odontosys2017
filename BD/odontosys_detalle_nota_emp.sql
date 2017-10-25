@@ -44,4 +44,4 @@ CREATE TABLE `detalle_nota_emp` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-14 13:10:33
+-- Dump completed on 2017-10-25 11:31:58

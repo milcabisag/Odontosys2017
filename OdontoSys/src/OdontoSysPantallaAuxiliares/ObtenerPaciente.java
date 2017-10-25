@@ -70,14 +70,8 @@ public class ObtenerPaciente extends javax.swing.JDialog {
       }
    });
         
-        tabla.addColumn("Nombre");
-        tabla.addColumn("Apellido");
-        tabla.addColumn("CI Nro");
-      
-        datos = PacienteControlador.ConsultarPaciente();
-        for (Paciente p : datos){
-            tabla.addRow(new Object[]{p.getNombres(), p.getApellidos(), formateador.format(p.getNroCi())});
-        }
+        setearTabla();
+        
         
     }
 
@@ -324,4 +318,21 @@ public class ObtenerPaciente extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private Paciente returnStatus = pac;
+
+    private void setearTabla() {
+    
+        tabla.addColumn("Nombre");
+        tabla.addColumn("Apellido");
+        tabla.addColumn("CI Nro");
+      
+        datos = PacienteControlador.ConsultarPaciente();
+        for (Paciente p : datos){
+            Object[] f = new Object[3];
+            f[0] = p.getNombres();
+            f[1] = p.getApellidos();
+            f[2] = formateador.format(p.getNroCi());
+            tabla.addRow(f);
+        }
+    
+    }
 }

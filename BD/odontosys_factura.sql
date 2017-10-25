@@ -30,19 +30,20 @@ CREATE TABLE `factura` (
   `fk_orden` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `tipo_factura` varchar(20) NOT NULL DEFAULT 'Contado',
-  `timbrado` int(11) NOT NULL,
-  `nro_factura` varchar(15) NOT NULL,
   `descuento` int(11) NOT NULL DEFAULT '0',
   `estado` varchar(20) NOT NULL DEFAULT 'Cancelado',
   `monto_total` int(11) NOT NULL,
   `saldo` int(11) NOT NULL DEFAULT '0',
   `fk_usuario` int(11) NOT NULL,
+  `fk_talonario` int(11) NOT NULL,
   PRIMARY KEY (`idfactura`),
   KEY `fk_factpaciente_idx` (`fk_paciente`),
   KEY `fk_factorden_idx` (`fk_orden`),
   KEY `fk_facusuario_idx` (`fk_usuario`),
-  CONSTRAINT `fk_factpaciente` FOREIGN KEY (`fk_paciente`) REFERENCES `paciente` (`idPaciente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `fk_factalonario_idx` (`fk_talonario`),
+  CONSTRAINT `fk_facttalonario` FOREIGN KEY (`fk_talonario`) REFERENCES `talonario` (`idtalonario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_factorden` FOREIGN KEY (`fk_orden`) REFERENCES `orden_servicio` (`idorden_servicio`) ON DELETE NO ACTION,
+  CONSTRAINT `fk_factpaciente` FOREIGN KEY (`fk_paciente`) REFERENCES `paciente` (`idPaciente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_factusuario` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -56,4 +57,4 @@ CREATE TABLE `factura` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-14 13:10:39
+-- Dump completed on 2017-10-25 12:44:04

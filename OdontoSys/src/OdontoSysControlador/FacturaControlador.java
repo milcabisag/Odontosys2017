@@ -51,35 +51,33 @@ public class FacturaControlador {
         return datos;
     }
     
-    public static Factura insertarFactura(Factura nuevo, Session sesion){
-        int idFactura = 0;
-        //Session sesion;
+    public static Factura insertarFactura(Factura nuevo){
+        Factura f = null;
+        Session sesion;
         try{
-            //sesion = NewHibernateUtil.getSessionFactory().openSession();
-            //sesion.getTransaction().begin();
-
-            idFactura = (int)sesion.save(nuevo);
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            sesion.getTransaction().begin();
+            
+            sesion.save(nuevo);
             sesion.refresh(nuevo);
-            //sesion.getTransaction().commit();
-            modificarOrden(nuevo, sesion);              //Pasa el estado a Facturado
             
+            f = new Factura();
+            f = nuevo;
+            modificarOrden(nuevo, sesion);
+            
+            sesion.getTransaction().commit();                         //Pasa el estado a Facturado
         }catch(HibernateException ex){
-            
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Factura", WIDTH );
         }    
-        return nuevo;
+        return f;
     }
     
     private static void modificarOrden(Factura nuevo, Session session) {
         int i = 0;
-        try{         
-        //Session session = NewHibernateUtil.getSessionFactory().openSession();
-        //Transaction tx = session.beginTransaction();
-        
-        String hqlUpdate = "UPDATE OrdenServicio SET estado = 'Facturado' WHERE idordenServicio = " + nuevo.getOrdenServicio().getIdordenServicio();
-        Query updatedEntities = session.createQuery( hqlUpdate );
-        updatedEntities.executeUpdate();
-        //tx.commit();
-        //session.close();
+        try{                 
+            String hqlUpdate = "UPDATE OrdenServicio SET estado = 'Facturado' WHERE idordenServicio = " + nuevo.getOrdenServicio().getIdordenServicio();
+            Query updatedEntities = session.createQuery( hqlUpdate );
+            updatedEntities.executeUpdate();
         
        }catch(HibernateException ex){
            System.out.println(ex.getMessage());
@@ -87,26 +85,28 @@ public class FacturaControlador {
        }
     }
     
-    public static int ModificarSaldo(Factura facturaActual, Session session) {
+    public static int ModificarSaldo(Factura facturaActual) {
        
         int i = 0;
         try{ 
         
-        //Session session = NewHibernateUtil.getSessionFactory().openSession();
-        //Transaction tx = session.beginTransaction();
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
         
         String hqlUpdate = "UPDATE Factura SET saldo = " + facturaActual.getSaldo() + " WHERE idFactura = " + facturaActual.getIdfactura();
         Query updatedEntities = session.createQuery( hqlUpdate );
         updatedEntities.executeUpdate();
-        //tx.commit();
+        tx.commit();
         
         if(facturaActual.getSaldo() == 0){
-            //tx = session.beginTransaction();
+            tx = session.beginTransaction();
             hqlUpdate = "UPDATE Factura SET estado = 'Cancelado' WHERE idFactura = " + facturaActual.getIdfactura();
             updatedEntities = session.createQuery( hqlUpdate );
             updatedEntities.executeUpdate();
-            //tx.commit();
+            tx.commit();
         }
+        
+        session.close();
         
        }catch(HibernateException ex){
            System.out.println(ex.getMessage());
