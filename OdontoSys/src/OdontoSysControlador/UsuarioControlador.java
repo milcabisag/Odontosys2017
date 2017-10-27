@@ -25,11 +25,10 @@ public class UsuarioControlador {
     
     public static Usuario Login(String nombre,  String passw){
         Session sesion;
-        Transaction tr = null;
         Usuario u =null;
         try{        
-            sesion = NewHibernateUtil.getSessionFactory().openSession();
-            tr = sesion.beginTransaction();
+            sesion = NewHibernateUtil.getSessionFactory().getCurrentSession();
+            sesion.beginTransaction();
             String hql = "FROM Usuario U WHERE U.nombre = '"+ nombre + "' and U.passw = '" + passw + "' AND estado = 'Activo'";
             Query query = sesion.createQuery(hql); 
             Iterator it = query.iterate();
@@ -39,6 +38,7 @@ public class UsuarioControlador {
                return null;
             }            
         }catch(HibernateException ex){
+            System.out.println("Error: "+ ex);
                JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Login Controlador", JOptionPane.INFORMATION_MESSAGE);
          }  
         return u;

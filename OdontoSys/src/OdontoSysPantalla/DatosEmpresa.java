@@ -8,9 +8,12 @@ package OdontoSysPantalla;
 import OdontoSysModelo.Datos;
 import OdontoSysUtil.NewHibernateUtil;
 import static java.awt.image.ImageObserver.WIDTH;
+import java.util.Iterator;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -22,10 +25,14 @@ public class DatosEmpresa extends javax.swing.JFrame {
      * Variables
      */
     
-    Datos dat = new Datos();
+    Datos dat = null;
     
     public DatosEmpresa() {
         initComponents();
+        
+        dat = new Datos();
+        dat = obtenerDatos();
+        setear();        
     }
 
     /**
@@ -56,7 +63,7 @@ public class DatosEmpresa extends javax.swing.JFrame {
         jButtonGua = new javax.swing.JButton();
         jButtonCanc = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
@@ -100,6 +107,11 @@ public class DatosEmpresa extends javax.swing.JFrame {
         jButtonMod.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonMod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/modificar.png"))); // NOI18N
         jButtonMod.setText("Modificar");
+        jButtonMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModActionPerformed(evt);
+            }
+        });
 
         jButtonGua.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonGua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/guardar.png"))); // NOI18N
@@ -113,6 +125,11 @@ public class DatosEmpresa extends javax.swing.JFrame {
         jButtonCanc.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonCanc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
         jButtonCanc.setText("Cancelar");
+        jButtonCanc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -198,6 +215,7 @@ public class DatosEmpresa extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuaActionPerformed
@@ -213,6 +231,25 @@ public class DatosEmpresa extends javax.swing.JFrame {
         validar();
         
     }//GEN-LAST:event_jButtonGuaActionPerformed
+
+    private void jButtonModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModActionPerformed
+        
+        jButtonGua.setVisible(true);
+        
+        jTextFieldEmp.setEditable(true);
+        jTextFieldProp.setEditable(true);
+        jTextFieldRUC.setEditable(true);
+        jTextFieldAct.setEditable(true);
+        jTextFieldDir.setEditable(true);
+        jTextFieldCiu.setEditable(true);
+        jTextFieldTel.setEditable(true);
+        
+        jButtonMod.setVisible(false);
+    }//GEN-LAST:event_jButtonModActionPerformed
+
+    private void jButtonCancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButtonCancActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,19 +309,19 @@ public class DatosEmpresa extends javax.swing.JFrame {
 
     private void validar() {
         
-        if(dat.getNombreEmpresa() == null || dat.getNombreEmpresa().length() > 100){
+        if(dat.getNombreEmpresa() == null && dat.getNombreEmpresa().length() > 100){
             JOptionPane.showMessageDialog(null, "Favor complete el nombre de la Empresa", "Datos de la Empresa", JOptionPane.INFORMATION_MESSAGE);   
-        }else if(dat.getNombrePropietario() == null || dat.getNombrePropietario().length() > 100){
+        }else if(dat.getNombrePropietario() == null && dat.getNombrePropietario().length() > 100){
             JOptionPane.showMessageDialog(null, "Favor complete el nombre del Propietario", "Datos de la Empresa", JOptionPane.INFORMATION_MESSAGE);
-        }else if(dat.getRuc() == null || dat.getRuc().length() > 8){
-            JOptionPane.showMessageDialog(null, "Favor complete el RUC de la Empresa, hasta 8 caracteres", "Datos de la Empresa", JOptionPane.INFORMATION_MESSAGE);
-        }else if(dat.getActividad() == null || dat.getActividad().length() > 200){
+        }else if(dat.getRuc() == null && dat.getRuc().length() > 11){
+            JOptionPane.showMessageDialog(null, "Favor complete el RUC de la Empresa, hasta 10 caracteres", "Datos de la Empresa", JOptionPane.INFORMATION_MESSAGE);
+        }else if(dat.getActividad() == null && dat.getActividad().length() > 200){
             JOptionPane.showMessageDialog(null, "Favor complete la actividad de la Empresa, hasta 200 caracteres", "Datos de la Empresa", JOptionPane.INFORMATION_MESSAGE);
-        }else if(dat.getDireccion() == null || dat.getDireccion().length() > 100){
+        }else if(dat.getDireccion() == null && dat.getDireccion().length() > 100){
             JOptionPane.showMessageDialog(null, "Favor complete la dirección de la Empresa, hasta 100 caracteres", "Datos de la Empresa", JOptionPane.INFORMATION_MESSAGE);
-        }else if(dat.getCiudad() == null || dat.getCiudad().length() > 50){
+        }else if(dat.getCiudad() == null && dat.getCiudad().length() > 50){
             JOptionPane.showMessageDialog(null, "Favor complete la ciudad - pais de la Empresa, hasta 50 caracteres", "Datos de la Empresa", JOptionPane.INFORMATION_MESSAGE);
-        }else if(dat.getTelefono() == null || dat.getTelefono().length() > 10){
+        }else if(dat.getTelefono() == null && dat.getTelefono().length() > 10){
             JOptionPane.showMessageDialog(null, "Favor complete el teléfono de la Empresa, hasta 10 caracteres", "Datos de la Empresa", JOptionPane.INFORMATION_MESSAGE);
         }else{
             guardar();
@@ -297,20 +334,64 @@ public class DatosEmpresa extends javax.swing.JFrame {
         try{
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             sesion.getTransaction().begin();
-            String hqlUpdate = "UPDATE Factura SET saldo = " + facturaActual.getSaldo() + " WHERE idFactura = " + facturaActual.getIdfactura();
-        Query updatedEntities = session.createQuery( hqlUpdate );
-        updatedEntities.executeUpdate();
-        tx.commit();
-            sesion.merge(dat);
-            sesion.refresh(dat);            
-                       
-            sesion.getTransaction().commit(); 
-            sesion.close();
+            
+            String hqlUpdate = "UPDATE Datos SET nombreEmpresa = '" + dat.getNombreEmpresa().toString() +
+            "', nombrePropietario = '" + dat.getNombrePropietario().toString() + 
+            "', actividad = '" + dat.getActividad().toString() +
+            "', ruc = '" + dat.getRuc().toString() + "', direccion = '" + dat.getDireccion().toString() +
+            "', ciudad = '" + dat.getCiudad().toString() + "', telefono = '" + dat.getTelefono().toString() + 
+                    "' WHERE iddatos = 1";
+            
+            Query up = sesion.createQuery( hqlUpdate );
+            up.executeUpdate();
             
         }catch(HibernateException ex){
             System.out.println(ex.getMessage());
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Datos de Empresa", WIDTH );
         }  
         
+    }
+
+    private Datos obtenerDatos() {
+        Session sesion = null;
+        Datos d = null;
+        try{
+            sesion = NewHibernateUtil.getSessionFactory().getCurrentSession();
+            //sesion.beginTransaction();
+            
+            String cons = "FROM Datos WHERE iddatos = 1";
+            d = new Datos();
+            d = (Datos) sesion.createQuery(cons).uniqueResult();
+                                  
+        }catch(HibernateException ex){
+            System.out.println(ex.getMessage());
+           JOptionPane.showMessageDialog(null,ex.getMessage(), "Recuperar Datos de Empresa", WIDTH );
+        }
+        
+        return d;
+    }
+
+    private void setear() {
+        
+        jButtonGua.setVisible(false);
+        
+        jTextFieldEmp.setEditable(false);
+        jTextFieldProp.setEditable(false);
+        jTextFieldRUC.setEditable(false);
+        jTextFieldAct.setEditable(false);
+        jTextFieldDir.setEditable(false);
+        jTextFieldCiu.setEditable(false);
+        jTextFieldTel.setEditable(false);
+        
+        if(dat != null){
+            jTextFieldEmp.setText(dat.getNombreEmpresa());
+            jTextFieldProp.setText(dat.getNombrePropietario());
+            jTextFieldRUC.setText(dat.getRuc());
+            jTextFieldAct.setText(dat.getActividad());
+            jTextFieldDir.setText(dat.getDireccion());
+            jTextFieldCiu.setText(dat.getCiudad());
+            jTextFieldTel.setText(dat.getTelefono());
+        }
+    
     }
 }

@@ -32,7 +32,7 @@ public class DienteControlador {
             tr = session.beginTransaction();
             String hql;
             if(nombreDiente.compareTo("") == 0){
-                hql = "from Diente s";
+                hql = "from Diente";
             }else{
                 hql = "from Diente d where d.nombre like '%"
                     + nombreDiente+ "%'";

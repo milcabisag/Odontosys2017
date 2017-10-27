@@ -9,6 +9,7 @@ package OdontoSysPantalla;
 import OdontoSysModelo.Usuario;
 import OdontoSysPantallaAuxiliares.ObtenerServicios;
 import OdontoSysPantallaAuxiliares.ObtenerUsuarios;
+import OdontoSysPantallaAuxiliares.Talonario;
 import OdontoSysPantallaAuxiliares.obtenerFechas;
 import OdontoSysPantallaOtros.AyudaAdministrador;
 import OdontoSysPantallaOtros.AyudaDoctor;
@@ -70,6 +71,8 @@ public class Inicio extends javax.swing.JFrame {
         jButtonAyuda = new javax.swing.JButton();
         jButtonReporteCaja = new javax.swing.JButton();
         jButtonConvenios = new javax.swing.JButton();
+        jButtonDatos = new javax.swing.JButton();
+        jButtonTalonario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -213,6 +216,28 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        jButtonDatos.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
+        jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/acerca.png"))); // NOI18N
+        jButtonDatos.setText("Datos Empresa");
+        jButtonDatos.setToolTipText("Almacena los datos de la empresa a figurar en la factura impresa");
+        jButtonDatos.setMargin(new java.awt.Insets(2, 7, 2, 7));
+        jButtonDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDatosActionPerformed(evt);
+            }
+        });
+
+        jButtonTalonario.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
+        jButtonTalonario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/orden.png"))); // NOI18N
+        jButtonTalonario.setText("Talonarios");
+        jButtonTalonario.setToolTipText("Datos de Talonario, Timbrado y Número de Factura");
+        jButtonTalonario.setMargin(new java.awt.Insets(2, 7, 2, 7));
+        jButtonTalonario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTalonarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -235,24 +260,21 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonConvenios)
-                            .addComponent(jButtonEmpresas))
-                        .addGap(474, 474, 474))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonDoctores)
-                            .addComponent(jButtonOdontograma)
-                            .addComponent(jButtonPacientes))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonUsuarios)
-                            .addComponent(jButtonServicios)
-                            .addComponent(jButtonReporteCaja)
-                            .addComponent(jButtonReporteServicios))
-                        .addGap(138, 138, 138))))
+                    .addComponent(jButtonAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonDoctores, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonOdontograma, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonConvenios, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonEmpresas, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonReporteCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonReporteServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonTalonario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(159, 159, 159))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,7 +300,9 @@ public class Inicio extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonReporteServicios)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonReporteCaja))
+                        .addComponent(jButtonReporteCaja)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonDatos))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButtonOdontograma)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -290,7 +314,9 @@ public class Inicio extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonEmpresas)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonConvenios)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonConvenios)
+                    .addComponent(jButtonTalonario))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
@@ -423,6 +449,16 @@ public class Inicio extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonConveniosActionPerformed
 
+    private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
+        DatosEmpresa jFrame = new DatosEmpresa();
+        jFrame.setVisible(true);
+    }//GEN-LAST:event_jButtonDatosActionPerformed
+
+    private void jButtonTalonarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTalonarioActionPerformed
+        Talonario jFrame = new Talonario();
+        jFrame.setVisible(true);
+    }//GEN-LAST:event_jButtonTalonarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -470,6 +506,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAyuda;
     private javax.swing.JButton jButtonCerrarSesion;
     private javax.swing.JButton jButtonConvenios;
+    private javax.swing.JButton jButtonDatos;
     private javax.swing.JButton jButtonDoctores;
     private javax.swing.JButton jButtonEmpresas;
     private javax.swing.JButton jButtonOdontograma;
@@ -477,6 +514,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton jButtonReporteCaja;
     private javax.swing.JButton jButtonReporteServicios;
     private javax.swing.JButton jButtonServicios;
+    private javax.swing.JButton jButtonTalonario;
     private javax.swing.JButton jButtonUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -8,8 +8,10 @@ package OdontoSysPantalla;
 
 import OdontoSysControlador.UsuarioControlador;
 import OdontoSysModelo.Usuario;
+import OdontoSysUtil.NewHibernateUtil;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 /**
@@ -40,7 +42,7 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTextFieldUsuario = new javax.swing.JTextField();
         jTextFieldContraseña = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jButtonLogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,11 +64,11 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
-        jButton1.setText("Ingresar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonLogin.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
+        jButtonLogin.setText("Ingresar");
+        jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonLoginActionPerformed(evt);
             }
         });
 
@@ -76,7 +78,7 @@ public class Login extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jButtonLogin)
                 .addGap(26, 26, 26))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +118,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jButtonLogin)
                 .addGap(22, 22, 22))
         );
 
@@ -124,7 +126,7 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
 
        String nombre = jTextFieldUsuario.getText();
        String passw = jTextFieldContraseña.getText();
@@ -143,14 +145,14 @@ public class Login extends javax.swing.JFrame {
        }else{
            JOptionPane.showMessageDialog(null, "Favor rellene ambos campos" , "Login" , JOptionPane.QUESTION_MESSAGE );
        }       
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonLoginActionPerformed
 
     private void jTextFieldContraseñaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldContraseñaKeyReleased
         // TODO add your handling code here:
         int key = evt.getKeyCode();
         
         if(key == KeyEvent.VK_ENTER){
-            jButton1.doClick();
+            jButtonLogin.doClick();
         }
     }//GEN-LAST:event_jTextFieldContraseñaKeyReleased
 
@@ -185,8 +187,20 @@ public class Login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
+         
+                NewHibernateUtil.buildSessionFactory();
+                System.out.println("Sesión Global Abierta");
+
+                try {
+                    NewHibernateUtil.openSession();
+                }catch(HibernateException ex){
+                    System.out.println("Error: "+ex);
+                    JOptionPane.showMessageDialog(null, "Error al abrir Sesión en Hibernate", "Abrir Sesión", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
+        
+        
     }
     
     //Variables Globales
@@ -194,7 +208,7 @@ public class Login extends javax.swing.JFrame {
     Session sessionGlobal;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
