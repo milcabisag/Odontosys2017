@@ -36,7 +36,7 @@ public class UsuarioControlador {
              u = (Usuario)it.next();
             }else{
                return null;
-            }            
+            }   
         }catch(HibernateException ex){
             System.out.println("Error: "+ ex);
                JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Login Controlador", JOptionPane.INFORMATION_MESSAGE);

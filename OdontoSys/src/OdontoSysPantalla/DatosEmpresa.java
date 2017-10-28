@@ -30,6 +30,7 @@ public class DatosEmpresa extends javax.swing.JFrame {
     public DatosEmpresa() {
         initComponents();
         
+        limpiar();
         dat = new Datos();
         dat = obtenerDatos();
         setear();        
@@ -230,6 +231,8 @@ public class DatosEmpresa extends javax.swing.JFrame {
         
         validar();
         
+        setear();
+        
     }//GEN-LAST:event_jButtonGuaActionPerformed
 
     private void jButtonModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModActionPerformed
@@ -248,6 +251,7 @@ public class DatosEmpresa extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonModActionPerformed
 
     private void jButtonCancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancActionPerformed
+        limpiar();
         dispose();
     }//GEN-LAST:event_jButtonCancActionPerformed
 
@@ -333,18 +337,10 @@ public class DatosEmpresa extends javax.swing.JFrame {
         Session sesion;
         try{
             sesion = NewHibernateUtil.getSessionFactory().openSession();
-            sesion.getTransaction().begin();
-            
-            String hqlUpdate = "UPDATE Datos SET nombreEmpresa = '" + dat.getNombreEmpresa().toString() +
-            "', nombrePropietario = '" + dat.getNombrePropietario().toString() + 
-            "', actividad = '" + dat.getActividad().toString() +
-            "', ruc = '" + dat.getRuc().toString() + "', direccion = '" + dat.getDireccion().toString() +
-            "', ciudad = '" + dat.getCiudad().toString() + "', telefono = '" + dat.getTelefono().toString() + 
-                    "' WHERE iddatos = 1";
-            
-            Query up = sesion.createQuery( hqlUpdate );
-            up.executeUpdate();
-            
+            Transaction tr = sesion.beginTransaction();            
+            sesion.merge(dat);
+            tr.commit();
+            sesion.close();
         }catch(HibernateException ex){
             System.out.println(ex.getMessage());
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Datos de Empresa", WIDTH );
@@ -356,13 +352,15 @@ public class DatosEmpresa extends javax.swing.JFrame {
         Session sesion = null;
         Datos d = null;
         try{
-            sesion = NewHibernateUtil.getSessionFactory().getCurrentSession();
-            //sesion.beginTransaction();
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            sesion.beginTransaction();
             
             String cons = "FROM Datos WHERE iddatos = 1";
             d = new Datos();
             d = (Datos) sesion.createQuery(cons).uniqueResult();
-                                  
+            
+            sesion.close();
+            
         }catch(HibernateException ex){
             System.out.println(ex.getMessage());
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Recuperar Datos de Empresa", WIDTH );
@@ -374,6 +372,7 @@ public class DatosEmpresa extends javax.swing.JFrame {
     private void setear() {
         
         jButtonGua.setVisible(false);
+        jButtonMod.setVisible(true);
         
         jTextFieldEmp.setEditable(false);
         jTextFieldProp.setEditable(false);
@@ -392,6 +391,19 @@ public class DatosEmpresa extends javax.swing.JFrame {
             jTextFieldCiu.setText(dat.getCiudad());
             jTextFieldTel.setText(dat.getTelefono());
         }
+    
+    }
+
+    private void limpiar() {
+        
+        dat = null;
+        jTextFieldEmp.setText("");
+        jTextFieldProp.setText("");
+        jTextFieldRUC.setText("");
+        jTextFieldAct.setText("");
+        jTextFieldDir.setText("");
+        jTextFieldCiu.setText("");
+        jTextFieldTel.setText("");
     
     }
 }
