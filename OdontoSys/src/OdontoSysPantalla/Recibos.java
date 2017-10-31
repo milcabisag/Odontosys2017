@@ -53,7 +53,7 @@ public class Recibos extends javax.swing.JFrame {
         }
         if(fac != null){
             jButtonBuscarFactura.setVisible(false);
-            jTextFieldRecFactura.setText(fac.getNroFactura());
+            jTextFieldRecFactura.setText(String.valueOf(fac.getTalonario().getNroFactura()));
         }
         
         
@@ -336,7 +336,7 @@ public class Recibos extends javax.swing.JFrame {
         fac = new Factura();
         fac = jDialog.getReturnStatus();
                 if(fac != null){
-                   jTextFieldRecFactura.setText(String.valueOf(fac.getNroFactura()));
+                   jTextFieldRecFactura.setText(String.valueOf(fac.getTalonario().getNroFactura()));
                 }
     }//GEN-LAST:event_jButtonBuscarFacturaActionPerformed
 

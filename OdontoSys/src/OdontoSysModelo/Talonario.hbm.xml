@@ -23,6 +23,9 @@
         <property name="finVigencia" type="date">
             <column name="fin_vigencia" length="10" not-null="true" />
         </property>
+        <property name="estado" type="string">
+            <column name="estado" length="45" not-null="true" />
+        </property>
         <set name="facturas" table="factura" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="fk_talonario" not-null="true" />

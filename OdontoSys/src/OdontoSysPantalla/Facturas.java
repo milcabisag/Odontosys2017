@@ -10,14 +10,15 @@ import OdontoSysControlador.ConvenioControlador;
 import OdontoSysControlador.FacturaControlador;
 import OdontoSysControlador.NumberToLetterConverter;
 import OdontoSysControlador.OrdenServicioControlador;
+import OdontoSysControlador.TalonarioControlador;
 import OdontoSysModelo.ConvPaciente;
 import OdontoSysModelo.Convenio;
+import OdontoSysModelo.Datos;
 import OdontoSysModelo.DetalleOrden;
-import OdontoSysModelo.Empresa;
 import OdontoSysModelo.Factura;
-import OdontoSysModelo.FacturaConvenio;
 import OdontoSysModelo.OrdenServicio;
 import OdontoSysModelo.Paciente;
+import OdontoSysModelo.Talonario;
 import OdontoSysModelo.Usuario;
 import OdontoSysPantallaAuxiliares.OrdenDeServicio;
 import OdontoSysUtil.Configuraciones;
@@ -41,10 +42,30 @@ import org.hibernate.Transaction;
 public class Facturas extends javax.swing.JFrame {
 
     /**
-     * Creates new form Factura
+     * Variables
      */
+    public static Paciente pacActual = null;                    //A pasarse desde el frame padre
+    public static OrdenServicio ordenActual = null;             //A pasarse desde el frame padre
+    public static ArrayList<DetalleOrden> lista = null;         //A pasarse desde el frame padre
+    ArrayList<ConvPaciente> cp = null;
+    ArrayList<Convenio> convenios = null;
+    DefaultTableModel tabla = new DefaultTableModel(){
+        public boolean isCellEditable(int row, int column) {            
+                return false;            
+        }};
+    public static Factura facActual = null;
+    public static int monto;
+    DecimalFormat formateador = new DecimalFormat("###,###");
+    int total;
+    int subt;
+    public static Usuario user;
+    Talonario tal = new Talonario();
+    Datos dat = new Datos();
+    
+    
     public Facturas() {
         initComponents();
+        setearFactura();
         obtenerHoy();      
         inicTabla();
             if(ordenActual == null){                 // Llamado desde Paciente, sólo modo de consulta
@@ -69,11 +90,10 @@ public class Facturas extends javax.swing.JFrame {
 
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextFieldTimbrado = new javax.swing.JTextField();
+        jLabelRUC = new javax.swing.JLabel();
+        jLabelTimbrado = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabelNroFac = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jComboBoxFactTipo = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
@@ -96,7 +116,6 @@ public class Facturas extends javax.swing.JFrame {
         jTextFieldFactIVA5 = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jTextFieldFactIVA = new javax.swing.JTextField();
-        jFormattedTextFieldFactNro = new javax.swing.JFormattedTextField();
         jButtonCancelar = new javax.swing.JButton();
         jButtonAceptar = new javax.swing.JButton();
         jButtonVerOrdenServicio = new javax.swing.JButton();
@@ -112,17 +131,17 @@ public class Facturas extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel1.setText("Fecha");
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel2.setText("RUC Nro");
+        jLabelRUC.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabelRUC.setText("RUC Nro");
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel3.setText("Timbrado");
+        jLabelTimbrado.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabelTimbrado.setText("Timbrado");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel4.setText("FACTURA");
 
-        jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel5.setText("Nro");
+        jLabelNroFac.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabelNroFac.setText("Nro");
 
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel6.setText("Tipo");
@@ -196,22 +215,6 @@ public class Facturas extends javax.swing.JFrame {
         jTextFieldFactIVA.setFocusable(false);
         jTextFieldFactIVA.setRequestFocusEnabled(false);
 
-        try {
-            jFormattedTextFieldFactNro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-###-#######")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jFormattedTextFieldFactNro.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jFormattedTextFieldFactNroFocusLost(evt);
-            }
-        });
-        jFormattedTextFieldFactNro.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jFormattedTextFieldFactNroKeyTyped(evt);
-            }
-        });
-
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -279,30 +282,29 @@ public class Facturas extends javax.swing.JFrame {
                                     .addComponent(jTextFieldCI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabelFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(38, 38, 38)))
-                        .addGap(186, 186, 186)
+                        .addGap(264, 264, 264)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(24, 24, 24)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel5))
+                                .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBoxFactTipo, 0, 139, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldTimbrado)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxFactTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(22, 22, 22)
-                                        .addComponent(jLabel4))
-                                    .addComponent(jFormattedTextFieldFactNro))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabelTimbrado)
+                                            .addComponent(jLabel4))))
                                 .addGap(19, 19, 19))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(81, 81, 81))))
+                                .addComponent(jLabelRUC)
+                                .addGap(81, 81, 81))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelNroFac, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 541, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jButtonAceptar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonCancelar))
@@ -327,7 +329,7 @@ public class Facturas extends javax.swing.JFrame {
                                         .addComponent(jLabel17)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jTextFieldFactTotalLetras, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(layout.createSequentialGroup()
@@ -352,24 +354,23 @@ public class Facturas extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelRUC, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldTimbrado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldCI, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldCI, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelTimbrado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldNombrePac, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelNroFac, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldFactOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextFieldFactNro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonVerOrdenServicio))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,7 +405,7 @@ public class Facturas extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldFactTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonAceptar))
@@ -463,16 +464,6 @@ public class Facturas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldFactDescuentoKeyTyped
 
-    private void jFormattedTextFieldFactNroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldFactNroKeyTyped
-        char c = evt.getKeyChar();
-        int i = c;
-        if((c < '0' || c > '9') && (i != 8 && i != 9 && i != 10)){
-            evt.consume();
-            JOptionPane.showMessageDialog(rootPane, "Este campo sólo admite numeros", "Validez de Campo", WIDTH);
-        }
-        jFormattedTextFieldFactNro.setFocusLostBehavior(jFormattedTextFieldFactNro.PERSIST);
-    }//GEN-LAST:event_jFormattedTextFieldFactNroKeyTyped
-
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
@@ -480,10 +471,6 @@ public class Facturas extends javax.swing.JFrame {
     private void jTextFieldFactSubtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFactSubtKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldFactSubtKeyTyped
-
-    private void jFormattedTextFieldFactNroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldFactNroFocusLost
-
-    }//GEN-LAST:event_jFormattedTextFieldFactNroFocusLost
 
     /**
      * @param args the command line arguments
@@ -519,29 +506,13 @@ public class Facturas extends javax.swing.JFrame {
             }
         });
     }
-    //Variables
-    public static Paciente pacActual = null;                    //A pasarse desde el frame padre
-    public static OrdenServicio ordenActual = null;             //A pasarse desde el frame padre
-    public static ArrayList<DetalleOrden> lista = null;         //A pasarse desde el frame padre
-    ArrayList<ConvPaciente> cp = null;
-    ArrayList<Convenio> convenios = null;
-    DefaultTableModel tabla = new DefaultTableModel(){
-        public boolean isCellEditable(int row, int column) {            
-                return false;            
-        }};
-    public static Factura facActual = null;
-    public static int monto;
-    DecimalFormat formateador = new DecimalFormat("###,###");
-    int total;
-    int subt;
-    public static Usuario user;
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAceptar;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonVerOrdenServicio;
     private javax.swing.JComboBox jComboBoxFactTipo;
-    private javax.swing.JFormattedTextField jFormattedTextFieldFactNro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -551,15 +522,15 @@ public class Facturas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelFecha;
+    private javax.swing.JLabel jLabelNroFac;
+    private javax.swing.JLabel jLabelRUC;
+    private javax.swing.JLabel jLabelTimbrado;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableDetalle;
     private javax.swing.JTextField jTextField1;
@@ -573,7 +544,6 @@ public class Facturas extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldFactTotal;
     private javax.swing.JTextField jTextFieldFactTotalLetras;
     private javax.swing.JTextField jTextFieldNombrePac;
-    private javax.swing.JTextField jTextFieldTimbrado;
     // End of variables declaration//GEN-END:variables
 
     private void obtenerHoy() {
@@ -623,8 +593,7 @@ public class Facturas extends javax.swing.JFrame {
     }
 
     private void obtenerFactura() {
-        String n = jFormattedTextFieldFactNro.getText().replace("-", "");
-        if(n.trim().compareTo("") != 0 && jTextFieldTimbrado.getText().trim().compareTo("") != 0){
+        
             facActual = new Factura();
             facActual.setFecha(new Date());
             String tipo = jComboBoxFactTipo.getSelectedItem().toString();
@@ -638,15 +607,10 @@ public class Facturas extends javax.swing.JFrame {
             }
             facActual.setPaciente(pacActual);
             facActual.setOrdenServicio(ordenActual);
-            facActual.setTimbrado(Integer.parseInt(jTextFieldTimbrado.getText()));
-            facActual.setNroFactura(jFormattedTextFieldFactNro.getText());
+            facActual.setTalonario(tal);
             facActual.setDescuento(subt-total);
             facActual.setMontoTotal(total);
             facActual.setUsuario(user);
-            
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "Favor complete todos los campos", "Validez de Campo", WIDTH);
-        }
     }
 
     private void setearDatos() {
@@ -713,6 +677,19 @@ public class Facturas extends javax.swing.JFrame {
         parametros.put("total_letras", let);
         
         Configuraciones.imprimirReporteHB(reporte, parametros);
+    }
+
+    private void setearFactura() {
+        
+        
+        dat = TalonarioControlador.DatosdeFactura();
+        tal = TalonarioControlador.BuscarFacturaLibre();
+        if(tal != null && dat != null){
+            jLabelRUC.setText("RUC "+dat.getRuc());
+            jLabelTimbrado.setText("Timbrado "+tal.getTimbrado());
+            jLabelNroFac.setText("Nro 001-001-000"+tal.getNroFactura());
+        }
+    
     }
 
 

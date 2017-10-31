@@ -18,25 +18,28 @@ public class Talonario  implements java.io.Serializable {
      private int timbrado;
      private Date iniVigencia;
      private Date finVigencia;
+     private String estado;
      private Set facturas = new HashSet(0);
 
     public Talonario() {
     }
 
 	
-    public Talonario(int nroTalonario, int nroFactura, int timbrado, Date iniVigencia, Date finVigencia) {
+    public Talonario(int nroTalonario, int nroFactura, int timbrado, Date iniVigencia, Date finVigencia, String estado) {
         this.nroTalonario = nroTalonario;
         this.nroFactura = nroFactura;
         this.timbrado = timbrado;
         this.iniVigencia = iniVigencia;
         this.finVigencia = finVigencia;
+        this.estado = estado;
     }
-    public Talonario(int nroTalonario, int nroFactura, int timbrado, Date iniVigencia, Date finVigencia, Set facturas) {
+    public Talonario(int nroTalonario, int nroFactura, int timbrado, Date iniVigencia, Date finVigencia, String estado, Set facturas) {
        this.nroTalonario = nroTalonario;
        this.nroFactura = nroFactura;
        this.timbrado = timbrado;
        this.iniVigencia = iniVigencia;
        this.finVigencia = finVigencia;
+       this.estado = estado;
        this.facturas = facturas;
     }
    
@@ -81,6 +84,13 @@ public class Talonario  implements java.io.Serializable {
     
     public void setFinVigencia(Date finVigencia) {
         this.finVigencia = finVigencia;
+    }
+    public String getEstado() {
+        return this.estado;
+    }
+    
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     public Set getFacturas() {
         return this.facturas;

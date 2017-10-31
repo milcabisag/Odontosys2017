@@ -9,7 +9,7 @@ package OdontoSysPantalla;
 import OdontoSysModelo.Usuario;
 import OdontoSysPantallaAuxiliares.ObtenerServicios;
 import OdontoSysPantallaAuxiliares.ObtenerUsuarios;
-import OdontoSysPantallaAuxiliares.Talonario;
+import OdontoSysPantallaAuxiliares.Talonarios;
 import OdontoSysPantallaAuxiliares.obtenerFechas;
 import OdontoSysPantallaOtros.AyudaAdministrador;
 import OdontoSysPantallaOtros.AyudaDoctor;
@@ -228,8 +228,7 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         jButtonTalonario.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
-        jButtonTalonario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/orden.png"))); // NOI18N
-        jButtonTalonario.setText("Talonarios");
+        jButtonTalonario.setText("Nuevo Talonario");
         jButtonTalonario.setToolTipText("Datos de Talonario, Timbrado y Número de Factura");
         jButtonTalonario.setMargin(new java.awt.Insets(2, 7, 2, 7));
         jButtonTalonario.addActionListener(new java.awt.event.ActionListener() {
@@ -455,7 +454,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDatosActionPerformed
 
     private void jButtonTalonarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTalonarioActionPerformed
-        Talonario jFrame = new Talonario();
+        Talonarios jFrame = new Talonarios();
         jFrame.setVisible(true);
     }//GEN-LAST:event_jButtonTalonarioActionPerformed
 

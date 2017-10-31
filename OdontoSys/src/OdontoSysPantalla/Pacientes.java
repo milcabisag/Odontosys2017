@@ -1387,7 +1387,7 @@ public class Pacientes extends javax.swing.JFrame {
         p.setNroCi(cedula);     
         
         
-        p.setCiudad(ciudades.get(jCBciudad.getSelectedIndex()));
+        p.setCiudad(ciudades.get(jCBciudad.getSelectedIndex()).getNombre());
         p.setDireccion(jTextFieldDDireccion.getText());
         
         Date fechanac = jDateChooserEdad.getDate();
@@ -1471,7 +1471,7 @@ public class Pacientes extends javax.swing.JFrame {
             jTextFieldDTel.setText(paciente.getTelLb());
             jTextFieldDCel.setText(paciente.getTelCel());
             jTextFieldDDireccion.setText(paciente.getDireccion());
-            jCBciudad.setSelectedItem(paciente.getCiudad().getNombre());
+            jCBciudad.setSelectedItem(paciente.getCiudad());
             jTextFieldDEmail.setText(paciente.getEmail());
             
             recuperarEstadoCuenta(paciente);
@@ -1501,7 +1501,7 @@ public class Pacientes extends javax.swing.JFrame {
         pacienteActual.setNroCi(Integer.parseInt(jTextFieldDCI.getText().replace(".", "")));
         pacienteActual.setTelLb(jTextFieldDTel.getText());
         pacienteActual.setTelCel(jTextFieldDCel.getText());
-        pacienteActual.setCiudad(ciudades.get(jCBciudad.getSelectedIndex()));
+        pacienteActual.setCiudad(ciudades.get(jCBciudad.getSelectedIndex()).getNombre());
         pacienteActual.setDireccion(jTextFieldDDireccion.getText());
         Date fechaNac = jDateChooserEdad.getDate();             
         pacienteActual.setFechaNac(fechaNac);
@@ -1589,7 +1589,7 @@ public class Pacientes extends javax.swing.JFrame {
         if(con != null){
             for(ConvPaciente c : con){
                 Object[] emp = new Object[4];
-                emp[0] = c.getConvenio().getNombre();
+                emp[0] = c.getConvenio().getObservacion();
                 emp[1] = c.getConvenio().getEmpresa().getNombre();
                 emp[2] = c.getConvenio().getEmpresa().getRuc();
                 emp[3] = c.getConvenio().getEmpresa().getTelefono();

@@ -6,16 +6,26 @@
 
 package OdontoSysPantallaAuxiliares;
 
+import OdontoSysControlador.TalonarioControlador;
+import OdontoSysModelo.Talonario;
+import static java.awt.image.ImageObserver.WIDTH;
+import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
  */
-public class Talonario extends javax.swing.JFrame {
+public class Talonarios extends javax.swing.JFrame {
 
     /**
-     * Creates new form Talonario
+     * Variables
      */
-    public Talonario() {
+    Talonario tal = null;
+    ArrayList<Talonario> listaf = new ArrayList();
+    
+    public Talonarios() {
         initComponents();
     }
 
@@ -34,17 +44,17 @@ public class Talonario extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jTextFieldTal = new javax.swing.JTextField();
         jTextFieldCanF = new javax.swing.JTextField();
         jTextFieldNroI = new javax.swing.JTextField();
         jTextFieldTim = new javax.swing.JTextField();
-        jTextFieldFecI = new javax.swing.JTextField();
-        jTextFieldFecF = new javax.swing.JTextField();
-        jTextFieldSuc = new javax.swing.JTextField();
+        jButtonGua = new javax.swing.JButton();
+        jButtonCan = new javax.swing.JButton();
+        jDateFecI = new com.toedter.calendar.JDateChooser();
+        jDateFecF = new com.toedter.calendar.JDateChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel1.setText("Datos de Factura");
@@ -64,9 +74,6 @@ public class Talonario extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel6.setText("Fecha fin vigencia");
 
-        jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel7.setText("Número de sucursal");
-
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel8.setText("Cantidad de facturas por talonario");
 
@@ -76,11 +83,21 @@ public class Talonario extends javax.swing.JFrame {
                 jTextFieldTalActionPerformed(evt);
             }
         });
+        jTextFieldTal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                soloNumerosKeyTyped(evt);
+            }
+        });
 
         jTextFieldCanF.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jTextFieldCanF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCanFActionPerformed(evt);
+            }
+        });
+        jTextFieldCanF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                soloNumerosKeyTyped(evt);
             }
         });
 
@@ -90,6 +107,11 @@ public class Talonario extends javax.swing.JFrame {
                 jTextFieldNroIActionPerformed(evt);
             }
         });
+        jTextFieldNroI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                soloNumerosKeyTyped(evt);
+            }
+        });
 
         jTextFieldTim.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jTextFieldTim.addActionListener(new java.awt.event.ActionListener() {
@@ -97,25 +119,27 @@ public class Talonario extends javax.swing.JFrame {
                 jTextFieldTimActionPerformed(evt);
             }
         });
-
-        jTextFieldFecI.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jTextFieldFecI.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldFecIActionPerformed(evt);
+        jTextFieldTim.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                soloNumerosKeyTyped(evt);
             }
         });
 
-        jTextFieldFecF.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jTextFieldFecF.addActionListener(new java.awt.event.ActionListener() {
+        jButtonGua.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButtonGua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/guardar.png"))); // NOI18N
+        jButtonGua.setText("Guardar");
+        jButtonGua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldFecFActionPerformed(evt);
+                jButtonGuaActionPerformed(evt);
             }
         });
 
-        jTextFieldSuc.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jTextFieldSuc.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCan.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButtonCan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
+        jButtonCan.setText("Cancelar");
+        jButtonCan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldSucActionPerformed(evt);
+                jButtonCanActionPerformed(evt);
             }
         });
 
@@ -124,30 +148,33 @@ public class Talonario extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
+                        .addGap(124, 124, 124)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel8)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldTal, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldCanF, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldNroI, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldTim, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldFecI, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldFecF, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldSuc, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldTal, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(jTextFieldCanF, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(jTextFieldNroI, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(jTextFieldTim, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(jDateFecI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jDateFecF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonGua)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonCan)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,31 +185,31 @@ public class Talonario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldTal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jTextFieldCanF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextFieldNroI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldTim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jTextFieldFecI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jDateFecI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(jTextFieldFecF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jDateFecF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextFieldSuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(77, Short.MAX_VALUE))
+                    .addComponent(jButtonGua)
+                    .addComponent(jButtonCan))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -205,17 +232,34 @@ public class Talonario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldTimActionPerformed
 
-    private void jTextFieldFecIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldFecIActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldFecIActionPerformed
+    private void soloNumerosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_soloNumerosKeyTyped
+       char c = evt.getKeyChar();
+        int i = c;
+        if( (c < '0' || c > '9') && (i != 8 && i != 9 && i != 13) ){
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "Este campo sólo admite numeros", "Validez de Campo", WIDTH);
+        }
+    }//GEN-LAST:event_soloNumerosKeyTyped
 
-    private void jTextFieldFecFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldFecFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldFecFActionPerformed
+    private void jButtonGuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuaActionPerformed
+        boolean v = validar();
+        if(v){
+            calcular();
+            v = TalonarioControlador.Guardar(listaf);
+            if(v){
+                JOptionPane.showMessageDialog(rootPane, "Guardado exitosamente", "", WIDTH);
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "No se pudo guardar", "Talonario", WIDTH);
+            }
+        }
+        limpiar();
+        dispose();
+    }//GEN-LAST:event_jButtonGuaActionPerformed
 
-    private void jTextFieldSucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSucActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldSucActionPerformed
+    private void jButtonCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCanActionPerformed
+        limpiar();
+        dispose();
+    }//GEN-LAST:event_jButtonCanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,39 +278,90 @@ public class Talonario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Talonario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Talonarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Talonario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Talonarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Talonario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Talonarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Talonario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Talonarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Talonario().setVisible(true);
+                new Talonarios().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCan;
+    private javax.swing.JButton jButtonGua;
+    private com.toedter.calendar.JDateChooser jDateFecF;
+    private com.toedter.calendar.JDateChooser jDateFecI;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField jTextFieldCanF;
-    private javax.swing.JTextField jTextFieldFecF;
-    private javax.swing.JTextField jTextFieldFecI;
     private javax.swing.JTextField jTextFieldNroI;
-    private javax.swing.JTextField jTextFieldSuc;
     private javax.swing.JTextField jTextFieldTal;
     private javax.swing.JTextField jTextFieldTim;
     // End of variables declaration//GEN-END:variables
+
+    private boolean validar() {
+        
+        boolean v = false;
+        tal = new Talonario();
+        tal.setTimbrado(parseInt(jTextFieldTim.getText()));
+        tal.setIniVigencia(jDateFecI.getDate());
+        tal.setFinVigencia(jDateFecF.getDate());
+        int c = parseInt(jTextFieldTal.getText());
+        
+        if(c <= 0 || c > 50){
+            JOptionPane.showMessageDialog(rootPane, "La cantidad de talonarios debe estar entre 1 y 50", "Talonario", WIDTH);
+        }else{
+            v = true;
+        }
+        return v;
+    
+    }
+    
+    private void limpiar(){
+        jTextFieldCanF.setText("");
+        jTextFieldNroI.setText("");
+        jTextFieldTal.setText("");
+        jTextFieldTim.setText("");
+        jDateFecF.setDate(null);
+        jDateFecI.setDate(null);
+        tal = null;
+    }
+
+    private void calcular() {
+    
+         int canTal = parseInt(jTextFieldTal.getText());
+         int nro = parseInt(jTextFieldNroI.getText());        //Número de factura inicial
+         int canFac = parseInt(jTextFieldCanF.getText());
+         int n = 0;
+            
+            for(int x=1; x<=canTal; x++){       //Desde 1 hasta cantidad de Talonarios
+                for(int a=0; a<canFac; a++){   //Desde 1 hasta cantidad de Facturas de un talonario
+                    Talonario t = new Talonario();
+                    t.setTimbrado(parseInt(jTextFieldTim.getText()));
+                    t.setIniVigencia(jDateFecI.getDate());
+                    t.setFinVigencia(jDateFecF.getDate());
+                    t.setEstado("Libre");
+                    t.setNroTalonario(x);
+                    t.setNroFactura(nro);
+                    nro++;
+                    listaf.add(t);
+                }
+            }
+    }
+    
 }

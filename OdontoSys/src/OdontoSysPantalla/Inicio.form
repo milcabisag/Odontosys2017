@@ -402,10 +402,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri Light" size="18" style="0"/>
             </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ImagenesOdontosys/DienteSanos/orden.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Talonarios"/>
+            <Property name="text" type="java.lang.String" value="Nuevo Talonario"/>
             <Property name="toolTipText" type="java.lang.String" value="Datos de Talonario, Timbrado y N&#xfa;mero de Factura"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[2, 7, 2, 7]"/>
