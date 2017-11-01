@@ -307,15 +307,9 @@ public class Recibos extends javax.swing.JFrame {
          
         detalleActual = ReciboVista.validarRecibo(reciboActual, detalle);
         if(detalleActual != null){           
-            reciboActual = ReciboControlador.InsertarRecibo(reciboActual);
-            Movimiento m = new Movimiento();
-            m = ReciboControlador.insertarMovimientoRecibo(reciboActual);
-            for(DetalleRecibo d : detalle){
-                d.setRecibo(reciboActual);
-                ReciboControlador.InsertarDetalle(d, m, user);
-            }
+            reciboActual = ReciboControlador.InsertarRecibo(reciboActual, detalle, user);
             JOptionPane.showMessageDialog(rootPane, "Registro insertado correctamente", "Insertar Recibo", WIDTH);
-            if(fac.getTipoFactura().compareTo("Contado") != 0){
+            if(fac.getTipoFactura().compareTo("Crédito") != 0){
                 fac.setSaldo(fac.getSaldo() - reciboActual.getMonto());
                 FacturaControlador.ModificarSaldo(fac);
                 this.setVisible(false);
@@ -360,11 +354,17 @@ public class Recibos extends javax.swing.JFrame {
         fila[0] = JOptionPane.showInputDialog(null, "Seleccione una forma de pago", "Forma de Pago", 
             JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Efectivo", "Tarjeta Crédito", "Tarjeta Débito", "Cheque"}, 0);
         if(fila[0] != null){
-        boolean bandera;
+        boolean bandera = false;
         do{
             try{
-                fila[1] = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese monto pagado", "Monto", JOptionPane.QUESTION_MESSAGE));
-                bandera = true;
+                int m = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese monto pagado", "Monto", JOptionPane.QUESTION_MESSAGE));
+                if(m > fac.getMontoTotal()){
+                    JOptionPane.showMessageDialog(null, "No debe superar a Gs. "+formateador.format(fac.getMontoTotal()) , "Monto" , JOptionPane.QUESTION_MESSAGE );
+                    bandera = false;
+                }else{
+                    fila[1] = m;
+                    bandera = true;
+                }
             }catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(null, "Sólo se permiten números" , "Monto" , JOptionPane.QUESTION_MESSAGE );
                 bandera = false;

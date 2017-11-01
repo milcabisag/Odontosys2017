@@ -738,7 +738,7 @@ public class Doctores extends javax.swing.JFrame {
             jTextFieldDocTel.setText(doctor.getTeLb());
             jTextFieldDocCel.setText(doctor.getTelCel());
             jTextFieldDocDir.setText(doctor.getDireccion());
-            jCBciudad.setSelectedItem(doctor.getCiudad().getNombre());
+            jCBciudad.setSelectedItem(doctor.getCiudad());
             jTextFieldDocEmail.setText(doctor.getEmail());
             jTextFieldDocReg.setText(doctor.getRegProf());
         }else{
@@ -817,7 +817,7 @@ public class Doctores extends javax.swing.JFrame {
         doctorActual.setTeLb(jTextFieldDocTel.getText());
         doctorActual.setTelCel(jTextFieldDocCel.getText());
         doctorActual.setDireccion(jTextFieldDocDir.getText());
-        doctorActual.setCiudad(ciudades.get(jCBciudad.getSelectedIndex()));
+        doctorActual.setCiudad(ciudades.get(jCBciudad.getSelectedIndex()).getNombre());
         doctorActual.setEmail(jTextFieldDocEmail.getText());
         doctorActual.setRegProf(jTextFieldDocReg.getText());
         doctorActual.setEstado("Activo");

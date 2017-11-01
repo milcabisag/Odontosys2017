@@ -292,7 +292,7 @@ public class FacturaControlador {
             //sesion.getTransaction().begin();
 
             m.setPaciente(nuevo.getPaciente());
-            m.setMovimiento("Factura Credito Nro "+nuevo.getNroFactura());
+            m.setMovimiento("Factura Credito Nro "+nuevo.getTalonario().getNroFactura());
             m.setFecha(nuevo.getFecha());
             m.setDebe(nuevo.getMontoTotal());
             m.setHaber(0);

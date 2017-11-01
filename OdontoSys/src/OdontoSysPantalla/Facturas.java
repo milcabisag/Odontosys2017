@@ -146,6 +146,7 @@ public class Facturas extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel6.setText("Tipo");
 
+        jComboBoxFactTipo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jComboBoxFactTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Contado", "Crédito" }));
 
         jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N

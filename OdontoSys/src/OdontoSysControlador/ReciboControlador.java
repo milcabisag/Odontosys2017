@@ -55,62 +55,50 @@ public class ReciboControlador {
         return datos;
     }
     
-    public static Recibo InsertarRecibo(Recibo nuevo) {       
+    public static Recibo InsertarRecibo(Recibo nuevo, ArrayList<DetalleRecibo> detalle, Usuario us) {       
         Session sesion;
-        Recibo r = null;
+        Recibo rec = null;
         try{
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             sesion.getTransaction().begin();            
             sesion.save(nuevo);
             sesion.refresh(nuevo);   
-            r = new Recibo();
-            r = nuevo;
+            rec = new Recibo();
+            rec = nuevo;
+            
+            Movimiento m = new Movimiento();
+            m = insertarMovimientoRecibo(sesion, rec);
+            for(DetalleRecibo d : detalle){
+                d.setRecibo(rec);
+                sesion.save(d);
+                sesion.refresh(d);
+                agregarMovimientoCaja(sesion, m, d, null, null, us);
+            }
+            
             sesion.getTransaction().commit();
             sesion.close();
         }catch(HibernateException ex){
              JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Recibo Controlador", JOptionPane.INFORMATION_MESSAGE);   
         }        
-        return r;
+        return rec;
     }
 
-    public static void InsertarDetalle(DetalleRecibo d, Movimiento m, Usuario u) {
-        Session sesion;
-        try{
-            sesion = NewHibernateUtil.getSessionFactory().openSession();
-            sesion.getTransaction().begin();            
-            sesion.save(d);
-            sesion.refresh(d);
-            sesion.getTransaction().commit();
-            sesion.close();
-            agregarMovimientoCaja(m, d, null, null, u);
-        }catch(HibernateException ex){
-             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Recibo Controlador", JOptionPane.INFORMATION_MESSAGE);   
-        }
-    }
-
-    public static Movimiento insertarMovimientoRecibo(Recibo r) {
+    public static Movimiento insertarMovimientoRecibo(Session sesion, Recibo r) {
         Movimiento m = null;
-        Session sesion;
         try{
-            sesion = NewHibernateUtil.getSessionFactory().openSession();
-            sesion.getTransaction().begin();
-            
             m = new Movimiento();
             m.setPaciente(r.getPaciente());
             if(r.getFactura().getTipoFactura().compareTo("Contado") == 0){
                 m.setMovimiento("Factura Contado Nro "+r.getFactura().getTalonario().getNroFactura());
             }else{
-                m.setMovimiento("Recibo por Factura Nro "+r.getFactura().getTalonario().getNroFactura());
+                m.setMovimiento("Recibo por Factura Crédito Nro "+r.getFactura().getTalonario().getNroFactura());
             }
             m.setFecha(r.getFecha());
             m.setDebe(0);
             m.setHaber(r.getMonto());
             
             sesion.save(m);
-            sesion.refresh(m);            
-                       
-            sesion.getTransaction().commit(); 
-            sesion.close();
+            sesion.refresh(m);      
             
         }catch(HibernateException ex){
             System.out.println(ex.getMessage());
@@ -169,7 +157,7 @@ public class ReciboControlador {
             sesion.save(d);
             sesion.refresh(d);
             sesion.getTransaction().commit();
-            agregarMovimientoCaja(null, null, m, d, u);
+            agregarMovimientoCaja(sesion, null, null, m, d, u);
         }catch(HibernateException ex){
              JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Recibo Controlador", JOptionPane.INFORMATION_MESSAGE);   
         }
@@ -203,12 +191,9 @@ public class ReciboControlador {
         return m;
     }
 
-    private static void agregarMovimientoCaja(Movimiento m, DetalleRecibo det, MovimientoEmpresa e, DetalleReciboemp detemp, Usuario u) {
+    private static void agregarMovimientoCaja(Session sesion, Movimiento m, DetalleRecibo det, MovimientoEmpresa e, DetalleReciboemp detemp, Usuario u) {
         Caja c = new Caja();
-        Session sesion;
         try{
-            sesion = NewHibernateUtil.getSessionFactory().openSession();
-            sesion.getTransaction().begin();
             
             if(m != null && det != null){
                 c.setDescripcion(m.getMovimiento());
@@ -219,7 +204,7 @@ public class ReciboControlador {
                 c.setMovimientoEmpresa(null);
                 c.setUsuario(u);
                 c.setDescripcion("Entrada");
-            } else if(e != null && detemp != null){
+            }else if(e != null && detemp != null){      //Recibo de una factura de empresa
                 c.setDescripcion(e.getMovimiento());
                 c.setEntrada(detemp.getMonto());
                 c.setMovimientoEmpresa(e);
@@ -232,9 +217,7 @@ public class ReciboControlador {
             
             sesion.save(c);
             sesion.refresh(c);
-                       
-            sesion.getTransaction().commit();            
-            sesion.close();
+            
         }catch(HibernateException ex){
             System.out.println(ex.getMessage());
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Movimiento Caja", WIDTH );
