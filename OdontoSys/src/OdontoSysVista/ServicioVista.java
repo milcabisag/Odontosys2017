@@ -35,10 +35,10 @@ public class ServicioVista {
         int prec = serv.getPrecio();
         
         if(desc==0  || desc < 3 || desc > 20){
-            JOptionPane.showMessageDialog(null, "El servicio debe tener entre 3 y 20 caracteres", "Validación de Usuario", WIDTH);
+            JOptionPane.showMessageDialog(null, "El servicio debe tener entre 3 y 20 caracteres", "Validación de Servicio", WIDTH);
             return false;
-        }else if(prec == 0 || prec > 0){
-            JOptionPane.showMessageDialog(null, "El precio del servicio debe ser mayor a 0", "Validación de Usuario", WIDTH);
+        }else if(prec <= 0){
+            JOptionPane.showMessageDialog(null, "El precio del servicio debe ser mayor a 0", "Validación de Servicio", WIDTH);
             return false;
         }else{
                 return true;

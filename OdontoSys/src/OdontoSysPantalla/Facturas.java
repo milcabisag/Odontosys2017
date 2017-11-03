@@ -573,7 +573,7 @@ public class Facturas extends javax.swing.JFrame {
             f[1] = n.getPrecio();
             f[2] = null;
             f[3] = null;
-            f[4] = n.getPrecio() - verConvenio(n);
+            f[4] = n.getPrecio(); //- verConvenio(n);
             subt = Integer.parseInt(f[1].toString()) + subt;
             total = Integer.parseInt(f[4].toString()) + total;
             tabla.addRow(f);
@@ -620,14 +620,13 @@ public class Facturas extends javax.swing.JFrame {
         jTextFieldFactOrden.setText(ordenActual.getIdordenServicio().toString());
     }
 
-    private int verConvenio(DetalleOrden det) {     //Retorna el porcentaje total sobre el servicio que se le pasa  
+ /*   private int verConvenio(DetalleOrden det) {     //Retorna el porcentaje total sobre el servicio que se le pasa  
         Session sesion;
         sesion = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = sesion.beginTransaction();
         sesion.getTransaction().begin();
          
         int sum = 0;
-        /*
         if(cp != null){       //El paciente tiene convenio
             for(ConvPaciente c : cp){
                 int a = ConvenioControlador.BuscarPorcentajeConvenio(pacActual.getIdPaciente(), e.getIdempresa(), det.getServicio().getIdservicio(), sesion);
@@ -635,16 +634,15 @@ public class Facturas extends javax.swing.JFrame {
                 sum = desc + sum;
             }            
         }
-        */
         sesion.getTransaction().commit();            
         sesion.close();
         
         return sum;
-    }
+    }*/
 
-    private boolean guardarFacturaConvenio(Session sesion) {
+   /* private boolean guardarFacturaConvenio(Session sesion) {
         boolean v = false;       
-        /*for(Empresa e : empresas){
+        for(Empresa e : empresas){
             int total = 0;
             for(DetalleOrden d : lista){
                 int c = ConvenioControlador.BuscarPorcentajeConvenio(pacActual.getIdPaciente(), e.getIdempresa(), d.getServicio().getIdservicio(), sesion);
@@ -660,10 +658,10 @@ public class Facturas extends javax.swing.JFrame {
                 FacturaControlador.insertarFacturaConvenio(fc, sesion);
             }
             v = true;
-        }*/
+        }
         return v;
     }
-
+*/
     private void imprimirFactura() {
         String reporte="reportes/factura";
         

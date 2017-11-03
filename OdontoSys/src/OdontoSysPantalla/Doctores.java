@@ -41,27 +41,6 @@ public class Doctores extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextFieldDocCel = new javax.swing.JTextField();
-        jTextFieldDocTel = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jTextFieldDocDir = new javax.swing.JTextField();
-        jTextFieldDocNomb = new javax.swing.JTextField();
-        jTextFieldDocApe = new javax.swing.JTextField();
-        jDateChooserDocFecha = new com.toedter.calendar.JDateChooser();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBoxSexo = new javax.swing.JComboBox();
-        jTextFieldDocEmail = new javax.swing.JTextField();
-        jTextFieldDocReg = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextFieldDocCed = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jButtonAtras = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonConsultarDoctor = new javax.swing.JButton();
@@ -69,131 +48,44 @@ public class Doctores extends javax.swing.JFrame {
         jButtonModificarDoctor = new javax.swing.JButton();
         jButtonInsertarDoctor = new javax.swing.JButton();
         jButtonMenu = new javax.swing.JButton();
-        jCBciudad = new javax.swing.JComboBox();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jLabelnomb = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jTextFieldDocReg = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabelTel = new javax.swing.JLabel();
+        jDateChooserDocFecha = new com.toedter.calendar.JDateChooser();
+        jTextFieldDocDir = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTextFieldDocApe = new javax.swing.JTextField();
+        jLabelDir = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jComboBoxSexo = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
+        jTextFieldDocTel = new javax.swing.JTextField();
+        jLabelEmail = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldDocCed = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jTextFieldDocCel = new javax.swing.JTextField();
+        jTextFieldDocEmail = new javax.swing.JTextField();
+        jLabelCel = new javax.swing.JLabel();
+        jTextFieldDocNomb = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jCBciudad = new javax.swing.JComboBox();
         jLabelReg = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jLabelape = new javax.swing.JLabel();
         jLabelCI = new javax.swing.JLabel();
-        jLabelTel = new javax.swing.JLabel();
-        jLabelCel = new javax.swing.JLabel();
-        jLabelDir = new javax.swing.JLabel();
-        jLabelEmail = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(900, 465));
-
-        jTextFieldDocCel.setEditable(false);
-        jTextFieldDocCel.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextFieldDocCelFocusLost(evt);
-            }
-        });
-        jTextFieldDocCel.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                soloNumerosKeyTyped(evt);
-            }
-        });
-
-        jTextFieldDocTel.setEditable(false);
-        jTextFieldDocTel.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextFieldDocTelFocusLost(evt);
-            }
-        });
-        jTextFieldDocTel.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                soloNumerosKeyTyped(evt);
-            }
-        });
-
-        jLabel10.setText("Email");
-
-        jLabel6.setText("Teléfono");
-
-        jTextFieldDocDir.setEditable(false);
-        jTextFieldDocDir.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextFieldDocDirFocusLost(evt);
-            }
-        });
-
-        jTextFieldDocNomb.setEditable(false);
-        jTextFieldDocNomb.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextFieldDocNombFocusLost(evt);
-            }
-        });
-
-        jTextFieldDocApe.setEditable(false);
-        jTextFieldDocApe.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextFieldDocApeFocusLost(evt);
-            }
-        });
-        jTextFieldDocApe.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldDocApeKeyTyped(evt);
-                soloLetrasKeyTyped(evt);
-            }
-        });
-
-        jDateChooserDocFecha.setEnabled(false);
-
-        jLabel9.setText("Ciudad");
-
-        jLabel7.setText("Celular");
-
-        jLabel3.setText("Nro de CI");
-
-        jLabel1.setText("Nombres");
-
-        jComboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
-        jComboBoxSexo.setEnabled(false);
-
-        jTextFieldDocEmail.setEditable(false);
-        jTextFieldDocEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldDocEmailActionPerformed(evt);
-            }
-        });
-        jTextFieldDocEmail.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextFieldDocEmailFocusLost(evt);
-            }
-        });
-
-        jTextFieldDocReg.setEditable(false);
-        jTextFieldDocReg.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextFieldDocRegFocusLost(evt);
-            }
-        });
-
-        jLabel11.setText("Reg. Prof. Nro");
-
-        jLabel4.setText("Fecha de Nacimiento");
-
-        jTextFieldDocCed.setEditable(false);
-        jTextFieldDocCed.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextFieldDocCedFocusLost(evt);
-            }
-        });
-        jTextFieldDocCed.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                soloNumerosKeyTyped(evt);
-            }
-        });
-
-        jLabel5.setText("Sexo");
-
-        jLabel8.setText("Dirección");
-
-        jLabel2.setText("Apellidos");
+        setPreferredSize(new java.awt.Dimension(772, 588));
 
         jButtonAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
-        jButtonAtras.setText("Atrás");
+        jButtonAtras.setText("Cancelar");
         jButtonAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAtrasActionPerformed(evt);
@@ -249,77 +141,164 @@ public class Doctores extends javax.swing.JFrame {
             }
         });
 
-        jCBciudad.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jCBciudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel12.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        jLabel12.setText("Datos del Doctor");
 
         jLabelnomb.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelnomb.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelnomb.setText("El nombre debe tener entre 3 y 30 caracteres");
+        jLabelnomb.setText("Entre 3 y 30 caracteres permitidos");
         jLabelnomb.setToolTipText("");
 
-        jLabelReg.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelReg.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelReg.setText("Hasta 30 caracteres permitidos");
-        jLabelReg.setToolTipText("");
+        jLabel5.setText("Sexo");
 
-        jLabelape.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelape.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelape.setText("El apellido debe tener entre 3 y 30 caracteres");
-        jLabelape.setToolTipText("");
+        jTextFieldDocReg.setEditable(false);
+        jTextFieldDocReg.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldDocRegFocusLost(evt);
+            }
+        });
 
-        jLabelCI.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelCI.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelCI.setText("La cédula debe tener entre 5 y 8 caracteres");
+        jLabel6.setText("Teléfono");
 
         jLabelTel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelTel.setForeground(new java.awt.Color(255, 0, 0));
         jLabelTel.setText("Hasta 20 caracteres permitidos");
 
-        jLabelCel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelCel.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelCel.setText("Hasta 20 caracteres permitidos");
+        jDateChooserDocFecha.setEnabled(false);
+
+        jTextFieldDocDir.setEditable(false);
+        jTextFieldDocDir.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldDocDirFocusLost(evt);
+            }
+        });
+
+        jLabel1.setText("Nombres");
+
+        jTextFieldDocApe.setEditable(false);
+        jTextFieldDocApe.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldDocApeFocusLost(evt);
+            }
+        });
+        jTextFieldDocApe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldDocApeKeyTyped(evt);
+                soloLetrasKeyTyped(evt);
+            }
+        });
 
         jLabelDir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelDir.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelDir.setText("La dirección debe tener entre 5 y 50 caracteres");
+        jLabelDir.setText("Entre 5 y 50 caracteres permitidos");
+
+        jLabel11.setText("Reg. Prof. Nro");
+
+        jComboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
+        jComboBoxSexo.setEnabled(false);
+
+        jLabel3.setText("Nro de CI");
+
+        jTextFieldDocTel.setEditable(false);
+        jTextFieldDocTel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldDocTelFocusLost(evt);
+            }
+        });
+        jTextFieldDocTel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                soloNumerosKeyTyped(evt);
+            }
+        });
 
         jLabelEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelEmail.setForeground(new java.awt.Color(255, 0, 0));
         jLabelEmail.setText("Hasta 20 caracteres permitidos");
         jLabelEmail.setToolTipText("");
 
-        jLabel12.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        jLabel12.setText("Datos del Doctor");
+        jLabel10.setText("Email");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jLabel7.setText("Celular");
+
+        jLabel2.setText("Apellidos");
+
+        jTextFieldDocCed.setEditable(false);
+        jTextFieldDocCed.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldDocCedFocusLost(evt);
+            }
+        });
+        jTextFieldDocCed.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                soloNumerosKeyTyped(evt);
+            }
+        });
+
+        jLabel8.setText("Dirección");
+
+        jTextFieldDocCel.setEditable(false);
+        jTextFieldDocCel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldDocCelFocusLost(evt);
+            }
+        });
+        jTextFieldDocCel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                soloNumerosKeyTyped(evt);
+            }
+        });
+
+        jTextFieldDocEmail.setEditable(false);
+        jTextFieldDocEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldDocEmailActionPerformed(evt);
+            }
+        });
+        jTextFieldDocEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldDocEmailFocusLost(evt);
+            }
+        });
+
+        jLabelCel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelCel.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelCel.setText("Hasta 20 caracteres permitidos");
+
+        jTextFieldDocNomb.setEditable(false);
+        jTextFieldDocNomb.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldDocNombFocusLost(evt);
+            }
+        });
+
+        jLabel4.setText("Fecha de Nacimiento");
+
+        jCBciudad.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jCBciudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabelReg.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelReg.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelReg.setText("Hasta 30 caracteres permitidos");
+        jLabelReg.setToolTipText("");
+
+        jLabel9.setText("Ciudad");
+
+        jLabelape.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelape.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelape.setText("Entre 3 y 30 caracteres permitidos");
+        jLabelape.setToolTipText("");
+
+        jLabelCI.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelCI.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelCI.setText("Entre 5 y 8 caracteres permitidos");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonConsultarDoctor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
-                .addComponent(jButtonInsertarDoctor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonModificarDoctor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonEliminarDoctor)
-                .addGap(52, 52, 52))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jButtonGuardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonMenu)
-                .addGap(69, 69, 69))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(207, 207, 207)
-                .addComponent(jLabel12)
-                .addGap(304, 304, 304))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -331,13 +310,13 @@ public class Doctores extends javax.swing.JFrame {
                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextFieldDocCel)
                     .addComponent(jTextFieldDocTel)
                     .addComponent(jTextFieldDocDir)
                     .addComponent(jTextFieldDocNomb)
                     .addComponent(jTextFieldDocApe)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jDateChooserDocFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
@@ -348,9 +327,9 @@ public class Doctores extends javax.swing.JFrame {
                     .addComponent(jTextFieldDocCed)
                     .addComponent(jCBciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelape)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabelnomb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelCI, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabelTel, javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,7 +337,102 @@ public class Doctores extends javax.swing.JFrame {
                         .addComponent(jLabelDir, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabelEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabelReg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextFieldDocNomb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelnomb, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextFieldDocApe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelape, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextFieldDocCed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelCI))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jDateChooserDocFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jTextFieldDocTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelTel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jTextFieldDocCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelCel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jTextFieldDocDir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelDir))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jCBciudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jTextFieldDocEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jTextFieldDocReg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelReg, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonConsultarDoctor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonInsertarDoctor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonModificarDoctor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonEliminarDoctor)
+                .addGap(52, 52, 52))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(207, 207, 207)
+                .addComponent(jLabel12)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButtonMenu)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtonGuardar)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(32, 32, 32))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -373,61 +447,8 @@ public class Doctores extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jLabel12)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextFieldDocNomb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelnomb, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextFieldDocApe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelape, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextFieldDocCed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelCI))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jDateChooserDocFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextFieldDocTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextFieldDocCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelCel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextFieldDocDir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelDir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jCBciudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jTextFieldDocEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jTextFieldDocReg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelReg, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonMenu)
                     .addComponent(jButtonAtras)
@@ -533,7 +554,7 @@ public class Doctores extends javax.swing.JFrame {
     private void soloLetrasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_soloLetrasKeyTyped
         char c = evt.getKeyChar();
         int i = c;
-        if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (i != 8 && i != 9 && i != 13) ){
+        if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (i != 8 && i != 9 && i != 13 && i != 32) ){
             evt.consume();
             JOptionPane.showMessageDialog(rootPane, "Este campo sólo admite letas A-Z o a-z", "Validez de Campo", WIDTH);
         }
@@ -699,6 +720,7 @@ public class Doctores extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTel;
     private javax.swing.JLabel jLabelape;
     private javax.swing.JLabel jLabelnomb;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldDocApe;
     private javax.swing.JTextField jTextFieldDocCed;
     private javax.swing.JTextField jTextFieldDocCel;

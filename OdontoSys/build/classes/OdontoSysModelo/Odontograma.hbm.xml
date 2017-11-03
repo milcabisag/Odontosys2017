@@ -15,7 +15,7 @@
             <column name="fk_paciente" not-null="true" />
         </many-to-one>
         <many-to-one name="doctor" class="OdontoSysModelo.Doctor" fetch="select">
-            <column name="fk_doctor" not-null="true" />
+            <column name="fk_doctor" not-null="false" />
         </many-to-one>
         <property name="fecha" type="date">
             <column name="fecha" length="10" not-null="true" />

@@ -41,7 +41,7 @@ public class DoctorVista {
         }else if(ape == 0 || ape < 3 || ape > 30){
             JOptionPane.showMessageDialog(null, "El apellido debe tener entre 3 y 30 caracteres");
             return false;
-        }else if(ci == 0 || ci < 5 || ci > 8){
+        }else if(ci < 10000 || ci > 99999999){
             JOptionPane.showMessageDialog(null, "La cédula debe tener entre 5 y 8 caracteres");
             return false;
         }if(tel == 0 || tel > 20){

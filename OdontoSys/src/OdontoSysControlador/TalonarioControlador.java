@@ -57,9 +57,13 @@ public class TalonarioControlador {
             sesion.getTransaction().begin();  
             
             tal = new Talonario();
-            String hql = "SELECT MIN(idTalonario) FROM Talonario WHERE estado = 'Libre'";
-            Query query = sesion.createQuery(hql); 
-            tal = (Talonario) query.uniqueResult();
+            String hql1 = "SELECT min(idtalonario) FROM Talonario WHERE estado = 'Libre'";
+            Query query = sesion.createQuery(hql1); 
+            int t = (int) query.uniqueResult();
+            
+            String hql2 = "FROM Talonario WHERE idtalonario = "+t;
+            Query query2 = sesion.createQuery(hql2); 
+            tal = (Talonario) query2.uniqueResult();
             
             sesion.close();
         }catch(HibernateException ex){
