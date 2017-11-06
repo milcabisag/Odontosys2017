@@ -52,7 +52,7 @@ public class ObtenerFacturaPendiente extends javax.swing.JDialog {
          if (fila > -1){
              fac = new Factura();
              fac = datos.get(fila);
-             jLabelSeleccionNro.setText("Factura Nro " + String.valueOf(fac.getNroFactura()));
+             jLabelSeleccionNro.setText("Factura Nro 001-001-000" + String.valueOf(fac.getTalonario().getNroFactura()));
              jLabelSeleccionSaldo.setText("Saldo Gs. " + String.valueOf(formateador.format(fac.getSaldo())));
          }
       }
@@ -66,7 +66,7 @@ public class ObtenerFacturaPendiente extends javax.swing.JDialog {
             for (Factura factura : datos){
                 Object[] fila = new Object[4];
                 fila[0] = factura.getFecha();
-                fila[1] = factura.getNroFactura();
+                fila[1] = "000"+factura.getTalonario().getNroFactura();
                 fila[2] = factura.getMontoTotal();
                 fila[3] = factura.getSaldo();
                 tabla.addRow(fila);

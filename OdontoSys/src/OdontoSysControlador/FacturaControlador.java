@@ -12,6 +12,7 @@ import OdontoSysModelo.FacturaConvenio;
 import OdontoSysModelo.FacturaEmpresa;
 import OdontoSysModelo.Movimiento;
 import OdontoSysModelo.MovimientoEmpresa;
+import OdontoSysModelo.Talonario;
 import OdontoSysUtil.NewHibernateUtil;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.util.ArrayList;
@@ -51,8 +52,7 @@ public class FacturaControlador {
         return datos;
     }
     
-    public static Factura insertarFactura(Factura nuevo){
-        Factura f = null;
+    public static Factura insertarFactura(Factura nuevo, Talonario tal){
         Session sesion;
         try{
             sesion = NewHibernateUtil.getSessionFactory().openSession();
@@ -61,15 +61,19 @@ public class FacturaControlador {
             sesion.save(nuevo);
             sesion.refresh(nuevo);
             
-            f = new Factura();
-            f = nuevo;
             modificarOrden(nuevo, sesion);
+            TalonarioControlador.UsarFactura(sesion, tal);
             
-            sesion.getTransaction().commit();                         //Pasa el estado a Facturado
+            if(nuevo.getTipoFactura().compareTo("Crédito") == 0){
+                FacturaControlador.agregarMovimientoFacturaCredito(nuevo, sesion);
+            }
+            
+            sesion.getTransaction().commit();
+            sesion.close();
         }catch(HibernateException ex){
             JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Factura", WIDTH );
         }    
-        return f;
+        return nuevo;
     }
     
     private static void modificarOrden(Factura nuevo, Session session) {
@@ -85,35 +89,25 @@ public class FacturaControlador {
        }
     }
     
-    public static int ModificarSaldo(Factura facturaActual) {
+    public static void ModificarSaldoFactura(Session sesion, Factura fact) {
        
-        int i = 0;
-        try{ 
+        try{  
         
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
+        sesion.merge(fact);
         
-        String hqlUpdate = "UPDATE Factura SET saldo = " + facturaActual.getSaldo() + " WHERE idFactura = " + facturaActual.getIdfactura();
-        Query updatedEntities = session.createQuery( hqlUpdate );
-        updatedEntities.executeUpdate();
-        tx.commit();
-        
-        if(facturaActual.getSaldo() == 0){
-            tx = session.beginTransaction();
-            hqlUpdate = "UPDATE Factura SET estado = 'Cancelado' WHERE idFactura = " + facturaActual.getIdfactura();
-            updatedEntities = session.createQuery( hqlUpdate );
-            updatedEntities.executeUpdate();
-            tx.commit();
+        //Si se canceló la factura crédito
+        if(fact.getSaldo() == 0){
+            fact.setEstado("Cancelado");
+            sesion.merge(fact);
         }
         
-        session.close();
+        sesion.refresh(fact);
         
        }catch(HibernateException ex){
            System.out.println(ex.getMessage());
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Saldo Factura", WIDTH );
        }
         
-       return i; 
     }
     
     public static void insertarFacturaConvenio(FacturaConvenio nuevo, Session sesion){
@@ -286,19 +280,15 @@ public class FacturaControlador {
 
     public static void agregarMovimientoFacturaCredito(Factura nuevo, Session sesion) {
         Movimiento m = new Movimiento();
-        //Session sesion;
         try{
-            //sesion = NewHibernateUtil.getSessionFactory().openSession();
-            //sesion.getTransaction().begin();
 
             m.setPaciente(nuevo.getPaciente());
-            m.setMovimiento("Factura Credito Nro "+nuevo.getTalonario().getNroFactura());
+            m.setMovimiento("Factura Crédito Nro 001-001-000"+nuevo.getTalonario().getNroFactura());
             m.setFecha(nuevo.getFecha());
             m.setDebe(nuevo.getMontoTotal());
             m.setHaber(0);
             sesion.save(m);
-            sesion.refresh(m);
-            //sesion.getTransaction().commit();     
+            sesion.refresh(m);   
             
         }catch(HibernateException ex){
             System.out.println(ex.getMessage());

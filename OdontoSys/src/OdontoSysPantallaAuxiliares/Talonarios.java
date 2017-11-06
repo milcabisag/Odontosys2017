@@ -357,7 +357,7 @@ public class Talonarios extends javax.swing.JFrame {
                     t.setFinVigencia(jDateFecF.getDate());
                     t.setEstado("Libre");
                     t.setNroTalonario(x);
-                    t.setNroFactura(nro);
+                    t.setNroFactura("0"+nro);
                     nro++;
                     listaf.add(t);
                 }

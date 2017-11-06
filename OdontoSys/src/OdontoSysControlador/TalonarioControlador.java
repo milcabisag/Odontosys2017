@@ -95,5 +95,19 @@ public class TalonarioControlador {
         
         return dat;
     }
+
+    public static void UsarFactura(Session sesion, Talonario tal) {
+       
+        try{
+            
+            tal.setEstado("Usado");
+            sesion.merge(tal);
+            sesion.refresh(tal);
+            
+        }catch(HibernateException ex){
+             System.out.println("Mensaje "+ex.getMessage());
+             JOptionPane.showMessageDialog(null, "Error al usar número de factura", "Talonario Controlador", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
     
 }

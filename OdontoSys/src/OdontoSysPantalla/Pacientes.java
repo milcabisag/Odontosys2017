@@ -1522,7 +1522,7 @@ public class Pacientes extends javax.swing.JFrame {
         jButtonModPaciente.setVisible(true);
         jButtonElimPaciente.setVisible(true);
         jButtonAtras.setVisible(true);  
-        jButtonNotaCredito.setVisible(true);
+        //jButtonNotaCredito.setVisible(true);
         jButtonInsertarConvenio.setVisible(true);
         jButtonGenerarReporte.setVisible(true);
         

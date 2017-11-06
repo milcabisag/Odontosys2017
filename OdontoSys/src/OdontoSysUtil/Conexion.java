@@ -11,13 +11,13 @@ public class Conexion{
     private static final String url = "jdbc:mysql://localhost:3306/odontosys";
     
     private static final String usuario = "root";
-    private static final String clave = "odontosys";
+    private static final String clave = "milcabisag";
     private static Connection con;
     public static Statement st;
 
     public static void conectar(){
         try {
-                Class.forName("com.mysql.jdbc.Driver");
+                Class.forName(driver);
                 String urlTotal = url;
                 con = DriverManager.getConnection(urlTotal, usuario, clave);
                 st = con.createStatement();

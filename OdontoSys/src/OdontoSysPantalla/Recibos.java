@@ -54,6 +54,7 @@ public class Recibos extends javax.swing.JFrame {
         if(fac != null){
             jButtonBuscarFactura.setVisible(false);
             jTextFieldRecFactura.setText(String.valueOf(fac.getTalonario().getNroFactura()));
+            saldo = fac.getSaldo();
         }
         
         
@@ -76,7 +77,6 @@ public class Recibos extends javax.swing.JFrame {
         jTextFieldRecMonto = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldRecFactura = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jButtonBuscarPaciente = new javax.swing.JButton();
@@ -122,9 +122,6 @@ public class Recibos extends javax.swing.JFrame {
 
         jTextFieldRecFactura.setEditable(false);
         jTextFieldRecFactura.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Firma");
 
         jButtonGuardar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/guardar.png"))); // NOI18N
@@ -196,14 +193,6 @@ public class Recibos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jButtonGuardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(80, 80, 80))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -223,23 +212,32 @@ public class Recibos extends javax.swing.JFrame {
                                     .addGap(8, 8, 8)
                                     .addComponent(jButtonBuscarFactura))
                                 .addComponent(jLabel6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jButtonFormaPago)
-                                            .addComponent(jButtonBorrarSeleccion1))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextFieldRecMonto))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextFieldRecPac, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(5, 5, 5)
-                                        .addComponent(jButtonBuscarPaciente)))))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButtonGuardar)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addGap(128, 128, 128)
+                                                    .addComponent(jButtonBorrarSeleccion1)
+                                                    .addGap(18, 18, 18))
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                    .addComponent(jButtonFormaPago)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel5)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jTextFieldRecMonto))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel4)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jTextFieldRecPac, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(5, 5, 5)
+                                            .addComponent(jButtonBuscarPaciente)))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonCancelar)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -247,7 +245,7 @@ public class Recibos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -266,20 +264,18 @@ public class Recibos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextFieldRecMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonFormaPago)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonBorrarSeleccion1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonCancelar)
-                        .addComponent(jButtonGuardar)))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCancelar)
+                    .addComponent(jButtonGuardar))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -300,23 +296,14 @@ public class Recibos extends javax.swing.JFrame {
         reciboActual.setUsuario(user);
         
         ArrayList<DetalleRecibo> detalleActual= null;
-        
-        System.out.println("Fecha = " + reciboActual.getFecha());
-         System.out.println("Detalle = " + detalle.get(0).getMonto());
          
          
         detalleActual = ReciboVista.validarRecibo(reciboActual, detalle);
         if(detalleActual != null){           
-            reciboActual = ReciboControlador.InsertarRecibo(reciboActual, detalle, user);
+            reciboActual = ReciboControlador.InsertarRecibo(reciboActual, detalle, user, fac);
             JOptionPane.showMessageDialog(rootPane, "Registro insertado correctamente", "Insertar Recibo", WIDTH);
-            if(fac.getTipoFactura().compareTo("Crédito") != 0){
-                fac.setSaldo(fac.getSaldo() - reciboActual.getMonto());
-                FacturaControlador.ModificarSaldo(fac);
-                this.setVisible(false);
-            }else{
-                imprimirFactura();
-            }
-            
+            imprimirRecibo();
+            this.setVisible(false);            
         }else{            //no insertado
             JOptionPane.showMessageDialog(rootPane, "No se pudo Insertar Recibo", "Insertar Recibo", WIDTH);      
         }
@@ -330,7 +317,8 @@ public class Recibos extends javax.swing.JFrame {
         fac = new Factura();
         fac = jDialog.getReturnStatus();
                 if(fac != null){
-                   jTextFieldRecFactura.setText(String.valueOf(fac.getTalonario().getNroFactura()));
+                   jTextFieldRecFactura.setText("001-001-000"+fac.getTalonario().getNroFactura());
+                   saldo = fac.getSaldo();
                 }
     }//GEN-LAST:event_jButtonBuscarFacturaActionPerformed
 
@@ -350,6 +338,7 @@ public class Recibos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonBuscarPacienteActionPerformed
 
     private void jButtonFormaPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFormaPagoActionPerformed
+        
         Object[] fila = new Object[2];        
         fila[0] = JOptionPane.showInputDialog(null, "Seleccione una forma de pago", "Forma de Pago", 
             JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Efectivo", "Tarjeta Crédito", "Tarjeta Débito", "Cheque"}, 0);
@@ -358,8 +347,8 @@ public class Recibos extends javax.swing.JFrame {
         do{
             try{
                 int m = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese monto pagado", "Monto", JOptionPane.QUESTION_MESSAGE));
-                if(m > fac.getMontoTotal()){
-                    JOptionPane.showMessageDialog(null, "No debe superar a Gs. "+formateador.format(fac.getMontoTotal()) , "Monto" , JOptionPane.QUESTION_MESSAGE );
+                if(m > fac.getSaldo() || m > saldo){
+                    JOptionPane.showMessageDialog(null, "El total no debe superar a Gs. "+formateador.format(fac.getSaldo()) , "Saldo pendiente" , JOptionPane.QUESTION_MESSAGE );
                     bandera = false;
                 }else{
                     fila[1] = m;
@@ -382,6 +371,7 @@ public class Recibos extends javax.swing.JFrame {
             detalle.add(d);
             monto = Integer.parseInt(fila[1].toString())+ monto;
             jTextFieldRecMonto.setText(NumberToLetterConverter.convertNumberToLetter(monto));
+            saldo = fac.getSaldo() - monto;
         }
         }
     }//GEN-LAST:event_jButtonFormaPagoActionPerformed
@@ -459,6 +449,7 @@ public class Recibos extends javax.swing.JFrame {
         }};
     DecimalFormat formateador = new DecimalFormat("###,###");
     int monto = 0;                  //Calcula la suma de los montos de las formas de pago
+    int saldo = 0;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBorrarSeleccion1;
@@ -472,7 +463,6 @@ public class Recibos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableFormaPago;
@@ -494,15 +484,16 @@ public class Recibos extends javax.swing.JFrame {
         jLabelFecha.setText(fec);
     }
 
-    private void imprimirFactura() {
-        String reporte="reportes/factura";
+
+    private void imprimirRecibo() {
+        String reporte="reportes/recibo";
         
-        int idFactura = fac.getIdfactura();
-        String let = jTextFieldRecMonto.getText();
+        int idRecibo = reciboActual.getIdrecibo();
+        String letras = jTextFieldRecMonto.getText();
         
         Map parametros = new HashMap();
-        parametros.put("idFactura", idFactura);
-        parametros.put("total_letras", let);
+        parametros.put("idRecibo", idRecibo);
+        parametros.put("letras", letras);
         
         Configuraciones.imprimirReporteHB(reporte, parametros);
     }

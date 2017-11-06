@@ -56,30 +56,36 @@
                               <EmptySpace min="38" pref="38" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="264" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="264" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jComboBoxFactTipo" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabelTimbrado" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jComboBoxFactTipo" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                              <Component id="jLabelTimbrado" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
+                                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jLabelRUC" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabelNroFac" min="-2" pref="164" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabelRUC" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="jLabelNroFac" min="-2" pref="164" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -163,10 +169,12 @@
                   <Component id="jLabelTimbrado" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldNombrePac" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                  <Component id="jLabel7" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jTextFieldNombrePac" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="jLabel7" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -217,7 +225,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="18" max="32767" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -231,7 +239,7 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Fecha"/>
       </Properties>
@@ -239,7 +247,7 @@
     <Component class="javax.swing.JLabel" name="jLabelRUC">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="RUC Nro"/>
       </Properties>
@@ -247,7 +255,7 @@
     <Component class="javax.swing.JLabel" name="jLabelTimbrado">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Timbrado"/>
       </Properties>
@@ -255,7 +263,7 @@
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="14" style="3"/>
+          <Font name="Tahoma" size="24" style="3"/>
         </Property>
         <Property name="text" type="java.lang.String" value="FACTURA"/>
       </Properties>
@@ -263,7 +271,7 @@
     <Component class="javax.swing.JLabel" name="jLabelNroFac">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="18" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Nro"/>
       </Properties>
@@ -271,7 +279,7 @@
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Tipo"/>
       </Properties>
@@ -279,7 +287,7 @@
     <Component class="javax.swing.JComboBox" name="jComboBoxFactTipo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="2">
@@ -292,7 +300,7 @@
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Nombre y Apellido"/>
       </Properties>
@@ -300,7 +308,7 @@
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Orden de Servicio Nro"/>
       </Properties>
@@ -308,6 +316,9 @@
     <Component class="javax.swing.JTextField" name="jTextFieldNombrePac">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="14" style="0"/>
+        </Property>
         <Property name="focusable" type="boolean" value="false"/>
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
       </Properties>
@@ -315,7 +326,7 @@
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="CI o RUC Nro"/>
       </Properties>
@@ -323,6 +334,9 @@
     <Component class="javax.swing.JTextField" name="jTextFieldCI">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="14" style="0"/>
+        </Property>
         <Property name="focusable" type="boolean" value="false"/>
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
       </Properties>
@@ -330,6 +344,9 @@
     <Component class="javax.swing.JTextField" name="jTextFieldFactOrden">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="14" style="0"/>
+        </Property>
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
       </Properties>
     </Component>
@@ -342,6 +359,9 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="jTableDetalle">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Times New Roman" size="14" style="0"/>
+            </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="tabla" type="code"/>
             </Property>
@@ -354,7 +374,7 @@
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="SubTotal"/>
       </Properties>
@@ -362,6 +382,9 @@
     <Component class="javax.swing.JTextField" name="jTextFieldFactDescuento">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="14" style="0"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldFactDescuentoKeyTyped"/>
@@ -370,13 +393,16 @@
     <Component class="javax.swing.JTextField" name="jTextFieldFactTotal">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="14" style="0"/>
+        </Property>
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Descuento"/>
       </Properties>
@@ -384,7 +410,7 @@
     <Component class="javax.swing.JLabel" name="jLabel12">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Total"/>
       </Properties>
@@ -392,7 +418,7 @@
     <Component class="javax.swing.JLabel" name="jLabel13">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="IVA"/>
       </Properties>
@@ -400,7 +426,7 @@
     <Component class="javax.swing.JLabel" name="jLabel14">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="10%"/>
       </Properties>
@@ -408,13 +434,16 @@
     <Component class="javax.swing.JTextField" name="jTextFieldFactIVA10">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="14" style="0"/>
+        </Property>
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel15">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="5%"/>
       </Properties>
@@ -422,6 +451,9 @@
     <Component class="javax.swing.JTextField" name="jTextFieldFactIVA5">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="14" style="0"/>
+        </Property>
         <Property name="focusable" type="boolean" value="false"/>
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
       </Properties>
@@ -429,7 +461,7 @@
     <Component class="javax.swing.JLabel" name="jLabel16">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Total IVA"/>
       </Properties>
@@ -437,6 +469,9 @@
     <Component class="javax.swing.JTextField" name="jTextFieldFactIVA">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="14" style="0"/>
+        </Property>
         <Property name="focusable" type="boolean" value="false"/>
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
       </Properties>
@@ -465,6 +500,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonVerOrdenServicio">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="14" style="0"/>
+        </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/ImagenesOdontosys/DienteSanos/menus.png"/>
         </Property>
@@ -480,7 +518,7 @@
     <Component class="javax.swing.JLabel" name="jLabel17">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Total en letras"/>
       </Properties>
@@ -488,13 +526,16 @@
     <Component class="javax.swing.JTextField" name="jTextFieldFactTotalLetras">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="14" style="0"/>
+        </Property>
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelFecha">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="0"/>
+          <Font name="Times New Roman" size="14" style="0"/>
         </Property>
       </Properties>
     </Component>
@@ -505,6 +546,9 @@
           <Format subtype="1" type="0"/>
         </Property>
         <Property name="focusable" type="boolean" value="false"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="14" style="0"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldFactSubtKeyTyped"/>

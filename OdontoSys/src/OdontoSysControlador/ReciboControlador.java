@@ -9,6 +9,7 @@ package OdontoSysControlador;
 import OdontoSysModelo.Caja;
 import OdontoSysModelo.DetalleRecibo;
 import OdontoSysModelo.DetalleReciboemp;
+import OdontoSysModelo.Factura;
 import OdontoSysModelo.Movimiento;
 import OdontoSysModelo.MovimientoEmpresa;
 import OdontoSysModelo.Recibo;
@@ -55,12 +56,13 @@ public class ReciboControlador {
         return datos;
     }
     
-    public static Recibo InsertarRecibo(Recibo nuevo, ArrayList<DetalleRecibo> detalle, Usuario us) {       
+    public static Recibo InsertarRecibo(Recibo nuevo, ArrayList<DetalleRecibo> detalle, Usuario us, Factura fact) {       
         Session sesion;
         Recibo rec = null;
         try{
             sesion = NewHibernateUtil.getSessionFactory().openSession();
-            sesion.getTransaction().begin();            
+            sesion.getTransaction().begin(); 
+            
             sesion.save(nuevo);
             sesion.refresh(nuevo);   
             rec = new Recibo();
@@ -75,6 +77,9 @@ public class ReciboControlador {
                 agregarMovimientoCaja(sesion, m, d, null, null, us);
             }
             
+            fact.setSaldo(fact.getSaldo() - rec.getMonto());
+            FacturaControlador.ModificarSaldoFactura(sesion, fact);
+            
             sesion.getTransaction().commit();
             sesion.close();
         }catch(HibernateException ex){
@@ -88,11 +93,7 @@ public class ReciboControlador {
         try{
             m = new Movimiento();
             m.setPaciente(r.getPaciente());
-            if(r.getFactura().getTipoFactura().compareTo("Contado") == 0){
-                m.setMovimiento("Factura Contado Nro "+r.getFactura().getTalonario().getNroFactura());
-            }else{
-                m.setMovimiento("Recibo por Factura Crédito Nro "+r.getFactura().getTalonario().getNroFactura());
-            }
+            m.setMovimiento("Recibo por Factura Crédito Nro 001-001-000"+r.getFactura().getTalonario().getNroFactura());
             m.setFecha(r.getFecha());
             m.setDebe(0);
             m.setHaber(r.getMonto());

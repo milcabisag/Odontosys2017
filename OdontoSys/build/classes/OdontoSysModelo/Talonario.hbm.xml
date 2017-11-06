@@ -11,7 +11,7 @@
         <property name="nroTalonario" type="int">
             <column name="nro_talonario" not-null="true" />
         </property>
-        <property name="nroFactura" type="int">
+        <property name="nroFactura" type="string">
             <column name="nro_factura" not-null="true" />
         </property>
         <property name="timbrado" type="int">

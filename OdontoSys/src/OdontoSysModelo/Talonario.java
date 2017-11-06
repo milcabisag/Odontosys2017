@@ -14,7 +14,7 @@ public class Talonario  implements java.io.Serializable {
 
      private Integer idtalonario;
      private int nroTalonario;
-     private int nroFactura;
+     private String nroFactura;
      private int timbrado;
      private Date iniVigencia;
      private Date finVigencia;
@@ -25,7 +25,7 @@ public class Talonario  implements java.io.Serializable {
     }
 
 	
-    public Talonario(int nroTalonario, int nroFactura, int timbrado, Date iniVigencia, Date finVigencia, String estado) {
+    public Talonario(int nroTalonario, String nroFactura, int timbrado, Date iniVigencia, Date finVigencia, String estado) {
         this.nroTalonario = nroTalonario;
         this.nroFactura = nroFactura;
         this.timbrado = timbrado;
@@ -33,7 +33,7 @@ public class Talonario  implements java.io.Serializable {
         this.finVigencia = finVigencia;
         this.estado = estado;
     }
-    public Talonario(int nroTalonario, int nroFactura, int timbrado, Date iniVigencia, Date finVigencia, String estado, Set facturas) {
+    public Talonario(int nroTalonario, String nroFactura, int timbrado, Date iniVigencia, Date finVigencia, String estado, Set facturas) {
        this.nroTalonario = nroTalonario;
        this.nroFactura = nroFactura;
        this.timbrado = timbrado;
@@ -57,11 +57,11 @@ public class Talonario  implements java.io.Serializable {
     public void setNroTalonario(int nroTalonario) {
         this.nroTalonario = nroTalonario;
     }
-    public int getNroFactura() {
+    public String getNroFactura() {
         return this.nroFactura;
     }
     
-    public void setNroFactura(int nroFactura) {
+    public void setNroFactura(String nroFactura) {
         this.nroFactura = nroFactura;
     }
     public int getTimbrado() {
