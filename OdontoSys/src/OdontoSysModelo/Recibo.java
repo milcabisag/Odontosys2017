@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 06/11/2017 10:05:22 AM by Hibernate Tools 3.6.0
+// Generated 06/11/2017 05:50:41 PM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -25,11 +25,10 @@ public class Recibo  implements java.io.Serializable {
     }
 
 	
-    public Recibo(Factura factura, Usuario usuario, Paciente paciente, Movimiento movimiento, int monto, Date fecha) {
+    public Recibo(Factura factura, Usuario usuario, Paciente paciente, int monto, Date fecha) {
         this.factura = factura;
         this.usuario = usuario;
         this.paciente = paciente;
-        this.movimiento = movimiento;
         this.monto = monto;
         this.fecha = fecha;
     }

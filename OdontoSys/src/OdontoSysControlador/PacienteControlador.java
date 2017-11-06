@@ -1,7 +1,9 @@
 package OdontoSysControlador;
 
+import OdontoSysModelo.Factura;
 import OdontoSysModelo.Movimiento;
 import OdontoSysModelo.Paciente;
+import OdontoSysModelo.Recibo;
 import OdontoSysUtil.NewHibernateUtil;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.text.DateFormat;
@@ -40,8 +42,10 @@ public class PacienteControlador {
                 p = new Paciente();
                 p = (Paciente)it.next();
             }else{
+                sesion.close();
                return null;
-            }            
+            }  
+            sesion.close();
         }catch(HibernateException ex){
                //JOptionPane.showInputDialog ( null, "ocurrio HibernateException al construir session" , "PacienteControlador" , JOptionPane.INFORMATION_MESSAGE );
                JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Paciente Controlador", JOptionPane.INFORMATION_MESSAGE);
@@ -169,32 +173,53 @@ public class PacienteControlador {
         return s;
     }
 
-    public static ArrayList<Movimiento> HistoricoDeEstado(Paciente pac) {
+    public static ArrayList<Factura> HistoricoDeEstado(Paciente pac) {
         Session sesion;
-        Transaction tr = null;
-        ArrayList<Movimiento> hist = new ArrayList();
-        Movimiento mov = null;
+        ArrayList<Factura> histFacturas = new ArrayList();
+        Factura f = null;
         try{        
-            sesion = NewHibernateUtil.getSessionFactory().openSession();
-            tr = sesion.beginTransaction();
-            String hql = "FROM Movimiento WHERE paciente = "+pac.getIdPaciente()+" AND movimiento = '%Crédito%'";
+            sesion = NewHibernateUtil.getSessionFactory().getCurrentSession();
+            //Transaction tr = sesion.beginTransaction();
+            String hql = "FROM Factura WHERE paciente = "+pac.getIdPaciente()+" AND estado = 'Pendiente'";
             Query query = sesion.createQuery(hql); 
             Iterator it = query.iterate();
             if(it.hasNext()){
                 do{
-                    mov = (Movimiento) it.next();
-                    hist.add(mov);
+                    f = (Factura) it.next();
+                    histFacturas.add(f);
                 }while(it.hasNext());
             }else{
-               return null;
+                histFacturas = null;
+            }
+        }catch(HibernateException ex){
+              JOptionPane.showMessageDialog(null, "Error al Recuperar Estado de Cuenta", "Paciente Controlador", JOptionPane.INFORMATION_MESSAGE);
+                   }
+        return histFacturas;
+    }
+    
+    public static ArrayList<Recibo> HistoricoRecibo(Factura fact) {
+        Session sesion;
+        ArrayList<Recibo> histRec = new ArrayList();
+        Recibo r = null;
+        try{ 
+            sesion = NewHibernateUtil.getSessionFactory().getCurrentSession();
+            //Transaction tr = sesion.beginTransaction();
+            String hql = "FROM Recibo WHERE factura = "+fact.getIdfactura();
+            Query query = sesion.createQuery(hql); 
+            Iterator it = query.iterate();
+            if(it.hasNext()){
+                do{
+                    r = (Recibo) it.next();
+                    histRec.add(r);
+                }while(it.hasNext());
+            }else{
+                histRec = null;
             }
         }catch(HibernateException ex){
               JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Paciente Controlador", JOptionPane.INFORMATION_MESSAGE);
                    }
-        return hist;
+        return histRec;
     }
-    
-    
     
     
 }

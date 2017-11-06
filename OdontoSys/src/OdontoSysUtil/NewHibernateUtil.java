@@ -46,10 +46,13 @@ public class NewHibernateUtil {
         return sessionFactory;
     }*/
 
-        private static SessionFactory sessionFactory;
+        private static SessionFactory sessionFactory = null;
         
         public static synchronized void buildSessionFactory() {
             
+            sessionFactory = null;
+            
+            try{
             if (sessionFactory == null) {
                 Configuration configuration = new Configuration();
                 configuration.configure();
@@ -61,6 +64,9 @@ public class NewHibernateUtil {
                 serviceRegistryBuilder.applySettings(configuration.getProperties());	
                 ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
                 sessionFactory = configuration.buildSessionFactory(serviceRegistry);*/
+            }
+            }catch(HibernateException ex){
+                System.out.println("Error: "+ ex);
             }
             
         }

@@ -15,7 +15,7 @@
             <column name="fecha" length="10" not-null="true" />
         </property>
         <property name="movimiento" type="string">
-            <column name="movimiento" length="100" not-null="true" />
+            <column name="movimiento" length="100" not-null="false" />
         </property>
         <property name="debe" type="int">
             <column name="debe" not-null="true" />

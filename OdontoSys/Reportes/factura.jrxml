@@ -330,6 +330,7 @@ WHERE
 			</textField>
 			<textField>
 				<reportElement x="108" y="19" width="107" height="13" uuid="e50fe4c5-b16c-4c26-9bd1-4cf43c5a5dfa"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{paciente_Nombres}]]></textFieldExpression>
 			</textField>
 			<textField>

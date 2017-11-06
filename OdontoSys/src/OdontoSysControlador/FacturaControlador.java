@@ -7,12 +7,14 @@
 package OdontoSysControlador;
 
 import OdontoSysModelo.Caja;
+import OdontoSysUtil.TipoPago;
 import OdontoSysModelo.Factura;
 import OdontoSysModelo.FacturaConvenio;
 import OdontoSysModelo.FacturaEmpresa;
 import OdontoSysModelo.Movimiento;
 import OdontoSysModelo.MovimientoEmpresa;
 import OdontoSysModelo.Talonario;
+import OdontoSysModelo.Usuario;
 import OdontoSysUtil.NewHibernateUtil;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.util.ArrayList;
@@ -52,7 +54,7 @@ public class FacturaControlador {
         return datos;
     }
     
-    public static Factura insertarFactura(Factura nuevo, Talonario tal){
+    public static Factura insertarFactura(Factura nuevo, Talonario tal, Usuario user, ArrayList<TipoPago> tipo){
         Session sesion;
         try{
             sesion = NewHibernateUtil.getSessionFactory().openSession();
@@ -67,11 +69,14 @@ public class FacturaControlador {
             
             modificarOrden(nuevo, sesion);
             TalonarioControlador.UsarFactura(sesion, tal);
+            if(nuevo.getTipoFactura().compareTo("Contado") == 0){
+                agregarCaja(sesion, nuevo, mov, user, tipo);      //Agregar entrada en caja
+            }
             
             sesion.getTransaction().commit();
             sesion.close();
         }catch(HibernateException ex){
-            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Factura", WIDTH );
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Factura Controlador", WIDTH );
         }    
         return nuevo;
     }
@@ -89,18 +94,17 @@ public class FacturaControlador {
        }
     }
     
-    public static void ModificarSaldoFactura(Session sesion, Factura fact) {
+    public static void ModificarSaldoFactura(Factura fact) {
        
         try{  
-        
-        sesion.merge(fact);
+        Session sesion = NewHibernateUtil.getSessionFactory().getCurrentSession();
         
         //Si se canceló la factura crédito
         if(fact.getSaldo() == 0){
-            fact.setEstado("Cancelado");
-            sesion.merge(fact);
+            fact.setEstado("Cancelado");            
         }
         
+        sesion.merge(fact);
         sesion.refresh(fact);
         
        }catch(HibernateException ex){
@@ -334,6 +338,31 @@ public class FacturaControlador {
             System.out.println(ex.getMessage());
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Movimiento", WIDTH );
         } 
+    }
+
+    private static void agregarCaja(Session sesion, Factura fac, Movimiento mov, Usuario user, ArrayList<TipoPago> rec) {
+        
+        Caja c = new Caja();
+        try{
+            for(TipoPago p : rec){
+                c.setDescripcion(mov.getMovimiento());
+                c.setMovimiento(mov);
+                c.setSalida(0);
+                c.setTipo(p.getTipo());         //Tipo de Pago
+                c.setEntrada(p.getMonto());     //Monto pagado con el tipo de pago elegido
+                c.setMovimientoEmpresa(null);
+                c.setUsuario(user);
+                c.setDescripcion("Entrada");
+                
+                sesion.save(c);
+                sesion.refresh(c);
+            }
+                        
+        }catch(HibernateException ex){
+            System.out.println(ex.getMessage());
+           JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Movimiento Caja", WIDTH );
+        }
+        
     }
 
     

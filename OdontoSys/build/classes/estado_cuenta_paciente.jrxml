@@ -7,15 +7,6 @@
 	<parameter name="id_paciente" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="fecha_ini" class="java.util.Date">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="fecha_fin" class="java.util.Date">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="saldo_ini" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      paciente.`Nombres` AS paciente_Nombres,
@@ -67,32 +58,6 @@ ORDER BY
 	<pageHeader>
 		<band height="25" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="404" y="0" width="55" height="25" forecolor="#006699" backcolor="#EEEDFF" uuid="cb0e9c5a-37dc-4389-92ba-4841edb74e78"/>
-				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="13" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Hasta]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="263" y="0" width="55" height="25" forecolor="#006699" backcolor="#EEEDFF" uuid="40235521-01da-4c8c-b577-02badf154b7c"/>
-				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="13" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Desde]]></text>
-			</staticText>
-			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="76" height="25" forecolor="#006699" backcolor="#EEEDFF" uuid="a904ce2d-c609-43bf-a8d0-12567f3ffd4a"/>
 				<box>
 					<topPen lineWidth="0.25"/>
@@ -114,13 +79,13 @@ ORDER BY
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<paragraph leftIndent="1"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{paciente_Nombres}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="130" y="0" width="133" height="25" uuid="b762cf88-7061-420f-afcb-b55a87060be3"/>
+				<reportElement x="186" y="0" width="133" height="25" uuid="b762cf88-7061-420f-afcb-b55a87060be3"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -133,31 +98,17 @@ ORDER BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{paciente_Apellidos}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="318" y="0" width="86" height="25" uuid="c068eb53-ea79-4deb-ac6a-6f3a701fdf8b"/>
+			<textField>
+				<reportElement x="363" y="0" width="100" height="25" uuid="0e30efad-b453-47a7-a180-0b5a1ee845fc"/>
 				<textElement verticalAlignment="Middle">
-					<paragraph leftIndent="2"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{fecha_ini}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="460" y="0" width="100" height="25" uuid="bdd58d7c-7866-49e7-916c-f4057ed7e989"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<paragraph leftIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{fecha_fin}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["C.I. Nro: "+$F{movimiento_fecha}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="50" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="100" height="30" backcolor="#E6E6E6" uuid="bdbae0fb-e14f-497b-9792-52b689965ff9"/>
 				<box>
@@ -214,57 +165,6 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[Haber]]></text>
 			</staticText>
-			<textField pattern="#,##0">
-				<reportElement x="460" y="30" width="100" height="20" uuid="74d69e43-47c0-4372-8015-f7b98bd19c43"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[0]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0">
-				<reportElement x="361" y="30" width="100" height="20" uuid="fe663cfd-2b76-4ae1-9568-fad8cc045f8b"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<paragraph leftIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{saldo_ini}.intValue()]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="0" y="30" width="100" height="20" uuid="9e3d877c-a548-4ebe-a2af-adc0bc0ce633"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="99" y="30" width="262" height="20" uuid="5e4107bb-ff8c-446f-8981-2b606dc27240"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<paragraph leftIndent="2"/>
-				</textElement>
-				<text><![CDATA[Saldo Inicial]]></text>
-			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -282,7 +182,7 @@ ORDER BY
 				<textFieldExpression><![CDATA[$F{movimiento_fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="99" y="0" width="262" height="20" uuid="dfbb7090-5bde-490d-a093-756490ec4923"/>
+				<reportElement x="100" y="0" width="262" height="20" uuid="dfbb7090-5bde-490d-a093-756490ec4923"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -324,7 +224,7 @@ ORDER BY
 	<columnFooter>
 		<band height="50">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="359" height="25" forecolor="#006699" backcolor="#EEEDFF" uuid="a754c692-01e1-4659-9522-4eb3382a3e33"/>
+				<reportElement mode="Opaque" x="0" y="0" width="362" height="25" forecolor="#006699" backcolor="#EEEDFF" uuid="a754c692-01e1-4659-9522-4eb3382a3e33"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -337,7 +237,7 @@ ORDER BY
 				<text><![CDATA[Totales]]></text>
 			</staticText>
 			<textField pattern="#,##0">
-				<reportElement x="360" y="0" width="100" height="25" uuid="18354589-e118-4a4a-8521-604862cb7761"/>
+				<reportElement x="362" y="0" width="100" height="25" uuid="18354589-e118-4a4a-8521-604862cb7761"/>
 				<box>
 					<pen lineWidth="0.25" lineStyle="Double"/>
 					<topPen lineWidth="0.25" lineStyle="Double"/>
@@ -346,7 +246,7 @@ ORDER BY
 					<rightPen lineWidth="0.25" lineStyle="Double"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{movimiento_debe_1}.intValue() + $P{saldo_ini}.intValue()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[SUM($V{movimiento_debe_1})]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
 				<reportElement x="460" y="0" width="100" height="25" uuid="5257e8fd-5f23-4b9a-9f8f-ae91f9459651"/>
@@ -358,10 +258,10 @@ ORDER BY
 					<rightPen lineWidth="0.25" lineStyle="Double"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{movimiento_haber_1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[SUM($V{movimiento_haber_1})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="24" width="359" height="25" forecolor="#006699" backcolor="#EEEDFF" uuid="9eed7ceb-5e9e-4d5c-ad09-473cba5c4f3e"/>
+				<reportElement mode="Opaque" x="0" y="24" width="362" height="25" forecolor="#006699" backcolor="#EEEDFF" uuid="9eed7ceb-5e9e-4d5c-ad09-473cba5c4f3e"/>
 				<box>
 					<topPen lineWidth="0.25"/>
 					<leftPen lineWidth="0.25"/>
@@ -374,7 +274,7 @@ ORDER BY
 				<text><![CDATA[Saldo]]></text>
 			</staticText>
 			<textField pattern="#,##0">
-				<reportElement x="359" y="24" width="201" height="25" uuid="fb1001d2-81c9-4206-961d-9f3bb84c620d"/>
+				<reportElement x="362" y="24" width="198" height="25" uuid="fb1001d2-81c9-4206-961d-9f3bb84c620d"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -383,7 +283,7 @@ ORDER BY
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{movimiento_debe_1}.intValue() - $V{movimiento_haber_1}.intValue() + $P{saldo_ini}.intValue()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{movimiento_debe_1}.intValue() - $V{movimiento_haber_1}.intValue()]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

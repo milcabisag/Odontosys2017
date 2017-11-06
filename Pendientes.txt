@@ -1,4 +1,3 @@
 - Refresh al volver a Paciente desde factura - Probar con un método REFRESH o ver si hay alguna función útil.
-- Probar Factura contado y ver columna SALDO - debe quedar en 0
-- Probar Factura Crédito y ver columna SALDO - no debe quedar en negativo
-- 
+repaint(); ??
+- En orden de servicio, ocultar el botón facturar y ver odontograma

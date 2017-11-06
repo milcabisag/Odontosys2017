@@ -301,12 +301,15 @@ public class Recibos extends javax.swing.JFrame {
         detalleActual = ReciboVista.validarRecibo(reciboActual, detalle);
         if(detalleActual != null){           
             reciboActual = ReciboControlador.InsertarRecibo(reciboActual, detalle, user, fac);
+            if(reciboActual != null){
             JOptionPane.showMessageDialog(rootPane, "Registro insertado correctamente", "Insertar Recibo", WIDTH);
             imprimirRecibo();
             this.setVisible(false);            
-        }else{            //no insertado
-            JOptionPane.showMessageDialog(rootPane, "No se pudo Insertar Recibo", "Insertar Recibo", WIDTH);      
+            }else{            //no insertado
+                JOptionPane.showMessageDialog(rootPane, "No se pudo Insertar Recibo", "Insertar Recibo", WIDTH);      
+            }
         }
+        limpiar();
         
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -498,5 +501,13 @@ public class Recibos extends javax.swing.JFrame {
         Configuraciones.imprimirReporteHB(reporte, parametros);
     }
     
-    
+    private void limpiar(){
+        reciboActual = null;
+        detalle = null; 
+        pac = null;      
+        fac = null;      
+
+        monto = 0;      
+        saldo = 0;
+    }
 }

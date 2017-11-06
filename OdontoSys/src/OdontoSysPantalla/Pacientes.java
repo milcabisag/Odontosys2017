@@ -15,15 +15,18 @@ import OdontoSysModelo.Agenda;
 import OdontoSysModelo.Ciudad;
 import OdontoSysModelo.ConvPaciente;
 import OdontoSysModelo.Empresa;
+import OdontoSysModelo.Factura;
 import OdontoSysModelo.Movimiento;
 import OdontoSysModelo.OrdenServicio;
 import OdontoSysModelo.Paciente;
+import OdontoSysModelo.Recibo;
 import OdontoSysModelo.Usuario;
 import OdontoSysPantallaAuxiliares.BuscarOrdenServicio;
 import OdontoSysPantallaAuxiliares.ObtenerPaciente;
 import static OdontoSysPantallaAuxiliares.ObtenerPaciente.pac;
 import OdontoSysPantallaAuxiliares.obtenerFechas;
 import OdontoSysUtil.Configuraciones;
+import OdontoSysUtil.NewHibernateUtil;
 import OdontoSysVista.PacienteVista;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
@@ -38,6 +41,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -1069,31 +1073,30 @@ public class Pacientes extends javax.swing.JFrame {
         Recibos.pac = pacienteActual;
         Recibos.user = user;
         Recibos.main(null);
-        this.setVisible(false);
     }//GEN-LAST:event_jButtonRealizarPagoActionPerformed
 
     private void jButtonGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarReporteActionPerformed
-        obtenerFechas.llamado = "EstadoCuenta";
+        /*obtenerFechas.llamado = "EstadoCuenta";
         obtenerFechas jFrame = new obtenerFechas(null, true);
         jFrame.setVisible(true);
 
         Date[] fechas = jFrame.getReturnStatus();
         if(fechas[0] != null && fechas[1] != null){
-        int saldo = PacienteControlador.calcularSaldo(fechas[0], pac.getIdPaciente());
+        int saldo = PacienteControlador.calcularSaldo(fechas[0], pac.getIdPaciente());*/
         String reporte="reportes/estado_cuenta_paciente";
 
         int idPaciente = pac.getIdPaciente();
 
         Map parametros = new HashMap();
         parametros.put("id_paciente", idPaciente);
-        parametros.put("fecha_ini", fechas[0]);
+        /*parametros.put("fecha_ini", fechas[0]);
         parametros.put("fecha_fin", fechas[1]);
-        parametros.put("saldo_ini", saldo);
+        parametros.put("saldo_ini", saldo);*/
 
         Configuraciones.imprimirReporteHB(reporte, parametros);
-        }else{
+        /*}else{
             JOptionPane.showMessageDialog(null, "Favor ingrese un rango de fechas válidas", "Reporte Estado de Cuenta", JOptionPane.INFORMATION_MESSAGE);
-        }
+        }*/
     }//GEN-LAST:event_jButtonGenerarReporteActionPerformed
 
     private void jButtonInsertarConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarConvenioActionPerformed
@@ -1264,7 +1267,8 @@ public class Pacientes extends javax.swing.JFrame {
         }
     };
     
-    ArrayList<Movimiento> mov = null;
+    ArrayList<Factura> fact = null;
+    ArrayList<Recibo> rec = null;
     ArrayList<Agenda> agen = null;
     ArrayList<ConvPaciente> con = null;
     ArrayList<Ciudad> ciudades = null;
@@ -1346,7 +1350,7 @@ public class Pacientes extends javax.swing.JFrame {
         jTextFieldDTel.setText("");
         
         pacienteActual = null;
-        mov = null;
+        fact = null;
         agen = null;
         con = null;
         
@@ -1456,6 +1460,8 @@ public class Pacientes extends javax.swing.JFrame {
     }
 
     private void escribirPaciente(Paciente paciente) {
+        
+        
         if(paciente.getIdPaciente() != null){    
             jTextFieldDNombres.setText(paciente.getNombres());
             jTextFieldDApellidos.setText(paciente.getApellidos());
@@ -1492,6 +1498,7 @@ public class Pacientes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Paciente No encontrado", "aviso", WIDTH);
             jButtonModPaciente.doClick();
         }   
+        
     }
 
     private void actualizarPaciente(Paciente pacienteActual) {
@@ -1540,17 +1547,32 @@ public class Pacientes extends javax.swing.JFrame {
         
         int saldo = 0;
         
-        mov = new ArrayList();
-        mov = PacienteControlador.HistoricoDeEstado(pac);
-        if(mov != null){
-            for(Movimiento m : mov){
+        fact = new ArrayList();
+        rec = new ArrayList();
+                //Recupera Facturas tipo crédito con estado Pendiente
+        fact = PacienteControlador.HistoricoDeEstado(pac);
+        if(fact != null){
+            for(Factura f : fact){
                 Object[] est = new Object[4];
-                est[0] = fecha.format(m.getFecha());
-                est[1] = m.getMovimiento();
-                est[2] = formateador.format(m.getDebe());
-                est[3] = formateador.format(m.getHaber());
-                saldo = m.getDebe() - m.getHaber() + saldo;
+                est[0] = fecha.format(f.getFecha());
+                est[1] = f.getMovimiento().getMovimiento();
+                est[2] = formateador.format(f.getMovimiento().getDebe());
+                est[3] = formateador.format(f.getMovimiento().getHaber());
+                saldo = f.getMovimiento().getDebe() - f.getMovimiento().getHaber() + saldo;
                 tablaEstado.addRow(est);
+                //Recupera recibos asociados a la factura crédito
+                rec = PacienteControlador.HistoricoRecibo(f);
+                if(rec != null){
+                    for(Recibo r : rec){
+                        Object[] rec = new Object[4];
+                        rec[0] = fecha.format(r.getFecha());
+                        rec[1] = r.getMovimiento().getMovimiento();
+                        rec[2] = formateador.format(r.getMovimiento().getDebe());
+                        rec[3] = formateador.format(r.getMovimiento().getHaber());
+                        saldo = r.getMovimiento().getDebe() - r.getMovimiento().getHaber() + saldo;
+                        tablaEstado.addRow(rec);
+                    }
+                }
             }
             if(saldo > 0){
                 jTextFieldSaldo.setText(formateador.format(saldo));

@@ -19,7 +19,9 @@ import OdontoSysModelo.Factura;
 import OdontoSysModelo.OrdenServicio;
 import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Talonario;
+import OdontoSysUtil.TipoPago;
 import OdontoSysModelo.Usuario;
+import OdontoSysPantallaAuxiliares.ObtenerTipoPagoContado;
 import OdontoSysPantallaAuxiliares.OrdenDeServicio;
 import OdontoSysUtil.Configuraciones;
 import static java.awt.image.ImageObserver.WIDTH;
@@ -436,19 +438,23 @@ public class Facturas extends javax.swing.JFrame {
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
               
         obtenerFactura();
-        facActual = FacturaControlador.insertarFactura(facActual, tal);  
-        if(facActual != null){
-            JOptionPane.showMessageDialog(null, "Factura guardada correctamente", "Factura", WIDTH);
+        ArrayList<TipoPago> tipo = null;
+        if(facActual.getTipoFactura().compareTo("Contado") == 0){
+            //Obtener tipo de pago
+             ObtenerTipoPagoContado.montoFactura = facActual.getMontoTotal();
+             ObtenerTipoPagoContado jDialog = new ObtenerTipoPagoContado(null, true);
+             jDialog.setVisible(true);
+             tipo =  jDialog.getReturnStatus();
+             if(tipo != null){
+                 facActual = FacturaControlador.insertarFactura(facActual, tal, user, tipo); 
+                 imprimirFactura();
+                this.dispose();   
+             }
+        }else{          //Factura Crédito
+            facActual = FacturaControlador.insertarFactura(facActual, tal, user, null);
             imprimirFactura();
             this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(null, "No se pudo guardar la Factura", "Factura", WIDTH);
         }
-            //Abrir un recibo
-            /*Recibos.user = user;
-            Recibos.pac = pacActual;
-            Recibos.fac = facActual;
-            Recibos.main(null);*/
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonVerOrdenServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerOrdenServicioActionPerformed

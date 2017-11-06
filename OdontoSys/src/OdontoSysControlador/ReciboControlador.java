@@ -64,26 +64,34 @@ public class ReciboControlador {
             sesion.getTransaction().begin(); 
             
             sesion.save(nuevo);
-            sesion.refresh(nuevo);   
-            rec = new Recibo();
-            rec = nuevo;
+            System.out.println("recibo "+nuevo.getIdrecibo());
             
             Movimiento m = new Movimiento();
-            m = insertarMovimientoRecibo(sesion, rec);
+            m = insertarMovimientoRecibo(sesion, nuevo);
             for(DetalleRecibo d : detalle){
-                d.setRecibo(rec);
+                d.setRecibo(nuevo);
                 sesion.save(d);
-                sesion.refresh(d);
                 agregarMovimientoCaja(sesion, m, d, null, null, us);
             }
-            
-            fact.setSaldo(fact.getSaldo() - rec.getMonto());
-            FacturaControlador.ModificarSaldoFactura(sesion, fact);
+            nuevo.setMovimiento(m);
+            sesion.merge(nuevo);
+                        
+            System.out.println("movim "+m.getIdmovimiento());
+            fact.setSaldo(fact.getSaldo() - nuevo.getMonto());
+            //Si se canceló la factura crédito
+            if(fact.getSaldo() == 0){
+                fact.setEstado("Cancelado");            
+            }
+        
+            sesion.merge(fact);
+            System.out.println("Fact modif "+fact.getIdfactura());
+            rec = nuevo;
+            //FacturaControlador.ModificarSaldoFactura(fact);
             
             sesion.getTransaction().commit();
             sesion.close();
         }catch(HibernateException ex){
-             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Recibo Controlador", JOptionPane.INFORMATION_MESSAGE);   
+             JOptionPane.showMessageDialog(null, "Error al ingresar nuevo recibo", "Recibo Controlador", JOptionPane.INFORMATION_MESSAGE);   
         }        
         return rec;
     }
