@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 27/10/2017 05:28:18 PM by Hibernate Tools 3.6.0
+// Generated 06/11/2017 10:05:22 AM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -17,6 +17,7 @@ public class Factura  implements java.io.Serializable {
      private OrdenServicio ordenServicio;
      private Usuario usuario;
      private Paciente paciente;
+     private Movimiento movimiento;
      private Date fecha;
      private String tipoFactura;
      private int descuento;
@@ -31,11 +32,12 @@ public class Factura  implements java.io.Serializable {
     }
 
 	
-    public Factura(Talonario talonario, OrdenServicio ordenServicio, Usuario usuario, Paciente paciente, Date fecha, String tipoFactura, int descuento, String estado, int montoTotal, int saldo) {
+    public Factura(Talonario talonario, OrdenServicio ordenServicio, Usuario usuario, Paciente paciente, Movimiento movimiento, Date fecha, String tipoFactura, int descuento, String estado, int montoTotal, int saldo) {
         this.talonario = talonario;
         this.ordenServicio = ordenServicio;
         this.usuario = usuario;
         this.paciente = paciente;
+        this.movimiento = movimiento;
         this.fecha = fecha;
         this.tipoFactura = tipoFactura;
         this.descuento = descuento;
@@ -43,11 +45,12 @@ public class Factura  implements java.io.Serializable {
         this.montoTotal = montoTotal;
         this.saldo = saldo;
     }
-    public Factura(Talonario talonario, OrdenServicio ordenServicio, Usuario usuario, Paciente paciente, Date fecha, String tipoFactura, int descuento, String estado, int montoTotal, int saldo, Set notaCreditos, Set recibos, Set facturaConvenios) {
+    public Factura(Talonario talonario, OrdenServicio ordenServicio, Usuario usuario, Paciente paciente, Movimiento movimiento, Date fecha, String tipoFactura, int descuento, String estado, int montoTotal, int saldo, Set notaCreditos, Set recibos, Set facturaConvenios) {
        this.talonario = talonario;
        this.ordenServicio = ordenServicio;
        this.usuario = usuario;
        this.paciente = paciente;
+       this.movimiento = movimiento;
        this.fecha = fecha;
        this.tipoFactura = tipoFactura;
        this.descuento = descuento;
@@ -93,6 +96,13 @@ public class Factura  implements java.io.Serializable {
     
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+    }
+    public Movimiento getMovimiento() {
+        return this.movimiento;
+    }
+    
+    public void setMovimiento(Movimiento movimiento) {
+        this.movimiento = movimiento;
     }
     public Date getFecha() {
         return this.fecha;

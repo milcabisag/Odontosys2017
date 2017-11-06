@@ -177,7 +177,7 @@ public class PacienteControlador {
         try{        
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             tr = sesion.beginTransaction();
-            String hql = "FROM Movimiento WHERE paciente = "+pac.getIdPaciente();
+            String hql = "FROM Movimiento WHERE paciente = "+pac.getIdPaciente()+" AND movimiento = '%Crédito%'";
             Query query = sesion.createQuery(hql); 
             Iterator it = query.iterate();
             if(it.hasNext()){

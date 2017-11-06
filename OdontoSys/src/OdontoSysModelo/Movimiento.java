@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 27/10/2017 05:28:18 PM by Hibernate Tools 3.6.0
+// Generated 06/11/2017 10:05:22 AM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -18,6 +18,8 @@ public class Movimiento  implements java.io.Serializable {
      private String movimiento;
      private int debe;
      private int haber;
+     private Set recibos = new HashSet(0);
+     private Set facturas = new HashSet(0);
      private Set cajas = new HashSet(0);
 
     public Movimiento() {
@@ -31,12 +33,14 @@ public class Movimiento  implements java.io.Serializable {
         this.debe = debe;
         this.haber = haber;
     }
-    public Movimiento(Paciente paciente, Date fecha, String movimiento, int debe, int haber, Set cajas) {
+    public Movimiento(Paciente paciente, Date fecha, String movimiento, int debe, int haber, Set recibos, Set facturas, Set cajas) {
        this.paciente = paciente;
        this.fecha = fecha;
        this.movimiento = movimiento;
        this.debe = debe;
        this.haber = haber;
+       this.recibos = recibos;
+       this.facturas = facturas;
        this.cajas = cajas;
     }
    
@@ -81,6 +85,20 @@ public class Movimiento  implements java.io.Serializable {
     
     public void setHaber(int haber) {
         this.haber = haber;
+    }
+    public Set getRecibos() {
+        return this.recibos;
+    }
+    
+    public void setRecibos(Set recibos) {
+        this.recibos = recibos;
+    }
+    public Set getFacturas() {
+        return this.facturas;
+    }
+    
+    public void setFacturas(Set facturas) {
+        this.facturas = facturas;
     }
     public Set getCajas() {
         return this.cajas;

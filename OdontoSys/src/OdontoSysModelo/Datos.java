@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 27/10/2017 05:28:18 PM by Hibernate Tools 3.6.0
+// Generated 06/11/2017 10:05:22 AM by Hibernate Tools 3.6.0
 
 
 
@@ -17,11 +17,22 @@ public class Datos  implements java.io.Serializable {
      private String direccion;
      private String ciudad;
      private String telefono;
+     private String datoscol;
 
     public Datos() {
     }
 
+	
     public Datos(String nombreEmpresa, String nombrePropietario, String actividad, String ruc, String direccion, String ciudad, String telefono) {
+        this.nombreEmpresa = nombreEmpresa;
+        this.nombrePropietario = nombrePropietario;
+        this.actividad = actividad;
+        this.ruc = ruc;
+        this.direccion = direccion;
+        this.ciudad = ciudad;
+        this.telefono = telefono;
+    }
+    public Datos(String nombreEmpresa, String nombrePropietario, String actividad, String ruc, String direccion, String ciudad, String telefono, String datoscol) {
        this.nombreEmpresa = nombreEmpresa;
        this.nombrePropietario = nombrePropietario;
        this.actividad = actividad;
@@ -29,6 +40,7 @@ public class Datos  implements java.io.Serializable {
        this.direccion = direccion;
        this.ciudad = ciudad;
        this.telefono = telefono;
+       this.datoscol = datoscol;
     }
    
     public Integer getIddatos() {
@@ -86,6 +98,13 @@ public class Datos  implements java.io.Serializable {
     
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+    public String getDatoscol() {
+        return this.datoscol;
+    }
+    
+    public void setDatoscol(String datoscol) {
+        this.datoscol = datoscol;
     }
 
 

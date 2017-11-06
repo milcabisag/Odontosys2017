@@ -58,15 +58,15 @@ public class FacturaControlador {
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             sesion.getTransaction().begin();
             
+            
+            Movimiento mov  = FacturaControlador.agregarMovimientoFactura(nuevo, sesion);
+            
+            nuevo.setMovimiento(mov);
             sesion.save(nuevo);
             sesion.refresh(nuevo);
             
             modificarOrden(nuevo, sesion);
             TalonarioControlador.UsarFactura(sesion, tal);
-            
-            if(nuevo.getTipoFactura().compareTo("Crédito") == 0){
-                FacturaControlador.agregarMovimientoFacturaCredito(nuevo, sesion);
-            }
             
             sesion.getTransaction().commit();
             sesion.close();
@@ -278,22 +278,31 @@ public class FacturaControlador {
        }
     }
 
-    public static void agregarMovimientoFacturaCredito(Factura nuevo, Session sesion) {
-        Movimiento m = new Movimiento();
+    public static Movimiento agregarMovimientoFactura(Factura nuevo, Session sesion) {
+        Movimiento m = null;
         try{
-
-            m.setPaciente(nuevo.getPaciente());
-            m.setMovimiento("Factura Crédito Nro 001-001-000"+nuevo.getTalonario().getNroFactura());
-            m.setFecha(nuevo.getFecha());
-            m.setDebe(nuevo.getMontoTotal());
+            m = new Movimiento();
+            
+            if(nuevo.getTipoFactura().compareTo("Crédito") == 0){
+                m.setMovimiento("Factura Crédito Nro 001-001-000"+nuevo.getTalonario().getNroFactura());
+                m.setDebe(nuevo.getMontoTotal());
+            }else{      //Factura Contado
+                m.setMovimiento("Factura Contado Nro 001-001-000"+nuevo.getTalonario().getNroFactura());
+                m.setDebe(0);
+            }
+            
             m.setHaber(0);
+            m.setPaciente(nuevo.getPaciente());
+            m.setFecha(nuevo.getFecha());
+            
             sesion.save(m);
             sesion.refresh(m);   
             
         }catch(HibernateException ex){
             System.out.println(ex.getMessage());
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Movimiento", WIDTH );
-        }    
+        }
+        return m;
     }
 
     private static void insertarMovimientoEmpresa(FacturaEmpresa nuevo) {

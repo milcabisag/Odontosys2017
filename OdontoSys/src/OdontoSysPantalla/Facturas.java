@@ -222,6 +222,7 @@ public class Facturas extends javax.swing.JFrame {
         jTextFieldFactIVA.setFocusable(false);
         jTextFieldFactIVA.setRequestFocusEnabled(false);
 
+        jButtonCancelar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -230,6 +231,7 @@ public class Facturas extends javax.swing.JFrame {
             }
         });
 
+        jButtonAceptar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButtonAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/ingresar.png"))); // NOI18N
         jButtonAceptar.setText("Guardar e Imprimir");
         jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -420,11 +422,11 @@ public class Facturas extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldFactTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonAceptar))
-                .addGap(26, 26, 26))
+                .addContainerGap())
         );
 
         pack();
