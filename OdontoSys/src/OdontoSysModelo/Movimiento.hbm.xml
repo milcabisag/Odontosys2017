@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 27/10/2017 05:29:04 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 07/11/2017 09:44:58 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.Movimiento" table="movimiento" catalog="odontosys">
         <id name="idmovimiento" type="java.lang.Integer">
@@ -15,7 +15,7 @@
             <column name="fecha" length="10" not-null="true" />
         </property>
         <property name="movimiento" type="string">
-            <column name="movimiento" length="100" not-null="false" />
+            <column name="movimiento" length="100" not-null="true" />
         </property>
         <property name="debe" type="int">
             <column name="debe" not-null="true" />
@@ -23,6 +23,18 @@
         <property name="haber" type="int">
             <column name="haber" not-null="true" />
         </property>
+        <set name="recibos" table="recibo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_movimiento" />
+            </key>
+            <one-to-many class="OdontoSysModelo.Recibo" />
+        </set>
+        <set name="facturas" table="factura" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_movimiento" not-null="true" />
+            </key>
+            <one-to-many class="OdontoSysModelo.Factura" />
+        </set>
         <set name="cajas" table="caja" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="fk_mov_paciente" />
