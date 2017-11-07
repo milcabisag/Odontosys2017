@@ -62,7 +62,7 @@ public class ObtenerFacturasPaciente extends javax.swing.JDialog {
             for (Factura factura : datos){
                 Object[] fila = new Object[3];
                 fila[0] = factura.getFecha();
-                fila[1] = factura.getNroFactura();
+                fila[1] = factura.getTalonario().getNroFactura();
                 fila[2] = factura.getMontoTotal();
                 tabla.addRow(fila);
                 jTableFactura.setValueAt(formateador.format(fila[2]), tabla.getRowCount()-1, 2);

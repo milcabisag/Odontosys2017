@@ -313,7 +313,7 @@ public class RecibosEmpresa extends javax.swing.JFrame {
             }
             for(DetalleReciboemp d : detalle){
                 d.setReciboEmpresa(reciboActual);
-                RecibosControlador.InsertarDetalleEmpresa(d, mov, sesion);
+                RecibosControlador.InsertarDetalleEmpresa(d, mov, user, sesion);
             }
             JOptionPane.showMessageDialog(rootPane, "Registro insertado correctamente", "Insertar Recibo", WIDTH);
             facActual.setSaldo(facActual.getSaldo() - reciboActual.getMonto());

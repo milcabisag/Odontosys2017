@@ -270,7 +270,7 @@ public class PendientesEmpresa extends javax.swing.JFrame {
             for(FacturaConvenio f : fac){
                 Object[] fila = new Object[3];
                 fila[0] = f.getFactura().getPaciente().getNombres()+" "+f.getFactura().getPaciente().getApellidos();
-                fila[1] = f.getFactura().getNroFactura();
+                fila[1] = "001-001-000"+f.getFactura().getTalonario().getNroFactura();
                 fila[2] = f.getMonto();
                 monto = f.getMonto() + monto;
                 tablafc.addRow(fila);

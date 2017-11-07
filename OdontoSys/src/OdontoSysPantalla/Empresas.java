@@ -19,6 +19,7 @@ import OdontoSysPantallaAuxiliares.ObtenerEmpresa;
 import OdontoSysUtil.Configuraciones;
 import OdontoSysVista.EmpresaVista;
 import static java.awt.image.ImageObserver.WIDTH;
+import static java.lang.Integer.parseInt;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1202,9 +1203,9 @@ public class Empresas extends javax.swing.JFrame {
         Empresa e = new Empresa();
         
         e.setNombre(jTextFieldDNombres.getText());  
-        e.setRuc(jTextFieldRUC.getText());
+        e.setRuc(parseInt(jTextFieldRUC.getText()));
         e.setDireccion(jTextFieldDDireccion.getText());
-        e.setCiudad(ciudades.get(jCBciudad.getSelectedIndex()));
+        e.setCiudad(ciudades.get(jCBciudad.getSelectedIndex()).toString());
         e.setEmail(jTextFieldDEmail.getText());
         e.setTelefono(jTextFieldDTel.getText());  
         e.setNombreContacto(jTextFieldNombreContacto.getText());
@@ -1260,7 +1261,7 @@ public class Empresas extends javax.swing.JFrame {
             jTextFieldRUC.setText(String.valueOf(empresa.getRuc()));
             jTextFieldDTel.setText(empresa.getTelefono());
             jTextFieldDDireccion.setText(empresa.getDireccion());
-            jCBciudad.setSelectedItem(empresa.getCiudad().getNombre());
+            jCBciudad.setSelectedItem(empresa.getCiudad());
             jTextFieldDEmail.setText(empresa.getEmail());
             jTextFieldNombreContacto.setText(empresa.getNombreContacto());
             jTextFieldTeléfonoContacto.setText(empresa.getTelContacto());
@@ -1279,10 +1280,10 @@ public class Empresas extends javax.swing.JFrame {
     private void actualizarEmpresa(Empresa empresa) {
         
         empresa.setNombre(jTextFieldDNombres.getText());
-        empresa.setRuc(jTextFieldRUC.getText());
+        empresa.setRuc(parseInt(jTextFieldRUC.getText()));
         empresa.setTelefono(jTextFieldDTel.getText());
         empresa.setDireccion(jTextFieldDDireccion.getText());
-        empresa.setCiudad(ciudades.get(jCBciudad.getSelectedIndex()));
+        empresa.setCiudad(ciudades.get(jCBciudad.getSelectedIndex()).getNombre());
         empresa.setEmail(jTextFieldDEmail.getText());   
         empresa.setNombreContacto(jTextFieldNombreContacto.getText());
         empresa.setTelContacto(jTextFieldTeléfonoContacto.getText());
@@ -1366,7 +1367,7 @@ public class Empresas extends javax.swing.JFrame {
             for(FacturaConvenio fc : listaFacConv){
                 Object[] f = new Object[4];
                 f[0] = fecha.format(fc.getFactura().getFecha());
-                f[1] = fc.getFactura().getNroFactura();
+                f[1] = fc.getFactura().getTalonario().getNroFactura();
                 f[2] = fc.getFactura().getPaciente().getNombres() + " " +  fc.getFactura().getPaciente().getApellidos();
                 f[3] = formateador.format(fc.getMonto());
                 total = total + fc.getMonto();

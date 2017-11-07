@@ -47,7 +47,6 @@ public class Convenios extends javax.swing.JFrame {
             jButtonElimConv.setVisible(false);
             jButtonModConv.setVisible(false);
             jTextFieldObs.setEditable(true);
-            jTextFieldNombre.setEditable(true);
         }
         
     }
@@ -63,9 +62,7 @@ public class Convenios extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jTextFieldEmpresa = new javax.swing.JTextField();
-        jTextFieldNombre = new javax.swing.JTextField();
         jButtonCancelar = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
@@ -88,15 +85,8 @@ public class Convenios extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel2.setText("Empresa");
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel3.setText("Nombre del convenio");
-        jLabel3.setToolTipText("");
-
         jTextFieldEmpresa.setEditable(false);
         jTextFieldEmpresa.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-
-        jTextFieldNombre.setEditable(false);
-        jTextFieldNombre.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         jButtonCancelar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
@@ -213,13 +203,12 @@ public class Convenios extends javax.swing.JFrame {
                                     .addComponent(jButtonModConv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButtonElimConv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
                                     .addComponent(jLabel4))
                                 .addGap(27, 27, 27)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jTextFieldEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -246,17 +235,13 @@ public class Convenios extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonBuscarEmpresa))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 23, Short.MAX_VALUE))
-                    .addComponent(jTextFieldObs))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jTextFieldObs, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonInsertarServicio)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -496,13 +481,11 @@ public class Convenios extends javax.swing.JFrame {
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableConvenios;
     private javax.swing.JTextField jTextFieldEmpresa;
-    private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextField jTextFieldObs;
     // End of variables declaration//GEN-END:variables
 
@@ -510,7 +493,6 @@ public class Convenios extends javax.swing.JFrame {
         
         Configuraciones.limpiarModelo(tabla);
         jTextFieldEmpresa.setText("");
-        jTextFieldNombre.setText("");
         jTextFieldObs.setText("");
         empresaActual = null;
         
@@ -521,13 +503,11 @@ public class Convenios extends javax.swing.JFrame {
         jButtonElimConv.setVisible(false);
         jButtonModConv.setVisible(false);
         jTextFieldEmpresa.setEditable(false);
-        jTextFieldNombre.setEditable(false);
         jTableConvenios.setEnabled(false);
     }
 
     private void mostrarConvenio() {
         jTextFieldEmpresa.setText(empresaActual.getNombre());
-        jTextFieldNombre.setText(conv.getNombre());
         jTextFieldObs.setText(conv.getObservacion());
         
         jButtonBuscarEmpresa.setVisible(false);
@@ -537,7 +517,6 @@ public class Convenios extends javax.swing.JFrame {
         jButtonInsertarServicio.setVisible(false);
         
         jTextFieldEmpresa.setEditable(false);
-        jTextFieldNombre.setEditable(false);
         jTableConvenios.setEnabled(false);
         
         obtenerTabla();
@@ -548,7 +527,6 @@ public class Convenios extends javax.swing.JFrame {
 
         conv = new Convenio();
         conv.setEmpresa(empresaActual);
-        conv.setNombre(jTextFieldNombre.getText());
         conv.setObservacion(jTextFieldObs.getText());
         conv.setEstado("Activo");
         

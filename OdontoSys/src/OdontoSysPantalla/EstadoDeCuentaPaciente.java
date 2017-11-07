@@ -314,7 +314,7 @@ public class EstadoDeCuentaPaciente extends javax.swing.JFrame {
             for (Factura fila : facturas){
                 Object[] f = new Object[4];
                 f[0] = formatoFecha.format(fila.getFecha());
-                f[1] = "Factura Nro "+fila.getNroFactura();
+                f[1] = "Factura Nro 001-001-000"+fila.getTalonario().getNroFactura();
                 f[2] = fila.getMontoTotal();
                 f[3] = null;
                 tabla.addRow(new Object[]{f[0], f[1], formateador.format(f[2]), null});

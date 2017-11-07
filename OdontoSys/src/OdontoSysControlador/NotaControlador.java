@@ -187,7 +187,7 @@ public class NotaControlador {
             //sesion.getTransaction().begin();
 
             m.setPaciente(nuevo.getPaciente());
-            m.setMovimiento("Nota de Crédito a Factura Nro "+nuevo.getFactura().getNroFactura());
+            m.setMovimiento("Nota de Crédito a Factura Nro "+nuevo.getFactura().getTalonario().getNroFactura());
             m.setFecha(nuevo.getFecha());
             m.setDebe(0);
             m.setHaber(nuevo.getTotal());
@@ -267,14 +267,14 @@ public class NotaControlador {
             //sesion.getTransaction().begin();
             
             if(n != null && m != null){
-                c.setDescripcion("Nota de Crédito por Factura Nro "+n.getFactura().getNroFactura());
+                c.setDescripcion("Nota de Crédito por Factura Nro "+n.getFactura().getTalonario().getNroFactura());
                 c.setEntrada(0);
                 c.setMovimiento(m);
                 c.setSalida(n.getTotal());
                 c.setTipo("Efectivo");
                 c.setMovimientoEmpresa(null);
             } else if(nemp != null && memp != null){
-                c.setDescripcion("Nota de Crédito por Factura Nro "+n.getFactura().getNroFactura());
+                c.setDescripcion("Nota de Crédito por Factura Nro "+n.getFactura().getTalonario().getNroFactura());
                 c.setEntrada(0);
                 c.setMovimientoEmpresa(memp);
                 c.setSalida(nemp.getTotal());

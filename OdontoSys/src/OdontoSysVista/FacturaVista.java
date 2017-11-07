@@ -18,7 +18,7 @@ public class FacturaVista {
     
     public static boolean validarFactura (Factura factura){
         
-        if((String.valueOf(factura.getNroFactura()) == null) || (String.valueOf(factura.getTimbrado()) == null)){
+        if((String.valueOf(factura.getTalonario().getNroFactura()) == null) || (String.valueOf(factura.getTalonario().getTimbrado()) == null)){
             JOptionPane.showMessageDialog(null, "favor complete todos los campos ");
             return true;
         }else{        

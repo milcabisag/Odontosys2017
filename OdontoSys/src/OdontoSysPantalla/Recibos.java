@@ -303,13 +303,17 @@ public class Recibos extends javax.swing.JFrame {
             reciboActual = RecibosControlador.InsertarRecibo(reciboActual, detalle, user, fac);
             if(reciboActual != null){
             JOptionPane.showMessageDialog(rootPane, "Registro insertado correctamente", "Insertar Recibo", WIDTH);
-            imprimirRecibo();
-            this.setVisible(false);            
+            imprimirRecibo();           
             }else{            //no insertado
                 JOptionPane.showMessageDialog(rootPane, "No se pudo Insertar Recibo", "Insertar Recibo", WIDTH);      
             }
         }
         limpiar();
+        Pacientes jF = new Pacientes();
+        if(jF.isVisible()){
+            jF.actualizarForm();
+        }
+        this.dispose(); 
         
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 

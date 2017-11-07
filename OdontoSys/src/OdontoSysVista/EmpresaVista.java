@@ -22,7 +22,7 @@ public class EmpresaVista {
             return false;
         }
         int nom = empresa.getNombre().trim().compareTo("");     //n == 0 si existe cadena vacìa en nombre *
-        int ruc = empresa.getRuc().trim().compareTo("");        //
+        int ruc = String.valueOf(empresa.getRuc()).length();
         int tel = empresa.getTelefono().trim().compareTo("");
         int dir = empresa.getDireccion().trim().compareTo(""); 
         int ncon = empresa.getNombreContacto().trim().compareTo("");
@@ -30,7 +30,7 @@ public class EmpresaVista {
         if(nom == 0 || nom < 3 || nom > 30){
             JOptionPane.showMessageDialog(null, "El nombre debe tener entre 3 y 30 caracteres");
             return false;
-        }else if(ruc == 0 || ruc < 6 || ruc > 15){
+        }else if(ruc == 0 || ruc < 5 || ruc > 15){
             JOptionPane.showMessageDialog(null, "El RUC debe tener entre 6 y 15 caracteres");
             return false;
         }else if(tel == 0 || tel < 6 || tel > 20){

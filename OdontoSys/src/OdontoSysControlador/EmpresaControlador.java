@@ -105,7 +105,7 @@ public class EmpresaControlador {
         return lista;
     }    
     
-    public static Empresa BuscarRUC(String ruc){
+    public static Empresa BuscarRUC(int ruc){
         Session sesion;
         Transaction tr = null;
         Empresa e =null;

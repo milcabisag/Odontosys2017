@@ -81,21 +81,21 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButtonAgenda" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                      <Component id="jButtonDoctores" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                      <Component id="jButtonOdontograma" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                      <Component id="jButtonPacientes" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                      <Component id="jButtonConvenios" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                      <Component id="jButtonEmpresas" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="jButtonAgenda" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="jButtonDoctores" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="jButtonOdontograma" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="jButtonPacientes" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="jButtonConvenios" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="jButtonEmpresas" min="-2" pref="200" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButtonDatos" min="-2" pref="150" max="-2" attributes="0"/>
-                      <Component id="jButtonUsuarios" min="-2" pref="150" max="-2" attributes="0"/>
-                      <Component id="jButtonServicios" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                      <Component id="jButtonReporteCaja" min="-2" pref="150" max="-2" attributes="0"/>
-                      <Component id="jButtonReporteServicios" min="-2" pref="150" max="-2" attributes="0"/>
-                      <Component id="jButtonTalonario" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="jButtonDatos" min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="jButtonUsuarios" min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="jButtonServicios" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="jButtonReporteCaja" min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="jButtonReporteServicios" min="-2" pref="200" max="-2" attributes="0"/>
+                      <Component id="jButtonTalonario" min="-2" pref="200" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
               </Group>
@@ -122,34 +122,34 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jButtonUsuarios" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonUsuarios" min="-2" pref="35" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButtonServicios" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonServicios" min="-2" pref="35" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButtonReporteServicios" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonReporteServicios" min="-2" pref="35" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButtonReporteCaja" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonReporteCaja" min="-2" pref="35" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButtonDatos" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonDatos" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="jButtonOdontograma" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonOdontograma" min="-2" pref="35" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButtonAgenda" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonAgenda" min="-2" pref="35" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButtonPacientes" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonPacientes" min="-2" pref="35" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButtonDoctores" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonDoctores" min="-2" pref="35" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButtonEmpresas" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonEmpresas" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButtonConvenios" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonTalonario" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonConvenios" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="jButtonTalonario" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="52" max="32767" attributes="0"/>
+                  <EmptySpace pref="37" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

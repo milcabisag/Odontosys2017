@@ -158,14 +158,14 @@ public class RecibosControlador {
         return nuevo;
     }
     
-    public static void InsertarDetalleEmpresa(DetalleReciboemp d, MovimientoEmpresa m, Usuario u) {
-        Session sesion;
+    public static void InsertarDetalleEmpresa(DetalleReciboemp d, MovimientoEmpresa m, Usuario u, Session sesion) {
+        //Session sesion;
         try{
-            sesion = NewHibernateUtil.getSessionFactory().openSession();
-            sesion.getTransaction().begin();            
+            //sesion = NewHibernateUtil.getSessionFactory().openSession();
+            //sesion.getTransaction().begin();            
             sesion.save(d);
             sesion.refresh(d);
-            sesion.getTransaction().commit();
+            //sesion.getTransaction().commit();
             agregarMovimientoCaja(sesion, null, null, m, d, u);
         }catch(HibernateException ex){
              JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Recibo Controlador", JOptionPane.INFORMATION_MESSAGE);   

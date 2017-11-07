@@ -15,6 +15,7 @@ public class Empresa  implements java.io.Serializable {
      private String nombre;
      private int ruc;
      private String direccion;
+     private String ciudad;
      private String telefono;
      private String email;
      private String nombreContacto;
@@ -32,17 +33,19 @@ public class Empresa  implements java.io.Serializable {
     }
 
 	
-    public Empresa(String nombre, int ruc, String direccion, String telefono, String estado) {
+    public Empresa(String nombre, int ruc, String direccion, String ciudad, String telefono, String estado) {
         this.nombre = nombre;
         this.ruc = ruc;
         this.direccion = direccion;
         this.telefono = telefono;
         this.estado = estado;
+        this.ciudad = ciudad;
     }
-    public Empresa(String nombre, int ruc, String direccion, String telefono, String email, String nombreContacto, String telContacto, String observaciones, String estado, Set convenios, Set facturaConvenios, Set reciboEmpresas, Set movimientoEmpresas, Set notaCreditoEmpresas, Set facturaEmpresas) {
+    public Empresa(String nombre, int ruc, String direccion, String ciudad, String telefono, String email, String nombreContacto, String telContacto, String observaciones, String estado, Set convenios, Set facturaConvenios, Set reciboEmpresas, Set movimientoEmpresas, Set notaCreditoEmpresas, Set facturaEmpresas) {
        this.nombre = nombre;
        this.ruc = ruc;
        this.direccion = direccion;
+       this.ciudad = ciudad;
        this.telefono = telefono;
        this.email = email;
        this.nombreContacto = nombreContacto;
@@ -85,6 +88,15 @@ public class Empresa  implements java.io.Serializable {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+    
+    public String getCiudad() {
+        return this.ciudad;
+    }
+    
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+    
     public String getTelefono() {
         return this.telefono;
     }

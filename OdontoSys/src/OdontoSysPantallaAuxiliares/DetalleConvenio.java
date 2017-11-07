@@ -256,7 +256,7 @@ public class DetalleConvenio extends javax.swing.JFrame {
             jDialog2.setVisible(true);
             ce = jDialog2.getReturnStatus();
             if(ce != null){
-                jLabelConv.setText(ce.getNombre());
+                jLabelConv.setText(ce.getObservacion());
             }else {
             JOptionPane.showMessageDialog(null, "No se pudo recuperar la empresa" , "Obtener Empresa" , JOptionPane.QUESTION_MESSAGE );
             } 

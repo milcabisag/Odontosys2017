@@ -358,7 +358,7 @@ public class NotasCreditos extends javax.swing.JFrame {
         jDialog.setVisible(true);
         facActual = jDialog.getReturnStatus();
         if(facActual != null){
-            jTextFieldFactura.setText(facActual.getNroFactura().toString());
+            jTextFieldFactura.setText("001-001-000"+facActual.getTalonario().getNroFactura());
         }
     }//GEN-LAST:event_jButtonBuscarFacturaActionPerformed
 

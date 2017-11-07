@@ -149,6 +149,7 @@ public class Pacientes extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableAgenda = new javax.swing.JTable();
         jButtonAtras = new javax.swing.JButton();
+        botonActualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -822,6 +823,13 @@ public class Pacientes extends javax.swing.JFrame {
             }
         });
 
+        botonActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/actualizar.png"))); // NOI18N
+        botonActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -835,6 +843,8 @@ public class Pacientes extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(botonActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jButtonInsPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
@@ -847,7 +857,7 @@ public class Pacientes extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jButtonAtras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 1, Short.MAX_VALUE))
+                        .addGap(0, 15, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -861,7 +871,8 @@ public class Pacientes extends javax.swing.JFrame {
                     .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonInsPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonModPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonElimPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonElimPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addComponent(jTabbedPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1202,6 +1213,10 @@ public class Pacientes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldDCelKeyTyped
 
+    private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
+        actualizarForm();
+    }//GEN-LAST:event_botonActualizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1280,6 +1295,7 @@ public class Pacientes extends javax.swing.JFrame {
     private javax.swing.JLabel Convenio;
     private javax.swing.JLabel Datos;
     private javax.swing.JLabel EstadoC;
+    private javax.swing.JButton botonActualizar;
     private javax.swing.JButton jButtonAtras;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonElimPaciente;
@@ -1348,6 +1364,7 @@ public class Pacientes extends javax.swing.JFrame {
         jTextFieldDEmail.setText("");
         jComboBoxSexo.setSelectedIndex(0);
         jTextFieldDTel.setText("");
+        jTextFieldSaldo.setText("");
         
         pacienteActual = null;
         fact = null;
@@ -1647,5 +1664,15 @@ public class Pacientes extends javax.swing.JFrame {
         SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
         fecha = formato.format(f);
         return fecha;
+    }
+
+    public void actualizarForm() {
+    
+        if(pacienteActual != null){
+            Paciente p = pacienteActual;
+            limpiar();
+            escribirPaciente(p);
+        }
+        
     }
 }
