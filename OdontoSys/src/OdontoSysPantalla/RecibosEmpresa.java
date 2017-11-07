@@ -8,7 +8,7 @@ package OdontoSysPantalla;
 
 import OdontoSysControlador.FacturaControlador;
 import OdontoSysControlador.NumberToLetterConverter;
-import OdontoSysControlador.ReciboControlador;
+import OdontoSysControlador.RecibosControlador;
 import OdontoSysModelo.DetalleReciboemp;
 import OdontoSysModelo.Empresa;
 import OdontoSysModelo.FacturaEmpresa;
@@ -306,14 +306,14 @@ public class RecibosEmpresa extends javax.swing.JFrame {
         MovimientoEmpresa mov = null;
         detalle = ReciboVista.validarReciboEmpresa(reciboActual, detalle);
         if(detalle != null){            //registro insertado correctamente  
-            reciboActual = ReciboControlador.InsertarReciboEmpresa(reciboActual, sesion);
+            reciboActual = RecibosControlador.InsertarReciboEmpresa(reciboActual, sesion);
             if(reciboActual.getFacturaEmpresa().getTipo().compareTo("Contado") != 0){
                 mov = new MovimientoEmpresa();
-                mov = ReciboControlador.insertarMovimientoEmpresa(reciboActual, sesion);
+                mov = RecibosControlador.insertarMovimientoEmpresa(reciboActual, sesion);
             }
             for(DetalleReciboemp d : detalle){
                 d.setReciboEmpresa(reciboActual);
-                ReciboControlador.InsertarDetalleEmpresa(d, mov, sesion);
+                RecibosControlador.InsertarDetalleEmpresa(d, mov, sesion);
             }
             JOptionPane.showMessageDialog(rootPane, "Registro insertado correctamente", "Insertar Recibo", WIDTH);
             facActual.setSaldo(facActual.getSaldo() - reciboActual.getMonto());

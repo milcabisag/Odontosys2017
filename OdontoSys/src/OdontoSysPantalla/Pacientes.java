@@ -1083,7 +1083,7 @@ public class Pacientes extends javax.swing.JFrame {
         Date[] fechas = jFrame.getReturnStatus();
         if(fechas[0] != null && fechas[1] != null){
         int saldo = PacienteControlador.calcularSaldo(fechas[0], pac.getIdPaciente());*/
-        String reporte="reportes/estado_cuenta_paciente";
+        String reporte="C:\\Users\\user\\Google Drive\\UNA\\Odontosys2017\\OdontoSys\\src\\Reportes\\estado_cuenta_paciente";
 
         int idPaciente = pac.getIdPaciente();
 

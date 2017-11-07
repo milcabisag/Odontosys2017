@@ -64,18 +64,20 @@ public class Facturas extends javax.swing.JFrame {
     
     public Facturas() {
         initComponents();
-        setearFactura();
-        obtenerHoy();      
-        inicTabla();
-            if(ordenActual == null){                 // Llamado desde Paciente, sólo modo de consulta
+        setearFactura();  
+        if(tal!=null){
+            obtenerHoy();  
+            inicTabla();
+                if(ordenActual == null){                 // Llamado desde Paciente, sólo modo de consulta
                     jButtonVerOrdenServicio.setVisible(true);
                 }else{                                   // Llamado desde Orden Servicio
                     setearDatos();
                     obtenerDetalle();
                     jButtonVerOrdenServicio.setVisible(false);
-                    
-            }
-        
+                }
+        }else{
+            dispose();
+        }
     }
 
     /**
@@ -674,7 +676,7 @@ public class Facturas extends javax.swing.JFrame {
     }
 */
     private void imprimirFactura() {
-        String reporte="reportes/factura";
+        String reporte="C:\\Users\\user\\Google Drive\\UNA\\Odontosys2017\\OdontoSys\\src\\Reportes\\factura";
         
         int idFactura = facActual.getIdfactura();
         String let = jTextFieldFactTotalLetras.getText();

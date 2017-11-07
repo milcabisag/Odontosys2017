@@ -9,7 +9,7 @@ package OdontoSysPantalla;
 
 import OdontoSysControlador.FacturaControlador;
 import OdontoSysControlador.NotaControlador;
-import OdontoSysControlador.ReciboControlador;
+import OdontoSysControlador.RecibosControlador;
 import OdontoSysModelo.Empresa;
 import OdontoSysModelo.FacturaEmpresa;
 import OdontoSysModelo.NotaCreditoEmpresa;
@@ -288,7 +288,7 @@ public class EstadoDeCuentaEmpresa extends javax.swing.JFrame {
     
     private void recuperarRecibos(String nro) {
         recibos = new ArrayList();
-        recibos = ReciboControlador.ConsultarReciboEmpresa(idFacturaActual);
+        recibos = RecibosControlador.ConsultarReciboEmpresa(idFacturaActual);
         if(recibos != null){
             for (ReciboEmpresa r : recibos){
                 tabla.addRow(new Object[]{formatoFecha.format(r.getFecha()), "Recibo por Factura Nro "+ nro, null, formateador.format(r.getMonto())});

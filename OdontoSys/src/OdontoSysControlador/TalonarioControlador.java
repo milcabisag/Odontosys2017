@@ -59,11 +59,16 @@ public class TalonarioControlador {
             tal = new Talonario();
             String hql1 = "SELECT min(idtalonario) FROM Talonario WHERE estado = 'Libre'";
             Query query = sesion.createQuery(hql1); 
-            int t = (int) query.uniqueResult();
             
-            String hql2 = "FROM Talonario WHERE idtalonario = "+t;
-            Query query2 = sesion.createQuery(hql2); 
-            tal = (Talonario) query2.uniqueResult();
+            if(query.uniqueResult() != null){
+                int t = (int) query.uniqueResult();
+                String hql2 = "FROM Talonario WHERE idtalonario = "+t;
+                Query query2 = sesion.createQuery(hql2); 
+                tal = (Talonario) query2.uniqueResult();
+            }else{
+                JOptionPane.showMessageDialog(null, "Sin factura libre, favor ingrese nuevo talonario", "Talonario Usado", JOptionPane.INFORMATION_MESSAGE);
+                tal = null;
+            }
             
             sesion.close();
         }catch(HibernateException ex){

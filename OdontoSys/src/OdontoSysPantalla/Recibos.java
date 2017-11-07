@@ -11,7 +11,7 @@ import OdontoSysPantallaAuxiliares.ObtenerPaciente;
 import OdontoSysControlador.FacturaControlador;
 import OdontoSysControlador.NumberToLetterConverter;
 import OdontoSysControlador.PacienteControlador;
-import OdontoSysControlador.ReciboControlador;
+import OdontoSysControlador.RecibosControlador;
 import OdontoSysModelo.DetalleRecibo;
 import OdontoSysModelo.Factura;
 import OdontoSysModelo.Movimiento;
@@ -300,7 +300,7 @@ public class Recibos extends javax.swing.JFrame {
          
         detalleActual = ReciboVista.validarRecibo(reciboActual, detalle);
         if(detalleActual != null){           
-            reciboActual = ReciboControlador.InsertarRecibo(reciboActual, detalle, user, fac);
+            reciboActual = RecibosControlador.InsertarRecibo(reciboActual, detalle, user, fac);
             if(reciboActual != null){
             JOptionPane.showMessageDialog(rootPane, "Registro insertado correctamente", "Insertar Recibo", WIDTH);
             imprimirRecibo();
@@ -489,7 +489,7 @@ public class Recibos extends javax.swing.JFrame {
 
 
     private void imprimirRecibo() {
-        String reporte="reportes/recibo";
+        String reporte="C:\\Users\\user\\Google Drive\\UNA\\Odontosys2017\\OdontoSys\\src\\Reportes\\recibo";
         
         int idRecibo = reciboActual.getIdrecibo();
         String letras = jTextFieldRecMonto.getText();

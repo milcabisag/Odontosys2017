@@ -6,6 +6,7 @@
 
 package OdontoSysUtil;
 
+import OdontoSysModelo.Factura;
 import java.io.File;
 import java.util.Map;
 import javax.swing.table.DefaultTableModel;
@@ -41,7 +42,7 @@ public class Configuraciones {
             File f = new File(reporteJr);
             Conexion.conectar();
             JasperReport jr = (JasperReport)JRLoader.loadObject(f);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reporteJr, parametros, Conexion.getCon());
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jr, parametros, Conexion.getCon());
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
             exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(reportePdf));

@@ -11,7 +11,7 @@ import OdontoSysPantallaAuxiliares.ObtenerPaciente;
 import OdontoSysControlador.FacturaControlador;
 import OdontoSysControlador.NotaControlador;
 import OdontoSysControlador.PacienteControlador;
-import OdontoSysControlador.ReciboControlador;
+import OdontoSysControlador.RecibosControlador;
 import OdontoSysModelo.Factura;
 import OdontoSysModelo.NotaCredito;
 import OdontoSysModelo.Paciente;
@@ -331,7 +331,7 @@ public class EstadoDeCuentaPaciente extends javax.swing.JFrame {
     
     private void recuperarRecibos(int nro) {
         recibos = new ArrayList();
-        recibos = ReciboControlador.ConsultarRecibo(nro);
+        recibos = RecibosControlador.ConsultarRecibo(nro);
         if(recibos != null){
             for (Recibo r : recibos){
                 tabla.addRow(new Object[]{formatoFecha.format(r.getFecha()), "Recibo por Factura Nro "+ nro, null, formateador.format(r.getMonto())});

@@ -7,7 +7,7 @@
 package OdontoSysVista;
 
 import OdontoSysControlador.FacturaControlador;
-import OdontoSysControlador.ReciboControlador;
+import OdontoSysControlador.RecibosControlador;
 import OdontoSysModelo.DetalleRecibo;
 import OdontoSysModelo.DetalleReciboemp;
 import OdontoSysModelo.Recibo;

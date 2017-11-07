@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/11/2017 09:44:58 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="OdontoSysModelo.Recibo" table="recibo" catalog="odontosys">
+        <id name="idrecibo" type="java.lang.Integer">
+            <column name="idrecibo" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="factura" class="OdontoSysModelo.Factura" fetch="select">
+            <column name="fk_factura" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuario" class="OdontoSysModelo.Usuario" fetch="select">
+            <column name="fk_usuario" not-null="true" />
+        </many-to-one>
+        <many-to-one name="paciente" class="OdontoSysModelo.Paciente" fetch="select">
+            <column name="fk_paciente" not-null="true" />
+        </many-to-one>
+        <many-to-one name="movimiento" class="OdontoSysModelo.Movimiento" fetch="select">
+            <column name="fk_movimiento" />
+        </many-to-one>
+        <property name="monto" type="int">
+            <column name="monto" not-null="true" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="fecha" length="10" not-null="true" />
+        </property>
+        <set name="detalleRecibos" table="detalle_recibo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_recibo" not-null="true" />
+            </key>
+            <one-to-many class="OdontoSysModelo.DetalleRecibo" />
+        </set>
+    </class>
+</hibernate-mapping>

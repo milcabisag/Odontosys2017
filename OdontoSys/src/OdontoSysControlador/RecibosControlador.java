@@ -29,7 +29,7 @@ import org.hibernate.Transaction;
  *
  * @author user
  */
-public class ReciboControlador {
+public class RecibosControlador {
     
     public static ArrayList<Recibo> ConsultarRecibo(int idFactura){
         Session sesion;
