@@ -184,32 +184,32 @@
                       <Component id="jLabelTitulo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextFieldDNombres" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="jTextFieldDNombres" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                           <Component id="jLabelDNombres" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                           <Component id="jLabelnomb" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextFieldRUC" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="jTextFieldRUC" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                           <Component id="jLabelDCI" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                           <Component id="jLabelruc" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextFieldDTel" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="jTextFieldDTel" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                           <Component id="jLabelDTel" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                           <Component id="jLabeltel" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextFieldDDireccion" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="jTextFieldDDireccion" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                           <Component id="jLabelDDireccion" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                           <Component id="jLabeldir" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabelCiudad" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="jCBciudad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jCBciudad" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
@@ -218,25 +218,25 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextFieldDEmail" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldDEmail" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                   <Component id="jLabelDEmail" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                   <Component id="jLabelemail" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextFieldNombreContacto" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldNombreContacto" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                   <Component id="jLabelNombContacto" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                   <Component id="jLabelncon" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextFieldTeléfonoContacto" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldTeléfonoContacto" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                   <Component id="jLabelDEmail2" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                   <Component id="jLabeltcon" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextFieldObservaciones" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldObservaciones" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                   <Component id="jLabelDEmail3" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                   <Component id="jLabelobs" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>

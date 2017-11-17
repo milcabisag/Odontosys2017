@@ -248,19 +248,19 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldDocNomb" alignment="3" max="-2" attributes="0"/>
+                      <Component id="jTextFieldDocNomb" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="jLabelnomb" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldDocApe" alignment="3" max="-2" attributes="0"/>
+                      <Component id="jTextFieldDocApe" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="jLabelape" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldDocCed" alignment="3" max="-2" attributes="0"/>
+                      <Component id="jTextFieldDocCed" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="jLabelCI" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -268,13 +268,13 @@
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBoxSexo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBoxSexo" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jDateChooserDocFecha" min="-2" max="-2" attributes="0"/>
+                              <Component id="jDateChooserDocFecha" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -282,36 +282,36 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldDocTel" alignment="3" max="-2" attributes="0"/>
+                      <Component id="jTextFieldDocTel" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="jLabelTel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldDocCel" alignment="3" max="-2" attributes="0"/>
+                      <Component id="jTextFieldDocCel" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="jLabelCel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldDocDir" alignment="3" max="-2" attributes="0"/>
+                      <Component id="jTextFieldDocDir" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="jLabelDir" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jCBciudad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCBciudad" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldDocEmail" alignment="3" max="-2" attributes="0"/>
+                      <Component id="jTextFieldDocEmail" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="jLabelEmail" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldDocReg" alignment="3" max="-2" attributes="0"/>
+                      <Component id="jTextFieldDocReg" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="jLabelReg" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -553,6 +553,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldDocNombFocusLost"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="soloLetrasKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
