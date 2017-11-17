@@ -601,8 +601,8 @@ public class Facturas extends javax.swing.JFrame {
     private void obtenerDetalle() {
         lista = new ArrayList();
         lista = OrdenServicioControlador.BuscarDetalleOrden(ordenActual.getIdordenServicio());
-        cp = new ArrayList();
-        cp = ConvenioControlador.BuscarConvenioPaciente(pacActual);
+        //cp = new ArrayList();
+        //cp = ConvenioControlador.BuscarConvenioPaciente(pacActual);
         for(DetalleOrden n : lista){
             Object[] f = new Object[5];
             f[0] = n.getServicio().getDescripcion();

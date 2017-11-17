@@ -24,11 +24,12 @@ import org.hibernate.Transaction;
 public class UsuarioControlador {
     
     public static Usuario Login(String nombre,  String passw){
-        Session sesion;
-        Usuario u =null;
+        Session sesion = null;
+        Transaction tx = null;
+        Usuario u = null;
         try{        
-            sesion = NewHibernateUtil.getSessionFactory().getCurrentSession();
-            sesion.beginTransaction();
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            tx = sesion.beginTransaction();
             String hql = "FROM Usuario U WHERE U.nombre = '"+ nombre + "' and U.passw = '" + passw + "' AND estado = 'Activo'";
             Query query = sesion.createQuery(hql); 
             Iterator it = query.iterate();
@@ -37,20 +38,22 @@ public class UsuarioControlador {
             }else{
                return null;
             }   
+            tx.commit();
         }catch(HibernateException ex){
-            System.out.println("Error: "+ ex);
-               JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Login Controlador", JOptionPane.INFORMATION_MESSAGE);
+            tx.rollback();
+            System.out.println("Error al logear: "+ ex);
+            JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Login Controlador", JOptionPane.INFORMATION_MESSAGE);
          }  
         return u;
     }
     
     public static ArrayList<Usuario> BuscarUsuarios() {
         ArrayList<Usuario> lista = new ArrayList<>();
-        Session session;
-        Transaction tr = null;
+        Session session = null;
+        Transaction tx = null;
         try {            
             session = NewHibernateUtil.getSessionFactory().openSession();
-            tr = session.beginTransaction();
+            tx = session.beginTransaction();
             String hql = "FROM Usuario WHERE estado = 'Activo'";            
             Query query = session.createQuery(hql);
             Iterator it = query.iterate();
@@ -61,8 +64,11 @@ public class UsuarioControlador {
                }while(it.hasNext());
             }else{
                 lista = null;
-            }            
+            }  
+            tx.commit();
         } catch (HibernateException ex) {
+            tx.rollback();
+            System.out.println("Error al buscar user: "+ ex);
               JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Usuario Controlador", JOptionPane.INFORMATION_MESSAGE);
          }
         
@@ -71,15 +77,17 @@ public class UsuarioControlador {
     
     public static int InsertarUsuario(Usuario nuevo) {
         int i = 0;        
-        Session sesion;
+        Session sesion = null;
+        Transaction tx = null;
         try{
             sesion = NewHibernateUtil.getSessionFactory().openSession();
-            sesion.getTransaction().begin();            
+            tx = sesion.beginTransaction();           
             i = (int)sesion.save(nuevo);
-            sesion.getTransaction().commit();
-            sesion.close();
+            tx.commit();
+            sesion.close(); 
         }catch(HibernateException ex){
-            System.out.println("mensage "+ex.getMessage());
+            tx.rollback();
+            System.out.println("Error al insert user "+ex.getMessage());
              JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Usuario Controlador", JOptionPane.INFORMATION_MESSAGE);   
         }        
         return i;
@@ -87,16 +95,18 @@ public class UsuarioControlador {
     
     public static int ModificarUser(Usuario usuarioActual) {
         int i = 0;
+        Session sesion = null;
+        Transaction tx = null;
         try{ 
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
-        Transaction tr = session.beginTransaction();
+        sesion = NewHibernateUtil.getSessionFactory().openSession();
+        tx = sesion.beginTransaction();
         i = usuarioActual.getIdusuario();
-        session.merge(usuarioActual);
-        tr.commit();      
-        session.close();       
-        
-       }catch(HibernateException ex){
-           System.out.println(ex.getMessage());
+        sesion.merge(usuarioActual);
+        tx.commit();  
+        sesion.close(); 
+        }catch(HibernateException ex){
+            tx.rollback();
+            System.out.println("Error al modif user "+ex.getMessage());
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Usuario", WIDTH );
        }
         
@@ -105,17 +115,20 @@ public class UsuarioControlador {
     
     public static int EliminarUsuario(Usuario user) {       
         int i = 0;
+        Session session = null;
+        Transaction tx = null;
         try{         
-            Session session = NewHibernateUtil.getSessionFactory().openSession();
-            Transaction tx = session.beginTransaction();
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
             String hqlUpdate = "UPDATE Usuario SET estado = 'Inactivo' WHERE idusuario = "+user.getIdusuario();
             Query updatedEntities = session.createQuery( hqlUpdate );
             updatedEntities.executeUpdate();
             tx.commit();
             session.close();
        }catch(HibernateException ex){
+            tx.rollback();
+            System.out.println("Error al inactivar user "+ex.getMessage());
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Eliminar Usuario", WIDTH );
-           i = 1;
        }
         
        return i; 
@@ -123,10 +136,11 @@ public class UsuarioControlador {
     
     public static Usuario BuscarID(int idUsuario){
         Session sesion;
+        Transaction tr = null;
         Usuario p =null;
         try{        
             sesion = NewHibernateUtil.getSessionFactory().openSession();
-            Transaction tr = sesion.beginTransaction();
+            tr = sesion.beginTransaction();
             String hql = "FROM Usuario WHERE idUsuario = "+ idUsuario;
             Query query = sesion.createQuery(hql); 
             Iterator it = query.iterate();
@@ -135,7 +149,10 @@ public class UsuarioControlador {
             }else{
                return null;
             }
+            tr.commit();
         }catch(HibernateException ex){
+            tr.rollback();
+            System.out.println("Error al buscar id user "+ex.getMessage());
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Usuario Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
         return p;

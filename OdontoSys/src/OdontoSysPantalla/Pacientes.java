@@ -56,26 +56,7 @@ public class Pacientes extends javax.swing.JFrame {
         initComponents();
         recuperarCiudades();
         BotonInvisibles();
-                
-        // Tabla Estado de Cuenta
-        tablaEstado.addColumn("Fecha");
-        tablaEstado.addColumn("Descripción");
-        tablaEstado.addColumn("Debe");
-        tablaEstado.addColumn("Haber");
-        
-        // Tabla Agenda
-        tablaAgenda.addColumn("Fecha");
-        tablaAgenda.addColumn("Hora");
-        tablaAgenda.addColumn("Motivo");
-        tablaAgenda.addColumn("Doctor");
-        tablaAgenda.addColumn("Estado");
-        tablaAgenda.addColumn("Cod. Orden");
-        
-        // Tabla Convenios
-        tablaConvenio.addColumn("Nombre convenio");
-        tablaConvenio.addColumn("Empresa");
-        tablaConvenio.addColumn("RUC");
-        tablaConvenio.addColumn("Teléfono");
+        iniciarTablas();    
         
     }
 
@@ -892,7 +873,7 @@ public class Pacientes extends javax.swing.JFrame {
         jDialog.setVisible(true);
         pacienteActual = jDialog.getReturnStatus();
         if(pacienteActual != null){
-            habilitarBotones();
+            habilitarBotones(pacienteActual);
             escribirPaciente(pacienteActual);
         }else {
             JOptionPane.showMessageDialog(null, "No se pudo recuperar el paciente" , "Obtener Paciente" , JOptionPane.QUESTION_MESSAGE );
@@ -1467,7 +1448,7 @@ public class Pacientes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Registro insertado correctamente", "Insertar Paciente", WIDTH);
             BotonInvisibles();  
             escribirPaciente(p);
-        }else if(i == -1){
+        }else if(i <= 0){
             JOptionPane.showMessageDialog(rootPane, "Ingrese Datos Correctamente", "Insertar Paciente", WIDTH);
             jTextFieldDNombres.requestFocus();
         }else{
@@ -1478,6 +1459,7 @@ public class Pacientes extends javax.swing.JFrame {
 
     private void escribirPaciente(Paciente paciente) {
         
+        Session sesion = NewHibernateUtil.getSessionFactory().openSession();
         
         if(paciente.getIdPaciente() != null){    
             jTextFieldDNombres.setText(paciente.getNombres());
@@ -1497,9 +1479,9 @@ public class Pacientes extends javax.swing.JFrame {
             jCBciudad.setSelectedItem(paciente.getCiudad());
             jTextFieldDEmail.setText(paciente.getEmail());
             
-            recuperarEstadoCuenta(paciente);
-            recuperarCitas(paciente);
-            recuperarConvenios(paciente);
+            recuperarEstadoCuenta(paciente, sesion);
+            recuperarCitas(paciente, sesion);
+            recuperarConvenios(paciente, sesion);
             
              jButtonGuardar.setVisible(false);
              jButtonModificar.setVisible(false);
@@ -1516,6 +1498,7 @@ public class Pacientes extends javax.swing.JFrame {
             jButtonModPaciente.doClick();
         }   
         
+        sesion.close();
     }
 
     private void actualizarPaciente(Paciente pacienteActual) {
@@ -1539,7 +1522,7 @@ public class Pacientes extends javax.swing.JFrame {
         
     }
 
-    private void habilitarBotones() {
+    private void habilitarBotones(Paciente p) {
         jButtonInsPaciente.setVisible(false);
         jButtonBuscar.setVisible(false);
         
@@ -1554,23 +1537,24 @@ public class Pacientes extends javax.swing.JFrame {
         jPanelAgenda.setEnabled(true);
         jPanelConvenios.setEnabled(true);
         
-        if(OrdenServicioControlador.BuscarOrdenPendiente(pacienteActual.getIdPaciente()) != null){ 
+        if(OrdenServicioControlador.BuscarOrdenPendiente(p.getIdPaciente()) != null){ 
             jButtonOrdenServicio.setVisible(true);
         }    
                 
     }
 
-    private void recuperarEstadoCuenta(Paciente pac) {
+    private void recuperarEstadoCuenta(Paciente pac, Session sesion) {
         
         int saldo = 0;
         
         fact = new ArrayList();
         rec = new ArrayList();
+        Object[] est = new Object[4];
+        Object[] re = new Object[4];
                 //Recupera Facturas tipo crédito con estado Pendiente
-        fact = PacienteControlador.HistoricoDeEstado(pac);
+        fact = PacienteControlador.HistoricoDeEstado(pac.getIdPaciente(), sesion);
         if(fact != null){
             for(Factura f : fact){
-                Object[] est = new Object[4];
                 est[0] = fecha.format(f.getFecha());
                 est[1] = f.getMovimiento().getMovimiento();
                 est[2] = formateador.format(f.getMovimiento().getDebe());
@@ -1578,18 +1562,21 @@ public class Pacientes extends javax.swing.JFrame {
                 saldo = f.getMovimiento().getDebe() - f.getMovimiento().getHaber() + saldo;
                 tablaEstado.addRow(est);
                 //Recupera recibos asociados a la factura crédito
-                rec = PacienteControlador.HistoricoRecibo(f);
+                rec = PacienteControlador.HistoricoRecibo(f.getIdfactura(), sesion);
                 if(rec != null){
                     for(Recibo r : rec){
-                        Object[] rec = new Object[4];
-                        rec[0] = fecha.format(r.getFecha());
-                        rec[1] = r.getMovimiento().getMovimiento();
-                        rec[2] = formateador.format(r.getMovimiento().getDebe());
-                        rec[3] = formateador.format(r.getMovimiento().getHaber());
+                        re[0] = fecha.format(r.getFecha());
+                        re[1] = r.getMovimiento().getMovimiento();
+                        re[2] = formateador.format(r.getMovimiento().getDebe());
+                        re[3] = formateador.format(r.getMovimiento().getHaber());
                         saldo = r.getMovimiento().getDebe() - r.getMovimiento().getHaber() + saldo;
-                        tablaEstado.addRow(rec);
+                        tablaEstado.addRow(re);
                     }
+                    re = null;
+                    re =  new Object[4];
                 }
+                est = null;
+                est = new Object[4];
             }
             if(saldo > 0){
                 jTextFieldSaldo.setText(formateador.format(saldo));
@@ -1599,10 +1586,10 @@ public class Pacientes extends javax.swing.JFrame {
         
     }
 
-    private void recuperarCitas(Paciente pac) {
+    private void recuperarCitas(Paciente pac, Session sesion) {
         
         agen = new ArrayList();
-        agen = AgendaControlador.HistoricoCitasPaciente(pac);
+        agen = AgendaControlador.HistoricoCitasPaciente(pac, sesion);
         if(agen != null){
             for(Agenda a : agen){
                 Object[] age = new Object[6];
@@ -1621,10 +1608,10 @@ public class Pacientes extends javax.swing.JFrame {
         }
     }
 
-    private void recuperarConvenios(Paciente pac) {
+    private void recuperarConvenios(Paciente pac, Session sesion) {
         
         con = new ArrayList();
-        con = ConvenioControlador.BuscarConvenioPaciente(pac);
+        con = ConvenioControlador.BuscarConvenioPaciente(pac.getIdPaciente(), sesion);
         if(con != null){
             for(ConvPaciente c : con){
                 Object[] emp = new Object[4];
@@ -1671,8 +1658,33 @@ public class Pacientes extends javax.swing.JFrame {
         if(pacienteActual != null){
             Paciente p = pacienteActual;
             limpiar();
+            pacienteActual = p;
+            habilitarBotones(p);
             escribirPaciente(p);
         }
         
+    }
+
+    private void iniciarTablas() {
+        
+        // Tabla Estado de Cuenta
+        tablaEstado.addColumn("Fecha");
+        tablaEstado.addColumn("Descripción");
+        tablaEstado.addColumn("Debe");
+        tablaEstado.addColumn("Haber");
+        
+        // Tabla Agenda
+        tablaAgenda.addColumn("Fecha");
+        tablaAgenda.addColumn("Hora");
+        tablaAgenda.addColumn("Motivo");
+        tablaAgenda.addColumn("Doctor");
+        tablaAgenda.addColumn("Estado");
+        tablaAgenda.addColumn("Cod. Orden");
+        
+        // Tabla Convenios
+        tablaConvenio.addColumn("Nombre convenio");
+        tablaConvenio.addColumn("Empresa");
+        tablaConvenio.addColumn("RUC");
+        tablaConvenio.addColumn("Teléfono");
     }
 }

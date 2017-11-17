@@ -59,7 +59,7 @@
         <property name="estado" type="string">
             <column name="estado" length="8" not-null="true" />
         </property>
-        <set name="facturas" table="factura" inverse="true" lazy="true" fetch="select">
+        <set name="facturas" table="factura" inverse="true" lazy="true" fetch= "select">
             <key>
                 <column name="fk_paciente" not-null="true" />
             </key>

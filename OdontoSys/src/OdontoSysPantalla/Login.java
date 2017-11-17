@@ -195,6 +195,7 @@ public class Login extends javax.swing.JFrame {
                     NewHibernateUtil.openSession();
                 }catch(HibernateException ex){
                     System.out.println("Error: "+ex);
+                    NewHibernateUtil.closeSessionFactory();
                     JOptionPane.showMessageDialog(null, "Error al abrir Sesión en Hibernate", "Abrir Sesión", JOptionPane.INFORMATION_MESSAGE);
                 }
             }

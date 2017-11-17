@@ -24,7 +24,7 @@ import org.hibernate.Transaction;
 public class OrdenServicioControlador {
     
     public static ArrayList<OrdenServicio> BuscarOrdenPendiente(int idPaciente){
-        Session sesion;
+        Session sesion = null;
         Transaction tr = null;
         OrdenServicio o = null;
         ArrayList<OrdenServicio> lista = null;
@@ -32,7 +32,7 @@ public class OrdenServicioControlador {
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             tr = sesion.beginTransaction();
 
-            String hql = "FROM OrdenServicio o WHERE o.paciente = "+ idPaciente+ " AND estado = 'Pendiente'";
+            String hql = "FROM OrdenServicio o WHERE o.paciente = "+ idPaciente+ " AND o.estado = 'Pendiente'";
             Query query = sesion.createQuery(hql); 
             Iterator it = query.iterate();
             if(it.hasNext()){
@@ -42,10 +42,11 @@ public class OrdenServicioControlador {
                     lista.add(orden);
                 } 
             }
-        } catch(HibernateException ex){
-               JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Orden de Servicio Controlador", JOptionPane.INFORMATION_MESSAGE);
+        }catch(HibernateException ex){
+            System.out.println("Error "+ex);
+            JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Orden de Servicio Controlador", JOptionPane.INFORMATION_MESSAGE);
          }
-        return lista;
+            return lista;
     }
     
     public static ArrayList<DetalleOrden> BuscarDetalleOrden(int idOrden) {
@@ -106,6 +107,7 @@ public class OrdenServicioControlador {
             session.save(ordenActual);
             session.refresh(ordenActual);
             tr.commit();
+            session.close();
         } catch (HibernateException ex) {
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Orden de Servicio Controlador", JOptionPane.INFORMATION_MESSAGE);
          }        

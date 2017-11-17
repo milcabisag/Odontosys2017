@@ -61,22 +61,21 @@ public class RecibosControlador {
         Recibo rec = null;
         try{
             sesion = NewHibernateUtil.getSessionFactory().openSession();
-            sesion.getTransaction().begin(); 
-            
-            sesion.save(nuevo);
-            System.out.println("recibo "+nuevo.getIdrecibo());
+            Transaction tr = sesion.beginTransaction();
             
             Movimiento m = new Movimiento();
             m = insertarMovimientoRecibo(sesion, nuevo);
+            System.out.println("movim "+m.getIdmovimiento());
+            
+            nuevo.setMovimiento(m);
+            sesion.save(nuevo);
+            System.out.println("recibo "+nuevo.getIdrecibo());
             for(DetalleRecibo d : detalle){
                 d.setRecibo(nuevo);
                 sesion.save(d);
                 agregarMovimientoCaja(sesion, m, d, null, null, us);
             }
-            nuevo.setMovimiento(m);
-            sesion.merge(nuevo);
                         
-            System.out.println("movim "+m.getIdmovimiento());
             fact.setSaldo(fact.getSaldo() - nuevo.getMonto());
             //Si se canceló la factura crédito
             if(fact.getSaldo() == 0){
@@ -87,9 +86,10 @@ public class RecibosControlador {
             System.out.println("Fact modif "+fact.getIdfactura());
             rec = nuevo;
             //FacturaControlador.ModificarSaldoFactura(fact);
+            sesion.refresh(nuevo);
             
-            sesion.getTransaction().commit();
-            sesion.close();
+            tr.commit();
+            //sesion.close();
         }catch(HibernateException ex){
              JOptionPane.showMessageDialog(null, "Error al ingresar nuevo recibo", "Recibo Controlador", JOptionPane.INFORMATION_MESSAGE);   
         }        

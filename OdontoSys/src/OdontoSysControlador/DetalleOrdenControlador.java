@@ -37,6 +37,7 @@ public class DetalleOrdenControlador {
                 session.refresh(elDetalle);
             }
             tr.commit();
+            session.close();
             } catch (HibernateException ex) {
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Orden de Servicio Controlador", JOptionPane.INFORMATION_MESSAGE);
          }        
