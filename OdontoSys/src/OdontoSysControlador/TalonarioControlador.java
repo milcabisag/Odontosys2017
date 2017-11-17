@@ -9,12 +9,15 @@ package OdontoSysControlador;
 import OdontoSysModelo.Datos;
 import OdontoSysModelo.Talonario;
 import OdontoSysUtil.NewHibernateUtil;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -51,10 +54,10 @@ public class TalonarioControlador {
     
         Talonario tal = null;
         Session sesion;
-        
+        Transaction tr = null;
         try{
-             sesion = NewHibernateUtil.getSessionFactory().openSession();
-            sesion.getTransaction().begin();  
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            tr = sesion.beginTransaction();
             
             tal = new Talonario();
             String hql1 = "SELECT min(idtalonario) FROM Talonario WHERE estado = 'Libre'";
@@ -70,8 +73,9 @@ public class TalonarioControlador {
                 tal = null;
             }
             
-            sesion.close();
+            tr.commit();
         }catch(HibernateException ex){
+            tr.rollback();
              System.out.println("Mensaje "+ex.getMessage());
              JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Talonario Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -113,6 +117,63 @@ public class TalonarioControlador {
              System.out.println("Mensaje "+ex.getMessage());
              JOptionPane.showMessageDialog(null, "Error al usar número de factura", "Talonario Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+    
+    public static boolean FacturaVencida(){
+        
+        Session sesion = null;
+        Transaction tx = null;
+        Boolean v = false;
+        
+                     //Recupera y setea fecha dde hoy
+        Date fecha = new Date();
+        SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd");
+        String fec = f.format(fecha);
+        
+        ArrayList<String> notif =null;
+        
+        try{
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            tx = sesion.beginTransaction();
+            
+                    //Recupera las facturas que están vencidas y no se hayan usado
+            String hql = "FROM Talonario WHERE finVigencia < '" + fec + "' AND estado = 'Libre'";
+            ArrayList<Talonario> venc = (ArrayList<Talonario>) sesion.createQuery(hql).list(); 
+            if(venc != null){
+                notif = new ArrayList();
+                for(Talonario tal : venc){
+                    tal.setEstado("Vencido");
+                    sesion.update(tal);
+                    notif.add("001-001-000"+tal.getNroFactura());
+                }
+            }
+            if(notif.size() > 0){
+                System.out.println("Facturas Vencidas: ");
+                for(String n : notif){
+                    System.out.println(n);
+                }
+                JOptionPane.showMessageDialog(null, "Se han encontrado "+notif.size()+" facturas vencidas.", "Facturas Vencidas", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+                    //Busca si queda factura libre
+            hql = "FROM Talonario WHERE estado = 'Libre' AND finVigencia >= '"+fec+"'";
+            System.out.println(hql);
+            Query query = sesion.createQuery(hql);
+            Iterator it = query.iterate();
+            if(it.hasNext()){
+                v = false;
+            }else{
+                v = true;
+            }
+            
+            tx.commit();
+            sesion.close();
+        }catch(HibernateException ex){
+            tx.rollback();
+            System.out.println("Error en Factura Vencida "+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al ver factura vencida", "Talonario Controlador", JOptionPane.INFORMATION_MESSAGE);
+        }
+        return v;
     }
     
 }

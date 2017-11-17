@@ -6,6 +6,7 @@
 
 package OdontoSysPantalla;
 
+import OdontoSysControlador.TalonarioControlador;
 import OdontoSysModelo.Usuario;
 import OdontoSysPantallaAuxiliares.ObtenerServicios;
 import OdontoSysPantallaAuxiliares.ObtenerUsuarios;
@@ -31,7 +32,7 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
-        //usuario = user;
+                
         switch(usuario.getRol()){
             case "Administrador":
                 rolAdmin();
@@ -43,6 +44,8 @@ public class Inicio extends javax.swing.JFrame {
                 rolDoctor();
                 break;
         }
+        
+        vencimientoFactura();
         
     }
 
@@ -491,7 +494,7 @@ public class Inicio extends javax.swing.JFrame {
                 new Inicio().setVisible(true);
             }
         });
-      
+        
 }
  
 
@@ -564,6 +567,19 @@ public class Inicio extends javax.swing.JFrame {
         parametros.put("mes", date);
         
         Configuraciones.imprimirReporteHB(reporte, parametros);
+    }
+
+    private void vencimientoFactura() {
+        
+        boolean v = TalonarioControlador.FacturaVencida();
+        if(v){      //No hay factura libre disponible
+            if(usuario.getRol().compareTo("Administrador") == 0){
+                JOptionPane.showMessageDialog(null, "No quedan facturas libres para utilizar. Favor ingrese nuevo talonario.", "Sin Facturas Disponibles", JOptionPane.INFORMATION_MESSAGE);
+            }else{      //Otro Rol - no puede cargar nuevo talonario
+                JOptionPane.showMessageDialog(null, "No quedan facturas libres para utilizar. Favor contacte con el administrador", "Sin Facturas Disponibles", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        
     }
     
     
