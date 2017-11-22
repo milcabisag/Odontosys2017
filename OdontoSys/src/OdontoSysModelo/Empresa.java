@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 07/11/2017 09:44:47 AM by Hibernate Tools 3.6.0
+// Generated 22/11/2017 11:55:38 AM by Hibernate Tools 3.6.0
 
 
 import java.util.HashSet;
@@ -15,13 +15,13 @@ public class Empresa  implements java.io.Serializable {
      private String nombre;
      private int ruc;
      private String direccion;
-     private String ciudad;
      private String telefono;
      private String email;
      private String nombreContacto;
      private String telContacto;
      private String observaciones;
      private String estado;
+     private String ciudad;
      private Set convenios = new HashSet(0);
      private Set facturaConvenios = new HashSet(0);
      private Set reciboEmpresas = new HashSet(0);
@@ -33,7 +33,7 @@ public class Empresa  implements java.io.Serializable {
     }
 
 	
-    public Empresa(String nombre, int ruc, String direccion, String ciudad, String telefono, String estado) {
+    public Empresa(String nombre, int ruc, String direccion, String telefono, String estado, String ciudad) {
         this.nombre = nombre;
         this.ruc = ruc;
         this.direccion = direccion;
@@ -41,17 +41,17 @@ public class Empresa  implements java.io.Serializable {
         this.estado = estado;
         this.ciudad = ciudad;
     }
-    public Empresa(String nombre, int ruc, String direccion, String ciudad, String telefono, String email, String nombreContacto, String telContacto, String observaciones, String estado, Set convenios, Set facturaConvenios, Set reciboEmpresas, Set movimientoEmpresas, Set notaCreditoEmpresas, Set facturaEmpresas) {
+    public Empresa(String nombre, int ruc, String direccion, String telefono, String email, String nombreContacto, String telContacto, String observaciones, String estado, String ciudad, Set convenios, Set facturaConvenios, Set reciboEmpresas, Set movimientoEmpresas, Set notaCreditoEmpresas, Set facturaEmpresas) {
        this.nombre = nombre;
        this.ruc = ruc;
        this.direccion = direccion;
-       this.ciudad = ciudad;
        this.telefono = telefono;
        this.email = email;
        this.nombreContacto = nombreContacto;
        this.telContacto = telContacto;
        this.observaciones = observaciones;
        this.estado = estado;
+       this.ciudad = ciudad;
        this.convenios = convenios;
        this.facturaConvenios = facturaConvenios;
        this.reciboEmpresas = reciboEmpresas;
@@ -88,15 +88,6 @@ public class Empresa  implements java.io.Serializable {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-    
-    public String getCiudad() {
-        return this.ciudad;
-    }
-    
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
-    
     public String getTelefono() {
         return this.telefono;
     }
@@ -138,6 +129,13 @@ public class Empresa  implements java.io.Serializable {
     
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    public String getCiudad() {
+        return this.ciudad;
+    }
+    
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
     public Set getConvenios() {
         return this.convenios;

@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 07/11/2017 09:44:47 AM by Hibernate Tools 3.6.0
+// Generated 22/11/2017 11:55:38 AM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -36,7 +36,6 @@ public class Paciente  implements java.io.Serializable {
      private Set ordenServicios = new HashSet(0);
      private Set diagnosticos = new HashSet(0);
      private Set movimientos = new HashSet(0);
-     private Set convenios = new HashSet(0);
      private Set odontogramas = new HashSet(0);
      private Set recibos = new HashSet(0);
      private Set notaCreditos = new HashSet(0);
@@ -61,7 +60,7 @@ public class Paciente  implements java.io.Serializable {
         this.observaciones = observaciones;
         this.estado = estado;
     }
-    public Paciente(String nombres, String apellidos, int nroCi, Date fechaNac, String sexo, String telLb, String telCel, String direccion, String ciudad, String email, int peso, String enfermedades, String medicamentos, String alergias, String cirugias, String observaciones, String estado, Set facturas, Set convPacientes, Set agendas, Set ordenServicios, Set diagnosticos, Set movimientos, Set convenios, Set odontogramas, Set recibos, Set notaCreditos) {
+    public Paciente(String nombres, String apellidos, int nroCi, Date fechaNac, String sexo, String telLb, String telCel, String direccion, String ciudad, String email, int peso, String enfermedades, String medicamentos, String alergias, String cirugias, String observaciones, String estado, Set facturas, Set convPacientes, Set agendas, Set ordenServicios, Set diagnosticos, Set movimientos, Set odontogramas, Set recibos, Set notaCreditos) {
        this.nombres = nombres;
        this.apellidos = apellidos;
        this.nroCi = nroCi;
@@ -85,7 +84,6 @@ public class Paciente  implements java.io.Serializable {
        this.ordenServicios = ordenServicios;
        this.diagnosticos = diagnosticos;
        this.movimientos = movimientos;
-       this.convenios = convenios;
        this.odontogramas = odontogramas;
        this.recibos = recibos;
        this.notaCreditos = notaCreditos;
@@ -258,13 +256,6 @@ public class Paciente  implements java.io.Serializable {
     
     public void setMovimientos(Set movimientos) {
         this.movimientos = movimientos;
-    }
-    public Set getConvenios() {
-        return this.convenios;
-    }
-    
-    public void setConvenios(Set convenios) {
-        this.convenios = convenios;
     }
     public Set getOdontogramas() {
         return this.odontogramas;

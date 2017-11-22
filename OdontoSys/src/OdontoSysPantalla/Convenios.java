@@ -7,19 +7,17 @@
 package OdontoSysPantalla;
 
 import OdontoSysControlador.ConvenioControlador;
-import OdontoSysControlador.ServicioControlador;
 import OdontoSysModelo.Convenio;
 import OdontoSysModelo.DetalleConvenio;
 import OdontoSysModelo.Empresa;
-import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Servicio;
+import OdontoSysModelo.Usuario;
 import OdontoSysPantallaAuxiliares.BuscarServicio;
 import OdontoSysPantallaAuxiliares.ObtenerEmpresa;
 import OdontoSysUtil.Configuraciones;
 import OdontoSysVista.ConvenioVista;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.util.ArrayList;
-import static javassist.CtMethod.ConstParameter.string;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,24 +27,50 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Convenios extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Convenios2Pacientes
-     */
+     //Variables
+    public static Usuario user = null;
+    public static Empresa empresaActual = null;
+    public static Convenio conv = null;   
+    
+    String llamado = null;
+    ArrayList<Servicio> serv = new ArrayList();
+    ArrayList<DetalleConvenio> det = new ArrayList(); 
+    
+    int fila = 0;
+    DefaultTableModel tabla = new DefaultTableModel(){
+        public boolean isCellEditable(int row, int column) {   
+            if(column == 1 || column == 2){
+                return true;
+            }else{
+                return false;  
+            }
+        }};
+
+    
+    
     public Convenios() {
         initComponents();
         crearTabla();
-        if(empresaActual != null){      //Llamado desde frame consultar convenios
-            llamado = "consulta";
-            mostrarConvenio();
-            
-        }else{                          //Llamado a insertar
-            llamado = "insertar";
-            jButtonModificar.setVisible(false);
-            jButtonEliminar.setVisible(false);
-            jButtonInsertarServicio.setVisible(true);
-            jButtonElimConv.setVisible(false);
-            jButtonModConv.setVisible(false);
-            jTextFieldObs.setEditable(true);
+        
+        if(user.getRol().compareTo("Administrador") == 0){
+            if(empresaActual != null && conv != null){      //Llamado desde frame consultar convenios de empresa
+                llamado = "consulta";
+                mostrarConvenio();
+                habilitarMod();     //habilitar botones para modificación
+            }else{                          //Llamado a insertar
+                llamado = "insertar";
+                jButtonModificar.setVisible(false);
+                jButtonEliminar.setVisible(false);
+                jButtonInsertarServicio.setVisible(true);
+                jButtonElimConv.setVisible(false);
+                jButtonModConv.setVisible(false);
+                jTextFieldObs.setEditable(true);
+            }
+        }else{
+            if(empresaActual != null && conv != null){      //Llamado desde frame consultar convenios de empresa
+                llamado = "consulta";
+                mostrarConvenio();
+            }
         }
         
     }
@@ -76,6 +100,8 @@ public class Convenios extends javax.swing.JFrame {
         jButtonModConv = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldObs = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextFieldNombConv = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -142,7 +168,7 @@ public class Convenios extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel4.setText("Servicios");
 
         jButtonInsertarServicio.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -178,6 +204,12 @@ public class Convenios extends javax.swing.JFrame {
         jTextFieldObs.setEditable(false);
         jTextFieldObs.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
+        jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel3.setText("Nombre del Convenio");
+
+        jTextFieldNombConv.setEditable(false);
+        jTextFieldNombConv.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -204,22 +236,25 @@ public class Convenios extends javax.swing.JFrame {
                                     .addComponent(jButtonElimConv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(70, 70, 70)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4))
+                                .addComponent(jLabel2)
                                 .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextFieldEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonBuscarEmpresa))
-                                    .addComponent(jButtonInsertarServicio)))
+                                .addComponent(jTextFieldEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonBuscarEmpresa))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel5)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5))
                                 .addGap(27, 27, 27)
-                                .addComponent(jTextFieldObs, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldObs, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldNombConv, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButtonInsertarServicio)))
                                 .addGap(37, 37, 37)))
-                        .addGap(53, 53, 53))))
+                        .addGap(44, 44, 44))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(112, 112, 112)
                 .addComponent(jLabel1)
@@ -235,32 +270,36 @@ public class Convenios extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonBuscarEmpresa))
-                .addGap(18, 18, 18)
+                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNombConv, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTextFieldObs, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonInsertarServicio)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 42, Short.MAX_VALUE))
+                    .addComponent(jTextFieldObs, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
                         .addComponent(jButtonElimConv)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonModConv)
-                        .addGap(93, 93, 93)))
+                        .addComponent(jButtonModConv))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonInsertarServicio))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonGuardar)
                     .addComponent(jButtonModificar)
                     .addComponent(jButtonEliminar))
-                .addGap(31, 31, 31))
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -287,7 +326,7 @@ public class Convenios extends javax.swing.JFrame {
         if(llamado.compareTo("insertar") == 0){
             obtenerNuevoConvenio();
             v = ConvenioVista.validarConvenio(conv,det);
-            if(v){
+            if(v && det.size() >= 0){
                 v = ConvenioControlador.insertarConvenio(conv, det);
                 if(v){
                     JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
@@ -296,15 +335,19 @@ public class Convenios extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "No se pudo guardar el convenio" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
                 }
             }
-        }else{          //Llamado a modificar
-            v = ConvenioControlador.modificarConvenio(conv, det);
-            if(v){
-                JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
-                limpiar();
-                dispose();
-            }else {
-                JOptionPane.showMessageDialog(null, "No se pudo guardar el convenio" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
-            } 
+        }else if(llamado.compareTo("modificar") == 0){          //Llamado a modificar
+            if(det.size() >= 0){    //Existe por lo menos un detalle de convenio
+                v = ConvenioControlador.modificarConvenio(conv, det);
+                if(v){
+                    JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
+                    limpiar();
+                    dispose();
+               }else {
+                    JOptionPane.showMessageDialog(null, "No se pudo guardar el convenio" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
+                } 
+            }else{
+                JOptionPane.showMessageDialog(null, "Debe cargar por lo menos un servicio en el detalle" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
+            }
         }
                    
         
@@ -322,6 +365,7 @@ public class Convenios extends javax.swing.JFrame {
         jButtonGuardar.setVisible(true);
         jButtonInsertarServicio.setVisible(true);
         jButtonModificar.setVisible(false);
+        llamado = "modificar";
         
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
@@ -453,22 +497,7 @@ public class Convenios extends javax.swing.JFrame {
             }
         });
     }
-    //Variables
-    String llamado = null;
-    Convenio conv = null;
-    ArrayList<Servicio> serv = new ArrayList();
-    ArrayList<DetalleConvenio> det = new ArrayList();
-    public static Empresa empresaActual = null;
-    int fila = 0;
-    DefaultTableModel tabla = new DefaultTableModel(){
-        public boolean isCellEditable(int row, int column) {   
-            if(column == 1 || column == 2){
-                return true;
-            }else{
-                return false;  
-            }
-        }};
-
+   
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscarEmpresa;
@@ -481,11 +510,13 @@ public class Convenios extends javax.swing.JFrame {
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableConvenios;
     private javax.swing.JTextField jTextFieldEmpresa;
+    private javax.swing.JTextField jTextFieldNombConv;
     private javax.swing.JTextField jTextFieldObs;
     // End of variables declaration//GEN-END:variables
 
@@ -493,8 +524,11 @@ public class Convenios extends javax.swing.JFrame {
         
         Configuraciones.limpiarModelo(tabla);
         jTextFieldEmpresa.setText("");
+        jTextFieldNombConv.setText("");
         jTextFieldObs.setText("");
         empresaActual = null;
+        user = null;
+        conv = null;
         
         jButtonBuscarEmpresa.setVisible(true);
         jButtonInsertarServicio.setVisible(true);
@@ -508,6 +542,7 @@ public class Convenios extends javax.swing.JFrame {
 
     private void mostrarConvenio() {
         jTextFieldEmpresa.setText(empresaActual.getNombre());
+        jTextFieldNombConv.setText(conv.getNomConv());
         jTextFieldObs.setText(conv.getObservacion());
         
         jButtonBuscarEmpresa.setVisible(false);
@@ -517,6 +552,8 @@ public class Convenios extends javax.swing.JFrame {
         jButtonInsertarServicio.setVisible(false);
         
         jTextFieldEmpresa.setEditable(false);
+        jTextFieldNombConv.setEditable(false);
+        jTextFieldObs.setEditable(false);
         jTableConvenios.setEnabled(false);
         
         obtenerTabla();
@@ -556,5 +593,12 @@ public class Convenios extends javax.swing.JFrame {
             v = true;
         }
         return v;
+    }
+
+    private void habilitarMod() {
+    
+        jButtonEliminar.setVisible(true);
+        jButtonModificar.setVisible(true);
+    
     }
 }

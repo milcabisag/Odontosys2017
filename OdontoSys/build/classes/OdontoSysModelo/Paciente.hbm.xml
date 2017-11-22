@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 07/11/2017 09:44:58 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 22/11/2017 11:55:50 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.Paciente" table="paciente" catalog="odontosys">
         <id name="idPaciente" type="java.lang.Integer">
@@ -59,7 +59,7 @@
         <property name="estado" type="string">
             <column name="estado" length="8" not-null="true" />
         </property>
-        <set name="facturas" table="factura" inverse="true" lazy="true" fetch= "select">
+        <set name="facturas" table="factura" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="fk_paciente" not-null="true" />
             </key>
@@ -94,12 +94,6 @@
                 <column name="fk_paciente" not-null="true" />
             </key>
             <one-to-many class="OdontoSysModelo.Movimiento" />
-        </set>
-        <set name="convenios" table="convenio" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="fk_paciente" not-null="true" />
-            </key>
-            <one-to-many class="OdontoSysModelo.Convenio" />
         </set>
         <set name="odontogramas" table="odontograma" inverse="true" lazy="true" fetch="select">
             <key>

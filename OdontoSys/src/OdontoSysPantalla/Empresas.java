@@ -10,6 +10,7 @@ import OdontoSysPantallaAuxiliares.DetalleConvenio;
 import OdontoSysControlador.ConvenioControlador;
 import OdontoSysControlador.EmpresaControlador;
 import OdontoSysModelo.Ciudad;
+import OdontoSysModelo.Convenio;
 import OdontoSysModelo.Empresa;
 import OdontoSysModelo.FacturaConvenio;
 import OdontoSysModelo.MovimientoEmpresa;
@@ -33,9 +34,41 @@ import org.hibernate.Session;
  */
 public class Empresas extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Pacientes
-     */
+    //Variables Globales
+    Empresa empresaActual = null;
+    Session sessionGlobal;
+    public static Usuario user = null;
+    
+    DefaultTableModel tablaConvenios = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    DefaultTableModel tablaEstado = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    DefaultTableModel tablaPendientes = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    
+    ArrayList<Paciente> listaPac = null;
+    ArrayList<MovimientoEmpresa> listaEst = null;
+    ArrayList<FacturaConvenio> listaFacConv = null;
+    ArrayList<Convenio> listaconvenios = null;
+    ArrayList<Ciudad> ciudades = null;
+    
+    DecimalFormat formateador = new DecimalFormat("###,###");
+    SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+    
+    
+    
     public Empresas() {
         initComponents();
         BotonInvisibles();
@@ -954,10 +987,11 @@ public class Empresas extends javax.swing.JFrame {
 
     private void jTableConveniosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConveniosMouseClicked
         int fila = jTableConvenios.getSelectedRow();
-        Paciente p = listaPac.get(fila);
-        DetalleConvenio.empresaActual = empresaActual;
-        DetalleConvenio.pacActual = p;
-        DetalleConvenio.main(null);
+        Convenio c = listaconvenios.get(fila);
+        Convenios.empresaActual = empresaActual;
+        Convenios.conv = c;
+        Convenios.user = user;
+        Convenios.main(null);
     }//GEN-LAST:event_jTableConveniosMouseClicked
 
     private void jScrollPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane2MouseClicked
@@ -1073,38 +1107,7 @@ public class Empresas extends javax.swing.JFrame {
         });
 
     }
-    //Variables Globales
-    Empresa empresaActual = null;
-    Session sessionGlobal;
-    public static Usuario user = null;
     
-    DefaultTableModel tablaConvenios = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
-    DefaultTableModel tablaEstado = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
-    DefaultTableModel tablaPendientes = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
-    
-    ArrayList<Paciente> listaPac = null;
-    ArrayList<MovimientoEmpresa> listaEst = null;
-    ArrayList<FacturaConvenio> listaFacConv = null;
-    
-    ArrayList<Ciudad> ciudades = null;
-    
-    DecimalFormat formateador = new DecimalFormat("###,###");
-    SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtras;
@@ -1302,10 +1305,8 @@ public class Empresas extends javax.swing.JFrame {
     }
 
     private void inicializarTablas() {
-        tablaConvenios.addColumn("Paciente");
-        tablaConvenios.addColumn("Nro de cédula");
-        tablaConvenios.addColumn("Teléfono");
-        tablaConvenios.addColumn("Celular");
+        tablaConvenios.addColumn("Nombre Convenio");
+        tablaConvenios.addColumn("Observación");
         
         tablaEstado.addColumn("Fecha");
         tablaEstado.addColumn("Descripción");
@@ -1319,15 +1320,13 @@ public class Empresas extends javax.swing.JFrame {
     }
 
     private void obtenerConvenios() {
-        listaPac = new ArrayList();
-        listaPac = ConvenioControlador.BuscarPacientesConConvenios(empresaActual);
-        if(listaPac != null){
-            for(Paciente p : listaPac){
-                Object[] f = new Object[4];
-                f[0] = p.getNombres() + " " + p.getApellidos();
-                f[1] = formateador.format(p.getNroCi());
-                f[2] = p.getTelLb();
-                f[3] = p.getTelCel();
+        listaconvenios = new ArrayList();
+        listaconvenios = ConvenioControlador.BuscarConvenioEmpresa(empresaActual);
+        if(listaconvenios != null){
+            for(Convenio c : listaconvenios){
+                Object[] f = new Object[2];
+                f[0] = c.getNomConv();
+                f[1] = c.getObservacion();
                 
                 tablaConvenios.addRow(f);
             }

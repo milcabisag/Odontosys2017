@@ -30,9 +30,10 @@ public class ConvenioControlador {
     public static boolean insertarConvenio(Convenio conv, ArrayList<DetalleConvenio> det) {
         boolean val = false;
         Session sesion;
+        Transaction tr = null;
         try{
             sesion = NewHibernateUtil.getSessionFactory().openSession();
-            sesion.getTransaction().begin();
+            tr = sesion.beginTransaction();
             
             sesion.save(conv);                          //Guarda el convenio
             
@@ -43,9 +44,12 @@ public class ConvenioControlador {
                 d.setConvenio(conv);
                 sesion.save(d);                       //Guarda el detalle del convenio
             }
-            sesion.getTransaction().commit();
+            tr.commit();
+            sesion.close();
             val = true;
         }catch(HibernateException ex){
+            tr.rollback();
+            System.out.println("Error en insertarConvenio: "+ex);
             JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Convenio", WIDTH );
        }        
         return val;
@@ -84,7 +88,10 @@ public class ConvenioControlador {
                     c.add(it.next());
                 }
             }
+            tr.commit();
         }catch(HibernateException ex){
+            tr.rollback();
+            System.out.println("Error en BuscarConvenioEmpresa: "+ex);
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Convenio Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
         return c;
@@ -109,7 +116,11 @@ public class ConvenioControlador {
                     lis.add(it.next());
                 }
             }
+            
+            tr.commit();
         }catch(HibernateException ex){
+            tr.rollback();
+            System.out.println("Error en BuscarDetalleConvenio: "+ex);
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Convenio Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
         return lis;
@@ -145,24 +156,28 @@ public class ConvenioControlador {
     public static boolean modificarConvenio(Convenio conv, ArrayList<DetalleConvenio> det) {
         boolean val = false;
         Session session;
+        Transaction tr = null;
         try{
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Transaction tr = session.beginTransaction();
+            tr = session.beginTransaction();
             
-            session.merge(conv);
+            session.update(conv);
             
             Iterator<DetalleConvenio> it = det.iterator();
             DetalleConvenio d;
             while(it.hasNext()){
                 d = (DetalleConvenio) it.next();
-                session.merge(d);                       
+                session.update(d);    
+                session.refresh(d);
             }           
-                 
+            session.refresh(conv);
             tr.commit();      
             session.close();  
        
             val = true;
         }catch(HibernateException ex){
+            tr.rollback();
+            System.out.println("Error en modificarConvenio: "+ex);
             JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Convenio", WIDTH );
        }        
         return val;
@@ -209,10 +224,11 @@ public class ConvenioControlador {
     
     public static boolean eliminarConvenio(Convenio conv, ArrayList<DetalleConvenio> det) {
         boolean val = false;
-        Session session;
+        Session session = null;
+        Transaction tr = null;
         try{
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Transaction tr = session.beginTransaction(); 
+            tr = session.beginTransaction(); 
             
             conv.setEstado("Inactivo");
             session.merge(conv);
@@ -229,6 +245,8 @@ public class ConvenioControlador {
             
             val = true;
         }catch(HibernateException ex){
+            tr.rollback();
+            System.out.println("Error en eliminarConvenio: "+ex);
             JOptionPane.showMessageDialog(null,ex.getMessage(), "Eliminar Convenio", WIDTH );
        }        
         return val;

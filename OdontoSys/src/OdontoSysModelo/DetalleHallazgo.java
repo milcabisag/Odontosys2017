@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 07/11/2017 09:44:47 AM by Hibernate Tools 3.6.0
+// Generated 22/11/2017 11:55:38 AM by Hibernate Tools 3.6.0
 
 
 
@@ -21,12 +21,10 @@ public class DetalleHallazgo  implements java.io.Serializable {
     }
 
 	
-    public DetalleHallazgo(Odontograma odontograma, Diente diente, Hallazgo hallazgo, String sigla, String ubicacion) {
+    public DetalleHallazgo(Odontograma odontograma, Diente diente, Hallazgo hallazgo) {
         this.odontograma = odontograma;
         this.diente = diente;
         this.hallazgo = hallazgo;
-        this.sigla = sigla;
-        this.ubicacion = ubicacion;
     }
     public DetalleHallazgo(Odontograma odontograma, Diente diente, Hallazgo hallazgo, String sigla, String ubicacion, String especificacion) {
        this.odontograma = odontograma;
