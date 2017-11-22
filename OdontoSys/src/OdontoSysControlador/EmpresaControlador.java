@@ -29,53 +29,66 @@ public class EmpresaControlador {
     public static int insertarEmpresa(Empresa nuevaEmpresa) {
         int i = 0;
         Empresa aux;
-        Session sesion;
+        Session sesion = null;
+        Transaction tr = null;
         try{
             sesion = NewHibernateUtil.getSessionFactory().openSession();
-            sesion.getTransaction().begin();
+            tr = sesion.beginTransaction();
             aux = BuscarRUC(nuevaEmpresa.getRuc());          //Busca si ya existe la empresa          
             if(aux == null){                                // Si no existe, inserta nuevo
                 i = (int)sesion.save(nuevaEmpresa);
-            }else{                                          // Si existe, modifica el estado    
-                nuevaEmpresa.setIdempresa(aux.getIdempresa());
-                //nuevaEmpresa.setEstado = "Activo";
-                i = UpDatePaciente(nuevaEmpresa);
-            }           
-            sesion.getTransaction().commit();
+            }else{
+                JOptionPane.showMessageDialog(null,"El RUC ya existe, no se puede insertar", "Insertar Empresa", WIDTH );
+            }         
+            tr.commit();
+            sesion.close();
         }catch(HibernateException ex){
+            tr.rollback();
+            System.out.println("Error en insertarEmpresa: "+ex);
             JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Empresa", WIDTH );
        }        
         return i;
     }
     
-    public static int UpDatePaciente(Empresa empresa) {
+    public static int UpdateEmpresa(Empresa empresa) {
        int i = 0;
+       Transaction tr = null;
+       Session session = null;
         try{ 
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
-        Transaction tr = session.beginTransaction();        
-        session.merge(empresa);
+        session = NewHibernateUtil.getSessionFactory().openSession();
+        tr = session.beginTransaction();  
+        
+        session.update(empresa);
+        session.refresh(empresa);
+        
         tr.commit();      
         session.close();       
         i = empresa.getIdempresa();
        }catch(HibernateException ex){
-           System.out.println(ex.getMessage());
+           tr.rollback();
+           System.out.println("Error en UpdateEmpresa: "+ex.getMessage());
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Empresa", WIDTH );
        }        
        return i; 
     }
     
-    public static boolean Eliminar(Empresa empActual) {
+    public static boolean EliminarEmpresa(Empresa empActual) {
         boolean i = false;
+        Session session = null;
+        Transaction tx  = null;
         try{         
-            Session session = NewHibernateUtil.getSessionFactory().openSession();
-            Transaction tx = session.beginTransaction();
-            String hqlUpdate = "UPDATE Empresa SET estado = 'Inactivo' WHERE idEmpresa = "+empActual.getIdempresa();
-            Query updatedEntities = session.createQuery( hqlUpdate );
-            updatedEntities.executeUpdate();
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            
+            empActual.setEstado("Inactivo");
+            session.update(empActual);
+            
             tx.commit();
             session.close();
             i = true;
        }catch(HibernateException ex){
+           tx.rollback();
+            System.out.println("Error en EliminarEmpresa: "+ex);
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Eliminar Empresa", WIDTH );
        }        
        return i; 
@@ -99,7 +112,10 @@ public class EmpresaControlador {
             }else{
                 lista = null;
             }
+            tr.commit();
         } catch (HibernateException ex) {
+            tr.rollback();
+            System.out.println("Error en ConsultarEmpresa: "+ex);
            JOptionPane.showMessageDialog(null,"No se pudo conectar a la Base de Datos", "Empresa Controlador", WIDTH );
        }        
         return lista;
@@ -112,7 +128,7 @@ public class EmpresaControlador {
         try{        
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             tr = sesion.beginTransaction();
-            String hql = "FROM Empresa WHERE ruc = "+ruc;
+            String hql = "FROM Empresa WHERE estado = 'Activo' AND ruc = "+ruc;
             Query query = sesion.createQuery(hql); 
             Iterator it = query.iterate();
             if(it.hasNext()){
@@ -120,7 +136,11 @@ public class EmpresaControlador {
             }else{
                return null;
             }
+            tr.commit();
+            sesion.close();
         }catch(HibernateException ex){
+            tr.rollback();
+            System.out.println("Error en BuscarRUC: "+ex);
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Empresa Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
         return e;
@@ -141,7 +161,10 @@ public class EmpresaControlador {
             }else{
                return null;
             }
+            tr.commit();
         }catch(HibernateException ex){
+            tr.rollback();
+            System.out.println("Error en BuscarId: "+ex);
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Empresa Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
         return e;
@@ -166,7 +189,10 @@ public class EmpresaControlador {
             }else{
                 lista = null;
             }
+            tr.commit();
         } catch (HibernateException ex) {
+            tr.rollback();
+            System.out.println("Error en FacturaPendiente: "+ex);
            JOptionPane.showMessageDialog(null,"No se pudo conectar a la Base de Datos", "Empresa Controlador", WIDTH );
        }        
         return lista;
@@ -189,7 +215,10 @@ public class EmpresaControlador {
                     lista.add(nuevo);
                 }while(it.hasNext());       
             }
+            tr.commit();
         } catch (HibernateException ex) {
+            tr.rollback();
+            System.out.println("Error en ObtenerEstadoCuenta: "+ex);
            JOptionPane.showMessageDialog(null,"No se pudo conectar a la Base de Datos", "Empresa Controlador", WIDTH );
        }        
         return lista;

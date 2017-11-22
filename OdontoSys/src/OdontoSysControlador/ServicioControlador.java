@@ -37,8 +37,12 @@ public class ServicioControlador {
 
             if(it.hasNext()) {
                 s = (Servicio) it.next();
-            }            
+            }    
+            tr.commit();
+            
         } catch(HibernateException ex){
+            tr.rollback();
+            System.out.println("Error en BuscarServicio: "+ex);
                JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Servicio Controlador", JOptionPane.INFORMATION_MESSAGE);
          }
         return s;
@@ -70,8 +74,10 @@ public class ServicioControlador {
                 S = (Servicio)it.next();
                 lisServicio.add(S);
             }
-            
+            tr.commit();
         }catch(HibernateException ex){
+            tr.rollback();
+            System.out.println("Error en ServicioControlador; BuscarporNombre: "+ex);
                //JOptionPane.showInputDialog ( null, "ocurrio HibernateException al construir session" , "PacienteControlador" , JOptionPane.INFORMATION_MESSAGE );
                JOptionPane.showMessageDialog(null, "Error al conectarse on Base de Datos", "servicoControlador", JOptionPane.INFORMATION_MESSAGE);
  
@@ -82,15 +88,20 @@ public class ServicioControlador {
     
     public static boolean insertarServicio(Servicio serv) { 
         boolean i = false;
+        Session session = null;
+        Transaction tx = null;
         try{
-            Session session = NewHibernateUtil.getSessionFactory().openSession();
-            Transaction tx = session.getTransaction();     
-                tx.begin();
-                session.save(serv);
-                session.refresh(serv);
-                tx.commit();
-                i = true;
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            tx = session.getTransaction();
+            tx.begin();
+            session.save(serv);
+            session.refresh(serv);
+            tx.commit();
+            session.close();
+            i = true;
         }catch(HibernateException ex){
+            tx.rollback();
+            System.out.println("Error en insertarServicio: "+ex);
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Servicio Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
          
@@ -99,14 +110,18 @@ public class ServicioControlador {
     
     public static boolean modificarServicio(Servicio serv) {
         boolean i = false;
+        Session session = null;
+        Transaction tr = null;
         try{ 
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
-        Transaction tr = session.beginTransaction();        
+        session = NewHibernateUtil.getSessionFactory().openSession();
+        tr = session.beginTransaction();        
         session.merge(serv);
         tr.commit();      
         session.close();       
         i = true;
        }catch(HibernateException ex){
+           tr.rollback();
+            System.out.println("Error en modificarServicio: "+ex);
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Servicio", WIDTH );
        }        
        return i; 
@@ -114,9 +129,11 @@ public class ServicioControlador {
     
     public static boolean eliminarServicio(Servicio serv) {
         boolean i = false;
+        Session session = null;
+        Transaction tx = null;
         try{         
-            Session session = NewHibernateUtil.getSessionFactory().openSession();
-            Transaction tx = session.beginTransaction();
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
             String hqlUpdate = "UPDATE Servicio SET estado = 'Inactivo' WHERE idservicio = " + serv.getIdservicio();
             Query updatedEntities = session.createQuery( hqlUpdate );
             updatedEntities.executeUpdate();
@@ -124,6 +141,8 @@ public class ServicioControlador {
             session.close();
             i = true;
        }catch(HibernateException ex){
+           tx.rollback();
+            System.out.println("Error en eliminarServicio: "+ex);
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Eliminar Servicio", WIDTH );
        }        
        return i; 

@@ -106,7 +106,7 @@ public class ConvenioControlador {
         try{        
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             tr = sesion.beginTransaction();
-            hql = "FROM detalle_convenio WHERE estado = 'Activo' AND convenio = "+conv.getIdconvenio();
+            hql = "FROM DetalleConvenio WHERE estado = 'Activo' AND convenio = "+conv.getIdconvenio();
             
             Query query = sesion.createQuery(hql); 
             Iterator<DetalleConvenio> it = query.iterate();

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 22/11/2017 11:55:50 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 22/11/2017 02:37:11 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.Servicio" table="servicio" catalog="odontosys">
         <id name="idservicio" type="java.lang.Integer">
@@ -23,12 +23,6 @@
             </key>
             <one-to-many class="OdontoSysModelo.DetalleOrden" />
         </set>
-        <set name="convenios" table="convenio" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="fk_servicio" not-null="true" />
-            </key>
-            <one-to-many class="OdontoSysModelo.Convenio" />
-        </set>
         <set name="agendas" table="agenda" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="motivo" not-null="true" />
@@ -40,6 +34,12 @@
                 <column name="fk_servicio" not-null="true" />
             </key>
             <one-to-many class="OdontoSysModelo.Tratamiento" />
+        </set>
+        <set name="detalleConvenios" table="detalle_convenio" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_servicio" not-null="true" />
+            </key>
+            <one-to-many class="OdontoSysModelo.DetalleConvenio" />
         </set>
     </class>
 </hibernate-mapping>

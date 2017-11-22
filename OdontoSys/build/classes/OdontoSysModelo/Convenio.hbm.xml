@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 22/11/2017 11:55:50 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 22/11/2017 02:37:11 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.Convenio" table="convenio" catalog="odontosys">
         <id name="idconvenio" type="java.lang.Integer">
@@ -11,14 +11,8 @@
         <many-to-one name="empresa" class="OdontoSysModelo.Empresa" fetch="select">
             <column name="fk_empresa" not-null="true" />
         </many-to-one>
-        <many-to-one name="servicio" class="OdontoSysModelo.Servicio" fetch="select">
-            <column name="fk_servicio" not-null="true" />
-        </many-to-one>
         <property name="nomConv" type="string">
-            <column name="nom_conv" length="100" />
-        </property>
-        <property name="porcentaje" type="int">
-            <column name="porcentaje" not-null="true" />
+            <column name="nom_conv" length="100" not-null="true" />
         </property>
         <property name="observacion" type="string">
             <column name="observacion" length="200" />
@@ -26,6 +20,12 @@
         <property name="estado" type="string">
             <column name="estado" length="8" not-null="true" />
         </property>
+        <set name="detalleConvenios" table="detalle_convenio" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_convenio" not-null="true" />
+            </key>
+            <one-to-many class="OdontoSysModelo.DetalleConvenio" />
+        </set>
         <set name="convPacientes" table="conv_paciente" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="fk_convenio" not-null="true" />

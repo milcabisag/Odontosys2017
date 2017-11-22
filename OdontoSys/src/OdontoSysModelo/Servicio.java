@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 22/11/2017 11:55:38 AM by Hibernate Tools 3.6.0
+// Generated 22/11/2017 02:37:09 PM by Hibernate Tools 3.6.0
 
 
 import java.util.HashSet;
@@ -16,9 +16,9 @@ public class Servicio  implements java.io.Serializable {
      private int precio;
      private String estado;
      private Set detalleOrdens = new HashSet(0);
-     private Set convenios = new HashSet(0);
      private Set agendas = new HashSet(0);
      private Set tratamientos = new HashSet(0);
+     private Set detalleConvenios = new HashSet(0);
 
     public Servicio() {
     }
@@ -29,14 +29,14 @@ public class Servicio  implements java.io.Serializable {
         this.precio = precio;
         this.estado = estado;
     }
-    public Servicio(String descripcion, int precio, String estado, Set detalleOrdens, Set convenios, Set agendas, Set tratamientos) {
+    public Servicio(String descripcion, int precio, String estado, Set detalleOrdens, Set agendas, Set tratamientos, Set detalleConvenios) {
        this.descripcion = descripcion;
        this.precio = precio;
        this.estado = estado;
        this.detalleOrdens = detalleOrdens;
-       this.convenios = convenios;
        this.agendas = agendas;
        this.tratamientos = tratamientos;
+       this.detalleConvenios = detalleConvenios;
     }
    
     public Integer getIdservicio() {
@@ -74,13 +74,6 @@ public class Servicio  implements java.io.Serializable {
     public void setDetalleOrdens(Set detalleOrdens) {
         this.detalleOrdens = detalleOrdens;
     }
-    public Set getConvenios() {
-        return this.convenios;
-    }
-    
-    public void setConvenios(Set convenios) {
-        this.convenios = convenios;
-    }
     public Set getAgendas() {
         return this.agendas;
     }
@@ -94,6 +87,13 @@ public class Servicio  implements java.io.Serializable {
     
     public void setTratamientos(Set tratamientos) {
         this.tratamientos = tratamientos;
+    }
+    public Set getDetalleConvenios() {
+        return this.detalleConvenios;
+    }
+    
+    public void setDetalleConvenios(Set detalleConvenios) {
+        this.detalleConvenios = detalleConvenios;
     }
 
 

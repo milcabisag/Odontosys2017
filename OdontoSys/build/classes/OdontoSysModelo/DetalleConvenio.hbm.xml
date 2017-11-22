@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 07/11/2017 09:44:58 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 22/11/2017 02:37:11 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.DetalleConvenio" table="detalle_convenio" catalog="odontosys">
         <id name="iddetalleConvenio" type="java.lang.Integer">
@@ -18,7 +18,7 @@
             <column name="porcentaje" not-null="true" />
         </property>
         <property name="estado" type="string">
-            <column name="estado" length="10" not-null="true" />
+            <column name="estado" length="45" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

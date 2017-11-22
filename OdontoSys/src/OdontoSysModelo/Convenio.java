@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 22/11/2017 11:55:38 AM by Hibernate Tools 3.6.0
+// Generated 22/11/2017 02:37:09 PM by Hibernate Tools 3.6.0
 
 
 import java.util.HashSet;
@@ -13,30 +13,27 @@ public class Convenio  implements java.io.Serializable {
 
      private Integer idconvenio;
      private Empresa empresa;
-     private Servicio servicio;
      private String nomConv;
-     private int porcentaje;
      private String observacion;
      private String estado;
+     private Set detalleConvenios = new HashSet(0);
      private Set convPacientes = new HashSet(0);
 
     public Convenio() {
     }
 
 	
-    public Convenio(Empresa empresa, Servicio servicio, int porcentaje, String estado) {
+    public Convenio(Empresa empresa, String nomConv, String estado) {
         this.empresa = empresa;
-        this.servicio = servicio;
-        this.porcentaje = porcentaje;
+        this.nomConv = nomConv;
         this.estado = estado;
     }
-    public Convenio(Empresa empresa, Servicio servicio, String nomConv, int porcentaje, String observacion, String estado, Set convPacientes) {
+    public Convenio(Empresa empresa, String nomConv, String observacion, String estado, Set detalleConvenios, Set convPacientes) {
        this.empresa = empresa;
-       this.servicio = servicio;
        this.nomConv = nomConv;
-       this.porcentaje = porcentaje;
        this.observacion = observacion;
        this.estado = estado;
+       this.detalleConvenios = detalleConvenios;
        this.convPacientes = convPacientes;
     }
    
@@ -54,26 +51,12 @@ public class Convenio  implements java.io.Serializable {
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
-    public Servicio getServicio() {
-        return this.servicio;
-    }
-    
-    public void setServicio(Servicio servicio) {
-        this.servicio = servicio;
-    }
     public String getNomConv() {
         return this.nomConv;
     }
     
     public void setNomConv(String nomConv) {
         this.nomConv = nomConv;
-    }
-    public int getPorcentaje() {
-        return this.porcentaje;
-    }
-    
-    public void setPorcentaje(int porcentaje) {
-        this.porcentaje = porcentaje;
     }
     public String getObservacion() {
         return this.observacion;
@@ -88,6 +71,13 @@ public class Convenio  implements java.io.Serializable {
     
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    public Set getDetalleConvenios() {
+        return this.detalleConvenios;
+    }
+    
+    public void setDetalleConvenios(Set detalleConvenios) {
+        this.detalleConvenios = detalleConvenios;
     }
     public Set getConvPacientes() {
         return this.convPacientes;

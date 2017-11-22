@@ -59,15 +59,10 @@ public class Convenios extends javax.swing.JFrame {
                 habilitarMod();     //habilitar botones para modificación
             }else{                          //Llamado a insertar
                 llamado = "insertar";
-                jButtonModificar.setVisible(false);
-                jButtonEliminar.setVisible(false);
-                jButtonInsertarServicio.setVisible(true);
-                jButtonElimConv.setVisible(false);
-                jButtonModConv.setVisible(false);
-                jTextFieldObs.setEditable(true);
+                habilitarIns();
             }
         }else{
-            if(empresaActual != null && conv != null){      //Llamado desde frame consultar convenios de empresa
+            if(empresaActual != null){      //Llamado desde frame consultar convenios de empresa
                 llamado = "consulta";
                 mostrarConvenio();
             }
@@ -203,6 +198,8 @@ public class Convenios extends javax.swing.JFrame {
 
         jTextFieldObs.setEditable(false);
         jTextFieldObs.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jTextFieldObs.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextFieldObs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel3.setText("Nombre del Convenio");
@@ -434,15 +431,10 @@ public class Convenios extends javax.swing.JFrame {
         DetalleConvenio m = new DetalleConvenio();
         m = det.get(fila);
         boolean v = false;
-        int p;
-        String modif = JOptionPane.showInputDialog(null, "Modificar:", "Modificar Detalle de Convenio", 
-            JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Porcentaje", "Observación"}, 0).toString();
-        
-        if(modif.compareTo("Porcentaje") == 0){
-            do{
-                p = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese nuevo porcentaje", "Convenio", JOptionPane.QUESTION_MESSAGE));
-                v = validarPorcentaje(p);
-            }while (v == false);
+        Object o = JOptionPane.showInputDialog(null, "Ingrese nuevo porcentaje (sólo número)", "Convenio", JOptionPane.QUESTION_MESSAGE);
+        if(o != null){
+            int p = Integer.parseInt(o.toString());
+            v = validarPorcentaje(p);
             if(v){
                 m.setPorcentaje(p);
                 det.set(fila, m);
@@ -450,7 +442,6 @@ public class Convenios extends javax.swing.JFrame {
                 tabla.setValueAt(n, fila, 1);
             }
         }
-        
     }//GEN-LAST:event_jButtonModConvActionPerformed
  
     private void jTableConveniosMouseClicked(java.awt.event.MouseEvent evt) {                                             
@@ -564,6 +555,7 @@ public class Convenios extends javax.swing.JFrame {
 
         conv = new Convenio();
         conv.setEmpresa(empresaActual);
+        conv.setNomConv(jTextFieldNombConv.getText());
         conv.setObservacion(jTextFieldObs.getText());
         conv.setEstado("Activo");
         
@@ -600,5 +592,21 @@ public class Convenios extends javax.swing.JFrame {
         jButtonEliminar.setVisible(true);
         jButtonModificar.setVisible(true);
     
+    }
+
+    private void habilitarIns() {
+        
+        jTextFieldEmpresa.setText(empresaActual.getNombre());
+        jButtonBuscarEmpresa.setVisible(false);
+        jTextFieldObs.setEditable(true);
+        jTextFieldNombConv.setEditable(true);
+        
+        jButtonModificar.setVisible(false);
+        jButtonEliminar.setVisible(false);
+        
+        jButtonInsertarServicio.setVisible(true);
+        jButtonElimConv.setVisible(false);
+        jButtonModConv.setVisible(false);
+        
     }
 }

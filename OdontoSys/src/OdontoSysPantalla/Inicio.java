@@ -73,7 +73,6 @@ public class Inicio extends javax.swing.JFrame {
         jButtonReporteServicios = new javax.swing.JButton();
         jButtonAyuda = new javax.swing.JButton();
         jButtonReporteCaja = new javax.swing.JButton();
-        jButtonConvenios = new javax.swing.JButton();
         jButtonDatos = new javax.swing.JButton();
         jButtonTalonario = new javax.swing.JButton();
 
@@ -209,16 +208,6 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jButtonConvenios.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
-        jButtonConvenios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/orden.png"))); // NOI18N
-        jButtonConvenios.setText("Convenios");
-        jButtonConvenios.setToolTipText("ABMC de Convenios");
-        jButtonConvenios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonConveniosActionPerformed(evt);
-            }
-        });
-
         jButtonDatos.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
         jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/acerca.png"))); // NOI18N
         jButtonDatos.setText("Datos Empresa");
@@ -266,7 +255,6 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(jButtonDoctores, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonOdontograma, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonConvenios, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonEmpresas, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,9 +304,7 @@ public class Inicio extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonEmpresas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonConvenios, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonTalonario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButtonTalonario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
@@ -449,13 +435,6 @@ public class Inicio extends javax.swing.JFrame {
        // Ver reporte
     }//GEN-LAST:event_jButtonReporteCajaActionPerformed
 
-    private void jButtonConveniosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConveniosActionPerformed
-        
-        Convenios jFrame = new Convenios();
-        jFrame.setVisible(true);
-        
-    }//GEN-LAST:event_jButtonConveniosActionPerformed
-
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
         DatosEmpresa jFrame = new DatosEmpresa();
         jFrame.setVisible(true);
@@ -512,7 +491,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAgenda;
     private javax.swing.JButton jButtonAyuda;
     private javax.swing.JButton jButtonCerrarSesion;
-    private javax.swing.JButton jButtonConvenios;
     private javax.swing.JButton jButtonDatos;
     private javax.swing.JButton jButtonDoctores;
     private javax.swing.JButton jButtonEmpresas;
