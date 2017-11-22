@@ -41,15 +41,13 @@ public class OrdenDeServicio extends javax.swing.JFrame {
         if(ordenActual == null){        //Llamado desde el odontograma
             obtenerDatos();
             jTextFieldTotal.setText(String.valueOf(formateador.format(totales)));
+            jButtonVerOdontograma.setVisible(false);
+            jButtonFacturar.setVisible(false);
         }
         else{                        //Llamado desde la factura o desde el buscador de orden
             jButtonGuardar.setVisible(false);
             setearOrden();
             jTextFieldTotal.setText(String.valueOf(formateador.format(totales)));
-        }
-        
-        if(user.getRol().compareTo("Doctor") == 0){
-            jButtonFacturar.setVisible(false);
         }
         
         
