@@ -345,29 +345,34 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButtonPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPacientesActionPerformed
         if(usuario.getRol().compareTo("Administrador") == 0){
-            Object seleccion = JOptionPane.showInputDialog(null, "Seleccione una opción", "Ventana Pacientes",
-                    JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Datos del Paciente", "Hoja Clínica del Paciente"}, 0);
-            if(seleccion.toString().compareTo("Datos del Paciente") == 0){
-                 Pacientes.user = usuario;
-                 Pacientes.main(null); //Abre Form Pacientes
+            Object seleccion = JOptionPane.showInputDialog(
+                    null,   //Componente padre
+                    "Seleccione una opción",       //Mensaje
+                    "Ventana Pacientes",        //Título
+                    JOptionPane.QUESTION_MESSAGE,   //Tipo de ícono
+                    null,       //ícono por defecto
+                    new Object[] { "Datos del Paciente", "Hoja Clínica del Paciente"}, //Opciones
+                    0);         //Foco en opción 1
+            if(seleccion != null){          //null si se oprime cancelar
+                if(seleccion.toString().compareTo("Datos del Paciente") == 0){
+                     Pacientes.user = usuario;
+                     Pacientes.main(null); //Abre Form Pacientes
+                }
+                else{
+                    PacienteHojaClinica.user = usuario;
+                    PacienteHojaClinica jFrame = new PacienteHojaClinica();
+                    jFrame.setVisible(true);
+                }
             }
-            else{
-                PacienteHojaClinica.user = usuario;
-                PacienteHojaClinica jFrame = new PacienteHojaClinica();
-                jFrame.setVisible(true);
-            }
+        }else if(usuario.getRol().compareTo("Secretaria") == 0){
+            Pacientes.user = usuario;
+            Pacientes.main(null); //Abre Form Pacientes
+        }else{
+            PacienteHojaClinica.user = usuario;
+            PacienteHojaClinica jFrame = new PacienteHojaClinica();
+            jFrame.setVisible(true);
         }
-        else{
-            if(usuario.getRol().compareTo("Secretaria") == 0){
-                Pacientes.user = usuario;
-                Pacientes.main(null); //Abre Form Pacientes
-            }
-            else{
-                PacienteHojaClinica.user = usuario;
-                PacienteHojaClinica jFrame = new PacienteHojaClinica();
-                jFrame.setVisible(true);
-            }
-        }
+            
     }//GEN-LAST:event_jButtonPacientesActionPerformed
 
     private void jButtonDoctoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDoctoresActionPerformed

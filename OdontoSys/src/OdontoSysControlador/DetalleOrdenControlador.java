@@ -8,6 +8,7 @@ package OdontoSysControlador;
 
 import OdontoSysModelo.DetalleOrden;
 import OdontoSysModelo.OrdenServicio;
+import OdontoSysModelo.Servicio;
 import OdontoSysUtil.NewHibernateUtil;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.util.ArrayList;
@@ -61,5 +62,29 @@ public class DetalleOrdenControlador {
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Paciente", WIDTH );
        }        
        return i; 
+    }
+    
+    public static Servicio precioConsulta(){
+        Servicio consulta = null;
+        Session session = null;
+        Transaction tr = null;
+        try{ 
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            tr = session.beginTransaction();  
+            
+            String hql = "FROM Servicio WHERE descripcion LIKE '%Consulta%' AND estado = 'Activo'";
+            Object query = session.createQuery(hql).uniqueResult();
+            
+            if(query != null){
+                consulta = (Servicio) query;
+            }            
+            
+            tr.commit();      
+            session.close();    
+       }catch(HibernateException ex){
+           tr.rollback();;
+           JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Paciente", WIDTH );
+       } 
+        return consulta;
     }
 }

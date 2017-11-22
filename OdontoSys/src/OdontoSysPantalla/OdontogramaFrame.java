@@ -14,6 +14,7 @@ import OdontoSysModelo.Odontograma;
 import OdontoSysModelo.DetalleHallazgo;
 import OdontoSysModelo.Diente;
 import OdontoSysModelo.Paciente;
+import OdontoSysModelo.Servicio;
 import OdontoSysModelo.Tratamiento;
 import OdontoSysModelo.Usuario;
 import OdontoSysPantallaAuxiliares.InsertarHallazgoAct;
@@ -32,6 +33,37 @@ import javax.swing.table.DefaultTableModel;
  * @author user
  */
 public class OdontogramaFrame extends javax.swing.JFrame {
+    
+    
+    //Variables
+
+    Odontograma newOdont = new Odontograma();        
+    Diente dienteActual = null;
+    DetalleHallazgo nuevoHallazgo = null;
+    Tratamiento nuevoTratamiento = null;
+    
+    private static DefaultTableModel modeloH = new DefaultTableModel(){
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }};
+    private static DefaultTableModel modeloT = new DefaultTableModel(){
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }};
+    
+    private static int tipoTransaction = 0;
+    public static int diag = 0;
+    public static Odontograma odon = null;
+    
+    private static ArrayList<DetalleHallazgo> hallazgosSet = new ArrayList();
+    private static ArrayList<Tratamiento> listaTratamientos = new ArrayList();
+    private static ArrayList<Servicio> servicios = new ArrayList();
+    
+    public static Paciente elPaciente = null;
+    public static Usuario elUsuario;
+    
+    Boolean consulta = false; 
+    
     
     
     public OdontogramaFrame(){
@@ -1084,6 +1116,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             fila = jTableContenedorDatos.getSelectedRow();
             modeloT.removeRow(fila);
             listaTratamientos.remove(fila);
+            servicios.remove(fila);
             
             cantActual = modeloT.getRowCount();  
             jButtonEliminar.setVisible(false);          
@@ -1102,24 +1135,22 @@ public class OdontogramaFrame extends javax.swing.JFrame {
     private void jButtonBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarPacienteActionPerformed
         // TODO add your handling code here:
         int bandera = 0;
-        while(bandera == 0){
             ObtenerPaciente frameP = new ObtenerPaciente(this, true);
             frameP.setVisible(true);
             elPaciente = frameP.getReturnStatus();
             if(elPaciente != null){
                 jTextFieldelPaciente.setText(elPaciente.getNombres() + " " + elPaciente.getApellidos());
                 bandera = 1;
-            }else{
-                this.setVisible(false);
             }
-        }       
+            if(bandera == 0){       //No se ha elegido un paciente
+                this.dispose();
+            }
         
     }//GEN-LAST:event_jButtonBuscarPacienteActionPerformed
 
     private void jButtonGuardarOdontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarOdontoActionPerformed
         boolean x = false;
         Date fecha = new Date();
-        Odontograma newOdont = new Odontograma();
         
         newOdont.setUsuario(elUsuario);
         newOdont.setPaciente(elPaciente);
@@ -1136,7 +1167,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         }
         newOdont = OdontogramaControlador.insertarOdontograma(newOdont);
         
-        if(tipoTransaction == 1){
+        if(tipoTransaction == 1){                   //Odontograma Tipo Examen
             
             for(int a=0;a<hallazgosSet.size();a++){
                 hallazgosSet.get(a).setOdontograma(newOdont);       //Setear el id Odontograma
@@ -1152,30 +1183,29 @@ public class OdontogramaFrame extends javax.swing.JFrame {
                 Diagnosticos.asociarOdontograma();
             }
              
-            elPaciente = null;
-            this.setVisible(false); 
+            cobrarConsulta();
             
-        }else{
+        }else{                          // Odontograma Tipo Tratamiento
             for(int a=0;a<listaTratamientos.size();a++){
                 listaTratamientos.get(a).setOdontograma(newOdont);       //Setear el id Odontograma
             }
             x = TratamientoControlador.insertarTratamientos(listaTratamientos);
         
                
-        //LLamar a generar orden de servicio con los respectivos Tratamientos de este Odontograma
-        //si es que el odontograma es de tipo tratamiento osea tipoTransaction == 2
-        OrdenDeServicio.listDetalles = listaTratamientos;
-        OrdenDeServicio.pacActual = elPaciente;
-        OrdenDeServicio.odonActual = newOdont;
-        OrdenDeServicio.user = elUsuario;
+            //LLamar a generar orden de servicio con los respectivos Tratamientos de este Odontograma
+            //si es que el odontograma es de tipo tratamiento osea tipoTransaction == 2
+            OrdenDeServicio.listServicios = servicios;
+            OrdenDeServicio.pacActual = elPaciente;
+            OrdenDeServicio.odonActual = newOdont;
+            OrdenDeServicio.user = elUsuario;
         
-        OrdenDeServicio fmrOrden = new OrdenDeServicio();
-        fmrOrden.setVisible(true);
+            OrdenDeServicio fmrOrden = new OrdenDeServicio();
+            fmrOrden.setVisible(true);
         
-        elPaciente = null;
-        Configuraciones.limpiarModelo(modeloH);
-        Configuraciones.limpiarModelo(modeloT);
-        this.setVisible(false); 
+            elPaciente = null;
+            Configuraciones.limpiarModelo(modeloH);
+            Configuraciones.limpiarModelo(modeloT);
+            this.setVisible(false); 
        }
         
         
@@ -1360,6 +1390,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
                 nuevoTratamiento.setDiente(dienteActual);
                 cargarTablaTratamiento(nuevoTratamiento);
                 listaTratamientos.add(nuevoTratamiento);
+                servicios.add(nuevoTratamiento.getServicio());
                 jButtonGuardarOdonto.setEnabled(true);
             }else{
                 JOptionPane.showMessageDialog(rootPane, "No ha Generado ningun Tratamiento", "Generar Tratamiento", JOptionPane.WARNING_MESSAGE);
@@ -1376,6 +1407,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         }else{    
              jButtonBuscarPaciente.setEnabled(true);
              jButtonBuscarPaciente.doClick();
+             jButtonBuscarPaciente.setVisible(true);
         }
         
         if(elUsuario.getRol().compareTo("Administrador") == 0){   //Rol Administrador
@@ -1386,34 +1418,6 @@ public class OdontogramaFrame extends javax.swing.JFrame {
                 jTextFieldlUsuario.setText(elUsuario.getDoctor().getNombre()+" "+elUsuario.getDoctor().getApellido());
             }
     }
-    
-    //Variables
-            
-    Diente dienteActual = null;
-    DetalleHallazgo nuevoHallazgo = null;
-    Tratamiento nuevoTratamiento = null;
-    
-    private static DefaultTableModel modeloH = new DefaultTableModel(){
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }};
-    private static DefaultTableModel modeloT = new DefaultTableModel(){
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }};
-    
-    private static int tipoTransaction = 0;
-    public static int diag = 0;
-    public static Odontograma odon = null;
-    
-    private static ArrayList<DetalleHallazgo> hallazgosSet = new ArrayList();
-    private static ArrayList<Tratamiento> listaTratamientos = new ArrayList();
-    
-    public static Paciente elPaciente = null;
-    public static Usuario elUsuario;
-    
-    Boolean consulta = false; 
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscarPaciente;
@@ -1518,4 +1522,41 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         consulta = false;
         
     }    
+
+    private void cobrarConsulta() {
+    
+        //Preguntar si se cobrará la consulta
+        int seleccion = JOptionPane.showOptionDialog(
+            null,                           //unComponentePadre,
+            "¿Desea cobrar la consulta?",   //Mensaje
+            "Cobro Consulta",               //Título
+            JOptionPane.YES_NO_CANCEL_OPTION,   //Tipo de jOptionPane
+            JOptionPane.QUESTION_MESSAGE,       //Tipo de ícono
+            null,    // null para icono por defecto.
+            new Object[] { "Sí", "No", "Cancelar" },   // null para YES, NO y CANCEL
+            "Sí");          //Foco
+        
+        if(seleccion == 0){ //Sí
+                          
+            //LLamar a generar orden de servicio con lista de tratamientos null
+            //la orden buscará el precio de consulta
+            OrdenDeServicio.pacActual = elPaciente;
+            OrdenDeServicio.odonActual = newOdont;
+            OrdenDeServicio.user = elUsuario;
+        
+            OrdenDeServicio fmrOrden = new OrdenDeServicio();
+            fmrOrden.setVisible(true);
+        
+            elPaciente = null;
+            Configuraciones.limpiarModelo(modeloH);
+            Configuraciones.limpiarModelo(modeloT);
+            this.setVisible(false); 
+            
+        }else if(seleccion == 1){   //No
+            //Continuar normalmente
+            elPaciente = null;
+            this.setVisible(false); 
+        }
+        
+    }
 }

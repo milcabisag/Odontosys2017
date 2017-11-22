@@ -12,6 +12,7 @@ import OdontoSysModelo.DetalleOrden;
 import OdontoSysModelo.Odontograma;
 import OdontoSysModelo.OrdenServicio;
 import OdontoSysModelo.Paciente;
+import OdontoSysModelo.Servicio;
 import OdontoSysModelo.Tratamiento;
 import OdontoSysModelo.Usuario;
 import OdontoSysPantalla.Facturas;
@@ -415,7 +416,7 @@ public class OrdenDeServicio extends javax.swing.JFrame {
         });
     }
     //Variables
-    public static ArrayList<Tratamiento> listDetalles = null;                  //Debe recibir del odontograma padre
+    public static ArrayList<Servicio> listServicios = null;                  //Debe recibir del odontograma padre
     public static Paciente pacActual;                                  //Debe recibir del odontograma padre
     public static Odontograma odonActual;                              //Debe recibir del odontograma padre
     public static OrdenServicio ordenActual = null;
@@ -476,18 +477,35 @@ public class OrdenDeServicio extends javax.swing.JFrame {
         tabla.addColumn("Precio");
         
         totales = 0;
-                
-        for(Tratamiento o : listDetalles){
-            Object[] rowData = new Object[3];
-            rowData[0] = String.valueOf(o.getServicio().getIdservicio());
-            rowData[1] = o.getServicio().getDescripcion();
-            rowData[2] = o.getServicio().getPrecio();
-            aux.add(o.getServicio().getPrecio());               //Se guardan los precios actuales, se utilizará en 
-                                                                //caso de que se cambie el precio            
-            totales = Integer.parseInt(rowData[2].toString()) + totales;
+        
+        if(listServicios != null){           //Llamado desde Odontograma Tratamiento
+            for(Servicio s : listServicios){
+                Object[] rowData = new Object[3];
+                rowData[0] = String.valueOf(s.getIdservicio());
+                rowData[1] = s.getDescripcion();
+                rowData[2] = s.getPrecio();
+                aux.add(s.getPrecio());               //Se guardan los precios actuales, se utilizará en 
+                                                                    //caso de que se cambie el precio            
+                totales = Integer.parseInt(rowData[2].toString()) + totales;
             
-            tabla.addRow(new Object[]{rowData[0], rowData[1], formateador.format(rowData[2])});
-        }       
+                tabla.addRow(new Object[]{rowData[0], rowData[1], formateador.format(rowData[2])});
+            }       
+        }else{                          // Llamado desde Odontograma Examen
+            Servicio consulta = DetalleOrdenControlador.precioConsulta();
+            listServicios = new ArrayList();
+            listServicios.add(consulta);
+            
+            Object[] rowData = new Object[3];
+                rowData[0] = String.valueOf(consulta.getIdservicio());
+                rowData[1] = consulta.getDescripcion();
+                rowData[2] = consulta.getPrecio();
+                aux.add(consulta.getPrecio());               //Se guardan los precios actuales, se utilizará en 
+                                                                    //caso de que se cambie el precio            
+                totales = Integer.parseInt(rowData[2].toString()) + totales;
+            
+                tabla.addRow(new Object[]{rowData[0], rowData[1], formateador.format(rowData[2])});
+         }
+    
         jTableOrdenServicio.setModel(tabla);
     }
 
@@ -507,7 +525,7 @@ public class OrdenDeServicio extends javax.swing.JFrame {
             DetalleOrden det = new DetalleOrden();
             det.setOrdenServicio(ordenActual);
             det.setPrecio(Integer.parseInt(aux.get(x).toString()));
-            det.setServicio(listDetalles.get(x).getServicio());
+            det.setServicio(listServicios.get(x));
             nuevaLista.add(det);
         }
         return nuevaLista;

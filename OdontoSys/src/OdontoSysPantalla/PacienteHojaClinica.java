@@ -13,6 +13,7 @@ import OdontoSysModelo.Diagnostico;
 import OdontoSysModelo.Odontograma;
 import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Usuario;
+import OdontoSysPantallaAuxiliares.ObtenerPaciente;
 import OdontoSysUtil.Configuraciones;
 import OdontoSysVista.PacienteVista;
 import java.awt.event.MouseAdapter;
@@ -394,9 +395,11 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
     if(pacienteActual == null){
         limpiar();
-        String cedulaString = JOptionPane.showInputDialog ( null, "Ingrese CI de Paciente" , "ModificarPaciente" , JOptionPane.QUESTION_MESSAGE ) ;
-        int  cedula= Integer.parseInt(cedulaString);
-        pacienteActual = PacienteControlador.BuscarCedula(cedula);
+        
+        ObtenerPaciente frameP = new ObtenerPaciente(this, true);
+        frameP.setVisible(true);
+        pacienteActual = frameP.getReturnStatus();
+        
         if (pacienteActual != null) {
            escribirPaciente(pacienteActual);
            habilitarBotones();
