@@ -20,6 +20,7 @@ import static java.awt.image.ImageObserver.WIDTH;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
 
 /**
  *
@@ -30,7 +31,8 @@ public class Convenios extends javax.swing.JFrame {
      //Variables
     public static Usuario user = null;
     public static Empresa empresaActual = null;
-    public static Convenio conv = null;   
+    public static Convenio conv = null;  
+    public static Session sesion = null;
     
     String llamado = null;
     ArrayList<Servicio> serv = new ArrayList();
@@ -328,13 +330,14 @@ public class Convenios extends javax.swing.JFrame {
                 if(v){
                     JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
                     limpiar();
+                    dispose();
                 }else {
                     JOptionPane.showMessageDialog(null, "No se pudo guardar el convenio" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
                 }
             }
         }else if(llamado.compareTo("modificar") == 0){          //Llamado a modificar
             if(det.size() >= 0){    //Existe por lo menos un detalle de convenio
-                v = ConvenioControlador.modificarConvenio(conv, det);
+                v = ConvenioControlador.modificarConvenio(conv, det, sesion);
                 if(v){
                     JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
                     limpiar();
@@ -422,6 +425,7 @@ public class Convenios extends javax.swing.JFrame {
             d.setEstado("Inactivo");
             det.set(fila, d);
             tabla.removeRow(fila);
+            System.out.println("Eliminado: "+det.get(fila).getEstado());
         }
         
     }//GEN-LAST:event_jButtonElimConvActionPerformed
@@ -440,6 +444,7 @@ public class Convenios extends javax.swing.JFrame {
                 det.set(fila, m);
                 String n = p + "%";
                 tabla.setValueAt(n, fila, 1);
+                System.out.println("Modificado: "+det.get(fila).getPorcentaje()+"%");
             }
         }
     }//GEN-LAST:event_jButtonModConvActionPerformed
@@ -529,6 +534,7 @@ public class Convenios extends javax.swing.JFrame {
         jButtonModConv.setVisible(false);
         jTextFieldEmpresa.setEditable(false);
         jTableConvenios.setEnabled(false);
+        
     }
 
     private void mostrarConvenio() {
@@ -562,7 +568,7 @@ public class Convenios extends javax.swing.JFrame {
     }
 
     private void obtenerTabla() {        
-        det = ConvenioControlador.BuscarDetalleConvenio(conv);
+        det = ConvenioControlador.BuscarDetalleConvenio(conv, sesion);
         for(DetalleConvenio d : det){
             Object[] f = new Object[2];
             f[0] = d.getServicio().getDescripcion();

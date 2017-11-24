@@ -274,7 +274,7 @@ public class BuscarConvenio extends javax.swing.JDialog{
     }
 
     private void realizarConsulta() {
-        lista = ConvenioControlador.BuscarConvenioEmpresa(emp);
+        lista = ConvenioControlador.BuscarConvenioEmpresa(emp, null);
         if(lista != null){
             for(Convenio nuevo : lista){
                 Object[] f = new Object[2];

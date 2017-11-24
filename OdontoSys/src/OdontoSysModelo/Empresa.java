@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 22/11/2017 02:37:09 PM by Hibernate Tools 3.6.0
+// Generated 24/11/2017 07:30:01 AM by Hibernate Tools 3.6.0
 
 
 import java.util.HashSet;
@@ -13,7 +13,7 @@ public class Empresa  implements java.io.Serializable {
 
      private Integer idempresa;
      private String nombre;
-     private int ruc;
+     private String ruc;
      private String direccion;
      private String telefono;
      private String email;
@@ -33,7 +33,7 @@ public class Empresa  implements java.io.Serializable {
     }
 
 	
-    public Empresa(String nombre, int ruc, String direccion, String telefono, String estado, String ciudad) {
+    public Empresa(String nombre, String ruc, String direccion, String telefono, String estado, String ciudad) {
         this.nombre = nombre;
         this.ruc = ruc;
         this.direccion = direccion;
@@ -41,7 +41,7 @@ public class Empresa  implements java.io.Serializable {
         this.estado = estado;
         this.ciudad = ciudad;
     }
-    public Empresa(String nombre, int ruc, String direccion, String telefono, String email, String nombreContacto, String telContacto, String observaciones, String estado, String ciudad, Set convenios, Set facturaConvenios, Set reciboEmpresas, Set movimientoEmpresas, Set notaCreditoEmpresas, Set facturaEmpresas) {
+    public Empresa(String nombre, String ruc, String direccion, String telefono, String email, String nombreContacto, String telContacto, String observaciones, String estado, String ciudad, Set convenios, Set facturaConvenios, Set reciboEmpresas, Set movimientoEmpresas, Set notaCreditoEmpresas, Set facturaEmpresas) {
        this.nombre = nombre;
        this.ruc = ruc;
        this.direccion = direccion;
@@ -74,11 +74,11 @@ public class Empresa  implements java.io.Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public int getRuc() {
+    public String getRuc() {
         return this.ruc;
     }
     
-    public void setRuc(int ruc) {
+    public void setRuc(String ruc) {
         this.ruc = ruc;
     }
     public String getDireccion() {

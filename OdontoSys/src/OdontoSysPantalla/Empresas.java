@@ -18,6 +18,7 @@ import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Usuario;
 import OdontoSysPantallaAuxiliares.ObtenerEmpresa;
 import OdontoSysUtil.Configuraciones;
+import OdontoSysUtil.NewHibernateUtil;
 import OdontoSysVista.EmpresaVista;
 import static java.awt.image.ImageObserver.WIDTH;
 import static java.lang.Integer.parseInt;
@@ -26,7 +27,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -38,6 +41,9 @@ public class Empresas extends javax.swing.JFrame {
     Empresa empresaActual = null;
     Session sessionGlobal;
     public static Usuario user = null;
+        
+    Session sesion = null;
+    Transaction tr = null;
     
     DefaultTableModel tablaConvenios = new DefaultTableModel(){
         @Override
@@ -879,6 +885,8 @@ public class Empresas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuActionPerformed
+        limpiar();
+        BotonInvisibles();
         this.setVisible(false);//oculta el jFrame actual
     }//GEN-LAST:event_jButtonMenuActionPerformed
 
@@ -913,7 +921,7 @@ public class Empresas extends javax.swing.JFrame {
             if(empresaActual != null && empresaActual.getIdempresa() > 0){
                 v = EmpresaVista.validarEmpresa(empresaActual);
                 if(v){
-                    int i = EmpresaControlador.UpdateEmpresa(empresaActual);
+                    int i = EmpresaControlador.UpdateEmpresa(empresaActual, sesion);
                     if(i>0){
                         JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Paciente", WIDTH);
                         deshabilitarDatos();
@@ -1004,6 +1012,7 @@ public class Empresas extends javax.swing.JFrame {
         Convenio c = listaconvenios.get(fila);
         Convenios.empresaActual = empresaActual;
         Convenios.conv = c;
+        Convenios.sesion = sesion;
         Convenios.user = user;
         Convenios.main(null);
     }//GEN-LAST:event_jTableConveniosMouseClicked
@@ -1229,9 +1238,9 @@ public class Empresas extends javax.swing.JFrame {
         Empresa e = new Empresa();
         
         e.setNombre(jTextFieldDNombres.getText());  
-        e.setRuc(parseInt(jTextFieldRUC.getText()));
+        e.setRuc(jTextFieldRUC.getText());
         e.setDireccion(jTextFieldDDireccion.getText());
-        e.setCiudad(ciudades.get(jCBciudad.getSelectedIndex()).toString());
+        e.setCiudad(jCBciudad.getSelectedItem().toString());
         e.setEmail(jTextFieldDEmail.getText());
         e.setTelefono(jTextFieldDTel.getText());  
         e.setNombreContacto(jTextFieldNombreContacto.getText());
@@ -1263,6 +1272,11 @@ public class Empresas extends javax.swing.JFrame {
         jLabeltcon.setVisible(false);
         jLabelobs.setVisible(false);
         
+        if(sesion != null){
+            sesion.close();
+            sesion = null;
+        }
+        
     }
 
     private void insertarEmpresa() {
@@ -1282,7 +1296,12 @@ public class Empresas extends javax.swing.JFrame {
     }
 
     private void escribirEmpresa(Empresa empresa) {
-        if(empresa!=null){    
+        if(empresa!=null){   
+            try{
+            
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            tr = sesion.beginTransaction();
+            
             jTextFieldDNombres.setText(empresa.getNombre());
             jTextFieldRUC.setText(String.valueOf(empresa.getRuc()));
             jTextFieldDTel.setText(empresa.getTelefono());
@@ -1293,10 +1312,15 @@ public class Empresas extends javax.swing.JFrame {
             jTextFieldTeléfonoContacto.setText(empresa.getTelContacto());
             jTextFieldObservaciones.setText(empresa.getObservaciones());
             
-            obtenerConvenios();
-            obtenerEstadoCuenta();
-            obtenerPendientes();
+            obtenerConvenios(sesion);
+            obtenerEstadoCuenta(sesion);
+            obtenerPendientes(sesion);
             
+            tr.commit();
+            }catch(HibernateException ex){
+                tr.rollback();
+                System.out.println("Error al escribir la empresa: "+ex);
+            }
         }else{
             JOptionPane.showMessageDialog(rootPane, "Empresa No encontrada", "aviso", WIDTH);
             jButtonModificar.doClick();
@@ -1306,7 +1330,7 @@ public class Empresas extends javax.swing.JFrame {
     private void actualizarEmpresa(Empresa empresa) {
         
         empresa.setNombre(jTextFieldDNombres.getText());
-        empresa.setRuc(parseInt(jTextFieldRUC.getText()));
+        empresa.setRuc(jTextFieldRUC.getText());
         empresa.setTelefono(jTextFieldDTel.getText());
         empresa.setDireccion(jTextFieldDDireccion.getText());
         empresa.setCiudad(ciudades.get(jCBciudad.getSelectedIndex()).getNombre());
@@ -1342,9 +1366,9 @@ public class Empresas extends javax.swing.JFrame {
         tablaPendientes.addColumn("Monto");
     }
 
-    private void obtenerConvenios() {
+    private void obtenerConvenios(Session sesion) {
         listaconvenios = new ArrayList();
-        listaconvenios = ConvenioControlador.BuscarConvenioEmpresa(empresaActual);
+        listaconvenios = ConvenioControlador.BuscarConvenioEmpresa(empresaActual, sesion);
         if(listaconvenios != null){
             for(Convenio c : listaconvenios){
                 Object[] f = new Object[2];
@@ -1357,9 +1381,9 @@ public class Empresas extends javax.swing.JFrame {
         
     }
 
-    private void obtenerEstadoCuenta() {
+    private void obtenerEstadoCuenta(Session sesion) {
         listaEst = new ArrayList();
-        listaEst = EmpresaControlador.ObtenerEstadoCuenta(empresaActual);
+        listaEst = EmpresaControlador.ObtenerEstadoCuenta(empresaActual, sesion);
         int saldo = 0;
         if(listaEst != null){
             for(MovimientoEmpresa m : listaEst){
@@ -1381,9 +1405,9 @@ public class Empresas extends javax.swing.JFrame {
         }
     }
 
-    private void obtenerPendientes() {
+    private void obtenerPendientes(Session sesion) {
         listaFacConv = new ArrayList();
-        listaFacConv = EmpresaControlador.FacturaPendiente(empresaActual.getIdempresa());
+        listaFacConv = EmpresaControlador.FacturaPendiente(empresaActual.getIdempresa(), sesion);
         int total = 0;
         if(listaFacConv != null){
             for(FacturaConvenio fc : listaFacConv){

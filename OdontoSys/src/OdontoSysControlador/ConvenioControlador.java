@@ -72,25 +72,25 @@ public class ConvenioControlador {
         return val;
     }
     
-    public static ArrayList<Convenio> BuscarConvenioEmpresa(Empresa emp){
-        Session sesion;
-        Transaction tr = null;
+    public static ArrayList<Convenio> BuscarConvenioEmpresa(Empresa emp, Session sesion){
+        //Session sesion;
+        //Transaction tr = null;
         ArrayList<Convenio> c = null;
         try{        
-            sesion = NewHibernateUtil.getSessionFactory().openSession();
-            tr = sesion.beginTransaction();
+            //sesion = NewHibernateUtil.getSessionFactory().openSession();
+            //tr = sesion.beginTransaction();
             String hql = "FROM Convenio WHERE empresa = "+ emp.getIdempresa()+" AND estado = 'Activo'";
             Query query = sesion.createQuery(hql); 
-            Iterator<Convenio> it = query.iterate();
-            if(hql != null){
+            if(query != null){
+                Iterator<Convenio> it = query.iterate();
                 c = new ArrayList();
                 while(it.hasNext()){
                     c.add(it.next());
                 }
             }
-            tr.commit();
+            //tr.commit();
         }catch(HibernateException ex){
-            tr.rollback();
+            //tr.rollback();
             System.out.println("Error en BuscarConvenioEmpresa: "+ex);
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Convenio Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -98,14 +98,14 @@ public class ConvenioControlador {
     }
 
     
-    public static ArrayList<DetalleConvenio> BuscarDetalleConvenio(Convenio conv){
-        Session sesion;
+    public static ArrayList<DetalleConvenio> BuscarDetalleConvenio(Convenio conv, Session sesion){
+        //Session sesion;
         Transaction tr = null;
         ArrayList<DetalleConvenio> lis = null;
         String hql;
         try{        
-            sesion = NewHibernateUtil.getSessionFactory().openSession();
-            tr = sesion.beginTransaction();
+            //sesion = NewHibernateUtil.getSessionFactory().getCurrentSession();//.openSession();
+            //tr = sesion.beginTransaction();
             hql = "FROM DetalleConvenio WHERE estado = 'Activo' AND convenio = "+conv.getIdconvenio();
             
             Query query = sesion.createQuery(hql); 
@@ -117,9 +117,9 @@ public class ConvenioControlador {
                 }
             }
             
-            tr.commit();
+            //tr.commit();
         }catch(HibernateException ex){
-            tr.rollback();
+            //tr.rollback();
             System.out.println("Error en BuscarDetalleConvenio: "+ex);
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Convenio Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -153,26 +153,32 @@ public class ConvenioControlador {
         return lis;
     }
     
-    public static boolean modificarConvenio(Convenio conv, ArrayList<DetalleConvenio> det) {
+    public static boolean modificarConvenio(Convenio conv, ArrayList<DetalleConvenio> det, Session session) {
         boolean val = false;
-        Session session;
+        //Session session;
         Transaction tr = null;
         try{
-            session = NewHibernateUtil.getSessionFactory().openSession();
+            //session = NewHibernateUtil.getSessionFactory().openSession();
             tr = session.beginTransaction();
             
-            session.update(conv);
+            session.clear();
             
-            Iterator<DetalleConvenio> it = det.iterator();
-            DetalleConvenio d;
-            while(it.hasNext()){
-                d = (DetalleConvenio) it.next();
-                session.update(d);    
-                session.refresh(d);
-            }           
+            session.merge(conv);
             session.refresh(conv);
+            
+            for(DetalleConvenio d : det){
+                if(d.getConvenio() != null){  //Verificar si el detalle ya existe
+                   session.merge(d);    
+                   session.refresh(d); 
+                }else{                       // El detalle no existe, hay que crearlo
+                   d.setConvenio(conv);
+                   session.save(d);
+                   session.refresh(d);
+                }
+                System.out.println("Detalle: "+d.getIddetalleConvenio()+" Porcentaje: "+d.getPorcentaje()+" Estado: "+d.getEstado());
+            }           
             tr.commit();      
-            session.close();  
+            //session.close();  
        
             val = true;
         }catch(HibernateException ex){

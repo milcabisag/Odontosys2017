@@ -50,19 +50,19 @@ public class EmpresaControlador {
         return i;
     }
     
-    public static int UpdateEmpresa(Empresa empresa) {
+    public static int UpdateEmpresa(Empresa empresa, Session session) {
        int i = 0;
        Transaction tr = null;
-       Session session = null;
+       //Session session = null;
         try{ 
-        session = NewHibernateUtil.getSessionFactory().openSession();
-        tr = session.beginTransaction();  
+        //session = NewHibernateUtil.getSessionFactory().openSession();
+        //tr = session.beginTransaction();  
         
         session.update(empresa);
         session.refresh(empresa);
         
-        tr.commit();      
-        session.close();       
+        //tr.commit();      
+        //session.close();       
         i = empresa.getIdempresa();
        }catch(HibernateException ex){
            tr.rollback();
@@ -121,14 +121,14 @@ public class EmpresaControlador {
         return lista;
     }    
     
-    public static Empresa BuscarRUC(int ruc){
+    public static Empresa BuscarRUC(String ruc){
         Session sesion;
         Transaction tr = null;
         Empresa e =null;
         try{        
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             tr = sesion.beginTransaction();
-            String hql = "FROM Empresa WHERE estado = 'Activo' AND ruc = "+ruc;
+            String hql = "FROM Empresa WHERE estado = 'Activo' AND ruc = '"+ruc+"'";
             Query query = sesion.createQuery(hql); 
             Iterator it = query.iterate();
             if(it.hasNext()){
@@ -170,13 +170,13 @@ public class EmpresaControlador {
         return e;
     }
     
-    public static ArrayList<FacturaConvenio> FacturaPendiente(int idEmpresa) {
+    public static ArrayList<FacturaConvenio> FacturaPendiente(int idEmpresa, Session session) {
         ArrayList<FacturaConvenio> lista = null;
-        Session session;
-        Transaction tr = null;
+        //Session session;
+        //Transaction tr = null;
         try {            
-            session = NewHibernateUtil.getSessionFactory().openSession();
-            tr = session.beginTransaction();
+            //session = NewHibernateUtil.getSessionFactory().openSession();
+            //tr = session.beginTransaction();
             String hql = "FROM FacturaConvenio WHERE empresa = "+idEmpresa+" AND estado = 'Pendiente'";
             Query query = session.createQuery(hql);
             Iterator it = query.iterate();
@@ -189,22 +189,22 @@ public class EmpresaControlador {
             }else{
                 lista = null;
             }
-            tr.commit();
+            //tr.commit();
         } catch (HibernateException ex) {
-            tr.rollback();
+            //tr.rollback();
             System.out.println("Error en FacturaPendiente: "+ex);
            JOptionPane.showMessageDialog(null,"No se pudo conectar a la Base de Datos", "Empresa Controlador", WIDTH );
        }        
         return lista;
     }    
 
-    public static ArrayList<MovimientoEmpresa> ObtenerEstadoCuenta(Empresa emp) {
+    public static ArrayList<MovimientoEmpresa> ObtenerEstadoCuenta(Empresa emp, Session session) {
         ArrayList<MovimientoEmpresa> lista = null;
-        Session session;
+        //Session session;
         Transaction tr = null;
         try {            
-            session = NewHibernateUtil.getSessionFactory().openSession();
-            tr = session.beginTransaction();
+            //session = NewHibernateUtil.getSessionFactory().openSession();
+            //tr = session.beginTransaction();
             String hql = "FROM MovimientoEmpresa WHERE empresa = "+emp.getIdempresa();
             Query query = session.createQuery(hql);
             Iterator it = query.iterate();
@@ -215,9 +215,9 @@ public class EmpresaControlador {
                     lista.add(nuevo);
                 }while(it.hasNext());       
             }
-            tr.commit();
+            //tr.commit();
         } catch (HibernateException ex) {
-            tr.rollback();
+            //tr.rollback();
             System.out.println("Error en ObtenerEstadoCuenta: "+ex);
            JOptionPane.showMessageDialog(null,"No se pudo conectar a la Base de Datos", "Empresa Controlador", WIDTH );
        }        

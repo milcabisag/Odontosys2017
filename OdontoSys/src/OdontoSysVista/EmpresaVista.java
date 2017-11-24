@@ -22,7 +22,7 @@ public class EmpresaVista {
             return false;
         }
         int nom = empresa.getNombre().trim().compareTo("");     //n == 0 si existe cadena vacìa en nombre *
-        int ruc = String.valueOf(empresa.getRuc()).length();
+        int ruc = empresa.getRuc().trim().compareTo("");
         int tel = empresa.getTelefono().trim().compareTo("");
         int dir = empresa.getDireccion().trim().compareTo(""); 
         int ncon = empresa.getNombreContacto().trim().compareTo("");

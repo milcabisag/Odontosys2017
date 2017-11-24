@@ -263,7 +263,7 @@ public class PendientesEmpresa extends javax.swing.JFrame {
 
     private void buscarFacturas() {
         fac = new ArrayList();
-        fac = EmpresaControlador.FacturaPendiente(emp.getIdempresa());
+        fac = EmpresaControlador.FacturaPendiente(emp.getIdempresa(), null);
         monto = 0;
         if(fac != null){
             jButtonRealizarPago.setVisible(true);
