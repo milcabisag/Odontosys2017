@@ -48,10 +48,44 @@ import org.hibernate.Transaction;
  * @author user
  */
 public class Pacientes extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Pacientes
-     */
+    
+    
+ //Variables Globales
+    Paciente pacienteActual = null;
+    Session sessionGlobal;
+    OrdenServicio ordenPendiente = null;
+    public static Usuario user = null;
+    
+    DecimalFormat formateador = new DecimalFormat("###,###");
+    SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+    
+    DefaultTableModel tablaEstado = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    DefaultTableModel tablaConvenio = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    DefaultTableModel tablaAgenda = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    
+    ArrayList<Factura> fact = null;
+    ArrayList<Recibo> rec = null;
+    ArrayList<Agenda> agen = null;
+    ArrayList<ConvPaciente> con = null;
+    ArrayList<Ciudad> ciudades = null;
+    
+    
+    
     public Pacientes() {
         initComponents();
         recuperarCiudades();
@@ -878,37 +912,6 @@ public class Pacientes extends javax.swing.JFrame {
         }else {
             JOptionPane.showMessageDialog(null, "No se pudo recuperar el paciente" , "Obtener Paciente" , JOptionPane.QUESTION_MESSAGE );
         } 
-        
-  /*      limpiar();
-        String cedulaString;
-        int  cedula = 0;
-        boolean bandera;
-        do{
-            try{
-                cedulaString = JOptionPane.showInputDialog ( null, "Ingrese CI de Paciente" , "Buscar Paciente" , JOptionPane.QUESTION_MESSAGE ) ;        
-                if(cedulaString == null){
-                    bandera = true;
-                }else{
-                    cedula= Integer.parseInt(cedulaString);
-                    bandera = true;
-                }
-            }catch(NumberFormatException e){
-                JOptionPane.showMessageDialog(null, "Solo se permiten numeros" , "Buscar por CI" , JOptionPane.QUESTION_MESSAGE );
-                bandera = false;
-                cedula = -1;
-            }
-        }while(!bandera); 
-        if(cedula > 0){
-            pacienteActual = PacienteControlador.BuscarCedula(cedula);
-            if (pacienteActual != null) {
-                habilitarBotones();
-                escribirPaciente(pacienteActual);
-            } else {
-                JOptionPane.showMessageDialog(null, "Paciente no encontrado!" , "Paciente Controlador" , JOptionPane.QUESTION_MESSAGE );
-            } 
-        }
-        */
-        
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     
@@ -965,31 +968,7 @@ public class Pacientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonInsPacienteActionPerformed
 
     private void PacienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PacienteKeyReleased
-        
-// TODO add your handling code here:
-       /* int i = evt.getKeyCode();
-        if(i == KeyEvent.VK_ENTER){
-            if((JTextField)evt.getSource() == jTextFieldDNombres ){
-                jTextFieldDApellidos.requestFocus();
-            }else if((JTextField)evt.getSource() == jTextFieldDApellidos){
-                jTextFieldDCI.requestFocus();
-            }else if((JTextField)evt.getSource() == jTextFieldDCI){
-                jComboBoxSexo.requestFocus();
-            }else if((JComboBox)evt.getSource() == jComboBoxSexo){
-                jTextFieldDTel.requestFocus();
-            }else if((JTextField)evt.getSource() == jTextFieldDCel){
-                jTextFieldDDireccion.requestFocus();
-            }else if((JTextField)evt.getSource() == jTextFieldDTel){
-                 jTextFieldDCel.requestFocus();
-            }else if((JTextField)evt.getSource() == jTextFieldDDireccion){
-                jTextFieldDCiudad.requestFocus();
-            }else if((JTextField)evt.getSource() == jTextFieldDEmail){
-            }else if((JTextField)evt.getSource() == jTextFieldDCiudad){
-                jTextFieldDEmail.requestFocus();
-            }else{
-                jButtonGuardar.requestFocus();
-            }
-        }   */
+
     }//GEN-LAST:event_PacienteKeyReleased
 
     private void jButtonElimPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonElimPacienteActionPerformed
@@ -1092,9 +1071,11 @@ public class Pacientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGenerarReporteActionPerformed
 
     private void jButtonInsertarConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarConvenioActionPerformed
-        DetalleConvenio jFrame = new DetalleConvenio();
-        jFrame.setVisible(true);
-        this.setVisible(false);
+        DetalleConvenio.pacActual = pacienteActual;
+        DetalleConvenio.conv = null;
+        DetalleConvenio.llamado = "insertar";
+        DetalleConvenio.user = user;
+        DetalleConvenio.main(null);
     }//GEN-LAST:event_jButtonInsertarConvenioActionPerformed
 
     private void jButtonNotaCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNotaCreditoActionPerformed
@@ -1110,6 +1091,8 @@ public class Pacientes extends javax.swing.JFrame {
         DetalleConvenio.empresaActual = ce.getConvenio().getEmpresa();
         DetalleConvenio.pacActual = pacienteActual;
         DetalleConvenio.conv = ce;
+        DetalleConvenio.user = user;
+        DetalleConvenio.llamado = "consulta";
         DetalleConvenio.main(null);
     }//GEN-LAST:event_jTableConveniosMouseClicked
 
@@ -1235,40 +1218,7 @@ public class Pacientes extends javax.swing.JFrame {
         });
 
     }
-    //Variables Globales
-    Paciente pacienteActual = null;
-    Session sessionGlobal;
-    OrdenServicio ordenPendiente = null;
-    public static Usuario user = null;
-    
-    DecimalFormat formateador = new DecimalFormat("###,###");
-    SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
-    
-    DefaultTableModel tablaEstado = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
-    DefaultTableModel tablaConvenio = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
-    DefaultTableModel tablaAgenda = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
-    
-    ArrayList<Factura> fact = null;
-    ArrayList<Recibo> rec = null;
-    ArrayList<Agenda> agen = null;
-    ArrayList<ConvPaciente> con = null;
-    ArrayList<Ciudad> ciudades = null;
-    
+   
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1614,11 +1564,10 @@ public class Pacientes extends javax.swing.JFrame {
         con = ConvenioControlador.BuscarConvenioPaciente(pac.getIdPaciente(), sesion);
         if(con != null){
             for(ConvPaciente c : con){
-                Object[] emp = new Object[4];
-                emp[0] = c.getConvenio().getObservacion();
-                emp[1] = c.getConvenio().getEmpresa().getNombre();
-                emp[2] = c.getConvenio().getEmpresa().getRuc();
-                emp[3] = c.getConvenio().getEmpresa().getTelefono();
+                Object[] emp = new Object[3];
+                emp[0] = c.getConvenio().getEmpresa().getNombre();
+                emp[1] = c.getConvenio().getNomConv();
+                emp[2] = c.getConvenio().getObservacion();
                 tablaConvenio.addRow(emp);
             }
         }
@@ -1682,9 +1631,8 @@ public class Pacientes extends javax.swing.JFrame {
         tablaAgenda.addColumn("Cod. Orden");
         
         // Tabla Convenios
-        tablaConvenio.addColumn("Nombre convenio");
         tablaConvenio.addColumn("Empresa");
-        tablaConvenio.addColumn("RUC");
-        tablaConvenio.addColumn("Teléfono");
+        tablaConvenio.addColumn("Nombre convenio");
+        tablaConvenio.addColumn("Observación");
     }
 }

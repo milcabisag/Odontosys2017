@@ -152,6 +152,7 @@ public class Empresas extends javax.swing.JFrame {
         jButtonEliminar = new javax.swing.JButton();
         jButtonMenu = new javax.swing.JButton();
         jButtonAtras = new javax.swing.JButton();
+        botonActualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -789,6 +790,13 @@ public class Empresas extends javax.swing.JFrame {
             }
         });
 
+        botonActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/actualizar.png"))); // NOI18N
+        botonActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -802,6 +810,8 @@ public class Empresas extends javax.swing.JFrame {
                         .addComponent(jButtonMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botonActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -817,11 +827,13 @@ public class Empresas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botonActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(29, 29, 29)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 30, Short.MAX_VALUE)
@@ -923,12 +935,12 @@ public class Empresas extends javax.swing.JFrame {
                 if(v){
                     int i = EmpresaControlador.UpdateEmpresa(empresaActual, sesion);
                     if(i>0){
-                        JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Paciente", WIDTH);
+                        JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Empresa", WIDTH);
                         deshabilitarDatos();
                         habilitarBotones();
                         jButtonGuardarModificacion.setVisible(false);
                     }else{
-                        JOptionPane.showMessageDialog(rootPane, "No se logró actualizar paciente", "Modificar Paciente", WIDTH);
+                        JOptionPane.showMessageDialog(rootPane, "No se logró actualizar la empresa", "Modificar Empresa", WIDTH);
                     }
                 }
             }   
@@ -1100,6 +1112,10 @@ public class Empresas extends javax.swing.JFrame {
         jFrame.setVisible(true);
     }//GEN-LAST:event_jButtonInsertarConvenioActionPerformed
 
+    private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
+        repaintForm();
+    }//GEN-LAST:event_botonActualizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1140,6 +1156,7 @@ public class Empresas extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonActualizar;
     private javax.swing.JButton jButtonAtras;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonEliminar;
@@ -1218,6 +1235,11 @@ public class Empresas extends javax.swing.JFrame {
         Configuraciones.limpiarModelo(tablaConvenios);
         Configuraciones.limpiarModelo(tablaEstado);
         Configuraciones.limpiarModelo(tablaPendientes);
+        
+        listaPac = null;
+        listaEst = null;
+        listaFacConv = null;
+        listaconvenios = null;
     }
 
     
@@ -1333,7 +1355,7 @@ public class Empresas extends javax.swing.JFrame {
         empresa.setRuc(jTextFieldRUC.getText());
         empresa.setTelefono(jTextFieldDTel.getText());
         empresa.setDireccion(jTextFieldDDireccion.getText());
-        empresa.setCiudad(ciudades.get(jCBciudad.getSelectedIndex()).getNombre());
+        empresa.setCiudad(jCBciudad.getSelectedObjects().toString());
         empresa.setEmail(jTextFieldDEmail.getText());   
         empresa.setNombreContacto(jTextFieldNombreContacto.getText());
         empresa.setTelContacto(jTextFieldTeléfonoContacto.getText());
@@ -1458,5 +1480,19 @@ public class Empresas extends javax.swing.JFrame {
         for(int i=0;i<ciudades.size();i++){
             jCBciudad.addItem(ciudades.get(i).getNombre());
         }
+    }
+
+    public void repaintForm() {
+        
+        if(empresaActual != null){
+            Empresa e = empresaActual;
+            limpiar();
+            BotonInvisibles();
+            empresaActual = e;
+            escribirEmpresa(empresaActual);
+            habilitarBotones();
+            deshabilitarDatos();            
+        }        
+    
     }
 }

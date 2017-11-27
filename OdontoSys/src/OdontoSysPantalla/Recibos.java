@@ -311,7 +311,7 @@ public class Recibos extends javax.swing.JFrame {
         limpiar();
         Pacientes jF = new Pacientes();
         if(jF.isVisible()){
-            jF.actualizarForm();
+            jF.actualizarForm();            //Actualiza la información nueva
         }
         this.dispose(); 
         

@@ -8,7 +8,7 @@ package OdontoSysPantallaAuxiliares;
 
 import OdontoSysControlador.UsuarioControlador;
 import OdontoSysModelo.Usuario;
-import OdontoSysPantalla.InicioP;
+import OdontoSysPantalla.Inicio;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;

@@ -278,10 +278,10 @@ public class BuscarConvenio extends javax.swing.JDialog{
         if(lista != null){
             for(Convenio nuevo : lista){
                 Object[] f = new Object[2];
-                f[0] = nuevo.getEmpresa().getNombre();
+                f[0] = nuevo.getNomConv();
                 f[1] = nuevo.getObservacion();
-                tabla.addRow(f);
-            }
+                tabla.addRow(f);            }
+
         }
     }
     

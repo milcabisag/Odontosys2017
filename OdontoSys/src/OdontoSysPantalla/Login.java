@@ -133,9 +133,9 @@ public class Login extends javax.swing.JFrame {
        if(nombre.trim().compareTo("") != 0 && passw.trim().compareTo("") != 0){
             user = UsuarioControlador.Login(nombre, passw);
             if (user != null) {
-                InicioP.usuario = user;
-                InicioP.main(null);
-                //Inicio jFrame= new InicioP(user);
+                Inicio.usuario = user;
+                Inicio.main(null);
+                //Inicio jFrame= new Inicio(user);
                 //jFrame.setVisible(true); //muestra el segundo jFrame
                 this.dispose();//oculta el jFrame actual
             } else {

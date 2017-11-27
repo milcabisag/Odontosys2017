@@ -15,6 +15,7 @@ import OdontoSysModelo.Usuario;
 import OdontoSysPantallaAuxiliares.BuscarServicio;
 import OdontoSysPantallaAuxiliares.ObtenerEmpresa;
 import OdontoSysUtil.Configuraciones;
+import OdontoSysUtil.NewHibernateUtil;
 import OdontoSysVista.ConvenioVista;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.util.ArrayList;
@@ -52,10 +53,15 @@ public class Convenios extends javax.swing.JFrame {
     
     public Convenios() {
         initComponents();
+        
         crearTabla();
         
+        if(sesion == null){
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+        }
+        
         if(user.getRol().compareTo("Administrador") == 0){
-            if(empresaActual != null && conv != null){      //Llamado desde frame consultar convenios de empresa
+            if(empresaActual != null && conv != null){      //Llamado desde frame consultar convenios de paciente
                 llamado = "consulta";
                 mostrarConvenio();
                 habilitarMod();     //habilitar botones para modificación
@@ -64,7 +70,7 @@ public class Convenios extends javax.swing.JFrame {
                 habilitarIns();
             }
         }else{
-            if(empresaActual != null){      //Llamado desde frame consultar convenios de empresa
+            if(empresaActual != null){      //Llamado desde frame consultar convenios de paciente
                 llamado = "consulta";
                 mostrarConvenio();
             }
@@ -96,11 +102,13 @@ public class Convenios extends javax.swing.JFrame {
         jButtonElimConv = new javax.swing.JButton();
         jButtonModConv = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jTextFieldObs = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldNombConv = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextAreaObs = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(490, 530));
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel1.setText("Convenios con Empresas");
@@ -198,66 +206,61 @@ public class Convenios extends javax.swing.JFrame {
         jLabel5.setText("Observaciones");
         jLabel5.setToolTipText("");
 
-        jTextFieldObs.setEditable(false);
-        jTextFieldObs.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jTextFieldObs.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextFieldObs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel3.setText("Nombre del Convenio");
 
         jTextFieldNombConv.setEditable(false);
         jTextFieldNombConv.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
+        jTextAreaObs.setColumns(20);
+        jTextAreaObs.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jTextAreaObs.setLineWrap(true);
+        jTextAreaObs.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaObs);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 21, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(112, 112, 112)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonModificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancelar)
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButtonModConv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButtonElimConv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addComponent(jLabel2)
-                                .addGap(27, 27, 27)
-                                .addComponent(jTextFieldEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonBuscarEmpresa))
+                        .addComponent(jButtonCancelar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel5))
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel2))
                                 .addGap(27, 27, 27)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldObs, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldNombConv, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButtonInsertarServicio)))
-                                .addGap(37, 37, 37)))
-                        .addGap(44, 44, 44))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(jButtonInsertarServicio))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jTextFieldNombConv, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jTextFieldEmpresa))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonBuscarEmpresa)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonModConv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonElimConv, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,40 +268,42 @@ public class Convenios extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonBuscarEmpresa))
-                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonBuscarEmpresa)
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldNombConv, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 42, Short.MAX_VALUE))
-                    .addComponent(jTextFieldObs, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonInsertarServicio))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
+                        .addGap(29, 29, 29)
                         .addComponent(jButtonElimConv)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonModConv))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonInsertarServicio))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(21, 21, 21)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonGuardar)
                     .addComponent(jButtonModificar)
                     .addComponent(jButtonEliminar))
-                .addGap(19, 19, 19))
+                .addContainerGap())
         );
 
         pack();
@@ -330,6 +335,7 @@ public class Convenios extends javax.swing.JFrame {
                 if(v){
                     JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
                     limpiar();
+                    repaintEmpresa();                  //Actualiza la información nueva
                     dispose();
                 }else {
                     JOptionPane.showMessageDialog(null, "No se pudo guardar el convenio" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
@@ -361,10 +367,12 @@ public class Convenios extends javax.swing.JFrame {
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
        
         jTableConvenios.setEnabled(true);
-        jButtonEliminar.setVisible(false);
         jButtonGuardar.setVisible(true);
+        jButtonEliminar.setVisible(false);
         jButtonInsertarServicio.setVisible(true);
         jButtonModificar.setVisible(false);
+        jTextFieldNombConv.setEnabled(true);
+        jTextAreaObs.setEnabled(true);
         llamado = "modificar";
         
     }//GEN-LAST:event_jButtonModificarActionPerformed
@@ -510,10 +518,11 @@ public class Convenios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableConvenios;
+    private javax.swing.JTextArea jTextAreaObs;
     private javax.swing.JTextField jTextFieldEmpresa;
     private javax.swing.JTextField jTextFieldNombConv;
-    private javax.swing.JTextField jTextFieldObs;
     // End of variables declaration//GEN-END:variables
 
     private void limpiar() {
@@ -521,7 +530,7 @@ public class Convenios extends javax.swing.JFrame {
         Configuraciones.limpiarModelo(tabla);
         jTextFieldEmpresa.setText("");
         jTextFieldNombConv.setText("");
-        jTextFieldObs.setText("");
+        jTextAreaObs.setText("");
         empresaActual = null;
         user = null;
         conv = null;
@@ -540,7 +549,7 @@ public class Convenios extends javax.swing.JFrame {
     private void mostrarConvenio() {
         jTextFieldEmpresa.setText(empresaActual.getNombre());
         jTextFieldNombConv.setText(conv.getNomConv());
-        jTextFieldObs.setText(conv.getObservacion());
+        jTextAreaObs.setText(conv.getObservacion());
         
         jButtonBuscarEmpresa.setVisible(false);
         jButtonGuardar.setVisible(false);
@@ -550,7 +559,7 @@ public class Convenios extends javax.swing.JFrame {
         
         jTextFieldEmpresa.setEditable(false);
         jTextFieldNombConv.setEditable(false);
-        jTextFieldObs.setEditable(false);
+        jTextAreaObs.setEditable(false);
         jTableConvenios.setEnabled(false);
         
         obtenerTabla();
@@ -562,7 +571,7 @@ public class Convenios extends javax.swing.JFrame {
         conv = new Convenio();
         conv.setEmpresa(empresaActual);
         conv.setNomConv(jTextFieldNombConv.getText());
-        conv.setObservacion(jTextFieldObs.getText());
+        conv.setObservacion(jTextAreaObs.getText());
         conv.setEstado("Activo");
         
     }
@@ -604,7 +613,7 @@ public class Convenios extends javax.swing.JFrame {
         
         jTextFieldEmpresa.setText(empresaActual.getNombre());
         jButtonBuscarEmpresa.setVisible(false);
-        jTextFieldObs.setEditable(true);
+        jTextAreaObs.setEditable(true);
         jTextFieldNombConv.setEditable(true);
         
         jButtonModificar.setVisible(false);
@@ -614,5 +623,12 @@ public class Convenios extends javax.swing.JFrame {
         jButtonElimConv.setVisible(false);
         jButtonModConv.setVisible(false);
         
+    }
+
+    private void repaintEmpresa() {
+        Empresas jF = new Empresas();
+        if(jF.isVisible()){
+            jF.repaintForm();
+        }
     }
 }

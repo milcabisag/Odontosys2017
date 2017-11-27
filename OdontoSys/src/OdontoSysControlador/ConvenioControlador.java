@@ -58,27 +58,32 @@ public class ConvenioControlador {
     public static boolean insertarConvenioPaciente(ConvPaciente conv) {
         boolean val = false;
         Session sesion;
+        Transaction tr = null;
         try{
             sesion = NewHibernateUtil.getSessionFactory().openSession();
-            sesion.getTransaction().begin();
+            tr = sesion.beginTransaction();
             
             sesion.save(conv);                          //Guarda el convenio
+            sesion.refresh(conv);
             
-            sesion.getTransaction().commit();
+            tr.commit();
+            sesion.close();
             val = true;
         }catch(HibernateException ex){
+            tr.rollback();
             JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Convenio", WIDTH );
        }        
         return val;
     }
     
     public static ArrayList<Convenio> BuscarConvenioEmpresa(Empresa emp, Session sesion){
-        //Session sesion;
         //Transaction tr = null;
         ArrayList<Convenio> c = null;
         try{        
-            //sesion = NewHibernateUtil.getSessionFactory().openSession();
-            //tr = sesion.beginTransaction();
+            if(sesion == null){
+                sesion = NewHibernateUtil.getSessionFactory().openSession();
+                //tr = sesion.beginTransaction();
+            }
             String hql = "FROM Convenio WHERE empresa = "+ emp.getIdempresa()+" AND estado = 'Activo'";
             Query query = sesion.createQuery(hql); 
             if(query != null){
@@ -87,6 +92,8 @@ public class ConvenioControlador {
                 while(it.hasNext()){
                     c.add(it.next());
                 }
+            }else{
+                c = null;
             }
             //tr.commit();
         }catch(HibernateException ex){
@@ -104,7 +111,9 @@ public class ConvenioControlador {
         ArrayList<DetalleConvenio> lis = null;
         String hql;
         try{        
-            //sesion = NewHibernateUtil.getSessionFactory().getCurrentSession();//.openSession();
+            if(sesion == null){
+                sesion = NewHibernateUtil.getSessionFactory().getCurrentSession();//.openSession();
+            }
             //tr = sesion.beginTransaction();
             hql = "FROM DetalleConvenio WHERE estado = 'Activo' AND convenio = "+conv.getIdconvenio();
             
@@ -192,18 +201,21 @@ public class ConvenioControlador {
     public static boolean modificarConvenioPaciente(ConvPaciente conv) {
         boolean val = false;
         Session session;
+        Transaction tr = null;
         try{
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Transaction tr = session.beginTransaction();
+            tr = session.beginTransaction();
             
-            session.merge(conv);
+            session.update(conv);
             
             tr.commit();      
             session.close();  
        
             val = true;
         }catch(HibernateException ex){
-            JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Convenio", WIDTH );
+            tr.rollback();
+            System.out.println("Error en modificarConvenioPaciente: "+ex);
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Convenio del Paciente", WIDTH );
        }        
         return val;
     }
@@ -261,9 +273,10 @@ public class ConvenioControlador {
     public static boolean eliminarConvenioPaciente(ConvPaciente conv) {
         boolean val = false;
         Session session;
+        Transaction tr = null;
         try{
             session = NewHibernateUtil.getSessionFactory().openSession();
-            Transaction tr = session.beginTransaction(); 
+            tr = session.beginTransaction(); 
             
             conv.setEstado("Inactivo");
             session.merge(conv);
@@ -273,6 +286,7 @@ public class ConvenioControlador {
             
             val = true;
         }catch(HibernateException ex){
+            tr.rollback();
             JOptionPane.showMessageDialog(null,ex.getMessage(), "Eliminar Convenio", WIDTH );
        }        
         return val;

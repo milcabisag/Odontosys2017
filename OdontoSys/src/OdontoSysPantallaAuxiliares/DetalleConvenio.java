@@ -11,6 +11,9 @@ import OdontoSysModelo.ConvPaciente;
 import OdontoSysModelo.Convenio;
 import OdontoSysModelo.Empresa;
 import OdontoSysModelo.Paciente;
+import OdontoSysModelo.Usuario;
+import OdontoSysPantalla.Convenios;
+import OdontoSysPantalla.Pacientes;
 import static java.awt.image.ImageObserver.WIDTH;
 import javax.swing.JOptionPane;
 
@@ -20,23 +23,30 @@ import javax.swing.JOptionPane;
  */
 public class DetalleConvenio extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Convenios2Pacientes
-     */
+    
+    //Variables
+    public static String llamado = null;
+    Convenio ce = null;
+    public static Empresa empresaActual = null;
+    public static Paciente pacActual = null;
+    public static ConvPaciente conv = null;
+    public static Usuario user = null;
+    
+    
+    
     public DetalleConvenio() {
         initComponents();
-        if(conv != null){      //Llamado desde frame consultar convenios
-            llamado = "consulta";
-            mostrarConvenio();
+        if(llamado.compareTo("consulta") == 0){      //Llamado desde frame consultar convenios
+           mostrarConvenio();
             
-        }else{                          //Llamado a insertar
-            llamado = "insertar";
+        }else if(llamado.compareTo("insertar") == 0){                          //Llamado a insertar
             jButtonModificar.setVisible(false);
             jButtonEliminar.setVisible(false);
-            if(pacActual != null && empresaActual == null){             // Insertar convenio desde paciente
+            jButtonBuscarConvenio.setVisible(false);
+            if(pacActual != null){             // Insertar convenio desde paciente
                 jTextFieldPaciente.setText(pacActual.getNombres()+" "+pacActual.getApellidos());
                 jButtonBuscarPaciente.setVisible(false);
-            }else if(empresaActual != null && pacActual == null){       // Insertar convenio desde empresa
+            }else if(empresaActual != null){       // Insertar convenio desde empresa
                 jTextFieldEmpresa.setText(empresaActual.getNombre());
                 jButtonBuscarEmpresa.setVisible(false);
             }
@@ -67,7 +77,9 @@ public class DetalleConvenio extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabelConv = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextFieldObs = new javax.swing.JTextField();
+        jButtonBuscarConvenio = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaObs = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -144,12 +156,27 @@ public class DetalleConvenio extends javax.swing.JFrame {
         jLabel4.setText("Nombre del Convenio");
 
         jLabelConv.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelConv.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.black));
 
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel5.setText("Observación");
 
-        jTextFieldObs.setEditable(false);
-        jTextFieldObs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jButtonBuscarConvenio.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButtonBuscarConvenio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/convenio.png"))); // NOI18N
+        jButtonBuscarConvenio.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        jButtonBuscarConvenio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarConvenioActionPerformed(evt);
+            }
+        });
+
+        jTextAreaObs.setColumns(20);
+        jTextAreaObs.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jTextAreaObs.setLineWrap(true);
+        jTextAreaObs.setRows(5);
+        jTextAreaObs.setMinimumSize(new java.awt.Dimension(200, 21));
+        jTextAreaObs.setPreferredSize(new java.awt.Dimension(200, 89));
+        jScrollPane1.setViewportView(jTextAreaObs);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,31 +206,33 @@ public class DetalleConvenio extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextFieldObs)
-                        .addGap(78, 78, 78))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jTextFieldPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonBuscarPaciente)
+                        .addComponent(jTextFieldPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(41, 41, 41))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelConv, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelConv, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonBuscarConvenio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(106, 106, 106)
                 .addComponent(jLabel2)
-                .addGap(28, 28, 28)
+                .addGap(16, 16, 16)
                 .addComponent(jTextFieldEmpresa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonBuscarEmpresa)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonBuscarEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
         layout.setVerticalGroup(
@@ -213,25 +242,27 @@ public class DetalleConvenio extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonBuscarEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jTextFieldPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonBuscarPaciente)))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelConv, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonBuscarConvenio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonBuscarEmpresa)))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelConv, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldObs, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonGuardar)
@@ -254,9 +285,10 @@ public class DetalleConvenio extends javax.swing.JFrame {
             BuscarConvenio.emp = empresaActual;
             BuscarConvenio jDialog2 = new BuscarConvenio(null, true);
             jDialog2.setVisible(true);
+            ce = new Convenio();
             ce = jDialog2.getReturnStatus();
             if(ce != null){
-                jLabelConv.setText(ce.getObservacion());
+                jLabelConv.setText(ce.getNomConv());
             }else {
             JOptionPane.showMessageDialog(null, "No se pudo recuperar la empresa" , "Obtener Empresa" , JOptionPane.QUESTION_MESSAGE );
             } 
@@ -281,21 +313,17 @@ public class DetalleConvenio extends javax.swing.JFrame {
         if(llamado.compareTo("insertar") == 0){
             obtenerNuevoConvenio();
             v = ConvenioControlador.insertarConvenioPaciente(conv);
-                if(v){
-                    JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
-                    limpiar();
-                }else {
-                    JOptionPane.showMessageDialog(null, "No se pudo guardar el convenio" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
-                }
         }else{          //Llamado a modificar
+            obtenerConvenio();
             v = ConvenioControlador.modificarConvenioPaciente(conv);
-            if(v){
-                JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
-                limpiar();
-                dispose();
-            }else {
-                JOptionPane.showMessageDialog(null, "No se pudo guardar el convenio" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
-            } 
+        }
+        if(v){
+            JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
+            limpiar();
+            repaintPaciente();
+            dispose();
+        }else {
+            JOptionPane.showMessageDialog(null, "No se pudo guardar el convenio" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
         }
                    
         
@@ -311,6 +339,8 @@ public class DetalleConvenio extends javax.swing.JFrame {
         jButtonEliminar.setVisible(false);
         jButtonGuardar.setVisible(true);
         jButtonModificar.setVisible(false);
+        jButtonBuscarConvenio.setVisible(false);
+        jButtonBuscarEmpresa.setVisible(true);
         
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
@@ -329,6 +359,14 @@ public class DetalleConvenio extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void jButtonBuscarConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarConvenioActionPerformed
+        // Abrir Convenio en modo consulta
+        Convenios.empresaActual = empresaActual;
+        Convenios.conv = conv.getConvenio();
+        Convenios.user = user;
+        Convenios.main(null);
+    }//GEN-LAST:event_jButtonBuscarConvenioActionPerformed
     
     /**
      * @param args the command line arguments
@@ -365,15 +403,10 @@ public class DetalleConvenio extends javax.swing.JFrame {
             }
         });
     }
-    //Variables
-    String llamado = null;
-    Convenio ce = new Convenio();
-    public static Empresa empresaActual = null;
-    public static Paciente pacActual = null;
-    public static ConvPaciente conv = null;
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonBuscarConvenio;
     private javax.swing.JButton jButtonBuscarEmpresa;
     private javax.swing.JButton jButtonBuscarPaciente;
     private javax.swing.JButton jButtonCancelar;
@@ -386,8 +419,9 @@ public class DetalleConvenio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelConv;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextAreaObs;
     private javax.swing.JTextField jTextFieldEmpresa;
-    private javax.swing.JTextField jTextFieldObs;
     private javax.swing.JTextField jTextFieldPaciente;
     // End of variables declaration//GEN-END:variables
 
@@ -410,6 +444,8 @@ public class DetalleConvenio extends javax.swing.JFrame {
     private void mostrarConvenio() {
         jTextFieldEmpresa.setText(empresaActual.getNombre());
         jTextFieldPaciente.setText(pacActual.getNombres()+" "+pacActual.getApellidos());
+        jLabelConv.setText(conv.getConvenio().getNomConv());
+        jTextAreaObs.setText(conv.getObservacion());
         
         jButtonBuscarEmpresa.setVisible(false);
         jButtonBuscarPaciente.setVisible(false);
@@ -421,14 +457,31 @@ public class DetalleConvenio extends javax.swing.JFrame {
     }
 
     private void obtenerNuevoConvenio() {
-
-        conv = new ConvPaciente();
-        conv.setPaciente(pacActual);
-        conv.setConvenio(ce);
-        conv.setObservacion(jTextFieldObs.getText());
-        conv.setEstado("Activo");
+        if(pacActual != null && ce != null){
+            conv = new ConvPaciente();
+            conv.setPaciente(pacActual);
+            conv.setConvenio(ce);
+            conv.setObservacion(jTextAreaObs.getText());
+            conv.setEstado("Activo");
+        }        
+    }
         
+   private void obtenerConvenio() {
+        if(ce != null){
+            conv.setConvenio(ce);
+        }  
+        conv.setObservacion(jTextAreaObs.getText());
+        conv.setEstado("Activo");    
    }
+
+    private void repaintPaciente() {
+    
+        Pacientes jFrame = new Pacientes();
+        if(jFrame.isVisible()){
+            jFrame.actualizarForm();
+        }
+        
+    }
 
 
 }
