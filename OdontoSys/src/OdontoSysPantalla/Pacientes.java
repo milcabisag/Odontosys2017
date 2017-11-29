@@ -153,7 +153,6 @@ public class Pacientes extends javax.swing.JFrame {
         jTextFieldSaldo = new javax.swing.JTextField();
         jButtonRealizarPago = new javax.swing.JButton();
         jButtonGenerarReporte = new javax.swing.JButton();
-        jButtonNotaCredito = new javax.swing.JButton();
         jPanelConvenios = new javax.swing.JPanel();
         Convenio = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -683,15 +682,6 @@ public class Pacientes extends javax.swing.JFrame {
             }
         });
 
-        jButtonNotaCredito.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jButtonNotaCredito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/nota.png"))); // NOI18N
-        jButtonNotaCredito.setText("Preparar Nota de Crédito");
-        jButtonNotaCredito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonNotaCreditoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelEstadoCuentaLayout = new javax.swing.GroupLayout(jPanelEstadoCuenta);
         jPanelEstadoCuenta.setLayout(jPanelEstadoCuentaLayout);
         jPanelEstadoCuentaLayout.setHorizontalGroup(
@@ -702,8 +692,6 @@ public class Pacientes extends javax.swing.JFrame {
                     .addGroup(jPanelEstadoCuentaLayout.createSequentialGroup()
                         .addComponent(jButtonRealizarPago)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonNotaCredito)
-                        .addGap(87, 87, 87)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(jTextFieldSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -725,9 +713,7 @@ public class Pacientes extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelEstadoCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelEstadoCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonRealizarPago)
-                        .addComponent(jButtonNotaCredito))
+                    .addComponent(jButtonRealizarPago)
                     .addGroup(jPanelEstadoCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(jTextFieldSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1077,13 +1063,6 @@ public class Pacientes extends javax.swing.JFrame {
         DetalleConvenio.user = user;
         DetalleConvenio.main(null);
     }//GEN-LAST:event_jButtonInsertarConvenioActionPerformed
-
-    private void jButtonNotaCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNotaCreditoActionPerformed
-        NotasCreditos.pacActual = pacienteActual;
-        NotasCreditos.userActual = user;
-        NotasCreditos.main(null);
-        this.dispose();
-    }//GEN-LAST:event_jButtonNotaCreditoActionPerformed
   
     private void jTableConveniosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConveniosMouseClicked
         int fila = jTableConvenios.getSelectedRow();
@@ -1237,7 +1216,6 @@ public class Pacientes extends javax.swing.JFrame {
     private javax.swing.JButton jButtonMenu;
     private javax.swing.JButton jButtonModPaciente;
     private javax.swing.JButton jButtonModificar;
-    private javax.swing.JButton jButtonNotaCredito;
     private javax.swing.JButton jButtonOrdenServicio;
     private javax.swing.JButton jButtonRealizarPago;
     private javax.swing.JComboBox jCBciudad;
@@ -1374,7 +1352,6 @@ public class Pacientes extends javax.swing.JFrame {
         jButtonRealizarPago.setVisible(false);
         jButtonGenerarReporte.setVisible(false);
         jButtonInsertarConvenio.setVisible(false);
-        jButtonNotaCredito.setVisible(false);
         
         jButtonInsPaciente.setVisible(true);
         jButtonBuscar.setVisible(true);

@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 29/11/2017 10:21:52 AM by Hibernate Tools 3.6.0
+// Generated 29/11/2017 05:15:01 PM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -14,11 +14,11 @@ public class ReciboEmpresa  implements java.io.Serializable {
 
      private Integer idreciboEmpresa;
      private Empresa empresa;
+     private MovimientoEmpresa movimientoEmpresa;
      private Usuario usuario;
      private FacturaEmpresa facturaEmpresa;
      private Date fecha;
      private int monto;
-     private Set movimientoEmpresas = new HashSet(0);
      private Set detalleReciboemps = new HashSet(0);
 
     public ReciboEmpresa() {
@@ -32,13 +32,13 @@ public class ReciboEmpresa  implements java.io.Serializable {
         this.fecha = fecha;
         this.monto = monto;
     }
-    public ReciboEmpresa(Empresa empresa, Usuario usuario, FacturaEmpresa facturaEmpresa, Date fecha, int monto, Set movimientoEmpresas, Set detalleReciboemps) {
+    public ReciboEmpresa(Empresa empresa, MovimientoEmpresa movimientoEmpresa, Usuario usuario, FacturaEmpresa facturaEmpresa, Date fecha, int monto, Set detalleReciboemps) {
        this.empresa = empresa;
+       this.movimientoEmpresa = movimientoEmpresa;
        this.usuario = usuario;
        this.facturaEmpresa = facturaEmpresa;
        this.fecha = fecha;
        this.monto = monto;
-       this.movimientoEmpresas = movimientoEmpresas;
        this.detalleReciboemps = detalleReciboemps;
     }
    
@@ -55,6 +55,13 @@ public class ReciboEmpresa  implements java.io.Serializable {
     
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
+    }
+    public MovimientoEmpresa getMovimientoEmpresa() {
+        return this.movimientoEmpresa;
+    }
+    
+    public void setMovimientoEmpresa(MovimientoEmpresa movimientoEmpresa) {
+        this.movimientoEmpresa = movimientoEmpresa;
     }
     public Usuario getUsuario() {
         return this.usuario;
@@ -83,13 +90,6 @@ public class ReciboEmpresa  implements java.io.Serializable {
     
     public void setMonto(int monto) {
         this.monto = monto;
-    }
-    public Set getMovimientoEmpresas() {
-        return this.movimientoEmpresas;
-    }
-    
-    public void setMovimientoEmpresas(Set movimientoEmpresas) {
-        this.movimientoEmpresas = movimientoEmpresas;
     }
     public Set getDetalleReciboemps() {
         return this.detalleReciboemps;

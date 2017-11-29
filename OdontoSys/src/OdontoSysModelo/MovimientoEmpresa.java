@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 29/11/2017 10:21:52 AM by Hibernate Tools 3.6.0
+// Generated 29/11/2017 05:15:01 PM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -13,8 +13,6 @@ public class MovimientoEmpresa  implements java.io.Serializable {
 
 
      private Integer idmovimientoEmpresa;
-     private FacturaEmpresa facturaEmpresa;
-     private ReciboEmpresa reciboEmpresa;
      private Empresa empresa;
      private Date fecha;
      private String movimiento;
@@ -22,6 +20,7 @@ public class MovimientoEmpresa  implements java.io.Serializable {
      private int haber;
      private Set facturaEmpresas = new HashSet(0);
      private Set cajas = new HashSet(0);
+     private Set reciboEmpresas = new HashSet(0);
 
     public MovimientoEmpresa() {
     }
@@ -34,9 +33,7 @@ public class MovimientoEmpresa  implements java.io.Serializable {
         this.debe = debe;
         this.haber = haber;
     }
-    public MovimientoEmpresa(FacturaEmpresa facturaEmpresa, ReciboEmpresa reciboEmpresa, Empresa empresa, Date fecha, String movimiento, int debe, int haber, Set facturaEmpresas, Set cajas) {
-       this.facturaEmpresa = facturaEmpresa;
-       this.reciboEmpresa = reciboEmpresa;
+    public MovimientoEmpresa(Empresa empresa, Date fecha, String movimiento, int debe, int haber, Set facturaEmpresas, Set cajas, Set reciboEmpresas) {
        this.empresa = empresa;
        this.fecha = fecha;
        this.movimiento = movimiento;
@@ -44,6 +41,7 @@ public class MovimientoEmpresa  implements java.io.Serializable {
        this.haber = haber;
        this.facturaEmpresas = facturaEmpresas;
        this.cajas = cajas;
+       this.reciboEmpresas = reciboEmpresas;
     }
    
     public Integer getIdmovimientoEmpresa() {
@@ -52,20 +50,6 @@ public class MovimientoEmpresa  implements java.io.Serializable {
     
     public void setIdmovimientoEmpresa(Integer idmovimientoEmpresa) {
         this.idmovimientoEmpresa = idmovimientoEmpresa;
-    }
-    public FacturaEmpresa getFacturaEmpresa() {
-        return this.facturaEmpresa;
-    }
-    
-    public void setFacturaEmpresa(FacturaEmpresa facturaEmpresa) {
-        this.facturaEmpresa = facturaEmpresa;
-    }
-    public ReciboEmpresa getReciboEmpresa() {
-        return this.reciboEmpresa;
-    }
-    
-    public void setReciboEmpresa(ReciboEmpresa reciboEmpresa) {
-        this.reciboEmpresa = reciboEmpresa;
     }
     public Empresa getEmpresa() {
         return this.empresa;
@@ -115,6 +99,13 @@ public class MovimientoEmpresa  implements java.io.Serializable {
     
     public void setCajas(Set cajas) {
         this.cajas = cajas;
+    }
+    public Set getReciboEmpresas() {
+        return this.reciboEmpresas;
+    }
+    
+    public void setReciboEmpresas(Set reciboEmpresas) {
+        this.reciboEmpresas = reciboEmpresas;
     }
 
 

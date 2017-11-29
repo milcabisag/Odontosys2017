@@ -6,15 +6,15 @@
 package OdontoSysPantalla;
 
 import OdontoSysControlador.CiudadControlador;
-import OdontoSysPantallaAuxiliares.DetalleConvenio;
 import OdontoSysControlador.ConvenioControlador;
 import OdontoSysControlador.EmpresaControlador;
 import OdontoSysModelo.Ciudad;
 import OdontoSysModelo.Convenio;
 import OdontoSysModelo.Empresa;
-import OdontoSysModelo.FacturaConvenio;
-import OdontoSysModelo.MovimientoEmpresa;
+import OdontoSysModelo.FacturaEmpresa;
+import OdontoSysModelo.OrdenEmpresa;
 import OdontoSysModelo.Paciente;
+import OdontoSysModelo.ReciboEmpresa;
 import OdontoSysModelo.Usuario;
 import OdontoSysPantallaAuxiliares.ObtenerEmpresa;
 import OdontoSysUtil.Configuraciones;
@@ -39,7 +39,6 @@ public class Empresas extends javax.swing.JFrame {
 
     //Variables Globales
     Empresa empresaActual = null;
-    Session sessionGlobal;
     public static Usuario user = null;
         
     Session sesion = null;
@@ -65,8 +64,9 @@ public class Empresas extends javax.swing.JFrame {
     };
     
     ArrayList<Paciente> listaPac = null;
-    ArrayList<MovimientoEmpresa> listaEst = null;
-    ArrayList<FacturaConvenio> listaFacConv = null;
+    ArrayList<FacturaEmpresa> listaEst = null;
+    ArrayList<ReciboEmpresa> listaRec = null;
+    ArrayList<OrdenEmpresa> listaOrd = null;
     ArrayList<Convenio> listaconvenios = null;
     ArrayList<Ciudad> ciudades = null;
     
@@ -145,7 +145,6 @@ public class Empresas extends javax.swing.JFrame {
         jButtonRealizarPago = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldSaldo = new javax.swing.JTextField();
-        jButtonNotaCredito = new javax.swing.JButton();
         jButtonBuscar = new javax.swing.JButton();
         jButtonInsertar = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
@@ -669,15 +668,6 @@ public class Empresas extends javax.swing.JFrame {
 
         jTextFieldSaldo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        jButtonNotaCredito.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jButtonNotaCredito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/nota.png"))); // NOI18N
-        jButtonNotaCredito.setText("Preparar Nota Crédito");
-        jButtonNotaCredito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonNotaCreditoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelEstadoCuentaLayout = new javax.swing.GroupLayout(jPanelEstadoCuenta);
         jPanelEstadoCuenta.setLayout(jPanelEstadoCuentaLayout);
         jPanelEstadoCuentaLayout.setHorizontalGroup(
@@ -688,9 +678,7 @@ public class Empresas extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelEstadoCuentaLayout.createSequentialGroup()
                         .addComponent(jButtonRealizarPago)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonNotaCredito)
-                        .addGap(172, 172, 172)
+                        .addGap(359, 359, 359)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextFieldSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -711,8 +699,7 @@ public class Empresas extends javax.swing.JFrame {
                 .addGroup(jPanelEstadoCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextFieldSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonRealizarPago)
-                    .addComponent(jButtonNotaCredito))
+                    .addComponent(jButtonRealizarPago))
                 .addContainerGap())
         );
 
@@ -1002,18 +989,11 @@ public class Empresas extends javax.swing.JFrame {
 
     private void jButtonFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFacturarActionPerformed
         FacturasEmpresas.empresa = empresaActual;
-        FacturasEmpresas.facturasConvenio = listaFacConv;
+//        FacturasEmpresas.facturasConvenio = listaFacConv;
         FacturasEmpresas.monto = Integer.parseInt(jTextFieldPendiente.getText().replace(".", ""));
         FacturasEmpresas.main(null);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonFacturarActionPerformed
-
-    private void jButtonNotaCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNotaCreditoActionPerformed
-        NotasCreditosEmpresa.empActual = empresaActual;
-        NotasCreditosEmpresa.userActual = user;
-        NotasCreditosEmpresa.main(null);
-        this.dispose();
-    }//GEN-LAST:event_jButtonNotaCreditoActionPerformed
 
     private void jTableEstadoCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEstadoCuentaMouseClicked
         
@@ -1167,7 +1147,6 @@ public class Empresas extends javax.swing.JFrame {
     private javax.swing.JButton jButtonInsertarConvenio;
     private javax.swing.JButton jButtonMenu;
     private javax.swing.JButton jButtonModificar;
-    private javax.swing.JButton jButtonNotaCredito;
     private javax.swing.JButton jButtonRealizarPago;
     private javax.swing.JComboBox jCBciudad;
     private javax.swing.JLabel jLabel1;
@@ -1238,7 +1217,6 @@ public class Empresas extends javax.swing.JFrame {
         
         listaPac = null;
         listaEst = null;
-        listaFacConv = null;
         listaconvenios = null;
     }
 
@@ -1283,7 +1261,6 @@ public class Empresas extends javax.swing.JFrame {
         jButtonBuscar.setVisible(true);
         jButtonRealizarPago.setVisible(false);
         jButtonFacturar.setVisible(false);
-        jButtonNotaCredito.setVisible(false);
         
         jLabelnomb.setVisible(false);
         jLabelruc.setVisible(false);
@@ -1369,7 +1346,6 @@ public class Empresas extends javax.swing.JFrame {
         jButtonModificar.setVisible(true);
         jButtonEliminar.setVisible(true);
         jButtonAtras.setVisible(true);  
-        jButtonNotaCredito.setVisible(false);
         
     }
 
@@ -1378,9 +1354,9 @@ public class Empresas extends javax.swing.JFrame {
         tablaConvenios.addColumn("Observación");
         
         tablaEstado.addColumn("Fecha");
-        tablaEstado.addColumn("Descripción");
-        tablaEstado.addColumn("Debe");
-        tablaEstado.addColumn("Haber");    
+        tablaEstado.addColumn("Orden Nro");
+        tablaEstado.addColumn("Por Paciente");
+        tablaEstado.addColumn("Monto");    
         
         tablaPendientes.addColumn("Fecha");
         tablaPendientes.addColumn("Factura Nro");
@@ -1405,18 +1381,35 @@ public class Empresas extends javax.swing.JFrame {
 
     private void obtenerEstadoCuenta(Session sesion) {
         listaEst = new ArrayList();
+        listaRec = new ArrayList();
+        Object[] f = new Object[4];
+        Object[] r = new Object[4];
         listaEst = EmpresaControlador.ObtenerEstadoCuenta(empresaActual, sesion);
         int saldo = 0;
         if(listaEst != null){
-            for(MovimientoEmpresa m : listaEst){
-                Object[] f = new Object[4];
-                f[0] = fecha.format(m.getFecha());
-                f[1] = m.getMovimiento();
-                f[2] = formateador.format(m.getDebe());
-                f[3] = formateador.format(m.getHaber());
-                saldo = saldo + m.getDebe() - m.getHaber();
-                
-                tablaEstado.addRow(f);                
+            for(FacturaEmpresa fe : listaEst){
+                f[0] = fecha.format(fe.getFecha());
+                f[1] = fe.getMovimientoEmpresa().getMovimiento();
+                f[2] = formateador.format(fe.getMovimientoEmpresa().getDebe());
+                f[3] = formateador.format(fe.getMovimientoEmpresa().getHaber());
+                saldo = saldo + fe.getMovimientoEmpresa().getDebe() - fe.getMovimientoEmpresa().getHaber();                
+                tablaEstado.addRow(f);   
+                //Recupera recibos asociados a la factura crédito
+                listaRec = EmpresaControlador.HistoricoRecibo(fe.getIdfacturaEmpresa(), sesion);
+                if(listaRec != null){
+                    for(ReciboEmpresa re : listaRec){
+                        r[0] = fecha.format(re.getFecha());
+                        r[1] = re.getMovimientoEmpresa().getMovimiento();
+                        r[2] = formateador.format(re.getMovimientoEmpresa().getDebe());
+                        r[3] = formateador.format(re.getMovimientoEmpresa().getHaber());
+                        saldo = re.getMovimientoEmpresa().getDebe() - re.getMovimientoEmpresa().getHaber() + saldo;
+                        tablaEstado.addRow(r);
+                    }
+                    r = null;
+                    r =  new Object[4];
+                }
+                f = null;
+                f = new Object[4];
             }
         }
         if(saldo > 0){
@@ -1428,22 +1421,23 @@ public class Empresas extends javax.swing.JFrame {
     }
 
     private void obtenerPendientes(Session sesion) {
-        listaFacConv = new ArrayList();
-        listaFacConv = EmpresaControlador.FacturaPendiente(empresaActual.getIdempresa(), sesion);
+        listaOrd = new ArrayList();
+        listaOrd = EmpresaControlador.ordenPendiente(empresaActual.getIdempresa(), sesion);
         int total = 0;
-        if(listaFacConv != null){
-            for(FacturaConvenio fc : listaFacConv){
-                Object[] f = new Object[4];
-                f[0] = fecha.format(fc.getFactura().getFecha());
-                f[1] = fc.getFactura().getTalonario().getNroFactura();
-                f[2] = fc.getFactura().getPaciente().getNombres() + " " +  fc.getFactura().getPaciente().getApellidos();
-                f[3] = formateador.format(fc.getMonto());
-                total = total + fc.getMonto();
+        if(listaOrd != null){
+            for(OrdenEmpresa oe : listaOrd){
+                Object[] f = new Object[3];
+                f[0] = fecha.format(oe.getFecha());
+                f[1] = oe.getIdordenEmpresa();
+                f[2] = oe.getConvPaciente().getPaciente().getNombres() + " " +  oe.getConvPaciente().getPaciente().getApellidos();
+                int aux = EmpresaControlador.montoOrden(oe.getIdordenEmpresa(), sesion);
+                f[3] = aux;
+                total = total + aux;
                 
                 tablaPendientes.addRow(f);
-                jTextFieldPendiente.setText(formateador.format(total));
             }
         }
+        jTextFieldPendiente.setText(formateador.format(total));
         if(total > 0){
             jButtonFacturar.setVisible(true);
         }

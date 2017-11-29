@@ -31,14 +31,8 @@ CREATE TABLE `movimiento_empresa` (
   `movimiento` varchar(100) NOT NULL,
   `debe` int(11) NOT NULL,
   `haber` int(11) NOT NULL,
-  `fk_factura_emp` int(11) DEFAULT NULL,
-  `fk_recibo_emp` int(11) DEFAULT NULL,
   PRIMARY KEY (`idmovimiento_empresa`),
   KEY `fk_movimempresa_idx` (`fk_empresa`),
-  KEY `fk_movempfactura_idx` (`fk_factura_emp`),
-  KEY `fk_movemprecibo_idx` (`fk_recibo_emp`),
-  CONSTRAINT `fk_movempfactura` FOREIGN KEY (`fk_factura_emp`) REFERENCES `factura_empresa` (`idfactura_empresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_movemprecibo` FOREIGN KEY (`fk_recibo_emp`) REFERENCES `recibo_empresa` (`idrecibo_empresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_movimempresa` FOREIGN KEY (`fk_empresa`) REFERENCES `empresa` (`idempresa`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -52,4 +46,4 @@ CREATE TABLE `movimiento_empresa` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-29 10:28:53
+-- Dump completed on 2017-11-29 13:58:38

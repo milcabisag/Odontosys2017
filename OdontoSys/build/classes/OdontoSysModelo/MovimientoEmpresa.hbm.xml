@@ -1,19 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 29/11/2017 10:22:00 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 29/11/2017 05:15:03 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.MovimientoEmpresa" table="movimiento_empresa" catalog="odontosys">
         <id name="idmovimientoEmpresa" type="java.lang.Integer">
             <column name="idmovimiento_empresa" />
             <generator class="identity" />
         </id>
-        <many-to-one name="facturaEmpresa" class="OdontoSysModelo.FacturaEmpresa" fetch="select">
-            <column name="fk_factura_emp" />
-        </many-to-one>
-        <many-to-one name="reciboEmpresa" class="OdontoSysModelo.ReciboEmpresa" fetch="select">
-            <column name="fk_recibo_emp" />
-        </many-to-one>
         <many-to-one name="empresa" class="OdontoSysModelo.Empresa" fetch="select">
             <column name="fk_empresa" not-null="true" />
         </many-to-one>
@@ -40,6 +34,12 @@
                 <column name="fk_mov_empresa" />
             </key>
             <one-to-many class="OdontoSysModelo.Caja" />
+        </set>
+        <set name="reciboEmpresas" table="recibo_empresa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_movemp" />
+            </key>
+            <one-to-many class="OdontoSysModelo.ReciboEmpresa" />
         </set>
     </class>
 </hibernate-mapping>

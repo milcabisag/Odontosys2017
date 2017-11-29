@@ -41,7 +41,7 @@ CREATE TABLE `caja` (
   CONSTRAINT `fk_caja_movempresa` FOREIGN KEY (`fk_mov_empresa`) REFERENCES `movimiento_empresa` (`idmovimiento_empresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_caja_movpaciente` FOREIGN KEY (`fk_mov_paciente`) REFERENCES `movimiento` (`idmovimiento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_caja_usuario` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +53,4 @@ CREATE TABLE `caja` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-29 10:29:19
+-- Dump completed on 2017-11-29 13:59:19

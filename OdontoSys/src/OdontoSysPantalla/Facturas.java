@@ -548,8 +548,8 @@ public class Facturas extends javax.swing.JFrame {
 
     private void jButtonVerConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerConvenioActionPerformed
         // Abrir ElegirConvenio
-        ElegirConvenio jDialog= new ElegirConvenio(null, true);
         ElegirConvenio.pac = pacActual;
+        ElegirConvenio jDialog= new ElegirConvenio(null, true);
         jDialog.setVisible(true);
         ConvPaciente c = jDialog.getReturnStatus();
         if(c != null){
@@ -557,8 +557,10 @@ public class Facturas extends javax.swing.JFrame {
             elConvenio = c;
             jTextFieldConv.setText(c.getConvenio().getNomConv());
             calcularDescuentos();       //Calcula los descuentos según el convenio elegido
+            total = subt-desc;
             jTextFieldFactDescuento.setText("Gs. "+formateador.format(desc));
-            jTextFieldFactTotal.setText("Gs. " + formateador.format(subt-desc));
+            jTextFieldFactTotal.setText("Gs. " + formateador.format(total));
+            jTextFieldFactTotalLetras.setText(NumberToLetterConverter.convertNumberToLetter(total));
         }
     }//GEN-LAST:event_jButtonVerConvenioActionPerformed
 
@@ -702,7 +704,7 @@ public class Facturas extends javax.swing.JFrame {
             facActual.setPaciente(pacActual);
             facActual.setOrdenServicio(ordenActual);
             facActual.setTalonario(tal);
-            facActual.setDescuento(subt-total);
+            facActual.setDescuento(desc);
             facActual.setMontoTotal(total);
             facActual.setUsuario(user);
     }

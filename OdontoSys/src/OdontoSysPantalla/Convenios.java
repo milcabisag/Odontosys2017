@@ -626,7 +626,7 @@ public class Convenios extends javax.swing.JFrame {
     }
 
     private void repaintEmpresa() {
-        Empresas jF = new Empresas();
+        Empresa jF = new Empresa();
         if(jF.isVisible()){
             jF.repaintForm();
         }

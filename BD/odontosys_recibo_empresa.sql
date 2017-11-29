@@ -31,10 +31,13 @@ CREATE TABLE `recibo_empresa` (
   `fk_usuario` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `monto` int(11) NOT NULL,
+  `fk_movemp` int(11) DEFAULT NULL,
   PRIMARY KEY (`idrecibo_empresa`),
   KEY `fk_recempfactura_idx` (`fk_facturaemp`),
   KEY `fk_recempresa_idx` (`fk_empresa`),
   KEY `fk_recempusuario_idx` (`fk_usuario`),
+  KEY `fk_recempmov_idx` (`fk_movemp`),
+  CONSTRAINT `fk_recempmovim` FOREIGN KEY (`fk_movemp`) REFERENCES `movimiento_empresa` (`idmovimiento_empresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_recempfactura` FOREIGN KEY (`fk_facturaemp`) REFERENCES `factura_empresa` (`idfactura_empresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_recempresa` FOREIGN KEY (`fk_empresa`) REFERENCES `empresa` (`idempresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_recempusuario` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -50,4 +53,4 @@ CREATE TABLE `recibo_empresa` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-29 10:29:26
+-- Dump completed on 2017-11-29 13:59:33

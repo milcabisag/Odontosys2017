@@ -8,7 +8,6 @@ package OdontoSysPantalla;
 
 import OdontoSysControlador.EmpresaControlador;
 import OdontoSysModelo.Empresa;
-import OdontoSysModelo.FacturaConvenio;
 import OdontoSysPantallaAuxiliares.ObtenerEmpresa;
 import OdontoSysUtil.Configuraciones;
 import java.text.DecimalFormat;
@@ -168,7 +167,6 @@ public class PendientesEmpresa extends javax.swing.JFrame {
 
     private void jButtonRealizarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRealizarPagoActionPerformed
         FacturasEmpresas.empresa = emp;
-        FacturasEmpresas.facturasConvenio = fac;
         FacturasEmpresas.monto = monto;
         FacturasEmpresas.main(null);
         this.setVisible(false);
@@ -231,7 +229,6 @@ public class PendientesEmpresa extends javax.swing.JFrame {
     DefaultTableModel tablafc = new DefaultTableModel();
     Empresa emp = null;
     int monto;
-    ArrayList<FacturaConvenio> fac;
     DecimalFormat formateador = new DecimalFormat("###,###");
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -262,24 +259,6 @@ public class PendientesEmpresa extends javax.swing.JFrame {
     }
 
     private void buscarFacturas() {
-        fac = new ArrayList();
-        fac = EmpresaControlador.FacturaPendiente(emp.getIdempresa(), null);
-        monto = 0;
-        if(fac != null){
-            jButtonRealizarPago.setVisible(true);
-            for(FacturaConvenio f : fac){
-                Object[] fila = new Object[3];
-                fila[0] = f.getFactura().getPaciente().getNombres()+" "+f.getFactura().getPaciente().getApellidos();
-                fila[1] = "001-001-000"+f.getFactura().getTalonario().getNroFactura();
-                fila[2] = f.getMonto();
-                monto = f.getMonto() + monto;
-                tablafc.addRow(fila);
-                int i = tablafc.getRowCount()-1;                
-                jTable1.setValueAt(formateador.format(fila[2]), i, 2);
-            }
-            jFormattedTextFieldSaldo.setText(String.valueOf(monto));
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "No se encontraron registros pendientes por la empresa", "Consultar Factura", WIDTH);
-        }
+  
     }
 }

@@ -185,7 +185,6 @@ public class RecibosControlador {
             m.setFecha(nuevo.getFecha());
             m.setDebe(0);
             m.setHaber(nuevo.getMonto());
-            m.setFacturaEmpresa(nuevo.getFacturaEmpresa());
             
             sesion.save(m);
             sesion.refresh(m);

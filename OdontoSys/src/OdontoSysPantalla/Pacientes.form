@@ -864,8 +864,6 @@
                           <Group type="102" attributes="0">
                               <Component id="jButtonRealizarPago" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButtonNotaCredito" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jTextFieldSaldo" min="-2" pref="134" max="-2" attributes="0"/>
@@ -893,10 +891,7 @@
                       <Component id="jScrollPane2" min="-2" pref="312" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButtonRealizarPago" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonNotaCredito" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jButtonRealizarPago" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextFieldSaldo" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
@@ -974,20 +969,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGenerarReporteActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButtonNotaCredito">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Calibri" size="14" style="0"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/ImagenesOdontosys/DienteSanos/nota.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Preparar Nota de Cr&#xe9;dito"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonNotaCreditoActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

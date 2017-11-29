@@ -297,9 +297,6 @@ public class FacturaControlador {
             m.setMovimiento("Factura Nro 000"+nuevo.getTalonario().getNroFactura());
             m.setFecha(nuevo.getFecha());
             m.setDebe(nuevo.getMontoTotal());
-            m.setFacturaEmpresa(nuevo);
-            m.setNotaCreditoEmpresa(null);
-            m.setReciboEmpresa(null);
             if(nuevo.getTipo().compareTo("Contado") == 0){
                 m.setHaber(nuevo.getMontoTotal());
             }else{
@@ -346,11 +343,13 @@ public class FacturaControlador {
         try{
             sesion.save(ordenEmp);
             sesion.refresh(ordenEmp);
+            System.out.println("Orden Empresa Nro "+ordenEmp.getIdordenEmpresa());
                     
             for(DetalleOrdenEmpresa d : detOrdEmp){
                 d.setOrdenEmpresa(ordenEmp);
                 sesion.save(d);
                 sesion.refresh(d);
+                System.out.println("Detalle Orden Nro "+d.getIddetalleOrdenEmpresa());
             }
                         
         }catch(HibernateException ex){
