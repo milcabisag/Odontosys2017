@@ -14,6 +14,7 @@ import OdontoSysControlador.TalonarioControlador;
 import OdontoSysModelo.ConvPaciente;
 import OdontoSysModelo.Convenio;
 import OdontoSysModelo.Datos;
+import OdontoSysModelo.DetalleConvenio;
 import OdontoSysModelo.DetalleOrden;
 import OdontoSysModelo.Factura;
 import OdontoSysModelo.OrdenServicio;
@@ -21,6 +22,7 @@ import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Talonario;
 import OdontoSysUtil.TipoPago;
 import OdontoSysModelo.Usuario;
+import OdontoSysPantallaAuxiliares.ElegirConvenio;
 import OdontoSysPantallaAuxiliares.ObtenerTipoPagoContado;
 import OdontoSysPantallaAuxiliares.OrdenDeServicio;
 import OdontoSysUtil.Configuraciones;
@@ -43,24 +45,25 @@ public class Facturas extends javax.swing.JFrame {
     /**
      * Variables
      */
+    public static Usuario user;
     public static Paciente pacActual = null;                    //A pasarse desde el frame padre
     public static OrdenServicio ordenActual = null;             //A pasarse desde el frame padre
     public static ArrayList<DetalleOrden> lista = null;         //A pasarse desde el frame padre
-    ArrayList<ConvPaciente> cp = null;
-    ArrayList<Convenio> convenios = null;
+    public static Factura facActual = null;
+    public static int monto;
+    
     DefaultTableModel tabla = new DefaultTableModel(){
         public boolean isCellEditable(int row, int column) {            
                 return false;            
         }};
-    public static Factura facActual = null;
-    public static int monto;
+    
     DecimalFormat formateador = new DecimalFormat("###,###");
     int total;
     int subt;
-    public static Usuario user;
+    int desc;
     Talonario tal = new Talonario();
     Datos dat = new Datos();
-    
+    ConvPaciente elConvenio = null;
     
     public Facturas() {
         initComponents();
@@ -125,48 +128,51 @@ public class Facturas extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabelNroFac = new javax.swing.JLabel();
         jLabelRUC = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jTextFieldConv = new javax.swing.JTextField();
+        jButtonVerConvenio = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel1.setText("Fecha");
 
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel7.setText("Nombre y Apellido");
 
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel8.setText("Orden de Servicio Nro");
 
         jTextFieldNombrePac.setEditable(false);
-        jTextFieldNombrePac.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextFieldNombrePac.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jTextFieldNombrePac.setFocusable(false);
         jTextFieldNombrePac.setRequestFocusEnabled(false);
 
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel9.setText("CI o RUC Nro");
 
         jTextFieldCI.setEditable(false);
-        jTextFieldCI.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextFieldCI.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jTextFieldCI.setFocusable(false);
         jTextFieldCI.setRequestFocusEnabled(false);
 
         jTextFieldFactOrden.setEditable(false);
-        jTextFieldFactOrden.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextFieldFactOrden.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jTextFieldFactOrden.setRequestFocusEnabled(false);
 
-        jTableDetalle.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTableDetalle.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jTableDetalle.setModel(tabla);
         jTableDetalle.setEnabled(false);
         jTableDetalle.setFocusable(false);
         jScrollPane1.setViewportView(jTableDetalle);
 
-        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel10.setText("SubTotal");
 
         jTextFieldFactDescuento.setEditable(false);
-        jTextFieldFactDescuento.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextFieldFactDescuento.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jTextFieldFactDescuento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldFactDescuentoKeyTyped(evt);
@@ -174,42 +180,42 @@ public class Facturas extends javax.swing.JFrame {
         });
 
         jTextFieldFactTotal.setEditable(false);
-        jTextFieldFactTotal.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextFieldFactTotal.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jTextFieldFactTotal.setFocusable(false);
 
-        jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel11.setText("Descuento");
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel12.setText("Total");
 
-        jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel13.setText("IVA");
 
-        jLabel14.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel14.setText("10%");
 
         jTextFieldFactIVA10.setEditable(false);
-        jTextFieldFactIVA10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextFieldFactIVA10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jTextFieldFactIVA10.setFocusable(false);
 
-        jLabel15.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel15.setText("5%");
 
         jTextFieldFactIVA5.setEditable(false);
-        jTextFieldFactIVA5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextFieldFactIVA5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jTextFieldFactIVA5.setFocusable(false);
         jTextFieldFactIVA5.setRequestFocusEnabled(false);
 
-        jLabel16.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel16.setText("Total IVA");
 
         jTextFieldFactIVA.setEditable(false);
-        jTextFieldFactIVA.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextFieldFactIVA.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jTextFieldFactIVA.setFocusable(false);
         jTextFieldFactIVA.setRequestFocusEnabled(false);
 
-        jButtonCancelar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButtonCancelar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -218,7 +224,7 @@ public class Facturas extends javax.swing.JFrame {
             }
         });
 
-        jButtonAceptar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButtonAceptar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/ingresar.png"))); // NOI18N
         jButtonAceptar.setText("Guardar e Imprimir");
         jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -227,9 +233,8 @@ public class Facturas extends javax.swing.JFrame {
             }
         });
 
-        jButtonVerOrdenServicio.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButtonVerOrdenServicio.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonVerOrdenServicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/menus.png"))); // NOI18N
-        jButtonVerOrdenServicio.setText("Ver");
         jButtonVerOrdenServicio.setMargin(new java.awt.Insets(2, 7, 2, 7));
         jButtonVerOrdenServicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,45 +242,45 @@ public class Facturas extends javax.swing.JFrame {
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel17.setText("Total en letras");
 
         jTextFieldFactTotalLetras.setEditable(false);
-        jTextFieldFactTotalLetras.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextFieldFactTotalLetras.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jTextFieldFactTotalLetras.setFocusable(false);
 
-        jLabelFecha.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabelFecha.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         jTextFieldFactSubt.setEditable(false);
         jTextFieldFactSubt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         jTextFieldFactSubt.setFocusable(false);
-        jTextFieldFactSubt.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextFieldFactSubt.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jTextFieldFactSubt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldFactSubtKeyTyped(evt);
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 3, 30)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("FACTURA");
 
-        jLabelTimbrado.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabelTimbrado.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
         jLabelTimbrado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTimbrado.setText("Timbrado");
 
-        jComboBoxFactTipo.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jComboBoxFactTipo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jComboBoxFactTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Contado", "Crédito" }));
 
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Tipo");
 
-        jLabelNroFac.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabelNroFac.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabelNroFac.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelNroFac.setText("Nro");
 
-        jLabelRUC.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabelRUC.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabelRUC.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelRUC.setText("RUC Nro");
 
@@ -316,6 +321,23 @@ public class Facturas extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel18.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel18.setText("Convenio");
+
+        jTextFieldConv.setEditable(false);
+        jTextFieldConv.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jTextFieldConv.setRequestFocusEnabled(false);
+
+        jButtonVerConvenio.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButtonVerConvenio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/convenio2.png"))); // NOI18N
+        jButtonVerConvenio.setToolTipText("");
+        jButtonVerConvenio.setMargin(new java.awt.Insets(2, 7, 2, 7));
+        jButtonVerConvenio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVerConvenioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -351,7 +373,7 @@ public class Facturas extends javax.swing.JFrame {
                                         .addComponent(jLabel17)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jTextFieldFactTotalLetras, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(layout.createSequentialGroup()
@@ -368,23 +390,31 @@ public class Facturas extends javax.swing.JFrame {
                                         .addComponent(jTextFieldFactSubt, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jTextFieldFactOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButtonVerOrdenServicio))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextFieldNombrePac, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldCI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(38, 38, 38)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldNombrePac, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldCI, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jTextFieldFactOrden, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                                            .addComponent(jTextFieldConv))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jButtonVerConvenio, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jButtonVerOrdenServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(2, 2, 2)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19))))
@@ -410,8 +440,13 @@ public class Facturas extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldFactOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonVerOrdenServicio))
-                        .addGap(61, 61, 61))
+                            .addComponent(jButtonVerOrdenServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldConv, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonVerConvenio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -508,6 +543,20 @@ public class Facturas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldFactSubtKeyTyped
 
+    private void jButtonVerConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerConvenioActionPerformed
+        // Abrir ElegirConvenio
+        ElegirConvenio jDialog= new ElegirConvenio(null, true);
+        ElegirConvenio.pac = pacActual;
+        jDialog.setVisible(true);
+        ConvPaciente c = jDialog.getReturnStatus();
+        if(c != null){
+            elConvenio = new ConvPaciente();
+            elConvenio = c;
+            jTextFieldConv.setText(c.getConvenio().getNomConv());
+            calcularDescuentos();       //Calcula los descuentos según el convenio elegido
+        }
+    }//GEN-LAST:event_jButtonVerConvenioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -547,6 +596,7 @@ public class Facturas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAceptar;
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonVerConvenio;
     private javax.swing.JButton jButtonVerOrdenServicio;
     private javax.swing.JComboBox jComboBoxFactTipo;
     private javax.swing.JLabel jLabel1;
@@ -558,6 +608,7 @@ public class Facturas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -572,6 +623,7 @@ public class Facturas extends javax.swing.JFrame {
     private javax.swing.JTable jTableDetalle;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextFieldCI;
+    private javax.swing.JTextField jTextFieldConv;
     private javax.swing.JTextField jTextFieldFactDescuento;
     private javax.swing.JTextField jTextFieldFactIVA;
     private javax.swing.JTextField jTextFieldFactIVA10;
@@ -723,6 +775,26 @@ public class Facturas extends javax.swing.JFrame {
             jLabelRUC.setText("RUC "+dat.getRuc());
             jLabelTimbrado.setText("Timbrado "+tal.getTimbrado());
             jLabelNroFac.setText("Nro 001-001-000"+tal.getNroFactura());
+        }
+    
+    }
+
+    private void calcularDescuentos() {
+        
+        ArrayList<DetalleConvenio> detConv = new ArrayList();
+        detConv = ConvenioControlador.obtenerDetalleConvenio(elConvenio);
+        int a = lista.size();
+        int b = detConv.size();
+        int descuento;
+        int aux;
+        for(int x=0;x<a;x++){       //Recorre el detalle de orden comparando los servicios
+            for(int y=0;y<b;y++){   //Recorre la lista de detalle de convenio
+                if(lista.get(x).getServicio().getIdservicio() == detConv.get(y).getServicio().getIdservicio()){
+                    descuento = lista.get(x).getPrecio() * detConv.get(y).getPorcentaje() / 100;
+                    aux = lista.get(x).getPrecio() - descuento;
+                    desc = desc + aux;  //suma de descuentos
+                }
+            }
         }
     
     }

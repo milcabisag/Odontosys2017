@@ -88,8 +88,10 @@ public class OdontogramaControlador {
             }else{
                 return null;
             }
+            tr.commit();
         }catch(HibernateException ex){
-            System.out.println(ex.getMessage());
+            tr.rollback();
+            System.out.println("Error en HistoricoPaciente: "+ex.getMessage());
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Odontograma Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
         return lis;

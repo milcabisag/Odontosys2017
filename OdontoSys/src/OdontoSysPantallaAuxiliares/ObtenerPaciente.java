@@ -22,6 +22,7 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
 
 /**
  *
@@ -29,8 +30,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ObtenerPaciente extends javax.swing.JDialog {
 
-
+    // Variables
+    
     public static Paciente pac = null;
+    public static Session sesion = null;
 
     /**
      * Creates new form ObtenerProveedor
@@ -325,7 +328,7 @@ public class ObtenerPaciente extends javax.swing.JDialog {
         tabla.addColumn("Apellido");
         tabla.addColumn("CI Nro");
       
-        datos = PacienteControlador.ConsultarPaciente();
+        datos = PacienteControlador.ConsultarPaciente(sesion);
         for (Paciente p : datos){
             Object[] f = new Object[3];
             f[0] = p.getNombres();

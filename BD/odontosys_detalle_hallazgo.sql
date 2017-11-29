@@ -29,8 +29,8 @@ CREATE TABLE `detalle_hallazgo` (
   `fk_odontograma` int(11) NOT NULL,
   `fk_hallazgo` int(11) NOT NULL,
   `fk_diente` int(11) NOT NULL,
-  `sigla` varchar(4) NOT NULL,
-  `ubicacion` varchar(50) NOT NULL,
+  `sigla` varchar(4) DEFAULT NULL,
+  `ubicacion` varchar(50) DEFAULT NULL,
   `especificacion` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`iddetalle_hallazgo`),
   KEY `fk_odontdiente_idx` (`fk_odontograma`),
@@ -39,7 +39,7 @@ CREATE TABLE `detalle_hallazgo` (
   CONSTRAINT `fk_dhaldient` FOREIGN KEY (`fk_diente`) REFERENCES `diente` (`iddiente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_dhallazgo` FOREIGN KEY (`fk_hallazgo`) REFERENCES `hallazgo` (`idhallazgo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_dhalodont` FOREIGN KEY (`fk_odontograma`) REFERENCES `odontograma` (`idodontograma`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +51,4 @@ CREATE TABLE `detalle_hallazgo` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-25 11:32:18
+-- Dump completed on 2017-11-28 21:00:04

@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 24/11/2017 07:30:01 AM by Hibernate Tools 3.6.0
+// Generated 28/11/2017 08:28:36 PM by Hibernate Tools 3.6.0
 
 
 import java.util.HashSet;
@@ -15,6 +15,7 @@ public class Servicio  implements java.io.Serializable {
      private String descripcion;
      private int precio;
      private String estado;
+     private Set detalleOrdenEmpresas = new HashSet(0);
      private Set detalleOrdens = new HashSet(0);
      private Set agendas = new HashSet(0);
      private Set tratamientos = new HashSet(0);
@@ -29,10 +30,11 @@ public class Servicio  implements java.io.Serializable {
         this.precio = precio;
         this.estado = estado;
     }
-    public Servicio(String descripcion, int precio, String estado, Set detalleOrdens, Set agendas, Set tratamientos, Set detalleConvenios) {
+    public Servicio(String descripcion, int precio, String estado, Set detalleOrdenEmpresas, Set detalleOrdens, Set agendas, Set tratamientos, Set detalleConvenios) {
        this.descripcion = descripcion;
        this.precio = precio;
        this.estado = estado;
+       this.detalleOrdenEmpresas = detalleOrdenEmpresas;
        this.detalleOrdens = detalleOrdens;
        this.agendas = agendas;
        this.tratamientos = tratamientos;
@@ -66,6 +68,13 @@ public class Servicio  implements java.io.Serializable {
     
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    public Set getDetalleOrdenEmpresas() {
+        return this.detalleOrdenEmpresas;
+    }
+    
+    public void setDetalleOrdenEmpresas(Set detalleOrdenEmpresas) {
+        this.detalleOrdenEmpresas = detalleOrdenEmpresas;
     }
     public Set getDetalleOrdens() {
         return this.detalleOrdens;

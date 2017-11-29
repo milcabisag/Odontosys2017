@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 24/11/2017 07:30:01 AM by Hibernate Tools 3.6.0
+// Generated 28/11/2017 08:28:36 PM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -20,6 +20,7 @@ public class Talonario  implements java.io.Serializable {
      private Date finVigencia;
      private String estado;
      private Set facturas = new HashSet(0);
+     private Set facturaEmpresas = new HashSet(0);
 
     public Talonario() {
     }
@@ -33,7 +34,7 @@ public class Talonario  implements java.io.Serializable {
         this.finVigencia = finVigencia;
         this.estado = estado;
     }
-    public Talonario(int nroTalonario, String nroFactura, int timbrado, Date iniVigencia, Date finVigencia, String estado, Set facturas) {
+    public Talonario(int nroTalonario, String nroFactura, int timbrado, Date iniVigencia, Date finVigencia, String estado, Set facturas, Set facturaEmpresas) {
        this.nroTalonario = nroTalonario;
        this.nroFactura = nroFactura;
        this.timbrado = timbrado;
@@ -41,6 +42,7 @@ public class Talonario  implements java.io.Serializable {
        this.finVigencia = finVigencia;
        this.estado = estado;
        this.facturas = facturas;
+       this.facturaEmpresas = facturaEmpresas;
     }
    
     public Integer getIdtalonario() {
@@ -98,6 +100,13 @@ public class Talonario  implements java.io.Serializable {
     
     public void setFacturas(Set facturas) {
         this.facturas = facturas;
+    }
+    public Set getFacturaEmpresas() {
+        return this.facturaEmpresas;
+    }
+    
+    public void setFacturaEmpresas(Set facturaEmpresas) {
+        this.facturaEmpresas = facturaEmpresas;
     }
 
 

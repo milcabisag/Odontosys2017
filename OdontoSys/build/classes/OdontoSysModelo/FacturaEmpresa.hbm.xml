@@ -1,18 +1,27 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 24/11/2017 07:30:12 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 28/11/2017 08:34:17 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.FacturaEmpresa" table="factura_empresa" catalog="odontosys">
         <id name="idfacturaEmpresa" type="java.lang.Integer">
             <column name="idfactura_empresa" />
             <generator class="identity" />
         </id>
+        <many-to-one name="talonario" class="OdontoSysModelo.Talonario" fetch="select">
+            <column name="fk_talonario" not-null="true" />
+        </many-to-one>
         <many-to-one name="empresa" class="OdontoSysModelo.Empresa" fetch="select">
             <column name="fk_empresa" not-null="true" />
         </many-to-one>
         <many-to-one name="usuario" class="OdontoSysModelo.Usuario" fetch="select">
             <column name="fk_usuario" not-null="true" />
+        </many-to-one>
+        <many-to-one name="movimientoEmpresa" class="OdontoSysModelo.MovimientoEmpresa" fetch="select">
+            <column name="fk_movimiento_emp" not-null="true" />
+        </many-to-one>
+        <many-to-one name="ordenEmpresa" class="OdontoSysModelo.OrdenEmpresa" fetch="select">
+            <column name="fk_orden_empresa" not-null="true" />
         </many-to-one>
         <property name="fecha" type="date">
             <column name="fecha" length="10" not-null="true" />
@@ -20,23 +29,14 @@
         <property name="tipo" type="string">
             <column name="tipo" length="45" not-null="true" />
         </property>
-        <property name="timbrado" type="string">
-            <column name="timbrado" length="45" not-null="true" />
-        </property>
-        <property name="nroFactura" type="string">
-            <column name="nroFactura" length="45" not-null="true" />
-        </property>
-        <property name="descuento" type="java.lang.Integer">
-            <column name="descuento" />
-        </property>
         <property name="estado" type="string">
             <column name="estado" length="45" not-null="true" />
         </property>
-        <property name="saldo" type="java.lang.Integer">
-            <column name="saldo" />
-        </property>
         <property name="montoTotal" type="int">
             <column name="montoTotal" not-null="true" />
+        </property>
+        <property name="saldo" type="int">
+            <column name="saldo" not-null="true" />
         </property>
         <set name="notaCreditoEmpresas" table="nota_credito_empresa" inverse="true" lazy="true" fetch="select">
             <key>
@@ -46,7 +46,7 @@
         </set>
         <set name="movimientoEmpresas" table="movimiento_empresa" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="fk_factura" />
+                <column name="fk_factura_emp" />
             </key>
             <one-to-many class="OdontoSysModelo.MovimientoEmpresa" />
         </set>

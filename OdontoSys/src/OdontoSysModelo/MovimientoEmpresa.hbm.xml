@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 24/11/2017 07:30:12 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 28/11/2017 08:34:17 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.MovimientoEmpresa" table="movimiento_empresa" catalog="odontosys">
         <id name="idmovimientoEmpresa" type="java.lang.Integer">
             <column name="idmovimiento_empresa" />
             <generator class="identity" />
         </id>
-        <many-to-one name="reciboEmpresa" class="OdontoSysModelo.ReciboEmpresa" fetch="select">
-            <column name="fk_recibo" />
-        </many-to-one>
         <many-to-one name="facturaEmpresa" class="OdontoSysModelo.FacturaEmpresa" fetch="select">
-            <column name="fk_factura" />
+            <column name="fk_factura_emp" />
+        </many-to-one>
+        <many-to-one name="reciboEmpresa" class="OdontoSysModelo.ReciboEmpresa" fetch="select">
+            <column name="fk_recibo_emp" />
         </many-to-one>
         <many-to-one name="empresa" class="OdontoSysModelo.Empresa" fetch="select">
             <column name="fk_empresa" not-null="true" />
         </many-to-one>
         <many-to-one name="notaCreditoEmpresa" class="OdontoSysModelo.NotaCreditoEmpresa" fetch="select">
-            <column name="fk_nota" />
+            <column name="fk_nota_emp" />
         </many-to-one>
         <property name="fecha" type="date">
             <column name="fecha" length="10" not-null="true" />
@@ -32,6 +32,12 @@
         <property name="haber" type="int">
             <column name="haber" not-null="true" />
         </property>
+        <set name="facturaEmpresas" table="factura_empresa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_movimiento_emp" not-null="true" />
+            </key>
+            <one-to-many class="OdontoSysModelo.FacturaEmpresa" />
+        </set>
         <set name="cajas" table="caja" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="fk_mov_empresa" />

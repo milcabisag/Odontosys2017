@@ -38,10 +38,10 @@ CREATE TABLE `caja` (
   KEY `fk_caja_movpaciente_idx` (`fk_mov_paciente`),
   KEY `fk_usuario_idx` (`fk_usuario`),
   KEY `fk_diagusuario_idx` (`fk_usuario`),
-  CONSTRAINT `fk_caja_usuario` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_caja_movempresa` FOREIGN KEY (`fk_mov_empresa`) REFERENCES `movimiento_empresa` (`idmovimiento_empresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_caja_movpaciente` FOREIGN KEY (`fk_mov_paciente`) REFERENCES `movimiento` (`idmovimiento`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_caja_movpaciente` FOREIGN KEY (`fk_mov_paciente`) REFERENCES `movimiento` (`idmovimiento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_caja_usuario` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +53,4 @@ CREATE TABLE `caja` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-25 11:31:54
+-- Dump completed on 2017-11-28 20:59:33

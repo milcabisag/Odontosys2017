@@ -36,16 +36,19 @@ CREATE TABLE `factura` (
   `saldo` int(11) NOT NULL DEFAULT '0',
   `fk_usuario` int(11) NOT NULL,
   `fk_talonario` int(11) NOT NULL,
+  `fk_movimiento` int(11) NOT NULL,
   PRIMARY KEY (`idfactura`),
   KEY `fk_factpaciente_idx` (`fk_paciente`),
   KEY `fk_factorden_idx` (`fk_orden`),
   KEY `fk_facusuario_idx` (`fk_usuario`),
   KEY `fk_factalonario_idx` (`fk_talonario`),
-  CONSTRAINT `fk_facttalonario` FOREIGN KEY (`fk_talonario`) REFERENCES `talonario` (`idtalonario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `fk_facmovimiento_idx` (`fk_movimiento`),
   CONSTRAINT `fk_factorden` FOREIGN KEY (`fk_orden`) REFERENCES `orden_servicio` (`idorden_servicio`) ON DELETE NO ACTION,
   CONSTRAINT `fk_factpaciente` FOREIGN KEY (`fk_paciente`) REFERENCES `paciente` (`idPaciente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_factusuario` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_facttalonario` FOREIGN KEY (`fk_talonario`) REFERENCES `talonario` (`idtalonario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_factusuario` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_fac_movim` FOREIGN KEY (`fk_movimiento`) REFERENCES `movimiento` (`idmovimiento`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -57,4 +60,4 @@ CREATE TABLE `factura` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-25 12:44:04
+-- Dump completed on 2017-11-28 20:59:22

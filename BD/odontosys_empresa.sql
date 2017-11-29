@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `empresa`;
 CREATE TABLE `empresa` (
   `idempresa` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
-  `ruc` int(11) NOT NULL,
+  `ruc` varchar(15) NOT NULL,
   `direccion` varchar(100) NOT NULL,
   `telefono` varchar(20) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
@@ -35,6 +35,7 @@ CREATE TABLE `empresa` (
   `tel_contacto` varchar(20) DEFAULT NULL,
   `observaciones` varchar(300) DEFAULT NULL,
   `estado` varchar(8) NOT NULL DEFAULT 'Activo',
+  `ciudad` varchar(100) NOT NULL,
   PRIMARY KEY (`idempresa`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -48,4 +49,4 @@ CREATE TABLE `empresa` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-25 11:31:41
+-- Dump completed on 2017-11-28 20:59:17

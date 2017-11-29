@@ -32,9 +32,10 @@ CREATE TABLE `datos` (
   `ruc` varchar(10) NOT NULL,
   `direccion` varchar(100) NOT NULL,
   `ciudad` varchar(50) NOT NULL,
-  `telefono` varchar(10) NOT NULL,
+  `telefono` varchar(13) NOT NULL,
+  `datoscol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`iddatos`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -46,4 +47,4 @@ CREATE TABLE `datos` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-25 12:44:05
+-- Dump completed on 2017-11-28 21:00:07

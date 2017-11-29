@@ -139,7 +139,10 @@ public class ConvenioControlador {
         Transaction tr = null;
         ArrayList<ConvPaciente> lis = null;
         String hql = null;
-        try{        
+        try{     
+            if(sesion == null){
+                sesion = NewHibernateUtil.getSessionFactory().openSession();
+            }
             tr = sesion.beginTransaction();
             if(pac > 0){
                 hql = "FROM ConvPaciente WHERE estado = 'Activo' AND paciente = "+pac;
@@ -330,7 +333,37 @@ public class ConvenioControlador {
                 lis.add(it.next());
                 }
             }
+            tr.commit();
         }catch(HibernateException ex){
+            tr.rollback();
+            System.out.println("Error en BuscarPacientesConConvenios: "+ex);
+            JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Convenio Controlador", JOptionPane.INFORMATION_MESSAGE);
+        }
+        return lis;
+    }
+
+    public static ArrayList<DetalleConvenio> obtenerDetalleConvenio(ConvPaciente conv) {
+         //Retorna todos la lista del detalle del convenio
+        Session sesion;
+        Transaction tr = null;
+        ArrayList<DetalleConvenio> lis = null;
+        String hql;
+        try{        
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            tr = sesion.beginTransaction();
+            hql = "FROM DetalleConvenio WHERE estado = 'Activo' AND convenio = "+conv.getConvenio().getIdconvenio();
+            Query query = sesion.createQuery(hql); 
+            Iterator<DetalleConvenio> it = query.iterate();
+            if(it.hasNext()){
+                lis = new ArrayList();
+                while(it.hasNext()){
+                lis.add(it.next());
+                }
+            }
+            tr.commit();
+        }catch(HibernateException ex){
+            tr.rollback();
+            System.out.println("Error en obtenerDetalleConvenio: "+ex);
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Convenio Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
         return lis;

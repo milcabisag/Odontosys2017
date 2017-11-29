@@ -50,4 +50,4 @@ CREATE TABLE `nota_credito_empresa` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-25 11:32:20
+-- Dump completed on 2017-11-28 21:00:06

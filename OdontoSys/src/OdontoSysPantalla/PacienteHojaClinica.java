@@ -15,6 +15,7 @@ import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Usuario;
 import OdontoSysPantallaAuxiliares.ObtenerPaciente;
 import OdontoSysUtil.Configuraciones;
+import OdontoSysUtil.NewHibernateUtil;
 import OdontoSysVista.PacienteVista;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -22,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -29,9 +32,20 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PacienteHojaClinica extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PacienteHojaClinica
-     */
+   
+    // Variables
+    public static Paciente pacienteActual = null;
+    public static Usuario user = null;
+    
+    ArrayList<Diagnostico> Lista = null;
+    ArrayList<Odontograma> odon = null;
+    
+    DefaultTableModel tabla = new DefaultTableModel();
+    DefaultTableModel tablaOdontograma = new DefaultTableModel();
+    
+    SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+    
+    
     public PacienteHojaClinica() {
         initComponents();
         deshabilitarTodo();        
@@ -395,7 +409,6 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
     if(pacienteActual == null){
         limpiar();
-        
         ObtenerPaciente frameP = new ObtenerPaciente(this, true);
         frameP.setVisible(true);
         pacienteActual = frameP.getReturnStatus();
@@ -500,17 +513,6 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
             }
         });
     }
-    // Variables
-    public static Paciente pacienteActual = null;
-    public static Usuario user = null;
-    
-    ArrayList<Diagnostico> Lista = null;
-    ArrayList<Odontograma> odon = null;
-    
-    DefaultTableModel tabla = new DefaultTableModel();
-    DefaultTableModel tablaOdontograma = new DefaultTableModel();
-    
-    SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtras;
@@ -586,6 +588,7 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
         jTextFieldHAlerg.setEditable(false);
         jTextFieldHCirug.setEditable(false);
         jTextFieldHObs.setEditable(false);
+        
     }
 
     private void habilitarDatos() {

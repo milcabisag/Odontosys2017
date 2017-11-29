@@ -52,12 +52,16 @@ public class EmpresaControlador {
     
     public static int UpdateEmpresa(Empresa empresa, Session session) {
        int i = 0;
+       Transaction tr = null;
         try{ 
+            //session = NewHibernateUtil.getSessionFactory().getCurrentSession();
+            tr = session.beginTransaction();
             session.merge(empresa);
             session.refresh(empresa);
-        
+            tr.commit();
             i = empresa.getIdempresa();
        }catch(HibernateException ex){
+           tr.rollback();
            System.out.println("Error en UpdateEmpresa: "+ex.getMessage());
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Empresa", WIDTH );
        }        

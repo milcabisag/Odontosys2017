@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28/11/2017 08:34:17 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="OdontoSysModelo.OrdenEmpresa" table="orden_empresa" catalog="odontosys">
+        <id name="idordenEmpresa" type="java.lang.Integer">
+            <column name="idorden_empresa" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="convPaciente" class="OdontoSysModelo.ConvPaciente" fetch="select">
+            <column name="fk_convpaciente" not-null="true" />
+        </many-to-one>
+        <property name="fecha" type="date">
+            <column name="fecha" length="10" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="45" />
+        </property>
+        <one-to-one name="detalleOrdenEmpresa" class="OdontoSysModelo.DetalleOrdenEmpresa"></one-to-one>
+        <set name="facturaEmpresas" table="factura_empresa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_orden_empresa" not-null="true" />
+            </key>
+            <one-to-many class="OdontoSysModelo.FacturaEmpresa" />
+        </set>
+    </class>
+</hibernate-mapping>

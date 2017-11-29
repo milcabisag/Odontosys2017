@@ -27,19 +27,13 @@ DROP TABLE IF EXISTS `convenio`;
 CREATE TABLE `convenio` (
   `idconvenio` int(11) NOT NULL AUTO_INCREMENT,
   `fk_empresa` int(11) NOT NULL,
-  `fk_paciente` int(11) NOT NULL,
-  `fk_servicio` int(11) NOT NULL,
-  `porcentaje` int(11) NOT NULL DEFAULT '0',
+  `nom_conv` varchar(100) NOT NULL,
   `observacion` varchar(200) DEFAULT NULL,
   `estado` varchar(8) NOT NULL DEFAULT 'Activo',
   PRIMARY KEY (`idconvenio`),
   KEY `fk_empconvenio_idx` (`fk_empresa`),
-  KEY `fk_paconvenio_idx` (`fk_paciente`),
-  KEY `fk_servconvenio_idx` (`fk_servicio`),
-  CONSTRAINT `fk_empconvenio` FOREIGN KEY (`fk_empresa`) REFERENCES `empresa` (`idempresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_paconvenio` FOREIGN KEY (`fk_paciente`) REFERENCES `paciente` (`idPaciente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_servconvenio` FOREIGN KEY (`fk_servicio`) REFERENCES `servicio` (`idservicio`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_empconvenio` FOREIGN KEY (`fk_empresa`) REFERENCES `empresa` (`idempresa`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +45,4 @@ CREATE TABLE `convenio` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-25 11:32:06
+-- Dump completed on 2017-11-28 20:59:47

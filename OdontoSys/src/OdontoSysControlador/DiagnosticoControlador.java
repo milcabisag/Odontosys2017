@@ -42,7 +42,10 @@ public class DiagnosticoControlador {
             }else{
                 lista = null;
             }
+            tr.commit();
         } catch (HibernateException ex) {
+            tr.rollback();
+            System.out.println("Error en ConsultarDiagnosticos: "+ex);
            JOptionPane.showMessageDialog(null,"No se pudo conectar a la Base de Datos", "Diagnostico Controlador", WIDTH );
        }        
         return lista;

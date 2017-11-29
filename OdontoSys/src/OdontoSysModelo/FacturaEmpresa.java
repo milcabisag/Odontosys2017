@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 24/11/2017 07:30:01 AM by Hibernate Tools 3.6.0
+// Generated 28/11/2017 08:28:36 PM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -13,16 +13,16 @@ public class FacturaEmpresa  implements java.io.Serializable {
 
 
      private Integer idfacturaEmpresa;
+     private Talonario talonario;
      private Empresa empresa;
      private Usuario usuario;
+     private MovimientoEmpresa movimientoEmpresa;
+     private OrdenEmpresa ordenEmpresa;
      private Date fecha;
      private String tipo;
-     private String timbrado;
-     private String nroFactura;
-     private Integer descuento;
      private String estado;
-     private Integer saldo;
      private int montoTotal;
+     private int saldo;
      private Set notaCreditoEmpresas = new HashSet(0);
      private Set movimientoEmpresas = new HashSet(0);
      private Set reciboEmpresas = new HashSet(0);
@@ -32,27 +32,29 @@ public class FacturaEmpresa  implements java.io.Serializable {
     }
 
 	
-    public FacturaEmpresa(Empresa empresa, Usuario usuario, Date fecha, String tipo, String timbrado, String nroFactura, String estado, int montoTotal) {
+    public FacturaEmpresa(Talonario talonario, Empresa empresa, Usuario usuario, MovimientoEmpresa movimientoEmpresa, OrdenEmpresa ordenEmpresa, Date fecha, String tipo, String estado, int montoTotal, int saldo) {
+        this.talonario = talonario;
         this.empresa = empresa;
         this.usuario = usuario;
+        this.movimientoEmpresa = movimientoEmpresa;
+        this.ordenEmpresa = ordenEmpresa;
         this.fecha = fecha;
         this.tipo = tipo;
-        this.timbrado = timbrado;
-        this.nroFactura = nroFactura;
         this.estado = estado;
         this.montoTotal = montoTotal;
+        this.saldo = saldo;
     }
-    public FacturaEmpresa(Empresa empresa, Usuario usuario, Date fecha, String tipo, String timbrado, String nroFactura, Integer descuento, String estado, Integer saldo, int montoTotal, Set notaCreditoEmpresas, Set movimientoEmpresas, Set reciboEmpresas, Set facturaConvenios) {
+    public FacturaEmpresa(Talonario talonario, Empresa empresa, Usuario usuario, MovimientoEmpresa movimientoEmpresa, OrdenEmpresa ordenEmpresa, Date fecha, String tipo, String estado, int montoTotal, int saldo, Set notaCreditoEmpresas, Set movimientoEmpresas, Set reciboEmpresas, Set facturaConvenios) {
+       this.talonario = talonario;
        this.empresa = empresa;
        this.usuario = usuario;
+       this.movimientoEmpresa = movimientoEmpresa;
+       this.ordenEmpresa = ordenEmpresa;
        this.fecha = fecha;
        this.tipo = tipo;
-       this.timbrado = timbrado;
-       this.nroFactura = nroFactura;
-       this.descuento = descuento;
        this.estado = estado;
-       this.saldo = saldo;
        this.montoTotal = montoTotal;
+       this.saldo = saldo;
        this.notaCreditoEmpresas = notaCreditoEmpresas;
        this.movimientoEmpresas = movimientoEmpresas;
        this.reciboEmpresas = reciboEmpresas;
@@ -65,6 +67,13 @@ public class FacturaEmpresa  implements java.io.Serializable {
     
     public void setIdfacturaEmpresa(Integer idfacturaEmpresa) {
         this.idfacturaEmpresa = idfacturaEmpresa;
+    }
+    public Talonario getTalonario() {
+        return this.talonario;
+    }
+    
+    public void setTalonario(Talonario talonario) {
+        this.talonario = talonario;
     }
     public Empresa getEmpresa() {
         return this.empresa;
@@ -80,6 +89,20 @@ public class FacturaEmpresa  implements java.io.Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+    public MovimientoEmpresa getMovimientoEmpresa() {
+        return this.movimientoEmpresa;
+    }
+    
+    public void setMovimientoEmpresa(MovimientoEmpresa movimientoEmpresa) {
+        this.movimientoEmpresa = movimientoEmpresa;
+    }
+    public OrdenEmpresa getOrdenEmpresa() {
+        return this.ordenEmpresa;
+    }
+    
+    public void setOrdenEmpresa(OrdenEmpresa ordenEmpresa) {
+        this.ordenEmpresa = ordenEmpresa;
+    }
     public Date getFecha() {
         return this.fecha;
     }
@@ -94,27 +117,6 @@ public class FacturaEmpresa  implements java.io.Serializable {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    public String getTimbrado() {
-        return this.timbrado;
-    }
-    
-    public void setTimbrado(String timbrado) {
-        this.timbrado = timbrado;
-    }
-    public String getNroFactura() {
-        return this.nroFactura;
-    }
-    
-    public void setNroFactura(String nroFactura) {
-        this.nroFactura = nroFactura;
-    }
-    public Integer getDescuento() {
-        return this.descuento;
-    }
-    
-    public void setDescuento(Integer descuento) {
-        this.descuento = descuento;
-    }
     public String getEstado() {
         return this.estado;
     }
@@ -122,19 +124,19 @@ public class FacturaEmpresa  implements java.io.Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    public Integer getSaldo() {
-        return this.saldo;
-    }
-    
-    public void setSaldo(Integer saldo) {
-        this.saldo = saldo;
-    }
     public int getMontoTotal() {
         return this.montoTotal;
     }
     
     public void setMontoTotal(int montoTotal) {
         this.montoTotal = montoTotal;
+    }
+    public int getSaldo() {
+        return this.saldo;
+    }
+    
+    public void setSaldo(int saldo) {
+        this.saldo = saldo;
     }
     public Set getNotaCreditoEmpresas() {
         return this.notaCreditoEmpresas;

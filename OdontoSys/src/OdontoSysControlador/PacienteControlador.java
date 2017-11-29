@@ -68,20 +68,25 @@ public class PacienteControlador {
 
     public static int UpDatePaciente(Paciente pacienteActual) {
        int i = 0;
-       Session session;
+       Session session = null;
        Transaction tr = null;        
         try{ 
-        session = NewHibernateUtil.getSessionFactory().openSession();
-        tr = session.beginTransaction();        
-        session.merge(pacienteActual);
-        session.refresh(pacienteActual);
-        tr.commit();           
-        i = pacienteActual.getIdPaciente();
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            tr = session.beginTransaction();
+ 
+            session.clear();        
+            session.merge(pacienteActual);
+            session.refresh(pacienteActual);
+            
+            tr.commit();      
+            i = pacienteActual.getIdPaciente();
        }catch(HibernateException ex){
            tr.rollback();
            System.out.println("Error en update paciente: "+ex.getMessage());
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Paciente", WIDTH );
-       }        
+       }finally{                 
+            session.close();
+        }        
        return i; 
     }
 
@@ -104,8 +109,8 @@ public class PacienteControlador {
        return i; 
     }    
     
-    public static ArrayList<Paciente> ConsultarPaciente(){
-        Session sesion;
+    public static ArrayList<Paciente> ConsultarPaciente(Session sesion){
+        //Session sesion;
         Transaction tr = null;
         ArrayList<Paciente> datos = null;
         Paciente pac = new Paciente();

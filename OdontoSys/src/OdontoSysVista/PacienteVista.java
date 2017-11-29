@@ -11,6 +11,7 @@ import OdontoSysModelo.Paciente;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import org.hibernate.Session;
 
 /**
  *

@@ -31,14 +31,17 @@ CREATE TABLE `recibo` (
   `fk_usuario` int(11) NOT NULL,
   `monto` int(11) NOT NULL,
   `fecha` date NOT NULL,
+  `fk_movimiento` int(11) DEFAULT NULL,
   PRIMARY KEY (`idrecibo`),
   KEY `fk_recfactura_idx` (`fk_factura`),
   KEY `fk_recpaciente_idx` (`fk_paciente`),
   KEY `fk_recusuario_idx` (`fk_usuario`),
+  KEY `fk_recmovim_idx` (`fk_movimiento`),
   CONSTRAINT `fk_recfactura` FOREIGN KEY (`fk_factura`) REFERENCES `factura` (`idfactura`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_recmovimiento` FOREIGN KEY (`fk_movimiento`) REFERENCES `movimiento` (`idmovimiento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_recpaciente` FOREIGN KEY (`fk_paciente`) REFERENCES `paciente` (`idPaciente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_recusuario` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +53,4 @@ CREATE TABLE `recibo` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-25 11:32:02
+-- Dump completed on 2017-11-28 20:59:42

@@ -1,3 +1,11 @@
-- Refresh al volver a Paciente desde factura - Probar con un método REFRESH o ver si hay alguna función útil.
-repaint(); ??
-- En orden de servicio, ocultar el botón facturar y ver odontograma
+- En buscar servicios para convenio, no mostrar los servicios que ya se eligieron, para evitar duplicados
+- Revisar hoja clínica.
+UpDatePaciente - error de dos sessiones abiertas
+
+
+Funciones para session
+clear()
+evict()
+flush()
+disconect()
+reconect()

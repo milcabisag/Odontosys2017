@@ -29,18 +29,24 @@ CREATE TABLE `factura_empresa` (
   `fk_empresa` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `tipo` varchar(45) NOT NULL DEFAULT 'Contado',
-  `timbrado` varchar(45) NOT NULL,
-  `nroFactura` varchar(45) NOT NULL,
-  `descuento` int(11) DEFAULT NULL,
   `estado` varchar(45) NOT NULL DEFAULT 'Cancelado',
-  `saldo` int(11) DEFAULT '0',
   `montoTotal` int(11) NOT NULL,
+  `saldo` int(11) NOT NULL DEFAULT '0',
   `fk_usuario` int(11) NOT NULL,
+  `fk_talonario` int(11) NOT NULL,
+  `fk_movimiento_emp` int(11) NOT NULL,
+  `fk_orden_empresa` int(11) NOT NULL,
   PRIMARY KEY (`idfactura_empresa`),
   KEY `fk_empfactura_idx` (`fk_empresa`),
   KEY `fk_empfacusuario_idx` (`fk_usuario`),
+  KEY `fk_empfactalonario_idx` (`fk_talonario`),
+  KEY `fk_empfac_ordenempresa_idx` (`fk_orden_empresa`),
+  KEY `fk_empfacmovimiento_idx` (`fk_movimiento_emp`),
+  CONSTRAINT `fk_empfacmovimiento` FOREIGN KEY (`fk_movimiento_emp`) REFERENCES `movimiento_empresa` (`idmovimiento_empresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_empfactalonario` FOREIGN KEY (`fk_talonario`) REFERENCES `talonario` (`idtalonario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_empfactura` FOREIGN KEY (`fk_empresa`) REFERENCES `empresa` (`idempresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_empfacusuario` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_empfactura` FOREIGN KEY (`fk_empresa`) REFERENCES `empresa` (`idempresa`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_empfac_ordenempresa` FOREIGN KEY (`fk_orden_empresa`) REFERENCES `orden_empresa` (`idorden_empresa`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +59,4 @@ CREATE TABLE `factura_empresa` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-25 11:32:01
+-- Dump completed on 2017-11-28 20:59:41

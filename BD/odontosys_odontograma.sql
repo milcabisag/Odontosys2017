@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `odontograma`;
 CREATE TABLE `odontograma` (
   `idodontograma` int(11) NOT NULL AUTO_INCREMENT,
   `fk_paciente` int(11) NOT NULL,
-  `fk_doctor` int(11) NOT NULL,
+  `fk_doctor` int(11) DEFAULT NULL,
   `fecha` date NOT NULL,
   `tipo` varchar(20) NOT NULL,
   `fk_usuario` int(11) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE `odontograma` (
   CONSTRAINT `fk_docOdont` FOREIGN KEY (`fk_doctor`) REFERENCES `doctor` (`idDoctor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_pacOdont` FOREIGN KEY (`fk_paciente`) REFERENCES `paciente` (`idPaciente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuOdont` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +50,4 @@ CREATE TABLE `odontograma` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-25 11:32:08
+-- Dump completed on 2017-11-28 20:59:49
