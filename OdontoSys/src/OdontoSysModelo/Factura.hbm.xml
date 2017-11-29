@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 28/11/2017 08:34:17 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 29/11/2017 10:22:00 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.Factura" table="factura" catalog="odontosys">
         <id name="idfactura" type="java.lang.Integer">
@@ -41,23 +41,11 @@
         <property name="saldo" type="int">
             <column name="saldo" not-null="true" />
         </property>
-        <set name="notaCreditos" table="nota_credito" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="fk_factura" not-null="true" />
-            </key>
-            <one-to-many class="OdontoSysModelo.NotaCredito" />
-        </set>
         <set name="recibos" table="recibo" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="fk_factura" not-null="true" />
             </key>
             <one-to-many class="OdontoSysModelo.Recibo" />
-        </set>
-        <set name="facturaConvenios" table="factura_convenio" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="fk_factura" not-null="true" />
-            </key>
-            <one-to-many class="OdontoSysModelo.FacturaConvenio" />
         </set>
     </class>
 </hibernate-mapping>

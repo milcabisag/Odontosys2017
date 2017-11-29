@@ -181,7 +181,7 @@ public class RecibosControlador {
             
             m = new MovimientoEmpresa();
             m.setEmpresa(nuevo.getEmpresa());
-            m.setMovimiento("Recibo por Factura Nro "+nuevo.getFacturaEmpresa().getNroFactura());
+            m.setMovimiento("Recibo por Factura Nro "+nuevo.getFacturaEmpresa().getTalonario().getNroFactura());
             m.setFecha(nuevo.getFecha());
             m.setDebe(0);
             m.setHaber(nuevo.getMonto());

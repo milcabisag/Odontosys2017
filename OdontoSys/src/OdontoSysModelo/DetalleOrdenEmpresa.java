@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 28/11/2017 08:28:36 PM by Hibernate Tools 3.6.0
+// Generated 29/11/2017 10:21:52 AM by Hibernate Tools 3.6.0
 
 
 
@@ -12,16 +12,14 @@ public class DetalleOrdenEmpresa  implements java.io.Serializable {
      private Integer iddetalleOrdenEmpresa;
      private Servicio servicio;
      private OrdenEmpresa ordenEmpresa;
-     private int fkIdordenEmp;
      private int monto;
 
     public DetalleOrdenEmpresa() {
     }
 
-    public DetalleOrdenEmpresa(Servicio servicio, OrdenEmpresa ordenEmpresa, int fkIdordenEmp, int monto) {
+    public DetalleOrdenEmpresa(Servicio servicio, OrdenEmpresa ordenEmpresa, int monto) {
        this.servicio = servicio;
        this.ordenEmpresa = ordenEmpresa;
-       this.fkIdordenEmp = fkIdordenEmp;
        this.monto = monto;
     }
    
@@ -45,13 +43,6 @@ public class DetalleOrdenEmpresa  implements java.io.Serializable {
     
     public void setOrdenEmpresa(OrdenEmpresa ordenEmpresa) {
         this.ordenEmpresa = ordenEmpresa;
-    }
-    public int getFkIdordenEmp() {
-        return this.fkIdordenEmp;
-    }
-    
-    public void setFkIdordenEmp(int fkIdordenEmp) {
-        this.fkIdordenEmp = fkIdordenEmp;
     }
     public int getMonto() {
         return this.monto;

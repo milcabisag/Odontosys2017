@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 28/11/2017 08:28:36 PM by Hibernate Tools 3.6.0
+// Generated 29/11/2017 10:21:52 AM by Hibernate Tools 3.6.0
 
 
 import java.util.HashSet;
@@ -20,15 +20,12 @@ public class Usuario  implements java.io.Serializable {
      private String observacion;
      private Set reciboEmpresas = new HashSet(0);
      private Set diagnosticos = new HashSet(0);
-     private Set notaCreditos = new HashSet(0);
-     private Set notaCreditoEmpresas = new HashSet(0);
      private Set facturaEmpresas = new HashSet(0);
      private Set facturas = new HashSet(0);
      private Set recibos = new HashSet(0);
      private Set ordenServicios = new HashSet(0);
      private Set odontogramas = new HashSet(0);
      private Set cajas = new HashSet(0);
-     private Set facturaConvenios = new HashSet(0);
 
     public Usuario() {
     }
@@ -40,7 +37,7 @@ public class Usuario  implements java.io.Serializable {
         this.rol = rol;
         this.estado = estado;
     }
-    public Usuario(Doctor doctor, String nombre, String passw, String rol, String estado, String observacion, Set reciboEmpresas, Set diagnosticos, Set notaCreditos, Set notaCreditoEmpresas, Set facturaEmpresas, Set facturas, Set recibos, Set ordenServicios, Set odontogramas, Set cajas, Set facturaConvenios) {
+    public Usuario(Doctor doctor, String nombre, String passw, String rol, String estado, String observacion, Set reciboEmpresas, Set diagnosticos, Set facturaEmpresas, Set facturas, Set recibos, Set ordenServicios, Set odontogramas, Set cajas) {
        this.doctor = doctor;
        this.nombre = nombre;
        this.passw = passw;
@@ -49,15 +46,12 @@ public class Usuario  implements java.io.Serializable {
        this.observacion = observacion;
        this.reciboEmpresas = reciboEmpresas;
        this.diagnosticos = diagnosticos;
-       this.notaCreditos = notaCreditos;
-       this.notaCreditoEmpresas = notaCreditoEmpresas;
        this.facturaEmpresas = facturaEmpresas;
        this.facturas = facturas;
        this.recibos = recibos;
        this.ordenServicios = ordenServicios;
        this.odontogramas = odontogramas;
        this.cajas = cajas;
-       this.facturaConvenios = facturaConvenios;
     }
    
     public Integer getIdusuario() {
@@ -123,20 +117,6 @@ public class Usuario  implements java.io.Serializable {
     public void setDiagnosticos(Set diagnosticos) {
         this.diagnosticos = diagnosticos;
     }
-    public Set getNotaCreditos() {
-        return this.notaCreditos;
-    }
-    
-    public void setNotaCreditos(Set notaCreditos) {
-        this.notaCreditos = notaCreditos;
-    }
-    public Set getNotaCreditoEmpresas() {
-        return this.notaCreditoEmpresas;
-    }
-    
-    public void setNotaCreditoEmpresas(Set notaCreditoEmpresas) {
-        this.notaCreditoEmpresas = notaCreditoEmpresas;
-    }
     public Set getFacturaEmpresas() {
         return this.facturaEmpresas;
     }
@@ -178,13 +158,6 @@ public class Usuario  implements java.io.Serializable {
     
     public void setCajas(Set cajas) {
         this.cajas = cajas;
-    }
-    public Set getFacturaConvenios() {
-        return this.facturaConvenios;
-    }
-    
-    public void setFacturaConvenios(Set facturaConvenios) {
-        this.facturaConvenios = facturaConvenios;
     }
 
 

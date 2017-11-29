@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 28/11/2017 08:28:36 PM by Hibernate Tools 3.6.0
+// Generated 29/11/2017 10:21:52 AM by Hibernate Tools 3.6.0
 
 
 import java.util.HashSet;
@@ -23,10 +23,8 @@ public class Empresa  implements java.io.Serializable {
      private String estado;
      private String ciudad;
      private Set convenios = new HashSet(0);
-     private Set facturaConvenios = new HashSet(0);
      private Set reciboEmpresas = new HashSet(0);
      private Set movimientoEmpresas = new HashSet(0);
-     private Set notaCreditoEmpresas = new HashSet(0);
      private Set facturaEmpresas = new HashSet(0);
 
     public Empresa() {
@@ -41,7 +39,7 @@ public class Empresa  implements java.io.Serializable {
         this.estado = estado;
         this.ciudad = ciudad;
     }
-    public Empresa(String nombre, String ruc, String direccion, String telefono, String email, String nombreContacto, String telContacto, String observaciones, String estado, String ciudad, Set convenios, Set facturaConvenios, Set reciboEmpresas, Set movimientoEmpresas, Set notaCreditoEmpresas, Set facturaEmpresas) {
+    public Empresa(String nombre, String ruc, String direccion, String telefono, String email, String nombreContacto, String telContacto, String observaciones, String estado, String ciudad, Set convenios, Set reciboEmpresas, Set movimientoEmpresas, Set facturaEmpresas) {
        this.nombre = nombre;
        this.ruc = ruc;
        this.direccion = direccion;
@@ -53,10 +51,8 @@ public class Empresa  implements java.io.Serializable {
        this.estado = estado;
        this.ciudad = ciudad;
        this.convenios = convenios;
-       this.facturaConvenios = facturaConvenios;
        this.reciboEmpresas = reciboEmpresas;
        this.movimientoEmpresas = movimientoEmpresas;
-       this.notaCreditoEmpresas = notaCreditoEmpresas;
        this.facturaEmpresas = facturaEmpresas;
     }
    
@@ -144,13 +140,6 @@ public class Empresa  implements java.io.Serializable {
     public void setConvenios(Set convenios) {
         this.convenios = convenios;
     }
-    public Set getFacturaConvenios() {
-        return this.facturaConvenios;
-    }
-    
-    public void setFacturaConvenios(Set facturaConvenios) {
-        this.facturaConvenios = facturaConvenios;
-    }
     public Set getReciboEmpresas() {
         return this.reciboEmpresas;
     }
@@ -164,13 +153,6 @@ public class Empresa  implements java.io.Serializable {
     
     public void setMovimientoEmpresas(Set movimientoEmpresas) {
         this.movimientoEmpresas = movimientoEmpresas;
-    }
-    public Set getNotaCreditoEmpresas() {
-        return this.notaCreditoEmpresas;
-    }
-    
-    public void setNotaCreditoEmpresas(Set notaCreditoEmpresas) {
-        this.notaCreditoEmpresas = notaCreditoEmpresas;
     }
     public Set getFacturaEmpresas() {
         return this.facturaEmpresas;

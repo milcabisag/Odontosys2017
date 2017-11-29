@@ -7,12 +7,13 @@
 package OdontoSysControlador;
 
 import OdontoSysModelo.Caja;
+import OdontoSysModelo.DetalleOrdenEmpresa;
 import OdontoSysUtil.TipoPago;
 import OdontoSysModelo.Factura;
-import OdontoSysModelo.FacturaConvenio;
 import OdontoSysModelo.FacturaEmpresa;
 import OdontoSysModelo.Movimiento;
 import OdontoSysModelo.MovimientoEmpresa;
+import OdontoSysModelo.OrdenEmpresa;
 import OdontoSysModelo.Talonario;
 import OdontoSysModelo.Usuario;
 import OdontoSysUtil.NewHibernateUtil;
@@ -54,7 +55,7 @@ public class FacturaControlador {
         return datos;
     }
     
-    public static Factura insertarFactura(Factura nuevo, Talonario tal, Usuario user, ArrayList<TipoPago> tipo){
+    public static Factura insertarFactura(Factura nuevo, Talonario tal, Usuario user, ArrayList<TipoPago> tipo, OrdenEmpresa ordenEmp, ArrayList<DetalleOrdenEmpresa> detOrdEmp){
         Session sesion;
         try{
             sesion = NewHibernateUtil.getSessionFactory().openSession();
@@ -72,6 +73,8 @@ public class FacturaControlador {
             if(nuevo.getTipoFactura().compareTo("Contado") == 0){
                 agregarCaja(sesion, nuevo, mov, user, tipo);      //Agregar entrada en caja
             }
+            
+            insertarOrdenEmpresa(ordenEmp, detOrdEmp, sesion);
             
             sesion.getTransaction().commit();
             sesion.close();
@@ -114,22 +117,6 @@ public class FacturaControlador {
         
     }
     
-    public static void insertarFacturaConvenio(FacturaConvenio nuevo, Session sesion){
-        int idFactura = 0;
-        //Session sesion;
-        try{
-            //sesion = NewHibernateUtil.getSessionFactory().openSession();
-            //sesion.getTransaction().begin();
-
-            idFactura = (int)sesion.save(nuevo);
-            sesion.refresh(nuevo);
-
-            //sesion.getTransaction().commit(); 
-        }catch(HibernateException ex){
-            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Factura Convenio", WIDTH );
-        }    
-    }
-    
     public static boolean upDateFactura(Factura laFactura){
         Session sesion = NewHibernateUtil.getSessionFactory().openSession();
         Transaction tx = sesion.getTransaction();
@@ -168,9 +155,12 @@ public class FacturaControlador {
                 fac = (FacturaEmpresa) it.next();
                 datos.add(fac);
             }
+            tr.commit();
         }catch(HibernateException ex){
-              JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Factura Controlador", JOptionPane.INFORMATION_MESSAGE);
-                   }
+            tr.rollback();
+            System.out.println("Error en ConsultarFacturaEmpresa: "+ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Factura Controlador", JOptionPane.INFORMATION_MESSAGE);
+        }
         return datos;
     }
     
@@ -247,41 +237,28 @@ public class FacturaControlador {
         return datos;
     }
     
-    public static FacturaEmpresa insertarFacturaEmpresa(FacturaEmpresa nuevo){
-        int idFactura = 0;
+    public static boolean insertarFacturaEmpresa(FacturaEmpresa nuevo){
+        boolean v = false;
         Session sesion;
+        Transaction tr = null;
         try{
             sesion = NewHibernateUtil.getSessionFactory().openSession();
-            sesion.getTransaction().begin();
+            tr = sesion.beginTransaction();
 
-            idFactura = (int)sesion.save(nuevo);
+            sesion.save(nuevo);
             sesion.refresh(nuevo);
             insertarMovimientoEmpresa(nuevo);
-            sesion.getTransaction().commit();    
             
+            tr.commit();
+            sesion.close();
+            v = true;
         }catch(HibernateException ex){
+            tr.rollback();
             JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Factura Empresa", WIDTH );
         }    
-        return nuevo;
+        return v;
     }
     
-    public static void modificarFacturaConvenio(FacturaConvenio fc) {
-        int i = 0;
-        try{         
-        Session session = NewHibernateUtil.getSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
-        
-        String hqlUpdate = "UPDATE FacturaConvenio f SET f.estado = 'Facturado' WHERE idfacturaConvenio = " + fc.getIdfacturaConvenio();
-        Query updatedEntities = session.createQuery( hqlUpdate );
-        updatedEntities.executeUpdate();
-        tx.commit();
-        
-       }catch(HibernateException ex){
-           System.out.println(ex.getMessage());
-           JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Estado Factura Convenio", WIDTH );
-       }
-    }
-
     public static Movimiento agregarMovimientoFactura(Factura nuevo, Session sesion) {
         Movimiento m = null;
         try{
@@ -317,7 +294,7 @@ public class FacturaControlador {
             sesion.getTransaction().begin();
 
             m.setEmpresa(nuevo.getEmpresa());
-            m.setMovimiento("Factura Nro "+nuevo.getNroFactura());
+            m.setMovimiento("Factura Nro 000"+nuevo.getTalonario().getNroFactura());
             m.setFecha(nuevo.getFecha());
             m.setDebe(nuevo.getMontoTotal());
             m.setFacturaEmpresa(nuevo);
@@ -363,6 +340,23 @@ public class FacturaControlador {
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Movimiento Caja", WIDTH );
         }
         
+    }
+
+    private static void insertarOrdenEmpresa(OrdenEmpresa ordenEmp, ArrayList<DetalleOrdenEmpresa> detOrdEmp, Session sesion) {
+        try{
+            sesion.save(ordenEmp);
+            sesion.refresh(ordenEmp);
+                    
+            for(DetalleOrdenEmpresa d : detOrdEmp){
+                d.setOrdenEmpresa(ordenEmp);
+                sesion.save(d);
+                sesion.refresh(d);
+            }
+                        
+        }catch(HibernateException ex){
+            System.out.println("Error en isertarOrdenEmpresa: "+ex.getMessage());
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Orden Empresa", WIDTH );
+        }
     }
 
     

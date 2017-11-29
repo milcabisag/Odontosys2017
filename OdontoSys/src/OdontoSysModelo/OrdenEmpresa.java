@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 28/11/2017 08:28:36 PM by Hibernate Tools 3.6.0
+// Generated 29/11/2017 10:21:52 AM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -16,7 +16,7 @@ public class OrdenEmpresa  implements java.io.Serializable {
      private ConvPaciente convPaciente;
      private Date fecha;
      private String estado;
-     private DetalleOrdenEmpresa detalleOrdenEmpresa;
+     private Set detalleOrdenEmpresas = new HashSet(0);
      private Set facturaEmpresas = new HashSet(0);
 
     public OrdenEmpresa() {
@@ -26,11 +26,11 @@ public class OrdenEmpresa  implements java.io.Serializable {
     public OrdenEmpresa(ConvPaciente convPaciente) {
         this.convPaciente = convPaciente;
     }
-    public OrdenEmpresa(ConvPaciente convPaciente, Date fecha, String estado, DetalleOrdenEmpresa detalleOrdenEmpresa, Set facturaEmpresas) {
+    public OrdenEmpresa(ConvPaciente convPaciente, Date fecha, String estado, Set detalleOrdenEmpresas, Set facturaEmpresas) {
        this.convPaciente = convPaciente;
        this.fecha = fecha;
        this.estado = estado;
-       this.detalleOrdenEmpresa = detalleOrdenEmpresa;
+       this.detalleOrdenEmpresas = detalleOrdenEmpresas;
        this.facturaEmpresas = facturaEmpresas;
     }
    
@@ -62,12 +62,12 @@ public class OrdenEmpresa  implements java.io.Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    public DetalleOrdenEmpresa getDetalleOrdenEmpresa() {
-        return this.detalleOrdenEmpresa;
+    public Set getDetalleOrdenEmpresas() {
+        return this.detalleOrdenEmpresas;
     }
     
-    public void setDetalleOrdenEmpresa(DetalleOrdenEmpresa detalleOrdenEmpresa) {
-        this.detalleOrdenEmpresa = detalleOrdenEmpresa;
+    public void setDetalleOrdenEmpresas(Set detalleOrdenEmpresas) {
+        this.detalleOrdenEmpresas = detalleOrdenEmpresas;
     }
     public Set getFacturaEmpresas() {
         return this.facturaEmpresas;

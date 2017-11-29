@@ -1,22 +1,19 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 28/11/2017 08:34:17 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 29/11/2017 10:22:00 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.DetalleOrdenEmpresa" table="detalle_orden_empresa" catalog="odontosys">
         <id name="iddetalleOrdenEmpresa" type="java.lang.Integer">
             <column name="iddetalle_orden_empresa" />
-            <generator class="foreign">
-                <param name="property">ordenEmpresa</param>
-            </generator>
+            <generator class="identity" />
         </id>
         <many-to-one name="servicio" class="OdontoSysModelo.Servicio" fetch="select">
             <column name="fk_servicio" not-null="true" />
         </many-to-one>
-        <one-to-one name="ordenEmpresa" class="OdontoSysModelo.OrdenEmpresa" constrained="true"></one-to-one>
-        <property name="fkIdordenEmp" type="int">
-            <column name="fk_idorden_emp" not-null="true" />
-        </property>
+        <many-to-one name="ordenEmpresa" class="OdontoSysModelo.OrdenEmpresa" fetch="select">
+            <column name="fk_orden_emp" not-null="true" />
+        </many-to-one>
         <property name="monto" type="int">
             <column name="monto" not-null="true" />
         </property>

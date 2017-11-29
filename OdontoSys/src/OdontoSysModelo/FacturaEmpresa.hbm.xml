@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 28/11/2017 08:34:17 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 29/11/2017 10:22:00 AM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.FacturaEmpresa" table="factura_empresa" catalog="odontosys">
         <id name="idfacturaEmpresa" type="java.lang.Integer">
@@ -38,12 +38,6 @@
         <property name="saldo" type="int">
             <column name="saldo" not-null="true" />
         </property>
-        <set name="notaCreditoEmpresas" table="nota_credito_empresa" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="fk_facturaemp" not-null="true" />
-            </key>
-            <one-to-many class="OdontoSysModelo.NotaCreditoEmpresa" />
-        </set>
         <set name="movimientoEmpresas" table="movimiento_empresa" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="fk_factura_emp" />
@@ -55,12 +49,6 @@
                 <column name="fk_facturaemp" not-null="true" />
             </key>
             <one-to-many class="OdontoSysModelo.ReciboEmpresa" />
-        </set>
-        <set name="facturaConvenios" table="factura_convenio" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="fk_facturaemp" />
-            </key>
-            <one-to-many class="OdontoSysModelo.FacturaConvenio" />
         </set>
     </class>
 </hibernate-mapping>

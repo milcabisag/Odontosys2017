@@ -12,11 +12,12 @@ import OdontoSysControlador.NumberToLetterConverter;
 import OdontoSysControlador.OrdenServicioControlador;
 import OdontoSysControlador.TalonarioControlador;
 import OdontoSysModelo.ConvPaciente;
-import OdontoSysModelo.Convenio;
 import OdontoSysModelo.Datos;
 import OdontoSysModelo.DetalleConvenio;
 import OdontoSysModelo.DetalleOrden;
+import OdontoSysModelo.DetalleOrdenEmpresa;
 import OdontoSysModelo.Factura;
+import OdontoSysModelo.OrdenEmpresa;
 import OdontoSysModelo.OrdenServicio;
 import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Talonario;
@@ -51,6 +52,9 @@ public class Facturas extends javax.swing.JFrame {
     public static ArrayList<DetalleOrden> lista = null;         //A pasarse desde el frame padre
     public static Factura facActual = null;
     public static int monto;
+    
+    ArrayList<DetalleOrdenEmpresa> detOrdenEmp = new ArrayList();
+    OrdenEmpresa ordenEmp = null;
     
     DefaultTableModel tabla = new DefaultTableModel(){
         public boolean isCellEditable(int row, int column) {            
@@ -501,12 +505,20 @@ public class Facturas extends javax.swing.JFrame {
              jDialog.setVisible(true);
              tipo =  jDialog.getReturnStatus();
              if(tipo != null){
-                 facActual = FacturaControlador.insertarFactura(facActual, tal, user, tipo); 
+                 if(ordenEmp != null){
+                     facActual = FacturaControlador.insertarFactura(facActual, tal, user, tipo, ordenEmp, detOrdenEmp); 
+                 }else{
+                    facActual = FacturaControlador.insertarFactura(facActual, tal, user, tipo, null, null); 
+                 }
                  imprimirFactura();
                 this.dispose();   
              }
         }else{          //Factura Crédito
-            facActual = FacturaControlador.insertarFactura(facActual, tal, user, null);
+            if(ordenEmp != null){
+                facActual = FacturaControlador.insertarFactura(facActual, tal, user, null, ordenEmp, detOrdenEmp);
+            }else{
+                facActual = FacturaControlador.insertarFactura(facActual, tal, user, null, null, null);
+            }
             imprimirFactura();
             Pacientes jF = new Pacientes();
             if(jF.isVisible()){
@@ -523,16 +535,7 @@ public class Facturas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonVerOrdenServicioActionPerformed
 
     private void jTextFieldFactDescuentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFactDescuentoKeyTyped
-        char c = evt.getKeyChar();
-        int i = c;
-        if((c < '0' || c > '9') && (i != 8 && i != 9 && i != 10)){
-            evt.consume();
-            JOptionPane.showMessageDialog(rootPane, "Este campo sólo admite numeros", "Validez de Campo", WIDTH);
-        }else{
-            int nuevoTotal = Integer.parseInt(jTextFieldFactSubt.getText()) - Integer.parseInt(jTextFieldFactDescuento.getText());
-            jTextFieldFactTotal.setText(String.valueOf(nuevoTotal));
-            actIVA(nuevoTotal);
-        }
+
     }//GEN-LAST:event_jTextFieldFactDescuentoKeyTyped
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -554,6 +557,8 @@ public class Facturas extends javax.swing.JFrame {
             elConvenio = c;
             jTextFieldConv.setText(c.getConvenio().getNomConv());
             calcularDescuentos();       //Calcula los descuentos según el convenio elegido
+            jTextFieldFactDescuento.setText("Gs. "+formateador.format(desc));
+            jTextFieldFactTotal.setText("Gs. " + formateador.format(subt-desc));
         }
     }//GEN-LAST:event_jButtonVerConvenioActionPerformed
 
@@ -651,10 +656,10 @@ public class Facturas extends javax.swing.JFrame {
     }
 
     private void obtenerDetalle() {
+        subt = 0;
+        total = 0;
         lista = new ArrayList();
         lista = OrdenServicioControlador.BuscarDetalleOrden(ordenActual.getIdordenServicio());
-        //cp = new ArrayList();
-        //cp = ConvenioControlador.BuscarConvenioPaciente(pacActual);
         for(DetalleOrden n : lista){
             Object[] f = new Object[5];
             f[0] = n.getServicio().getDescripcion();
@@ -668,9 +673,9 @@ public class Facturas extends javax.swing.JFrame {
             jTableDetalle.setValueAt(formateador.format(f[1]), tabla.getRowCount()-1, 1);
             jTableDetalle.setValueAt(formateador.format(f[4]), tabla.getRowCount()-1, 4);
         }
-        jTextFieldFactSubt.setText(String.valueOf(formateador.format(subt)));
-        jTextFieldFactTotal.setText(String.valueOf(formateador.format(total)));
-        jTextFieldFactDescuento.setText(String.valueOf(formateador.format(subt-total)));
+        jTextFieldFactSubt.setText("Gs. "+formateador.format(subt));
+        jTextFieldFactTotal.setText("Gs. "+formateador.format(total));
+        jTextFieldFactDescuento.setText("Gs. 0");
         actIVA(total);
     }
 
@@ -780,21 +785,31 @@ public class Facturas extends javax.swing.JFrame {
     }
 
     private void calcularDescuentos() {
+        detOrdenEmp  =new ArrayList();
+        desc = 0;
+        DetalleOrdenEmpresa detalle = new DetalleOrdenEmpresa();
         
         ArrayList<DetalleConvenio> detConv = new ArrayList();
         detConv = ConvenioControlador.obtenerDetalleConvenio(elConvenio);
         int a = lista.size();
         int b = detConv.size();
         int descuento;
-        int aux;
         for(int x=0;x<a;x++){       //Recorre el detalle de orden comparando los servicios
             for(int y=0;y<b;y++){   //Recorre la lista de detalle de convenio
                 if(lista.get(x).getServicio().getIdservicio() == detConv.get(y).getServicio().getIdservicio()){
                     descuento = lista.get(x).getPrecio() * detConv.get(y).getPorcentaje() / 100;
-                    aux = lista.get(x).getPrecio() - descuento;
-                    desc = desc + aux;  //suma de descuentos
+                    desc = desc + descuento;  //suma de descuentos
+                    detalle.setServicio(lista.get(x).getServicio());
+                    detalle.setMonto(descuento);
+                    detOrdenEmp.add(detalle);
                 }
             }
+        }
+        if(desc > 0){       //Existe descuento
+            ordenEmp = new OrdenEmpresa();
+            ordenEmp.setConvPaciente(elConvenio);
+            ordenEmp.setFecha(new Date());
+            ordenEmp.setEstado("Pendiente");
         }
     
     }

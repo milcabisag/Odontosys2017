@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 28/11/2017 08:28:36 PM by Hibernate Tools 3.6.0
+// Generated 29/11/2017 10:21:52 AM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -24,9 +24,7 @@ public class Factura  implements java.io.Serializable {
      private String estado;
      private int montoTotal;
      private int saldo;
-     private Set notaCreditos = new HashSet(0);
      private Set recibos = new HashSet(0);
-     private Set facturaConvenios = new HashSet(0);
 
     public Factura() {
     }
@@ -45,7 +43,7 @@ public class Factura  implements java.io.Serializable {
         this.montoTotal = montoTotal;
         this.saldo = saldo;
     }
-    public Factura(Talonario talonario, OrdenServicio ordenServicio, Usuario usuario, Paciente paciente, Movimiento movimiento, Date fecha, String tipoFactura, int descuento, String estado, int montoTotal, int saldo, Set notaCreditos, Set recibos, Set facturaConvenios) {
+    public Factura(Talonario talonario, OrdenServicio ordenServicio, Usuario usuario, Paciente paciente, Movimiento movimiento, Date fecha, String tipoFactura, int descuento, String estado, int montoTotal, int saldo, Set recibos) {
        this.talonario = talonario;
        this.ordenServicio = ordenServicio;
        this.usuario = usuario;
@@ -57,9 +55,7 @@ public class Factura  implements java.io.Serializable {
        this.estado = estado;
        this.montoTotal = montoTotal;
        this.saldo = saldo;
-       this.notaCreditos = notaCreditos;
        this.recibos = recibos;
-       this.facturaConvenios = facturaConvenios;
     }
    
     public Integer getIdfactura() {
@@ -146,26 +142,12 @@ public class Factura  implements java.io.Serializable {
     public void setSaldo(int saldo) {
         this.saldo = saldo;
     }
-    public Set getNotaCreditos() {
-        return this.notaCreditos;
-    }
-    
-    public void setNotaCreditos(Set notaCreditos) {
-        this.notaCreditos = notaCreditos;
-    }
     public Set getRecibos() {
         return this.recibos;
     }
     
     public void setRecibos(Set recibos) {
         this.recibos = recibos;
-    }
-    public Set getFacturaConvenios() {
-        return this.facturaConvenios;
-    }
-    
-    public void setFacturaConvenios(Set facturaConvenios) {
-        this.facturaConvenios = facturaConvenios;
     }
 
 

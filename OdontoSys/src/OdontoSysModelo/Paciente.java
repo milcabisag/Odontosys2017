@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 28/11/2017 08:28:36 PM by Hibernate Tools 3.6.0
+// Generated 29/11/2017 10:21:52 AM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -38,7 +38,6 @@ public class Paciente  implements java.io.Serializable {
      private Set movimientos = new HashSet(0);
      private Set odontogramas = new HashSet(0);
      private Set recibos = new HashSet(0);
-     private Set notaCreditos = new HashSet(0);
 
     public Paciente() {
     }
@@ -60,7 +59,7 @@ public class Paciente  implements java.io.Serializable {
         this.observaciones = observaciones;
         this.estado = estado;
     }
-    public Paciente(String nombres, String apellidos, int nroCi, Date fechaNac, String sexo, String telLb, String telCel, String direccion, String ciudad, String email, int peso, String enfermedades, String medicamentos, String alergias, String cirugias, String observaciones, String estado, Set facturas, Set convPacientes, Set agendas, Set ordenServicios, Set diagnosticos, Set movimientos, Set odontogramas, Set recibos, Set notaCreditos) {
+    public Paciente(String nombres, String apellidos, int nroCi, Date fechaNac, String sexo, String telLb, String telCel, String direccion, String ciudad, String email, int peso, String enfermedades, String medicamentos, String alergias, String cirugias, String observaciones, String estado, Set facturas, Set convPacientes, Set agendas, Set ordenServicios, Set diagnosticos, Set movimientos, Set odontogramas, Set recibos) {
        this.nombres = nombres;
        this.apellidos = apellidos;
        this.nroCi = nroCi;
@@ -86,7 +85,6 @@ public class Paciente  implements java.io.Serializable {
        this.movimientos = movimientos;
        this.odontogramas = odontogramas;
        this.recibos = recibos;
-       this.notaCreditos = notaCreditos;
     }
    
     public Integer getIdPaciente() {
@@ -270,13 +268,6 @@ public class Paciente  implements java.io.Serializable {
     
     public void setRecibos(Set recibos) {
         this.recibos = recibos;
-    }
-    public Set getNotaCreditos() {
-        return this.notaCreditos;
-    }
-    
-    public void setNotaCreditos(Set notaCreditos) {
-        this.notaCreditos = notaCreditos;
     }
 
 
