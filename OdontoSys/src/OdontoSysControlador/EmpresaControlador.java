@@ -54,16 +54,16 @@ public class EmpresaControlador {
     
     public static int UpdateEmpresa(Empresa empresa, Session session) {
        int i = 0;
-       Transaction tr = null;
+       //Transaction tr = null;
         try{ 
             //session = NewHibernateUtil.getSessionFactory().getCurrentSession();
-            tr = session.beginTransaction();
+            //tr = session.beginTransaction();
             session.merge(empresa);
             session.refresh(empresa);
-            tr.commit();
+            //tr.commit();
             i = empresa.getIdempresa();
        }catch(HibernateException ex){
-           tr.rollback();
+           //tr.rollback();
            System.out.println("Error en UpdateEmpresa: "+ex.getMessage());
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Empresa", WIDTH );
        }        
@@ -200,7 +200,7 @@ public class EmpresaControlador {
         ReciboEmpresa r = null;
         try{ 
             tr = sesion.beginTransaction();
-            String hql = "FROM ReciboEmpresa r WHERE r.factura = "+idfacturaEmpresa;
+            String hql = "FROM ReciboEmpresa r WHERE r.facturaEmpresa = "+idfacturaEmpresa;
             Query query = sesion.createQuery(hql); 
             Iterator it = query.iterate();
             if(it.hasNext()){
@@ -220,49 +220,32 @@ public class EmpresaControlador {
         return histRec;
     }
 
-    public static ArrayList<OrdenEmpresa> ordenPendiente(int idempresa, Session sesion) {
-        Transaction tr = null;
+    public static ArrayList<OrdenEmpresa> ordenPendiente(Empresa emp, Session sesion) {
+        //Transaction tr = null;
         ArrayList<OrdenEmpresa> orden = null;
         OrdenEmpresa o = null;
         try{ 
-            tr = sesion.beginTransaction();
-            String hql = "SELECT o.* FROM OrdenEmpresa o JOIN ConvPaciente c ON o.convpaciente = c.idconvpaciente "
-                    + "JOIN Convenio a ON a.idconvenio = c.convenio WHERE o.estado = 'Pendiente' AND a.empresa = "+idempresa;
+            //tr = sesion.beginTransaction();
+            String hql = "SELECT o FROM OrdenEmpresa AS o JOIN o.convPaciente AS c JOIN c.convenio AS a "
+                    + "WHERE o.estado = 'Pendiente' AND a.empresa = "+emp.getIdempresa();
             Query query = sesion.createQuery(hql); 
-            Iterator it = query.iterate();
-            if(it.hasNext()){
-                orden = new ArrayList();
-                do{
-                    o = (OrdenEmpresa) it.next();
-                    orden.add(o);
-                }while(it.hasNext());
+            if(query != null){
+                Iterator it = query.iterate();
+                if(it.hasNext()){
+                    orden = new ArrayList();
+                    do{
+                        o = (OrdenEmpresa) it.next();
+                        orden.add(o);
+                    }while(it.hasNext());
+                }
             }
-            tr.commit();
+            //tr.commit();
         }catch(HibernateException ex){
-            tr.rollback();
+            //tr.rollback();
             System.out.println("Error en ordenPendiente: "+ex);
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Empresa Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
         return orden;
-    }
-
-    public static int montoOrden(int idordenEmpresa, Session sesion) {
-        int monto = 0;
-        Transaction tr = null;
-        try{
-            tr = sesion.beginTransaction();
-            String hql = "SELECT SUM(monto) FROM DetalleOrdenEmpresa WHERE ordenEmpresa = "+idordenEmpresa;
-            Query query = sesion.createQuery(hql); 
-            if(query != null){
-                monto = (int) query.uniqueResult();
-            }
-            tr.commit();
-        }catch(HibernateException ex){
-            tr.rollback();
-            System.out.println("Error en montoOrden: "+ex);
-            JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Empresa Controlador", JOptionPane.INFORMATION_MESSAGE);
-        }
-        return monto;
     }
     
 }

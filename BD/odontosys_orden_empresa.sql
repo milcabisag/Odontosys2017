@@ -29,8 +29,11 @@ CREATE TABLE `orden_empresa` (
   `fk_convpaciente` int(11) NOT NULL,
   `fecha` date DEFAULT NULL,
   `estado` varchar(45) DEFAULT 'Pendiente',
+  `fk_facturaempresa` int(11) DEFAULT NULL,
   PRIMARY KEY (`idorden_empresa`),
   KEY `fk_orden_convPac_idx` (`fk_convpaciente`),
+  KEY `fk_orden_facemp_idx` (`fk_facturaempresa`),
+  CONSTRAINT `fk_orden_facemp` FOREIGN KEY (`fk_facturaempresa`) REFERENCES `factura_empresa` (`idfactura_empresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_orden_convPac` FOREIGN KEY (`fk_convpaciente`) REFERENCES `conv_paciente` (`idconv_paciente`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -44,4 +47,4 @@ CREATE TABLE `orden_empresa` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-29 13:58:14
+-- Dump completed on 2017-11-30 11:55:22

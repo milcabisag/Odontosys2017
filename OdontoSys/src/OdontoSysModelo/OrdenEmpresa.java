@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 29/11/2017 05:15:01 PM by Hibernate Tools 3.6.0
+// Generated 30/11/2017 03:54:29 PM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -14,24 +14,29 @@ public class OrdenEmpresa  implements java.io.Serializable {
 
      private Integer idordenEmpresa;
      private ConvPaciente convPaciente;
+     private FacturaEmpresa facturaEmpresa;
      private Date fecha;
      private String estado;
+     private int monto;
      private Set detalleOrdenEmpresas = new HashSet(0);
-     private Set facturaEmpresas = new HashSet(0);
 
     public OrdenEmpresa() {
     }
 
 	
-    public OrdenEmpresa(ConvPaciente convPaciente) {
+    public OrdenEmpresa(ConvPaciente convPaciente, Date fecha, String estado, int monto) {
         this.convPaciente = convPaciente;
+        this.fecha = fecha;
+        this.estado = estado;
+        this.monto = monto;
     }
-    public OrdenEmpresa(ConvPaciente convPaciente, Date fecha, String estado, Set detalleOrdenEmpresas, Set facturaEmpresas) {
+    public OrdenEmpresa(ConvPaciente convPaciente, FacturaEmpresa facturaEmpresa, Date fecha, String estado, int monto, Set detalleOrdenEmpresas) {
        this.convPaciente = convPaciente;
+       this.facturaEmpresa = facturaEmpresa;
        this.fecha = fecha;
        this.estado = estado;
+       this.monto = monto;
        this.detalleOrdenEmpresas = detalleOrdenEmpresas;
-       this.facturaEmpresas = facturaEmpresas;
     }
    
     public Integer getIdordenEmpresa() {
@@ -48,6 +53,13 @@ public class OrdenEmpresa  implements java.io.Serializable {
     public void setConvPaciente(ConvPaciente convPaciente) {
         this.convPaciente = convPaciente;
     }
+    public FacturaEmpresa getFacturaEmpresa() {
+        return this.facturaEmpresa;
+    }
+    
+    public void setFacturaEmpresa(FacturaEmpresa facturaEmpresa) {
+        this.facturaEmpresa = facturaEmpresa;
+    }
     public Date getFecha() {
         return this.fecha;
     }
@@ -62,19 +74,19 @@ public class OrdenEmpresa  implements java.io.Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+    public int getMonto() {
+        return this.monto;
+    }
+    
+    public void setMonto(int monto) {
+        this.monto = monto;
+    }
     public Set getDetalleOrdenEmpresas() {
         return this.detalleOrdenEmpresas;
     }
     
     public void setDetalleOrdenEmpresas(Set detalleOrdenEmpresas) {
         this.detalleOrdenEmpresas = detalleOrdenEmpresas;
-    }
-    public Set getFacturaEmpresas() {
-        return this.facturaEmpresas;
-    }
-    
-    public void setFacturaEmpresas(Set facturaEmpresas) {
-        this.facturaEmpresas = facturaEmpresas;
     }
 
 

@@ -66,43 +66,29 @@ public class PacienteControlador {
         return i;
     }
 
-    public static int UpDatePaciente(Paciente pacienteActual) {
-       int i = 0;
-       Session session = null;
-       Transaction tr = null;        
+    public static int UpDatePaciente(Paciente pacienteActual, Session session) {
+       int i = 0;      
         try{ 
-            session = NewHibernateUtil.getSessionFactory().openSession();
-            tr = session.beginTransaction();
- 
+            
             session.clear();        
             session.merge(pacienteActual);
             session.refresh(pacienteActual);
-            
-            tr.commit();      
+                 
             i = pacienteActual.getIdPaciente();
        }catch(HibernateException ex){
-           tr.rollback();
-           System.out.println("Error en update paciente: "+ex.getMessage());
+           System.out.println("Error en updatePaciente: "+ex.getMessage());
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Paciente", WIDTH );
-       }finally{                 
-            session.close();
-        }        
+       }    
        return i; 
     }
 
-    public static boolean Eliminar(Paciente pacienteActual) {
+    public static boolean Eliminar(Paciente pacienteActual, Session session) {
         boolean i = false;
-       Session session;
-       Transaction tx = null; 
         try{         
-            session = NewHibernateUtil.getSessionFactory().openSession();
-            tx = session.beginTransaction();
             pacienteActual.setEstado("Inactivo");
             session.merge(pacienteActual);
-            tx.commit();
             i = true;
        }catch(HibernateException ex){
-           tx.rollback();
            System.out.println("Error en Eliminar Paciente: "+ex);
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Eliminar Paciente", WIDTH );
        }        

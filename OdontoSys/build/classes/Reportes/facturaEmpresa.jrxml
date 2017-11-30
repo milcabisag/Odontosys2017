@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" language="groovy" pageWidth="600" pageHeight="350" orientation="Landscape" columnWidth="560" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="af3ca921-23e1-4548-b733-ef286a4cc05a">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facturaEmpresa" language="groovy" pageWidth="600" pageHeight="350" orientation="Landscape" columnWidth="560" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="af3ca921-23e1-4548-b733-ef286a4cc05a">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -13,43 +13,36 @@
 	<parameter name="total_letras" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
-     factura.`fecha` AS factura_fecha,
-     factura.`tipo_factura` AS factura_tipo_factura,
-     factura.`descuento` AS factura_descuento,
-     factura.`monto_total` AS factura_monto_total,
-     detalle_orden.`precio` AS detalle_orden_precio,
-     paciente.`Nombres` AS paciente_Nombres,
-     paciente.`Apellidos` AS paciente_Apellidos,
-     paciente.`Nro_CI` AS paciente_Nro_CI,
-     servicio.`descripcion` AS servicio_descripcion,
-     paciente.`Direccion` AS paciente_Direccion,
+     factura_empresa.`fecha` AS factura_fecha,
+     factura_empresa.`tipo` AS tipo_factura,
+     factura_empresa.`montoTotal` AS factura_monto_total,
+     empresa.`Nombre` AS empresa_Nombre,
+     empresa.`ruc` AS empresa_ruc,
+     empresa.`Direccion` AS empresa_Direccion,
      talonario.`nro_factura` AS nro_factura,
-	talonario.`timbrado` AS timbrado,
-	talonario.`ini_vigencia` AS inicio_vigencia,
-	talonario.`fin_vigencia` AS fin_vigencia,
-	datos.direccion AS direccion_empresa,
-	datos.*
+     talonario.`timbrado` AS timbrado,
+     talonario.`ini_vigencia` AS inicio_vigencia,
+     talonario.`fin_vigencia` AS fin_vigencia,
+     datos.direccion AS direccion_empresa,
+     datos.*,
+     orden_empresa.idorden_empresa AS nro_orden_empresa,
+     orden_empresa.fecha AS orden_fecha,
+     orden_empresa.monto AS orden_monto
 FROM
-     `orden_servicio` orden_servicio INNER JOIN `factura` factura ON orden_servicio.`idorden_servicio` = factura.`fk_orden`
-     INNER JOIN `detalle_orden` detalle_orden ON orden_servicio.`idorden_servicio` = detalle_orden.`fk_orden_servicio`
-     INNER JOIN `paciente` paciente ON orden_servicio.`fk_paciente` = paciente.`idPaciente`
-     AND paciente.`idPaciente` = factura.`fk_paciente`
-     INNER JOIN `servicio` servicio ON detalle_orden.`fk_servicio` = servicio.`idservicio`
-	INNER JOIN `talonario` talonario ON talonario.`idtalonario` = factura.`fk_talonario`
-	JOIN `datos` datos
+     factura_empresa
+INNER JOIN orden_empresa ON orden_empresa.`fk_facturaempresa` = factura_empresa.`idfactura_empresa`
+INNER JOIN empresa ON factura_empresa.`fk_empresa` = empresa.`idempresa`
+INNER JOIN talonario ON talonario.`idtalonario` = factura_empresa.`fk_talonario`
+JOIN datos
 WHERE
-     factura.`idfactura` = $P{idFactura} AND datos.`iddatos` = 1]]>
+     orden_empresa.`fk_facturaempresa` = $P{idFactura} AND datos.`iddatos` = 1]]>
 	</queryString>
 	<field name="factura_fecha" class="java.sql.Date"/>
-	<field name="factura_tipo_factura" class="java.lang.String"/>
-	<field name="factura_descuento" class="java.lang.Integer"/>
+	<field name="tipo_factura" class="java.lang.String"/>
 	<field name="factura_monto_total" class="java.lang.Integer"/>
-	<field name="detalle_orden_precio" class="java.lang.Integer"/>
-	<field name="paciente_Nombres" class="java.lang.String"/>
-	<field name="paciente_Apellidos" class="java.lang.String"/>
-	<field name="paciente_Nro_CI" class="java.lang.Integer"/>
-	<field name="servicio_descripcion" class="java.lang.String"/>
-	<field name="paciente_Direccion" class="java.lang.String"/>
+	<field name="empresa_Nombre" class="java.lang.String"/>
+	<field name="empresa_ruc" class="java.lang.String"/>
+	<field name="empresa_Direccion" class="java.lang.String"/>
 	<field name="nro_factura" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -85,8 +78,11 @@ WHERE
 	<field name="telefono" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="nro_orden_empresa" class="java.lang.Integer"/>
+	<field name="orden_fecha" class="java.sql.Date"/>
+	<field name="orden_monto" class="java.lang.Integer"/>
 	<variable name="detalle_orden_precio_1" class="java.lang.Integer" resetType="Column" calculation="Sum">
-		<variableExpression><![CDATA[$F{detalle_orden_precio}]]></variableExpression>
+		<variableExpression><![CDATA[]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -180,7 +176,7 @@ WHERE
 				<reportElement x="4" y="2" width="556" height="46" uuid="818135e0-9b9c-4d98-b4fb-8de0b3a9d24a"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="13" y="5" width="100" height="13" uuid="7dad4e3a-6c06-467e-a20e-16bcb1505fed"/>
+				<reportElement x="13" y="5" width="95" height="13" uuid="7dad4e3a-6c06-467e-a20e-16bcb1505fed"/>
 				<box>
 					<pen lineWidth="0.0" lineColor="#000000"/>
 					<topPen lineWidth="0.0" lineColor="#000000"/>
@@ -202,13 +198,13 @@ WHERE
 					<bottomPen lineWidth="0.0" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineColor="#000000"/>
 				</box>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[CI o Ruc Nro:]]></text>
+				<text><![CDATA[RUC Nro:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="13" y="19" width="100" height="13" uuid="a6e69fc8-5a08-4fad-bf2b-9d59e85c4de4"/>
+				<reportElement x="13" y="19" width="112" height="13" uuid="a6e69fc8-5a08-4fad-bf2b-9d59e85c4de4"/>
 				<box>
 					<pen lineWidth="0.0" lineColor="#000000"/>
 					<topPen lineWidth="0.0" lineColor="#000000"/>
@@ -219,7 +215,7 @@ WHERE
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nombre y Apellido:]]></text>
+				<text><![CDATA[Nombre de la Empresa:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="360" y="4" width="65" height="13" uuid="951cab3c-9b7c-41c0-badc-afce3e1bbf0b"/>
@@ -276,21 +272,17 @@ WHERE
 				<textFieldExpression><![CDATA[$F{factura_fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="108" y="19" width="107" height="13" uuid="e50fe4c5-b16c-4c26-9bd1-4cf43c5a5dfa"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{paciente_Nombres}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="220" y="19" width="110" height="13" uuid="1cb4f1ec-eb6d-4c94-84d9-3cb30c51e5bd"/>
-				<textFieldExpression><![CDATA[$F{paciente_Apellidos}]]></textFieldExpression>
+				<reportElement x="125" y="19" width="219" height="13" uuid="e50fe4c5-b16c-4c26-9bd1-4cf43c5a5dfa"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{empresa_Nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="436" y="4" width="100" height="13" uuid="d1ae4ee8-2cd0-4236-aaac-3b460e486fb1"/>
-				<textFieldExpression><![CDATA[$F{factura_tipo_factura}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tipo_factura}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
 				<reportElement x="436" y="18" width="100" height="13" uuid="98250e28-52cc-4a38-bac8-ed8a7c73bf59"/>
-				<textFieldExpression><![CDATA[$F{paciente_Nro_CI}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{empresa_ruc}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="Column header" x="14" y="53" width="282" height="27" forecolor="#000000" uuid="fb2579d7-0428-4163-ac2a-b52c0c70b068"/>
@@ -348,7 +340,7 @@ WHERE
 			</staticText>
 			<textField>
 				<reportElement x="108" y="33" width="428" height="14" uuid="5ea7f33d-372c-4cf3-8036-8efd8a84bd35"/>
-				<textFieldExpression><![CDATA[$F{paciente_Direccion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{empresa_Direccion}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
@@ -366,7 +358,7 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<paragraph lineSpacing="Single" leftIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{servicio_descripcion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Orden Nro "+$F{nro_orden_empresa}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
 				<reportElement x="296" y="0" width="80" height="14" uuid="daa9e36d-1f4b-40b2-ac96-da4d47f8b5e8"/>
@@ -378,7 +370,7 @@ WHERE
 					<rightPen lineWidth="0.25" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{detalle_orden_precio}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{orden_monto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
 				<reportElement x="496" y="0" width="62" height="14" uuid="7f0e378c-734c-40d2-88df-fabbafec5993"/>
@@ -390,7 +382,7 @@ WHERE
 					<rightPen lineWidth="0.25" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{detalle_orden_precio}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{orden_monto}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="376" y="0" width="60" height="14" uuid="a97992fb-6f53-45c6-9e85-b095c85c3611"/>
@@ -440,19 +432,7 @@ WHERE
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{detalle_orden_precio_1}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0">
-				<reportElement x="496" y="21" width="62" height="18" uuid="6b842703-35f3-4219-89a4-49d2e23f6371"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{factura_descuento}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{factura_monto_total}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="15" y="3" width="481" height="18" uuid="8c32ee32-2ab6-45bb-ae5b-fe9871dfce3b"/>
@@ -467,20 +447,6 @@ WHERE
 					<paragraph rightIndent="2"/>
 				</textElement>
 				<text><![CDATA[Subtotal]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="435" y="21" width="61" height="18" uuid="fad8b0e9-0c0f-484f-8390-121d5aa7506c"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<paragraph rightIndent="2"/>
-				</textElement>
-				<text><![CDATA[Descuento]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="435" y="39" width="61" height="18" uuid="647e9c92-d0fe-407a-abd9-4a443aa4b6d0"/>

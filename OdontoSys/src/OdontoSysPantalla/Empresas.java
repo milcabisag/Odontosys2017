@@ -988,9 +988,9 @@ public class Empresas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRealizarPagoActionPerformed
 
     private void jButtonFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFacturarActionPerformed
-        FacturasEmpresas.empresa = empresaActual;
-//        FacturasEmpresas.facturasConvenio = listaFacConv;
-        FacturasEmpresas.monto = Integer.parseInt(jTextFieldPendiente.getText().replace(".", ""));
+        FacturasEmpresas.empActual = empresaActual;
+        FacturasEmpresas.listaOrden = listaOrd;
+        FacturasEmpresas.user = user;
         FacturasEmpresas.main(null);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonFacturarActionPerformed
@@ -1208,6 +1208,8 @@ public class Empresas extends javax.swing.JFrame {
         jTextFieldObservaciones.setText("");
         jTextFieldTeléfonoContacto.setText("");
         jCBciudad.setSelectedIndex(0);
+        jTextFieldPendiente.setText("");
+        jTextFieldSaldo.setText("");
         
         empresaActual = null;
         
@@ -1218,6 +1220,8 @@ public class Empresas extends javax.swing.JFrame {
         listaPac = null;
         listaEst = null;
         listaconvenios = null;
+        listaRec = null;
+        listaOrd = null;
     }
 
     
@@ -1353,15 +1357,15 @@ public class Empresas extends javax.swing.JFrame {
         tablaConvenios.addColumn("Nombre Convenio");
         tablaConvenios.addColumn("Observación");
         
-        tablaEstado.addColumn("Fecha");
-        tablaEstado.addColumn("Orden Nro");
-        tablaEstado.addColumn("Por Paciente");
-        tablaEstado.addColumn("Monto");    
-        
         tablaPendientes.addColumn("Fecha");
         tablaPendientes.addColumn("Factura Nro");
         tablaPendientes.addColumn("Cliente");
         tablaPendientes.addColumn("Monto");
+        
+        tablaEstado.addColumn("Fecha");
+        tablaEstado.addColumn("Descripción");
+        tablaEstado.addColumn("Debe");
+        tablaEstado.addColumn("Haber");    
     }
 
     private void obtenerConvenios(Session sesion) {
@@ -1422,17 +1426,16 @@ public class Empresas extends javax.swing.JFrame {
 
     private void obtenerPendientes(Session sesion) {
         listaOrd = new ArrayList();
-        listaOrd = EmpresaControlador.ordenPendiente(empresaActual.getIdempresa(), sesion);
+        listaOrd = EmpresaControlador.ordenPendiente(empresaActual, sesion);
         int total = 0;
         if(listaOrd != null){
             for(OrdenEmpresa oe : listaOrd){
-                Object[] f = new Object[3];
+                Object[] f = new Object[4];
                 f[0] = fecha.format(oe.getFecha());
-                f[1] = oe.getIdordenEmpresa();
+                f[1] = "001-001-00"+oe.getFacturaEmpresa().getTalonario().getNroFactura();
                 f[2] = oe.getConvPaciente().getPaciente().getNombres() + " " +  oe.getConvPaciente().getPaciente().getApellidos();
-                int aux = EmpresaControlador.montoOrden(oe.getIdordenEmpresa(), sesion);
-                f[3] = aux;
-                total = total + aux;
+                f[3] = oe.getMonto();
+                total = total + oe.getMonto();
                 
                 tablaPendientes.addRow(f);
             }

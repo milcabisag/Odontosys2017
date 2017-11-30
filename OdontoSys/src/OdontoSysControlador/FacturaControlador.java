@@ -73,8 +73,9 @@ public class FacturaControlador {
             if(nuevo.getTipoFactura().compareTo("Contado") == 0){
                 agregarCaja(sesion, nuevo, mov, user, tipo);      //Agregar entrada en caja
             }
-            
-            insertarOrdenEmpresa(ordenEmp, detOrdEmp, sesion);
+            if(ordenEmp != null){
+                insertarOrdenEmpresa(ordenEmp, detOrdEmp, sesion);
+            }
             
             sesion.getTransaction().commit();
             sesion.close();
@@ -237,26 +238,34 @@ public class FacturaControlador {
         return datos;
     }
     
-    public static boolean insertarFacturaEmpresa(FacturaEmpresa nuevo){
-        boolean v = false;
+    public static FacturaEmpresa insertarFacturaEmpresa(FacturaEmpresa nuevo, Talonario tal, Usuario user, ArrayList<OrdenEmpresa> ordenEmp, ArrayList<TipoPago> tipo){
         Session sesion;
         Transaction tr = null;
         try{
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             tr = sesion.beginTransaction();
-
+            
+            MovimientoEmpresa mov  = FacturaControlador.insertarMovimientoEmpresa(nuevo, sesion);
+            
+            nuevo.setMovimientoEmpresa(mov);
             sesion.save(nuevo);
             sesion.refresh(nuevo);
-            insertarMovimientoEmpresa(nuevo);
+            
+            TalonarioControlador.UsarFactura(sesion, tal);
+            if(nuevo.getTipo().compareTo("Contado") == 0){
+                agregarCajaEmpresa(sesion, mov, user, tipo);      //Agregar entrada en caja
+            }
+            
+            cancelarOrdenEmpresa(ordenEmp, nuevo, sesion);
             
             tr.commit();
             sesion.close();
-            v = true;
         }catch(HibernateException ex){
             tr.rollback();
-            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Factura Empresa", WIDTH );
+            System.out.println("Error en insertarFacturaEmpresa: "+ex);
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Factura Controlador", WIDTH );
         }    
-        return v;
+        return nuevo;
     }
     
     public static Movimiento agregarMovimientoFactura(Factura nuevo, Session sesion) {
@@ -286,16 +295,13 @@ public class FacturaControlador {
         return m;
     }
 
-    private static void insertarMovimientoEmpresa(FacturaEmpresa nuevo) {
-        MovimientoEmpresa m = new MovimientoEmpresa();
-        Session sesion;
+    private static MovimientoEmpresa insertarMovimientoEmpresa(FacturaEmpresa nuevo, Session sesion) {
+        MovimientoEmpresa m = null;
         try{
-            sesion = NewHibernateUtil.getSessionFactory().openSession();
-            sesion.getTransaction().begin();
-
+            m = new MovimientoEmpresa();
             m.setEmpresa(nuevo.getEmpresa());
-            m.setMovimiento("Factura Nro 000"+nuevo.getTalonario().getNroFactura());
             m.setFecha(nuevo.getFecha());
+            m.setMovimiento("Factura Nro 000"+nuevo.getTalonario().getNroFactura());
             m.setDebe(nuevo.getMontoTotal());
             if(nuevo.getTipo().compareTo("Contado") == 0){
                 m.setHaber(nuevo.getMontoTotal());
@@ -304,16 +310,28 @@ public class FacturaControlador {
             }            
             sesion.save(m);
             sesion.refresh(m);
-
-            sesion.getTransaction().commit();            
-            sesion.close();
             
         }catch(HibernateException ex){
-            System.out.println(ex.getMessage());
-           JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Movimiento", WIDTH );
+            System.out.println("Error en insertarMovimientoEmpresa: "+ex.getMessage());
+           JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Movimiento Empresa", WIDTH );
         } 
+        return m;
     }
-
+    
+    private static void cancelarOrdenEmpresa(ArrayList<OrdenEmpresa> orden, FacturaEmpresa fact, Session session) {
+        try{                 
+            for(OrdenEmpresa o : orden){
+                o.setFacturaEmpresa(fact);
+                o.setEstado("Facturado");
+                session.merge(o);
+            }
+            
+       }catch(HibernateException ex){
+           System.out.println("Error en cancelarOrdenEmpresa: "+ex.getMessage());
+           JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Estado Orden Empresa", WIDTH );
+       }
+    }
+    
     private static void agregarCaja(Session sesion, Factura fac, Movimiento mov, Usuario user, ArrayList<TipoPago> rec) {
         
         Caja c = new Caja();
@@ -358,6 +376,28 @@ public class FacturaControlador {
         }
     }
 
-    
+private static void agregarCajaEmpresa(Session sesion, MovimientoEmpresa mov, Usuario user, ArrayList<TipoPago> rec) {
+        
+        Caja c = new Caja();
+        try{
+            for(TipoPago p : rec){
+                c.setMovimientoEmpresa(mov);
+                c.setMovimiento(null);
+                c.setDescripcion("Entrada");
+                c.setTipo(p.getTipo());         //Tipo de Pago
+                c.setEntrada(p.getMonto());     //Monto pagado con el tipo de pago elegido
+                c.setSalida(0);
+                c.setUsuario(user);
+                
+                sesion.save(c);
+                sesion.refresh(c);
+            }
+                        
+        }catch(HibernateException ex){
+            System.out.println("Error en agregarCajaEmpresa"+ex.getMessage());
+           JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Movimiento Caja", WIDTH );
+        }
+        
+    }    
     
 }

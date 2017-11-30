@@ -396,8 +396,8 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCerrarSesionActionPerformed
 
     private void jButtonEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEmpresasActionPerformed
-        Empresa.user = usuario;
-        Empresa jFrame = new Empresa();
+        Empresas.user = usuario;
+        Empresas jFrame = new Empresas();
         jFrame.setVisible(true);
     }//GEN-LAST:event_jButtonEmpresasActionPerformed
 

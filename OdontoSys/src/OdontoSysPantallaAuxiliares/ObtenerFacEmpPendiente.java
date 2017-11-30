@@ -9,6 +9,7 @@ package OdontoSysPantallaAuxiliares;
 import OdontoSysControlador.FacturaControlador;
 import OdontoSysModelo.Empresa;
 import OdontoSysModelo.FacturaEmpresa;
+import OdontoSysModelo.Paciente;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -26,11 +27,16 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author user
  */
-public class ObtenerFacturasEmpresa extends javax.swing.JDialog {
+public class ObtenerFacEmpPendiente extends javax.swing.JDialog {
 
+    //Variables Globales
+    DefaultTableModel tabla = new DefaultTableModel();
+    public static Empresa emp = null;
     public static FacturaEmpresa fac = null;
+    ArrayList<FacturaEmpresa> datos = new ArrayList();
+    DecimalFormat formateador = new DecimalFormat("###,###");
 
-    public ObtenerFacturasEmpresa(java.awt.Frame parent, boolean modal) {
+    public ObtenerFacEmpPendiente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 
@@ -51,8 +57,8 @@ public class ObtenerFacturasEmpresa extends javax.swing.JDialog {
          if (fila > -1){
              fac = new FacturaEmpresa();
              fac = datos.get(fila);
-             jLabelSeleccionNro.setText("Factura Nro " + String.valueOf(jTableFactura.getValueAt(fila, 1 )));
-             jLabelSeleccionSaldo.setText("Saldo Gs. " + formateador.format(Integer.parseInt(jTableFactura.getValueAt(fila, 3 ).toString().replace(".", ""))));
+             jLabelSeleccionNro.setText("Factura Nro 001-001-00" + String.valueOf(fac.getTalonario().getNroFactura()));
+             jLabelSeleccionSaldo.setText("Saldo Gs. " + String.valueOf(formateador.format(fac.getSaldo())));
          }
       }
    });
@@ -61,11 +67,11 @@ public class ObtenerFacturasEmpresa extends javax.swing.JDialog {
         tabla.addColumn("Monto");
         tabla.addColumn("Saldo Pendiente");
       
-            datos = FacturaControlador.ConsultarTodasFacturasEmpresa(emp.getIdempresa());
+            datos = FacturaControlador.ConsultarFacturaEmpresa(emp.getIdempresa());
             for (FacturaEmpresa factura : datos){
                 Object[] fila = new Object[4];
                 fila[0] = factura.getFecha();
-                fila[1] = factura.getNroFactura();
+                fila[1] = "00"+factura.getTalonario().getNroFactura();
                 fila[2] = factura.getMontoTotal();
                 fila[3] = factura.getSaldo();
                 tabla.addRow(fila);
@@ -137,7 +143,7 @@ public class ObtenerFacturasEmpresa extends javax.swing.JDialog {
         jLabelSeleccionSaldo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelSeleccionSaldo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel2.setText("Seleccione una Factura");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -145,39 +151,42 @@ public class ObtenerFacturasEmpresa extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelSeleccionSaldo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabelSeleccionNro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                    .addComponent(jLabel2))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(163, 163, 163)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 322, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelSeleccionNro, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelSeleccionSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(10, 10, 10))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabelSeleccionNro, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelSeleccionSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelSeleccionNro, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelSeleccionSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
@@ -229,20 +238,20 @@ public class ObtenerFacturasEmpresa extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ObtenerFacturasEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ObtenerFacEmpPendiente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ObtenerFacturasEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ObtenerFacEmpPendiente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ObtenerFacturasEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ObtenerFacEmpPendiente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ObtenerFacturasEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ObtenerFacEmpPendiente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ObtenerFacturasEmpresa dialog = new ObtenerFacturasEmpresa(new javax.swing.JFrame(), true);
+                ObtenerFacEmpPendiente dialog = new ObtenerFacEmpPendiente(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -253,11 +262,6 @@ public class ObtenerFacturasEmpresa extends javax.swing.JDialog {
             }
         });
     }
-    //Variables Globales
-    DefaultTableModel tabla = new DefaultTableModel();
-    public static Empresa emp = null;
-    ArrayList<FacturaEmpresa> datos = new ArrayList();
-    DecimalFormat formateador = new DecimalFormat("###,###");
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;

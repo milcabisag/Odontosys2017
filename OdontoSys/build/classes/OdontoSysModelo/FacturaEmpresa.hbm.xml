@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 29/11/2017 05:15:03 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 30/11/2017 03:54:31 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.FacturaEmpresa" table="factura_empresa" catalog="odontosys">
         <id name="idfacturaEmpresa" type="java.lang.Integer">
@@ -20,9 +20,6 @@
         <many-to-one name="movimientoEmpresa" class="OdontoSysModelo.MovimientoEmpresa" fetch="select">
             <column name="fk_movimiento_emp" not-null="true" />
         </many-to-one>
-        <many-to-one name="ordenEmpresa" class="OdontoSysModelo.OrdenEmpresa" fetch="select">
-            <column name="fk_orden_empresa" not-null="true" />
-        </many-to-one>
         <property name="fecha" type="date">
             <column name="fecha" length="10" not-null="true" />
         </property>
@@ -38,6 +35,12 @@
         <property name="saldo" type="int">
             <column name="saldo" not-null="true" />
         </property>
+        <set name="ordenEmpresas" table="orden_empresa" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fk_facturaempresa" />
+            </key>
+            <one-to-many class="OdontoSysModelo.OrdenEmpresa" />
+        </set>
         <set name="reciboEmpresas" table="recibo_empresa" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="fk_facturaemp" not-null="true" />

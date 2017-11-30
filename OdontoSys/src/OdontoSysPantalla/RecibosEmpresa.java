@@ -16,7 +16,7 @@ import OdontoSysModelo.MovimientoEmpresa;
 import OdontoSysModelo.ReciboEmpresa;
 import OdontoSysModelo.Usuario;
 import OdontoSysPantallaAuxiliares.ObtenerEmpresa;
-import OdontoSysPantallaAuxiliares.ObtenerFacturaEmpresaPendiente;
+import OdontoSysPantallaAuxiliares.ObtenerFacEmpPendiente;
 import OdontoSysUtil.NewHibernateUtil;
 import OdontoSysVista.ReciboVista;
 import java.text.DecimalFormat;
@@ -34,9 +34,23 @@ import org.hibernate.Transaction;
  */
 public class RecibosEmpresa extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Recibo
-     */
+    //Variables Globales
+    ReciboEmpresa reciboActual = null;
+    public static Empresa empActual = null;
+    public static FacturaEmpresa facActual = null;
+    ArrayList<DetalleReciboemp> detalle = new ArrayList();   //Guarda el detalle de las formas de pago del recibo actual
+    public static Usuario user;
+    int monto = 0;                  //Calcula la suma de los montos de las formas de pago
+    int saldo = 0;
+    
+    DefaultTableModel tabla = new DefaultTableModel(){
+        public boolean isCellEditable(int row, int column) {            
+                return false;            
+        }};
+    DecimalFormat formateador = new DecimalFormat("###,###");
+    
+    
+   
     public RecibosEmpresa() {
         initComponents();
         inicializarTabla();
@@ -49,7 +63,6 @@ public class RecibosEmpresa extends javax.swing.JFrame {
         }
         if(facActual != null){
             jTextFieldFactura.setText(facActual.getIdfacturaEmpresa().toString());
-            jButtonBuscarFactura.setVisible(false);
         }
         
     }
@@ -75,12 +88,12 @@ public class RecibosEmpresa extends javax.swing.JFrame {
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jButtonBuscarEmpresa = new javax.swing.JButton();
-        jButtonBuscarFactura = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableFormPago = new javax.swing.JTable();
         jButtonFormaPago = new javax.swing.JButton();
         jLabelFecha = new javax.swing.JLabel();
         jButtonBorrarSeleccion1 = new javax.swing.JButton();
+        jButtonBuscarFactura = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -147,14 +160,6 @@ public class RecibosEmpresa extends javax.swing.JFrame {
             }
         });
 
-        jButtonBuscarFactura.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jButtonBuscarFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/buscar.png"))); // NOI18N
-        jButtonBuscarFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBuscarFacturaActionPerformed(evt);
-            }
-        });
-
         jScrollPane1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jScrollPane1FocusGained(evt);
@@ -193,6 +198,14 @@ public class RecibosEmpresa extends javax.swing.JFrame {
             }
         });
 
+        jButtonBuscarFactura.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButtonBuscarFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/buscar.png"))); // NOI18N
+        jButtonBuscarFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarFacturaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -218,12 +231,6 @@ public class RecibosEmpresa extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(255, 255, 255)
-                                    .addComponent(jTextFieldFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(8, 8, 8)
-                                    .addComponent(jButtonBuscarFactura))
-                                .addComponent(jLabel6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
@@ -240,7 +247,15 @@ public class RecibosEmpresa extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jScrollPane1)
-                                            .addComponent(jTextFieldMontoLetras, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE))))))))
+                                            .addComponent(jTextFieldMontoLetras, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(255, 255, 255)
+                                            .addComponent(jTextFieldFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel6))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jButtonBuscarFactura))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -250,19 +265,21 @@ public class RecibosEmpresa extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jTextFieldEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButtonBuscarEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextFieldEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonBuscarEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextFieldFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonBuscarFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6)
+                            .addComponent(jTextFieldFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButtonBuscarFactura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -330,17 +347,6 @@ public class RecibosEmpresa extends javax.swing.JFrame {
         sesion.getTransaction().commit();            
         sesion.close();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
-
-    private void jButtonBuscarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarFacturaActionPerformed
-        ObtenerFacturaEmpresaPendiente.emp = empActual;
-        ObtenerFacturaEmpresaPendiente jDialog = new ObtenerFacturaEmpresaPendiente(null, true);
-        jDialog.setVisible(true);
-        facActual = new FacturaEmpresa();
-        facActual = jDialog.getReturnStatus();
-        if(facActual != null){
-            jTextFieldFactura.setText(String.valueOf(facActual.getNroFactura()));
-        }
-    }//GEN-LAST:event_jButtonBuscarFacturaActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         this.setVisible(false);
@@ -416,6 +422,18 @@ public class RecibosEmpresa extends javax.swing.JFrame {
         jButtonBorrarSeleccion1.setVisible(false);
     }//GEN-LAST:event_formMouseClicked
 
+    private void jButtonBuscarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarFacturaActionPerformed
+        ObtenerFacEmpPendiente.emp = empActual;
+        ObtenerFacEmpPendiente jDialog = new ObtenerFacEmpPendiente(null, true);
+        jDialog.setVisible(true);
+        facActual = new FacturaEmpresa();
+        facActual = jDialog.getReturnStatus();
+                if(facActual != null){
+                   jTextFieldFactura.setText("001-001-00"+facActual.getTalonario().getNroFactura());
+                   saldo = facActual.getSaldo();
+                }
+    }//GEN-LAST:event_jButtonBuscarFacturaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -450,19 +468,6 @@ public class RecibosEmpresa extends javax.swing.JFrame {
             }
         });
     }
-    //Variables Globales
-    ReciboEmpresa reciboActual = null;
-    public static Empresa empActual = null;
-    public static FacturaEmpresa facActual = null;
-    ArrayList<DetalleReciboemp> detalle = new ArrayList();   //Guarda el detalle de las formas de pago del recibo actual
-    public static Usuario user;
-    int monto = 0;                  //Calcula la suma de los montos de las formas de pago
-    DefaultTableModel tabla = new DefaultTableModel(){
-        public boolean isCellEditable(int row, int column) {            
-                return false;            
-        }};
-    DecimalFormat formateador = new DecimalFormat("###,###");
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBorrarSeleccion1;

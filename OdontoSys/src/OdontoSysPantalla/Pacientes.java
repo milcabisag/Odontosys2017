@@ -52,7 +52,8 @@ public class Pacientes extends javax.swing.JFrame {
     
  //Variables Globales
     Paciente pacienteActual = null;
-    Session sessionGlobal;
+    Session sesion = null;
+    Transaction tr = null;
     OrdenServicio ordenPendiente = null;
     public static Usuario user = null;
     
@@ -960,7 +961,7 @@ public class Pacientes extends javax.swing.JFrame {
     private void jButtonElimPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonElimPacienteActionPerformed
        int eliminar = JOptionPane.showConfirmDialog( null, "Eliminar paciente "+pacienteActual.getNombres()+"con CI "+pacienteActual.getNroCi()+"?");
         if(JOptionPane.YES_OPTION == eliminar){
-            boolean i = PacienteControlador.Eliminar(pacienteActual);
+            boolean i = PacienteControlador.Eliminar(pacienteActual, sesion);
             if(i){
                 JOptionPane.showMessageDialog(rootPane, "Se eliminó correctamente", "Eliminar Paciente", WIDTH);
                 limpiar();
@@ -995,7 +996,8 @@ public class Pacientes extends javax.swing.JFrame {
             actualizarPaciente(pacienteActual);
             if(pacienteActual != null && pacienteActual.getIdPaciente() > 0){
                 int i = PacienteVista.UpDatePaciente(pacienteActual);
-                if(i > 0 ){
+                if(i == 0 ){
+                    i = PacienteControlador.UpDatePaciente(pacienteActual, sesion);
                     JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Paciente", WIDTH);
                     escribirPaciente(pacienteActual);
                     jButtonModificar.setVisible(false);
@@ -1284,6 +1286,11 @@ public class Pacientes extends javax.swing.JFrame {
         Configuraciones.limpiarModelo(tablaConvenio);
         Configuraciones.limpiarModelo(tablaAgenda);
 
+        if(sesion != null){
+            tr.commit();
+            sesion.close();
+        }
+        
     }
 
     
@@ -1386,9 +1393,11 @@ public class Pacientes extends javax.swing.JFrame {
 
     private void escribirPaciente(Paciente paciente) {
         
-        Session sesion = NewHibernateUtil.getSessionFactory().openSession();
-        
-        if(paciente.getIdPaciente() != null){    
+        if(paciente.getIdPaciente() != null){  
+            
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            tr = sesion.beginTransaction();
+            
             jTextFieldDNombres.setText(paciente.getNombres());
             jTextFieldDApellidos.setText(paciente.getApellidos());
             jTextFieldDCI.setText(String.valueOf(formateador.format(paciente.getNroCi())));
@@ -1425,7 +1434,6 @@ public class Pacientes extends javax.swing.JFrame {
             jButtonModPaciente.doClick();
         }   
         
-        sesion.close();
     }
 
     private void actualizarPaciente(Paciente pacienteActual) {
