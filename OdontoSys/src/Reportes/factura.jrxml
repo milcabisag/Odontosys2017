@@ -23,6 +23,7 @@
      paciente.`Nro_CI` AS paciente_Nro_CI,
      servicio.`descripcion` AS servicio_descripcion,
      paciente.`Direccion` AS paciente_Direccion,
+     convenio.nom_conv AS nombre_convenio,
      talonario.`nro_factura` AS nro_factura,
 	talonario.`timbrado` AS timbrado,
 	talonario.`ini_vigencia` AS inicio_vigencia,
@@ -35,6 +36,8 @@ FROM
      INNER JOIN `paciente` paciente ON orden_servicio.`fk_paciente` = paciente.`idPaciente`
      AND paciente.`idPaciente` = factura.`fk_paciente`
      INNER JOIN `servicio` servicio ON detalle_orden.`fk_servicio` = servicio.`idservicio`
+    INNER JOIN conv_paciente ON conv_paciente.fk_paciente = paciente.idpaciente
+    INNER JOIN convenio ON convenio.idconvenio = conv_paciente.fk_convenio
 	INNER JOIN `talonario` talonario ON talonario.`idtalonario` = factura.`fk_talonario`
 	JOIN `datos` datos
 WHERE
@@ -50,6 +53,7 @@ WHERE
 	<field name="paciente_Nro_CI" class="java.lang.Integer"/>
 	<field name="servicio_descripcion" class="java.lang.String"/>
 	<field name="paciente_Direccion" class="java.lang.String"/>
+	<field name="nombre_convenio" class="java.lang.String"/>
 	<field name="nro_factura" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
