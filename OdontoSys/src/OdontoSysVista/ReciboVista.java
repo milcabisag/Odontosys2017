@@ -116,11 +116,9 @@ public class ReciboVista {
     }
     
     public static ArrayList<DetalleReciboemp> validarReciboEmpresa (ReciboEmpresa recibo, ArrayList<DetalleReciboemp> detalle) {
-        String nom = recibo.getEmpresa().getNombre();
-        String est = recibo.getFacturaEmpresa().getEstado();
         int monto = recibo.getMonto();
-        int user = recibo.getUsuario().getIdusuario();
-        if((nom == null) || (monto == 0) || (est == null) || (user <= 0)){
+        
+        if((recibo.getEmpresa() == null) || (recibo.getMonto() == 0) || (recibo.getFacturaEmpresa() == null)){
             JOptionPane.showMessageDialog(null, "Favor complete todos los campos", "Validación de datos Recibo", WIDTH);
             return null;
         }

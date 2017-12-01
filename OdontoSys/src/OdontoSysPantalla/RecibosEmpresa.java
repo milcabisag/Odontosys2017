@@ -17,12 +17,15 @@ import OdontoSysModelo.ReciboEmpresa;
 import OdontoSysModelo.Usuario;
 import OdontoSysPantallaAuxiliares.ObtenerEmpresa;
 import OdontoSysPantallaAuxiliares.ObtenerFacEmpPendiente;
+import OdontoSysUtil.Configuraciones;
 import OdontoSysUtil.NewHibernateUtil;
 import OdontoSysVista.ReciboVista;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
@@ -84,7 +87,6 @@ public class RecibosEmpresa extends javax.swing.JFrame {
         jTextFieldMontoLetras = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldFactura = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jButtonBuscarEmpresa = new javax.swing.JButton();
@@ -130,9 +132,6 @@ public class RecibosEmpresa extends javax.swing.JFrame {
 
         jTextFieldFactura.setEditable(false);
         jTextFieldFactura.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Firma");
 
         jButtonGuardar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/guardar.png"))); // NOI18N
@@ -210,14 +209,6 @@ public class RecibosEmpresa extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jButtonGuardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(80, 80, 80))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -230,40 +221,44 @@ public class RecibosEmpresa extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextFieldEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(5, 5, 5)
-                                        .addComponent(jButtonBuscarEmpresa))
+                                        .addComponent(jTextFieldEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButtonBuscarEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(255, 255, 255)
+                                                .addComponent(jTextFieldFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel6))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButtonBuscarFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jTextFieldMontoLetras, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel5)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jButtonFormaPago)
+                                                    .addComponent(jButtonBorrarSeleccion1))
+                                                .addComponent(jButtonCancelar))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jButtonFormaPago)
-                                                .addComponent(jButtonBorrarSeleccion1)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jScrollPane1)
-                                            .addComponent(jTextFieldMontoLetras, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE))))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(255, 255, 255)
-                                            .addComponent(jTextFieldFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jLabel6))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jButtonBuscarFactura))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jButtonGuardar)))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,11 +287,9 @@ public class RecibosEmpresa extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonBorrarSeleccion1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonCancelar)
-                        .addComponent(jButtonGuardar)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCancelar)
+                    .addComponent(jButtonGuardar))
                 .addContainerGap())
         );
 
@@ -309,43 +302,21 @@ public class RecibosEmpresa extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldEmpresaActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-         Session sesion;
-         sesion = NewHibernateUtil.getSessionFactory().openSession();
-         Transaction tx = sesion.beginTransaction();
-         sesion.getTransaction().begin();          
-         
-        reciboActual = new ReciboEmpresa();
-        reciboActual.setFecha(new Date());
-        reciboActual.setMonto(monto);
-        reciboActual.setEmpresa(empActual);
-        reciboActual.setFacturaEmpresa(facActual);
-        reciboActual.setUsuario(user);
-        MovimientoEmpresa mov = null;
-        detalle = ReciboVista.validarReciboEmpresa(reciboActual, detalle);
-        if(detalle != null){            //registro insertado correctamente  
-            reciboActual = RecibosControlador.InsertarReciboEmpresa(reciboActual, sesion);
-            if(reciboActual.getFacturaEmpresa().getTipo().compareTo("Contado") != 0){
-                mov = new MovimientoEmpresa();
-                mov = RecibosControlador.insertarMovimientoEmpresa(reciboActual, sesion);
-            }
-            for(DetalleReciboemp d : detalle){
-                d.setReciboEmpresa(reciboActual);
-                RecibosControlador.InsertarDetalleEmpresa(d, mov, user, sesion);
-            }
-            JOptionPane.showMessageDialog(rootPane, "Registro insertado correctamente", "Insertar Recibo", WIDTH);
-            facActual.setSaldo(facActual.getSaldo() - reciboActual.getMonto());
-            FacturaControlador.ModificarSaldoEmpresa(facActual, sesion);
-            facActual = null;
-            empActual = null;
-            user = null;
-            this.setVisible(false);
-        }else{            //no insertado
-            JOptionPane.showMessageDialog(rootPane, "No se pudo Insertar Recibo", "Insertar Recibo", WIDTH);      
-        }
         
-        //tx.commit();
-        sesion.getTransaction().commit();            
-        sesion.close();
+        obtenerRecibo();
+        detalle = ReciboVista.validarReciboEmpresa(reciboActual, detalle);
+        if(detalle != null){            //registro validado
+            facActual.setSaldo(facActual.getSaldo() - reciboActual.getMonto());
+            reciboActual = RecibosControlador.InsertarReciboEmpresa(reciboActual, detalle, user, facActual);
+            if(reciboActual != null){
+                JOptionPane.showMessageDialog(rootPane, "Registro insertado correctamente", "Insertar Recibo", WIDTH);
+                imprimirRecibo();
+                limpiar();
+                this.setVisible(false);
+            }else{            //no insertado
+                JOptionPane.showMessageDialog(rootPane, "No se pudo Insertar Recibo", "Insertar Recibo", WIDTH);      
+            }
+        }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -368,7 +339,7 @@ public class RecibosEmpresa extends javax.swing.JFrame {
         boolean bandera;
         do{
            try{
-                fila[1] = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese monto pagado", "Monto", JOptionPane.QUESTION_MESSAGE));
+                fila[1] = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese monto", "Monto", JOptionPane.QUESTION_MESSAGE));
                 bandera = true;
             }catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(null, "Sólo se permiten números" , "Monto" , JOptionPane.QUESTION_MESSAGE );
@@ -383,8 +354,6 @@ public class RecibosEmpresa extends javax.swing.JFrame {
             DetalleReciboemp d = new DetalleReciboemp();
             d.setFormaPago(fila[0].toString());
             d.setMonto(Integer.parseInt(fila[1].toString()));
-            d.setIddetalleReciboEmp(null);
-            d.setReciboEmpresa(null);
             detalle.add(d);
             monto = Integer.parseInt(fila[1].toString())+ monto;
             jTextFieldMontoLetras.setText(NumberToLetterConverter.convertNumberToLetter(monto));
@@ -481,7 +450,6 @@ public class RecibosEmpresa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableFormPago;
@@ -502,6 +470,42 @@ public class RecibosEmpresa extends javax.swing.JFrame {
         String fec = f.format(fecha);
         jLabelFecha.setText(fec);
     }
+
+    private void obtenerRecibo() {
+       
+        reciboActual = new ReciboEmpresa();
+        reciboActual.setFacturaEmpresa(facActual);
+        reciboActual.setEmpresa(empActual);
+        reciboActual.setUsuario(user);
+        reciboActual.setFecha(new Date());
+        reciboActual.setMonto(monto);
     
+    }
+
+    private void limpiar() {
+    
+         reciboActual = null;
+         empActual = null;
+         facActual = null;
+         detalle = null;
+         monto = 0;     
+         saldo = 0;
+    
+         Configuraciones.limpiarModelo(tabla);
+        
+    }
+    
+    private void imprimirRecibo() {
+        String reporte="C:\\Users\\user\\Google Drive\\UNA\\Odontosys2017\\OdontoSys\\src\\Reportes\\reciboEmpresa";
+        
+        int idRecibo = reciboActual.getIdreciboEmpresa();
+        String letras = jTextFieldMontoLetras.getText();
+        
+        Map parametros = new HashMap();
+        parametros.put("idRecibo", idRecibo);
+        parametros.put("letras", letras);
+        
+        Configuraciones.imprimirReporteHB(reporte, parametros);
+    }
     
 }

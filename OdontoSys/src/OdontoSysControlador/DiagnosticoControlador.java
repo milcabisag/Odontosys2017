@@ -24,13 +24,9 @@ import org.hibernate.Transaction;
  */
 public class DiagnosticoControlador {
     
-    public static ArrayList<Diagnostico> ConsultarDiagnosticos(int idPaciente) {
+    public static ArrayList<Diagnostico> ConsultarDiagnosticos(int idPaciente, Session session) {
         ArrayList<Diagnostico> lista = new ArrayList<>();
-        Session session;
-        Transaction tr = null;
         try {            
-            session = NewHibernateUtil.getSessionFactory().openSession();
-            tr = session.beginTransaction();
             String hql = "FROM Diagnostico WHERE paciente = "+idPaciente+" ORDER BY fecha ASC";
             Query query = session.createQuery(hql);
             Iterator it = query.iterate();
@@ -42,9 +38,7 @@ public class DiagnosticoControlador {
             }else{
                 lista = null;
             }
-            tr.commit();
         } catch (HibernateException ex) {
-            tr.rollback();
             System.out.println("Error en ConsultarDiagnosticos: "+ex);
            JOptionPane.showMessageDialog(null,"No se pudo conectar a la Base de Datos", "Diagnostico Controlador", WIDTH );
        }        

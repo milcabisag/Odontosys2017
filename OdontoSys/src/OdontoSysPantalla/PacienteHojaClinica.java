@@ -45,6 +45,8 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
     
     SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
     
+    Session sesion = null;
+    Transaction tr = null;
     
     public PacienteHojaClinica() {
         initComponents();
@@ -407,22 +409,27 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-    if(pacienteActual == null){
-        limpiar();
+    
+        sesion = NewHibernateUtil.getSessionFactory().openSession();
+        tr = sesion.beginTransaction();
+        
+        if(pacienteActual == null){
+        ObtenerPaciente.sesion = sesion;
         ObtenerPaciente frameP = new ObtenerPaciente(this, true);
         frameP.setVisible(true);
         pacienteActual = frameP.getReturnStatus();
         
-        if (pacienteActual != null) {
-           escribirPaciente(pacienteActual);
-           habilitarBotones();
-        } else {
-           JOptionPane.showMessageDialog(null, "Paciente no encontrado!" , "PacienteControlador" , JOptionPane.QUESTION_MESSAGE );
+            if (pacienteActual != null) {
+               escribirPaciente(pacienteActual);
+               habilitarBotones();
+            } else {
+                JOptionPane.showMessageDialog(null, "Paciente no encontrado!" , "PacienteControlador" , JOptionPane.QUESTION_MESSAGE );
+                sesion.close();
+            }
+        }else{
+            escribirPaciente(pacienteActual);
+            habilitarBotones();
         }
-     }else{
-        escribirPaciente(pacienteActual);
-        habilitarBotones();
-     }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuActionPerformed
@@ -446,10 +453,15 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
         actualizarPaciente(pacienteActual);
         if(pacienteActual != null && pacienteActual.getIdPaciente() > 0){
            int i = PacienteVista.UpDateHojaClinica(pacienteActual);
-           if(i > 0){
+           if(i == 0){
+              boolean val = PacienteControlador.UpDatePaciente(pacienteActual, sesion);
+              if(val){
               JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Paciente", WIDTH);
               limpiar();
               deshabilitarTodo();
+              }else{
+                  JOptionPane.showMessageDialog(rootPane, "No se pudo guardar los cambios", "Modificar Paciente", WIDTH);
+              }
            }
         }        
     }//GEN-LAST:event_jButtonModificarActionPerformed
@@ -548,6 +560,7 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void escribirPaciente(Paciente pacienteActual) {
+        
         jLabelNombrePaciente.setText(pacienteActual.getNombres()+" "+pacienteActual.getApellidos());
         jTextFieldHPeso.setText(String.valueOf(pacienteActual.getPeso()));
         jTextFieldHEnferm.setText(pacienteActual.getEnfermedades());
@@ -589,6 +602,10 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
         jTextFieldHCirug.setEditable(false);
         jTextFieldHObs.setEditable(false);
         
+        if(sesion != null){
+            tr.commit();
+            sesion.close();
+        }
     }
 
     private void habilitarDatos() {
@@ -627,7 +644,7 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
 
     private void setearTabla() {
         
-        Lista = DiagnosticoControlador.ConsultarDiagnosticos(pacienteActual.getIdPaciente());
+        Lista = DiagnosticoControlador.ConsultarDiagnosticos(pacienteActual.getIdPaciente(), sesion);
         if(Lista != null){        
             for(Diagnostico nuevo : Lista){                
                 String[] fila = new String[3];
@@ -645,19 +662,13 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
                 tabla.addRow(fila);
                
             }
-        }else{
-            limpiarTabla();
-            jButtonModPaciente.doClick();       //Obliga a insertar por lo menos un diagnostico
         }
     }
 
-    private void limpiarTabla() {
-        Configuraciones.limpiarModelo(tabla);
-    }
 
     private void recuperarOdontogramas() {
          odon = new ArrayList();
-        odon = OdontogramaControlador.HistoricoPaciente(pacienteActual);
+        odon = OdontogramaControlador.HistoricoPaciente(pacienteActual, sesion);
         if(odon != null){
             for(Odontograma o : odon){
                 Object[] f = new Object[3];

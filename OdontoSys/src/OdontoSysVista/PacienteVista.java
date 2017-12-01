@@ -138,7 +138,7 @@ public class PacienteVista {
         
         if(p > 0){
             if(e!=0 && m!=0 && a!=0 && c!=0){
-                return PacienteControlador.UpDatePaciente(nuevoPaciente);
+                return 0;
             }else{
                 JOptionPane.showMessageDialog(null, "Favor complete todos los campos", "Validación de datos Paciente", WIDTH);
                 return -1;

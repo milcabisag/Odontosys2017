@@ -11,21 +11,23 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT 
-	paciente.nombres AS nombre_paciente,
-	paciente.apellidos AS apellido_paciente,
-	recibo.monto AS montoRecibo,
-	recibo.fecha AS fecha,
+	empresa.nombre AS nombreEmpresa,
+	recibo_empresa.monto AS montoRecibo,
+	recibo_empresa.fecha AS fecha,
 	talonario.nro_factura AS nro_factura,
-	datos.*
-FROM paciente 
-    INNER JOIN recibo ON paciente.idPaciente = recibo.fk_paciente
-    INNER JOIN factura ON factura.idFactura = recibo.fk_factura
-    INNER JOIN talonario ON talonario.idTalonario = factura.fk_talonario JOIN datos
+	datos.nombre_empresa AS emp_nom,
+	datos.actividad AS emp_activ,
+	datos.direccion AS emp_dir,
+	datos.ciudad AS emp_ciudad,
+	datos.telefono AS emp_tel
+FROM empresa 
+    INNER JOIN recibo_empresa ON empresa.idempresa = recibo_empresa.fk_empresa
+    INNER JOIN factura_empresa ON factura_empresa.idfactura_empresa = recibo_empresa.fk_facturaemp
+    INNER JOIN talonario ON talonario.idTalonario = factura_empresa.fk_talonario JOIN datos
 WHERE
-    recibo.idRecibo = $P{idRecibo}]]>
+    recibo_empresa.idRecibo_empresa = $P{idRecibo}]]>
 	</queryString>
-	<field name="nombre_paciente" class="java.lang.String"/>
-	<field name="apellido_paciente" class="java.lang.String"/>
+	<field name="nombreEmpresa" class="java.lang.String"/>
 	<field name="montoRecibo" class="java.lang.Integer"/>
 	<field name="fecha" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -33,30 +35,11 @@ WHERE
 	<field name="nro_factura" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="iddatos" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="nombre_empresa" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="nombre_propietario" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="actividad" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ruc" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="direccion" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ciudad" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="telefono" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="emp_nom" class="java.lang.String"/>
+	<field name="emp_activ" class="java.lang.String"/>
+	<field name="emp_dir" class="java.lang.String"/>
+	<field name="emp_ciudad" class="java.lang.String"/>
+	<field name="emp_tel" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -66,14 +49,14 @@ WHERE
 				<reportElement x="391" y="59" width="150" height="35" backcolor="#F2F2F2" uuid="1d2c20d6-e6b6-4a2d-87e2-334b2aca0b99"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="311" y="19" width="230" height="35" uuid="96db2e48-8c16-4bcf-afbb-4a12e1e504b2"/>
+				<reportElement x="311" y="20" width="230" height="35" uuid="96db2e48-8c16-4bcf-afbb-4a12e1e504b2"/>
 				<textElement textAlignment="Right">
 					<font size="22" isBold="true"/>
 				</textElement>
 				<text><![CDATA[RECIBO DE DINERO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="411" y="67" width="30" height="20" uuid="fe761c12-709e-4619-86a9-3f7012490d49"/>
+				<reportElement x="404" y="67" width="30" height="20" uuid="fe761c12-709e-4619-86a9-3f7012490d49"/>
 				<textElement textAlignment="Right">
 					<font size="15" isBold="true"/>
 				</textElement>
@@ -97,28 +80,28 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font size="25" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nombre_empresa}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{emp_nom}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="35" width="300" height="25" uuid="9fe94bbb-e12b-4a20-bf32-932f1fa60bb6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font size="18" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{actividad}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{emp_activ}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="61" width="300" height="25" uuid="cc850051-15c4-4ff8-9c3f-4d1e52b6d1aa"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font size="12" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Dirección: "+$F{direccion}+" - "+$F{ciudad}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Dirección: "+$F{emp_dir}+" - "+$F{emp_ciudad}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="85" width="300" height="25" uuid="6ae2adb3-3547-4f10-b5c5-d7685bc00569"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font size="12" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Teléfono: "+$F{telefono}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Teléfono: "+$F{emp_tel}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -144,11 +127,11 @@ WHERE
 				<text><![CDATA[Recibimos de]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="115" y="5" width="350" height="20" uuid="d01d7baf-8a2d-4751-9464-b75246a7fdaa"/>
+				<reportElement x="115" y="5" width="413" height="20" uuid="d01d7baf-8a2d-4751-9464-b75246a7fdaa"/>
 				<textElement>
 					<font size="15"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nombre_paciente}+" "+$F{apellido_paciente}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nombreEmpresa}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="10" y="35" width="170" height="20" uuid="4541084d-b137-4a48-913d-7479f33fbc3b"/>
@@ -158,14 +141,14 @@ WHERE
 				<text><![CDATA[La suma de Guaraníes]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="178" y="35" width="250" height="20" uuid="42a3c4f6-0af9-4e2b-a374-5777d7efd050"/>
+				<reportElement x="178" y="35" width="353" height="20" uuid="42a3c4f6-0af9-4e2b-a374-5777d7efd050"/>
 				<textElement>
 					<font size="15"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{letras}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="68" width="387" height="20" uuid="efc56cc8-fc0d-4620-880d-aad7705839b6"/>
+				<reportElement x="10" y="68" width="521" height="20" uuid="efc56cc8-fc0d-4620-880d-aad7705839b6"/>
 				<textElement textAlignment="Left" markup="none">
 					<font size="15"/>
 				</textElement>

@@ -136,14 +136,12 @@ public class ConvenioControlador {
     }
     
     public static ArrayList<ConvPaciente> BuscarConvenioPaciente(int pac, Session sesion){
-        Transaction tr = null;
         ArrayList<ConvPaciente> lis = null;
         String hql = null;
-        try{     
+        try{    
             if(sesion == null){
                 sesion = NewHibernateUtil.getSessionFactory().openSession();
             }
-            tr = sesion.beginTransaction();
             if(pac > 0){
                 hql = "FROM ConvPaciente WHERE estado = 'Activo' AND paciente = "+pac;
                 Query query = sesion.createQuery(hql);
@@ -156,9 +154,7 @@ public class ConvenioControlador {
                     }while(it.hasNext());
                 }
             }
-            tr.commit();
         }catch(HibernateException ex){
-            tr.rollback();
             System.out.println("Error en Buscar convenio paciente: "+ex);
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Convenio Controlador", JOptionPane.INFORMATION_MESSAGE);
         }

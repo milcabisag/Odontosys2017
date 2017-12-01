@@ -838,6 +838,9 @@ public class Empresas extends javax.swing.JFrame {
 
         limpiar();
         
+        sesion = NewHibernateUtil.getSessionFactory().openSession();
+            
+        ObtenerEmpresa.sesion = sesion;
         ObtenerEmpresa jDialog= new ObtenerEmpresa(null, true);
         jDialog.setVisible(true);
         empresaActual= jDialog.getReturnStatus();
@@ -870,7 +873,7 @@ public class Empresas extends javax.swing.JFrame {
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
        int eliminar = JOptionPane.showConfirmDialog( null, "Eliminar empresa "+empresaActual.getNombre()+"con RUC "+empresaActual.getRuc()+"??");
         if(JOptionPane.YES_OPTION == eliminar){
-            boolean i = EmpresaControlador.EliminarEmpresa(empresaActual);
+            boolean i = EmpresaControlador.EliminarEmpresa(empresaActual, sesion);
             if(i){
                 JOptionPane.showMessageDialog(rootPane, "Se eliminó correctamente", "Eliminar Empresa", WIDTH);
                 limpiar();
@@ -920,8 +923,8 @@ public class Empresas extends javax.swing.JFrame {
             if(empresaActual != null && empresaActual.getIdempresa() > 0){
                 v = EmpresaVista.validarEmpresa(empresaActual);
                 if(v){
-                    int i = EmpresaControlador.UpdateEmpresa(empresaActual, sesion);
-                    if(i>0){
+                    v = EmpresaControlador.UpdateEmpresa(empresaActual, sesion);
+                    if(v){
                         JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Empresa", WIDTH);
                         deshabilitarDatos();
                         habilitarBotones();
@@ -1235,6 +1238,7 @@ public class Empresas extends javax.swing.JFrame {
         jTextFieldNombreContacto.setEditable(true);
         jTextFieldObservaciones.setEditable(true);
         jTextFieldTeléfonoContacto.setEditable(true);
+        jCBciudad.setEnabled(true);
     }
 
     
@@ -1299,12 +1303,7 @@ public class Empresas extends javax.swing.JFrame {
     }
 
     private void escribirEmpresa(Empresa empresa) {
-        if(empresa!=null){   
-            try{
-            
-            sesion = NewHibernateUtil.getSessionFactory().openSession();
-            tr = sesion.beginTransaction();
-            
+        if(empresa!=null){ 
             jTextFieldDNombres.setText(empresa.getNombre());
             jTextFieldRUC.setText(String.valueOf(empresa.getRuc()));
             jTextFieldDTel.setText(empresa.getTelefono());
@@ -1319,11 +1318,6 @@ public class Empresas extends javax.swing.JFrame {
             obtenerEstadoCuenta(sesion);
             obtenerPendientes(sesion);
             
-            tr.commit();
-            }catch(HibernateException ex){
-                tr.rollback();
-                System.out.println("Error al escribir la empresa: "+ex);
-            }
         }else{
             JOptionPane.showMessageDialog(rootPane, "Empresa No encontrada", "aviso", WIDTH);
             jButtonModificar.doClick();
@@ -1455,6 +1449,7 @@ public class Empresas extends javax.swing.JFrame {
         jTextFieldNombreContacto.setEditable(false);
         jTextFieldObservaciones.setEditable(false);
         jTextFieldTeléfonoContacto.setEditable(false);
+        jCBciudad.setEnabled(false);
     }
 
     private boolean validaciones() {
@@ -1484,6 +1479,9 @@ public class Empresas extends javax.swing.JFrame {
         if(empresaActual != null){
             Empresa e = empresaActual;
             limpiar();
+            
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            
             BotonInvisibles();
             empresaActual = e;
             escribirEmpresa(empresaActual);

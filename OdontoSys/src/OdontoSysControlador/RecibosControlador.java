@@ -10,6 +10,7 @@ import OdontoSysModelo.Caja;
 import OdontoSysModelo.DetalleRecibo;
 import OdontoSysModelo.DetalleReciboemp;
 import OdontoSysModelo.Factura;
+import OdontoSysModelo.FacturaEmpresa;
 import OdontoSysModelo.Movimiento;
 import OdontoSysModelo.MovimientoEmpresa;
 import OdontoSysModelo.Recibo;
@@ -143,57 +144,63 @@ public class RecibosControlador {
         return datos;
     }
     
-    public static ReciboEmpresa InsertarReciboEmpresa(ReciboEmpresa nuevo, Session sesion) {       
-       // Session sesion;
+    public static ReciboEmpresa InsertarReciboEmpresa(ReciboEmpresa rec, ArrayList<DetalleReciboemp> det, Usuario u, FacturaEmpresa fac) {
+        ReciboEmpresa r = null;
+        Session sesion;
+        Transaction tr = null;
         try{
-        //    sesion = NewHibernateUtil.getSessionFactory().openSession();
-        //    sesion.getTransaction().begin();            
-            sesion.save(nuevo);
-            sesion.refresh(nuevo);            
-       //     sesion.getTransaction().commit();
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            tr = sesion.beginTransaction();
             
+            MovimientoEmpresa mov = insertarMovimientoEmpresa(rec, sesion);
+            
+            rec.setMovimientoEmpresa(mov);
+            sesion.save(rec);
+            sesion.refresh(rec);        
+            
+            for(DetalleReciboemp d : det){
+                d.setReciboEmpresa(rec);
+                insertarDetalleEmpresa(d, sesion);
+                agregarMovimientoCaja(sesion, null, null, mov, d, u);
+            }
+            
+            modificarSaldoEmpresa(fac, sesion);
+            tr.commit();
+            sesion.close();
+            r = rec;
         }catch(HibernateException ex){
+            tr.rollback();
+            System.out.println("Error en InsertarReciboEmpresa: "+ex);
              JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Recibo Controlador", JOptionPane.INFORMATION_MESSAGE);   
         }        
-        return nuevo;
+        return r;
     }
     
-    public static void InsertarDetalleEmpresa(DetalleReciboemp d, MovimientoEmpresa m, Usuario u, Session sesion) {
-        //Session sesion;
-        try{
-            //sesion = NewHibernateUtil.getSessionFactory().openSession();
-            //sesion.getTransaction().begin();            
+    public static void insertarDetalleEmpresa(DetalleReciboemp d, Session sesion) {
+        try{            
             sesion.save(d);
             sesion.refresh(d);
-            //sesion.getTransaction().commit();
-            agregarMovimientoCaja(sesion, null, null, m, d, u);
         }catch(HibernateException ex){
+            System.out.println("Error en insertarDetalleEmpresa: "+ex);
              JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Recibo Controlador", JOptionPane.INFORMATION_MESSAGE);   
         }
     }
 
-    public static MovimientoEmpresa insertarMovimientoEmpresa(ReciboEmpresa nuevo, Session sesion) {
+    public static MovimientoEmpresa insertarMovimientoEmpresa(ReciboEmpresa rec, Session sesion) {
         MovimientoEmpresa m = null;
-        //Session sesion;
         try{
-         //   sesion = NewHibernateUtil.getSessionFactory().openSession();
-         //   sesion.getTransaction().begin();
-            
             m = new MovimientoEmpresa();
-            m.setEmpresa(nuevo.getEmpresa());
-            m.setMovimiento("Recibo por Factura Nro "+nuevo.getFacturaEmpresa().getTalonario().getNroFactura());
-            m.setFecha(nuevo.getFecha());
+            m.setEmpresa(rec.getEmpresa());
+            m.setFecha(rec.getFecha());
+            m.setMovimiento("Recibo por Factura Crédito Nro 001-001-00"+rec.getFacturaEmpresa().getTalonario().getNroFactura());
             m.setDebe(0);
-            m.setHaber(nuevo.getMonto());
+            m.setHaber(rec.getMonto());
             
             sesion.save(m);
-            sesion.refresh(m);
-
-         //   sesion.getTransaction().commit();            
-            
+            sesion.refresh(m);     
         }
         catch(HibernateException ex){
-            System.out.println(ex.getMessage());
+           System.out.println("Error en insertarMovimientoEmpresa: "+ex.getMessage());
            JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Movimiento Empresa", WIDTH );
         } 
         return m;
@@ -213,14 +220,13 @@ public class RecibosControlador {
                 c.setUsuario(u);
                 c.setDescripcion("Entrada");
             }else if(e != null && detemp != null){      //Recibo de una factura de empresa
-                c.setDescripcion(e.getMovimiento());
-                c.setEntrada(detemp.getMonto());
                 c.setMovimientoEmpresa(e);
+                c.setMovimiento(null);
+                c.setDescripcion("Entrada");
+                c.setEntrada(detemp.getMonto());
                 c.setSalida(0);
                 c.setTipo(detemp.getFormaPago());
-                c.setMovimiento(null);
                 c.setUsuario(u);
-                c.setDescripcion("Entrada");
             }
             
             sesion.save(c);
@@ -232,4 +238,18 @@ public class RecibosControlador {
         }  
     }
     
+    public static void modificarSaldoEmpresa(FacturaEmpresa fac, Session sesion) {
+       
+        int i = 0;
+        try{             
+            sesion.merge(fac);        
+            if(fac.getSaldo() == 0){
+                fac.setEstado("Cancelado");
+                sesion.merge(fac);
+            }        
+       }catch(HibernateException ex){
+            System.out.println("Error en modificarSaldoEmpresa: "+ex);
+           JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Saldo Factura", WIDTH );
+       }
+    }
 }

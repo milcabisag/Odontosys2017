@@ -21,6 +21,7 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
 
 /**
  *
@@ -29,7 +30,11 @@ import javax.swing.table.DefaultTableModel;
 public class ObtenerEmpresa extends javax.swing.JDialog {
 
 
+    //Variables Globales
+    DefaultTableModel tabla = new DefaultTableModel();
+    ArrayList<Empresa> datos = new ArrayList();
     public static Empresa emp = null;
+    public static Session sesion = null;
 
     /**
      * Creates new form ObtenerProveedor
@@ -74,7 +79,7 @@ public class ObtenerEmpresa extends javax.swing.JDialog {
         tabla.addColumn("RUC");
         tabla.addColumn("Direccion");
       
-        datos = EmpresaControlador.ConsultarEmpresa();     
+        datos = EmpresaControlador.ConsultarEmpresa(sesion);     
         if(datos != null){
             for (Empresa n : datos){
                 Object[] fila = new Object[3];
@@ -267,9 +272,6 @@ public class ObtenerEmpresa extends javax.swing.JDialog {
         });
     }
 
-    //Variables Globales
-    DefaultTableModel tabla = new DefaultTableModel();
-    ArrayList<Empresa> datos = new ArrayList();
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;

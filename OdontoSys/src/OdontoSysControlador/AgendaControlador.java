@@ -181,10 +181,8 @@ public class AgendaControlador {
     }
 
     public static ArrayList<Agenda> HistoricoCitasPaciente(Paciente pacienteActual, Session sesion) {
-        Transaction tr = null;
         ArrayList<Agenda> lista = null;
         try { 
-            tr = sesion.beginTransaction();
             String hql = "FROM Agenda WHERE paciente = "+pacienteActual.getIdPaciente()+" ORDER BY fecha DESC";
             Query query = sesion.createQuery(hql);
             Iterator it = query.iterate();
@@ -197,9 +195,7 @@ public class AgendaControlador {
             }else{
                 lista = null;
             }
-            tr.commit();
         } catch (HibernateException ex) {
-            tr.rollback();
             System.out.println("Error en Histórico Citas Paciente "+ex);
            JOptionPane.showMessageDialog(null,"No se pudo conectar a la Base de Datos", "Agenda Controlador", WIDTH );
        }        

@@ -69,14 +69,12 @@ public class OdontogramaControlador {
         return o;
     }
 
-    public static ArrayList<Odontograma> HistoricoPaciente(Paciente pac) {
-        Session sesion;
-        Transaction tr = null;
+    public static ArrayList<Odontograma> HistoricoPaciente(Paciente pac, Session sesion) {
+        
         ArrayList<Odontograma> lis = new ArrayList();
         String hql;
         try{        
-            sesion = NewHibernateUtil.getSessionFactory().openSession();
-            tr = sesion.beginTransaction();
+            
             hql = "FROM Odontograma WHERE paciente = "+pac.getIdPaciente();
             
             Query query = sesion.createQuery(hql); 
@@ -88,9 +86,7 @@ public class OdontogramaControlador {
             }else{
                 return null;
             }
-            tr.commit();
         }catch(HibernateException ex){
-            tr.rollback();
             System.out.println("Error en HistoricoPaciente: "+ex.getMessage());
             JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Odontograma Controlador", JOptionPane.INFORMATION_MESSAGE);
         }

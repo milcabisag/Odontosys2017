@@ -890,6 +890,10 @@ public class Pacientes extends javax.swing.JFrame {
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
 
+        sesion = NewHibernateUtil.getSessionFactory().openSession();
+        tr = sesion.beginTransaction();
+        
+        ObtenerPaciente.sesion = sesion;
         ObtenerPaciente jDialog= new ObtenerPaciente(null, true);
         jDialog.setVisible(true);
         pacienteActual = jDialog.getReturnStatus();
@@ -898,6 +902,7 @@ public class Pacientes extends javax.swing.JFrame {
             escribirPaciente(pacienteActual);
         }else {
             JOptionPane.showMessageDialog(null, "No se pudo recuperar el paciente" , "Obtener Paciente" , JOptionPane.QUESTION_MESSAGE );
+            sesion.close();
         } 
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
@@ -997,15 +1002,18 @@ public class Pacientes extends javax.swing.JFrame {
             if(pacienteActual != null && pacienteActual.getIdPaciente() > 0){
                 int i = PacienteVista.UpDatePaciente(pacienteActual);
                 if(i == 0 ){
-                    i = PacienteControlador.UpDatePaciente(pacienteActual, sesion);
-                    JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Paciente", WIDTH);
-                    escribirPaciente(pacienteActual);
-                    jButtonModificar.setVisible(false);
-                    jButtonModPaciente.setVisible(true);
-                    jButtonElimPaciente.setVisible(true);
-                }else{
+                    v = PacienteControlador.UpDatePaciente(pacienteActual, sesion);
+                    if(v){
+                        JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Paciente", WIDTH);
+                        escribirPaciente(pacienteActual);
+                        deshabilitarDatos();
+                       jButtonModificar.setVisible(false);
+                        jButtonModPaciente.setVisible(true);
+                        jButtonElimPaciente.setVisible(true);
+                    }else{
                     JOptionPane.showMessageDialog(rootPane, "No se logró actualizar paciente", "Modificar Paciente", WIDTH);
-                }            
+                    }  
+            }
             }
         }
     }//GEN-LAST:event_jButtonModificarActionPerformed
@@ -1309,7 +1317,20 @@ public class Pacientes extends javax.swing.JFrame {
         
     }
 
-    
+     private void deshabilitarDatos() {
+        jTextFieldDNombres.setEditable(false);
+        jTextFieldDApellidos.setEditable(false);
+        jTextFieldDCI.setEditable(false);
+        jDateChooserEdad.setEnabled(false);
+        jTextFieldDCel.setEditable(false);
+        jCBciudad.setEnabled(false);
+        jTextFieldDDireccion.setEditable(false);
+        jTextFieldDEmail.setEditable(false);
+        jComboBoxSexo.setEnabled(false);
+        jTextFieldDTel.setEditable(false);
+        
+    }
+     
     private Paciente nuevoPaciente() {
         Paciente p = new Paciente();
         
@@ -1394,9 +1415,6 @@ public class Pacientes extends javax.swing.JFrame {
     private void escribirPaciente(Paciente paciente) {
         
         if(paciente.getIdPaciente() != null){  
-            
-            sesion = NewHibernateUtil.getSessionFactory().openSession();
-            tr = sesion.beginTransaction();
             
             jTextFieldDNombres.setText(paciente.getNombres());
             jTextFieldDApellidos.setText(paciente.getApellidos());
@@ -1592,6 +1610,10 @@ public class Pacientes extends javax.swing.JFrame {
         if(pacienteActual != null){
             Paciente p = pacienteActual;
             limpiar();
+            
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            tr = sesion.beginTransaction();
+            
             pacienteActual = p;
             habilitarBotones(p);
             escribirPaciente(p);

@@ -1202,9 +1202,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             OrdenDeServicio fmrOrden = new OrdenDeServicio();
             fmrOrden.setVisible(true);
         
-            elPaciente = null;
-            Configuraciones.limpiarModelo(modeloH);
-            Configuraciones.limpiarModelo(modeloT);
+            limpiar();
             this.setVisible(false); 
        }
         
@@ -1517,10 +1515,12 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         
         hallazgosSet = null;
         listaTratamientos = null;
+        servicios = null;
         
         elPaciente = null;
         consulta = false;
         
+        newOdont = null;        
     }    
 
     private void cobrarConsulta() {
@@ -1547,14 +1547,12 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             OrdenDeServicio fmrOrden = new OrdenDeServicio();
             fmrOrden.setVisible(true);
         
-            elPaciente = null;
-            Configuraciones.limpiarModelo(modeloH);
-            Configuraciones.limpiarModelo(modeloT);
+            limpiar();
             this.setVisible(false); 
             
         }else if(seleccion == 1){   //No
             //Continuar normalmente
-            elPaciente = null;
+            limpiar();
             this.setVisible(false); 
         }
         
