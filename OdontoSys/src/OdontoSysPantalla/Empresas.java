@@ -980,14 +980,13 @@ public class Empresas extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldRUCActionPerformed
 
     private void jTextFieldDNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDNombresActionPerformed
-        System.out.println("clicease");// TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDNombresActionPerformed
 
     private void jButtonRealizarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRealizarPagoActionPerformed
         RecibosEmpresa.empActual = empresaActual;
         RecibosEmpresa.user = user;
         RecibosEmpresa.main(null);
-        this.setVisible(false);
     }//GEN-LAST:event_jButtonRealizarPagoActionPerformed
 
     private void jButtonFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFacturarActionPerformed
@@ -995,7 +994,6 @@ public class Empresas extends javax.swing.JFrame {
         FacturasEmpresas.listaOrden = listaOrd;
         FacturasEmpresas.user = user;
         FacturasEmpresas.main(null);
-        this.setVisible(false);
     }//GEN-LAST:event_jButtonFacturarActionPerformed
 
     private void jTableEstadoCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEstadoCuentaMouseClicked
@@ -1352,7 +1350,7 @@ public class Empresas extends javax.swing.JFrame {
         tablaConvenios.addColumn("Observación");
         
         tablaPendientes.addColumn("Fecha");
-        tablaPendientes.addColumn("Factura Nro");
+        tablaPendientes.addColumn("Orden Nro");
         tablaPendientes.addColumn("Cliente");
         tablaPendientes.addColumn("Monto");
         
@@ -1419,19 +1417,21 @@ public class Empresas extends javax.swing.JFrame {
     }
 
     private void obtenerPendientes(Session sesion) {
+        Object[] f = null;
         listaOrd = new ArrayList();
         listaOrd = EmpresaControlador.ordenPendiente(empresaActual, sesion);
         int total = 0;
         if(listaOrd != null){
             for(OrdenEmpresa oe : listaOrd){
-                Object[] f = new Object[4];
+                f = new Object[4];
                 f[0] = fecha.format(oe.getFecha());
-                f[1] = "001-001-00"+oe.getFacturaEmpresa().getTalonario().getNroFactura();
+                f[1] = oe.getIdordenEmpresa();
                 f[2] = oe.getConvPaciente().getPaciente().getNombres() + " " +  oe.getConvPaciente().getPaciente().getApellidos();
                 f[3] = oe.getMonto();
                 total = total + oe.getMonto();
                 
                 tablaPendientes.addRow(f);
+                f = null;
             }
         }
         jTextFieldPendiente.setText(formateador.format(total));

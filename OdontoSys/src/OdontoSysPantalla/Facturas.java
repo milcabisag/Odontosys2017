@@ -810,6 +810,11 @@ public class Facturas extends javax.swing.JFrame {
             }
         }
         if(desc > 0){       //Existe descuento
+            Object[] f = new Object[4];
+            f[0] = "Descuento por Convenio "+elConvenio.getConvenio().getNomConv()+", Gs. "+desc;
+            f[1] = f[2] = f[3] = null;
+            tabla.addRow(f);
+            
             ordenEmp = new OrdenEmpresa();
             ordenEmp.setConvPaciente(elConvenio);
             ordenEmp.setFecha(new Date());

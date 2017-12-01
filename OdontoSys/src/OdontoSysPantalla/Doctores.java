@@ -82,7 +82,7 @@ public class Doctores extends javax.swing.JFrame {
         jLabelCI = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(660, 570));
+        setPreferredSize(new java.awt.Dimension(700, 600));
 
         jButtonAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
         jButtonAtras.setText("Cancelar");
@@ -146,13 +146,16 @@ public class Doctores extends javax.swing.JFrame {
 
         jPanel1.setFocusable(false);
         jPanel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelnomb.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelnomb.setForeground(new java.awt.Color(255, 0, 0));
         jLabelnomb.setText("Entre 3 y 30 caracteres permitidos");
         jLabelnomb.setToolTipText("");
+        jPanel1.add(jLabelnomb, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 11, 208, 25));
 
         jLabel5.setText("Sexo");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 128, -1, -1));
 
         jTextFieldDocReg.setEditable(false);
         jTextFieldDocReg.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -161,15 +164,19 @@ public class Doctores extends javax.swing.JFrame {
                 jTextFieldDocRegFocusLost(evt);
             }
         });
+        jPanel1.add(jTextFieldDocReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 349, 250, 28));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel6.setText("Teléfono");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 165, -1, -1));
 
         jLabelTel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelTel.setForeground(new java.awt.Color(255, 0, 0));
         jLabelTel.setText("Hasta 20 caracteres permitidos");
+        jPanel1.add(jLabelTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 165, -1, -1));
 
         jDateChooserDocFecha.setEnabled(false);
+        jPanel1.add(jDateChooserDocFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 121, -1, 28));
 
         jTextFieldDocDir.setEditable(false);
         jTextFieldDocDir.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -178,9 +185,11 @@ public class Doctores extends javax.swing.JFrame {
                 jTextFieldDocDirFocusLost(evt);
             }
         });
+        jPanel1.add(jTextFieldDocDir, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 238, 250, 28));
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel1.setText("Nombres");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 16, -1, -1));
 
         jTextFieldDocApe.setEditable(false);
         jTextFieldDocApe.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -195,19 +204,24 @@ public class Doctores extends javax.swing.JFrame {
                 soloLetrasKeyTyped(evt);
             }
         });
+        jPanel1.add(jTextFieldDocApe, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 45, 250, 28));
 
         jLabelDir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelDir.setForeground(new java.awt.Color(255, 0, 0));
         jLabelDir.setText("Entre 5 y 50 caracteres permitidos");
+        jPanel1.add(jLabelDir, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 243, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel11.setText("Reg. Prof. Nro");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 354, -1, -1));
 
         jComboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
         jComboBoxSexo.setEnabled(false);
+        jPanel1.add(jComboBoxSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 121, -1, 28));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel3.setText("Nro de CI");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 86, -1, -1));
 
         jTextFieldDocTel.setEditable(false);
         jTextFieldDocTel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -221,20 +235,25 @@ public class Doctores extends javax.swing.JFrame {
                 soloNumerosKeyTyped(evt);
             }
         });
+        jPanel1.add(jTextFieldDocTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 160, 250, 28));
 
         jLabelEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelEmail.setForeground(new java.awt.Color(255, 0, 0));
         jLabelEmail.setText("Hasta 20 caracteres permitidos");
         jLabelEmail.setToolTipText("");
+        jPanel1.add(jLabelEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 311, 208, 25));
 
         jLabel10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel10.setText("Email");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 316, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel7.setText("Celular");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 204, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel2.setText("Apellidos");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(78, 50, -1, -1));
 
         jTextFieldDocCed.setEditable(false);
         jTextFieldDocCed.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -248,9 +267,11 @@ public class Doctores extends javax.swing.JFrame {
                 soloNumerosKeyTyped(evt);
             }
         });
+        jPanel1.add(jTextFieldDocCed, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 81, 250, 28));
 
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel8.setText("Dirección");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 243, -1, -1));
 
         jTextFieldDocCel.setEditable(false);
         jTextFieldDocCel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -264,6 +285,7 @@ public class Doctores extends javax.swing.JFrame {
                 soloNumerosKeyTyped(evt);
             }
         });
+        jPanel1.add(jTextFieldDocCel, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 199, 250, 28));
 
         jTextFieldDocEmail.setEditable(false);
         jTextFieldDocEmail.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -277,10 +299,12 @@ public class Doctores extends javax.swing.JFrame {
                 jTextFieldDocEmailFocusLost(evt);
             }
         });
+        jPanel1.add(jTextFieldDocEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 311, 250, 28));
 
         jLabelCel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelCel.setForeground(new java.awt.Color(255, 0, 0));
         jLabelCel.setText("Hasta 20 caracteres permitidos");
+        jPanel1.add(jLabelCel, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 204, -1, -1));
 
         jTextFieldDocNomb.setEditable(false);
         jTextFieldDocNomb.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -294,137 +318,36 @@ public class Doctores extends javax.swing.JFrame {
                 soloLetrasKeyTyped(evt);
             }
         });
+        jPanel1.add(jTextFieldDocNomb, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 11, 250, 28));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel4.setText("Fecha de Nacimiento");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 132, -1, -1));
 
         jCBciudad.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jCBciudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(jCBciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 277, 250, 28));
 
         jLabelReg.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelReg.setForeground(new java.awt.Color(255, 0, 0));
         jLabelReg.setText("Hasta 30 caracteres permitidos");
         jLabelReg.setToolTipText("");
+        jPanel1.add(jLabelReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 349, 193, 25));
 
         jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel9.setText("Ciudad");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 283, -1, -1));
 
         jLabelape.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelape.setForeground(new java.awt.Color(255, 0, 0));
         jLabelape.setText("Entre 3 y 30 caracteres permitidos");
         jLabelape.setToolTipText("");
+        jPanel1.add(jLabelape, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 45, -1, 25));
 
         jLabelCI.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelCI.setForeground(new java.awt.Color(255, 0, 0));
         jLabelCI.setText("Entre 5 y 8 caracteres permitidos");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldDocCel, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldDocTel, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldDocDir, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldDocApe, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jDateChooserDocFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextFieldDocEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldDocReg, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldDocCed, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCBciudad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextFieldDocNomb, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelape)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabelnomb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelCI, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabelTel, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabelCel, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabelDir, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabelEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabelReg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextFieldDocNomb, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelnomb, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextFieldDocApe, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelape, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextFieldDocCed, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelCI))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jDateChooserDocFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextFieldDocTel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextFieldDocCel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelCel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextFieldDocDir, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelDir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jCBciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jTextFieldDocEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jTextFieldDocReg, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelReg, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+        jPanel1.add(jLabelCI, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 86, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -463,14 +386,14 @@ public class Doctores extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonEliminarDoctor)
                         .addComponent(jButtonModificarDoctor)
                         .addComponent(jButtonInsertarDoctor))
                     .addComponent(jButtonConsultarDoctor))
-                .addGap(28, 28, 28)
+                .addGap(19, 19, 19)
                 .addComponent(jLabel12)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -479,7 +402,7 @@ public class Doctores extends javax.swing.JFrame {
                     .addComponent(jButtonMenu)
                     .addComponent(jButtonAtras)
                     .addComponent(jButtonGuardar))
-                .addContainerGap())
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();

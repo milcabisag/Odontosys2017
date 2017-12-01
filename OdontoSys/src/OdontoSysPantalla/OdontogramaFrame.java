@@ -22,11 +22,13 @@ import OdontoSysPantallaAuxiliares.InsertarTratamientoAct;
 import OdontoSysPantallaAuxiliares.ObtenerPaciente;
 import OdontoSysPantallaAuxiliares.OrdenDeServicio;
 import OdontoSysUtil.Configuraciones;
+import OdontoSysUtil.NewHibernateUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
 
 /**
  *
@@ -64,6 +66,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
     
     Boolean consulta = false; 
     
+    Session sesion = null;
     
     
     public OdontogramaFrame(){
@@ -1135,6 +1138,8 @@ public class OdontogramaFrame extends javax.swing.JFrame {
     private void jButtonBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarPacienteActionPerformed
         // TODO add your handling code here:
         int bandera = 0;
+        sesion = NewHibernateUtil.getSessionFactory().openSession();
+            ObtenerPaciente.sesion = sesion;
             ObtenerPaciente frameP = new ObtenerPaciente(this, true);
             frameP.setVisible(true);
             elPaciente = frameP.getReturnStatus();
@@ -1143,6 +1148,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
                 bandera = 1;
             }
             if(bandera == 0){       //No se ha elegido un paciente
+                sesion.close();
                 this.dispose();
             }
         
@@ -1521,6 +1527,10 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         consulta = false;
         
         newOdont = null;        
+        
+        if(sesion != null){
+            sesion.close();
+        }
     }    
 
     private void cobrarConsulta() {

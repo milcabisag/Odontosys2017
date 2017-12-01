@@ -144,7 +144,7 @@ WHERE
 				<text><![CDATA[Recibimos de]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="115" y="5" width="350" height="20" uuid="d01d7baf-8a2d-4751-9464-b75246a7fdaa"/>
+				<reportElement x="115" y="5" width="413" height="20" uuid="d01d7baf-8a2d-4751-9464-b75246a7fdaa"/>
 				<textElement>
 					<font size="15"/>
 				</textElement>
@@ -158,14 +158,14 @@ WHERE
 				<text><![CDATA[La suma de Guaraníes]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="178" y="35" width="250" height="20" uuid="42a3c4f6-0af9-4e2b-a374-5777d7efd050"/>
+				<reportElement x="178" y="35" width="350" height="20" uuid="42a3c4f6-0af9-4e2b-a374-5777d7efd050"/>
 				<textElement>
 					<font size="15"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{letras}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="68" width="387" height="20" uuid="efc56cc8-fc0d-4620-880d-aad7705839b6"/>
+				<reportElement x="10" y="68" width="518" height="20" uuid="efc56cc8-fc0d-4620-880d-aad7705839b6"/>
 				<textElement textAlignment="Left" markup="none">
 					<font size="15"/>
 				</textElement>

@@ -6,10 +6,7 @@
 
 package OdontoSysPantallaAuxiliares;
 
-import OdontoSysControlador.ConvenioControlador;
 import OdontoSysControlador.OrdenServicioControlador;
-
-import OdontoSysModelo.Convenio;
 import OdontoSysModelo.OrdenServicio;
 import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Usuario;

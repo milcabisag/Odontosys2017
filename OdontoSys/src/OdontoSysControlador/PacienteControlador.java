@@ -98,10 +98,10 @@ public class PacienteControlador {
     public static ArrayList<Paciente> ConsultarPaciente(Session sesion){
         ArrayList<Paciente> datos = null;
         Paciente pac = new Paciente();
-        try{ 
             if(sesion == null){
                 sesion = NewHibernateUtil.getSessionFactory().openSession();
             }
+        try{ 
             String hql = "FROM Paciente WHERE estado = 'Activo'";
             Query query = sesion.createQuery(hql); 
             Iterator it = query.iterate();
