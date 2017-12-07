@@ -74,6 +74,7 @@ public class FacturaControlador {
                 agregarCaja(sesion, nuevo, mov, user, tipo);      //Agregar entrada en caja
             }
             if(ordenEmp != null){
+                ordenEmp.setFactura(nuevo);
                 insertarOrdenEmpresa(ordenEmp, detOrdEmp, sesion);
             }
             
@@ -363,7 +364,10 @@ public class FacturaControlador {
             sesion.refresh(ordenEmp);
             System.out.println("Orden Empresa Nro "+ordenEmp.getIdordenEmpresa());
                     
+            sesion.clear();
+            
             for(DetalleOrdenEmpresa d : detOrdEmp){
+                System.out.println("Detalle "+d.getServicio().getDescripcion()+" precio "+d.getMonto());
                 d.setOrdenEmpresa(ordenEmp);
                 sesion.save(d);
                 sesion.refresh(d);

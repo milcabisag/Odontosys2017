@@ -1,13 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 30/11/2017 03:54:31 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated 01/12/2017 04:41:45 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.OrdenEmpresa" table="orden_empresa" catalog="odontosys">
         <id name="idordenEmpresa" type="java.lang.Integer">
             <column name="idorden_empresa" />
             <generator class="identity" />
         </id>
+        <many-to-one name="factura" class="OdontoSysModelo.Factura" fetch="select">
+            <column name="fk_factura" />
+        </many-to-one>
         <many-to-one name="convPaciente" class="OdontoSysModelo.ConvPaciente" fetch="select">
             <column name="fk_convpaciente" not-null="true" />
         </many-to-one>

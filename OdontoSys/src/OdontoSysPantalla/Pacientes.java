@@ -1067,6 +1067,7 @@ public class Pacientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGenerarReporteActionPerformed
 
     private void jButtonInsertarConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarConvenioActionPerformed
+        DetalleConvenio.sesion = sesion;
         DetalleConvenio.pacActual = pacienteActual;
         DetalleConvenio.conv = null;
         DetalleConvenio.llamado = "insertar";

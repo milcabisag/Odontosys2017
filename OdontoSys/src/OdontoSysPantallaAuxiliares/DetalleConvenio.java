@@ -16,6 +16,7 @@ import OdontoSysPantalla.Convenios;
 import OdontoSysPantalla.Pacientes;
 import static java.awt.image.ImageObserver.WIDTH;
 import javax.swing.JOptionPane;
+import org.hibernate.Session;
 
 /**
  *
@@ -31,6 +32,7 @@ public class DetalleConvenio extends javax.swing.JFrame {
     public static Paciente pacActual = null;
     public static ConvPaciente conv = null;
     public static Usuario user = null;
+    public static Session sesion = null;
     
     
     
@@ -277,6 +279,7 @@ public class DetalleConvenio extends javax.swing.JFrame {
 
     private void jButtonBuscarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarEmpresaActionPerformed
 
+        ObtenerEmpresa.sesion = sesion;
         ObtenerEmpresa jDialog= new ObtenerEmpresa(null, true);
         jDialog.setVisible(true);
         empresaActual = jDialog.getReturnStatus();

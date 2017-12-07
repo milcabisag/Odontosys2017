@@ -79,10 +79,14 @@ public class OdontogramaFrame extends javax.swing.JFrame {
            mostrarDoctorPaciente();
            Object seleccion = JOptionPane.showInputDialog(null, "Seleccione un tipo de odontograma", "Ventana Odontograma",
            JOptionPane.QUESTION_MESSAGE, null, new Object[] { "O. Examen", "O. Tratamiento"}, 0);
-           if(seleccion.toString().compareTo("O. Examen") == 0){
-              jButtonSelectHallazgo.doClick();
+           if(seleccion != null){
+                if(seleccion.toString().compareTo("O. Examen") == 0){
+                    jButtonSelectHallazgo.doClick();
+                }else{
+                    jButtonSelectTratamiento.doClick();
+                }
            }else{
-              jButtonSelectTratamiento.doClick();
+               this.dispose();
            }
         }else{                          //Llamado a consultar odontograma
            mostrarDoctorPaciente();

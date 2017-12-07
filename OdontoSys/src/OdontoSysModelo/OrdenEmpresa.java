@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 30/11/2017 03:54:29 PM by Hibernate Tools 3.6.0
+// Generated 01/12/2017 04:41:36 PM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -13,6 +13,7 @@ public class OrdenEmpresa  implements java.io.Serializable {
 
 
      private Integer idordenEmpresa;
+     private Factura factura;
      private ConvPaciente convPaciente;
      private FacturaEmpresa facturaEmpresa;
      private Date fecha;
@@ -30,7 +31,8 @@ public class OrdenEmpresa  implements java.io.Serializable {
         this.estado = estado;
         this.monto = monto;
     }
-    public OrdenEmpresa(ConvPaciente convPaciente, FacturaEmpresa facturaEmpresa, Date fecha, String estado, int monto, Set detalleOrdenEmpresas) {
+    public OrdenEmpresa(Factura factura, ConvPaciente convPaciente, FacturaEmpresa facturaEmpresa, Date fecha, String estado, int monto, Set detalleOrdenEmpresas) {
+       this.factura = factura;
        this.convPaciente = convPaciente;
        this.facturaEmpresa = facturaEmpresa;
        this.fecha = fecha;
@@ -45,6 +47,13 @@ public class OrdenEmpresa  implements java.io.Serializable {
     
     public void setIdordenEmpresa(Integer idordenEmpresa) {
         this.idordenEmpresa = idordenEmpresa;
+    }
+    public Factura getFactura() {
+        return this.factura;
+    }
+    
+    public void setFactura(Factura factura) {
+        this.factura = factura;
     }
     public ConvPaciente getConvPaciente() {
         return this.convPaciente;

@@ -791,7 +791,7 @@ public class Facturas extends javax.swing.JFrame {
     private void calcularDescuentos() {
         detOrdenEmp  =new ArrayList();
         desc = 0;
-        DetalleOrdenEmpresa detalle = new DetalleOrdenEmpresa();
+        DetalleOrdenEmpresa detalle = null;
         
         ArrayList<DetalleConvenio> detConv = new ArrayList();
         detConv = ConvenioControlador.obtenerDetalleConvenio(elConvenio);
@@ -803,9 +803,12 @@ public class Facturas extends javax.swing.JFrame {
                 if(lista.get(x).getServicio().getIdservicio() == detConv.get(y).getServicio().getIdservicio()){
                     descuento = lista.get(x).getPrecio() * detConv.get(y).getPorcentaje() / 100;
                     desc = desc + descuento;  //suma de descuentos
+                    detalle = new DetalleOrdenEmpresa();
                     detalle.setServicio(lista.get(x).getServicio());
                     detalle.setMonto(descuento);
                     detOrdenEmp.add(detalle);
+                    System.out.println("Detalle "+detalle.getServicio().getDescripcion()+" monto "+detalle.getMonto());
+                    detalle = null;
                 }
             }
         }

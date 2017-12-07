@@ -386,11 +386,13 @@ public class FacturasEmpresas extends javax.swing.JFrame {
              if(tipo != null){
                  facActual = FacturaControlador.insertarFacturaEmpresa(facActual, tal, user, listaOrden, tipo); 
                  imprimirFactura();
+                 imprimirDetalleFactura();
                 this.dispose();   
              }
         }else{          //Factura Crédito
                 facActual = FacturaControlador.insertarFacturaEmpresa(facActual, tal, user, listaOrden, null);
             imprimirFactura();
+            imprimirDetalleFactura();
             Pacientes jF = new Pacientes();
             if(jF.isVisible()){
                 jF.actualizarForm();
@@ -490,8 +492,7 @@ public class FacturasEmpresas extends javax.swing.JFrame {
         total = 0;
         for(OrdenEmpresa n : listaOrden){
             Object[] f = new Object[5];
-            f[0] = "Por Orden Nro "+n.getIdordenEmpresa()+" a Paciente "+n.getConvPaciente().getPaciente().getNombres()+" "+
-                    n.getConvPaciente().getPaciente().getApellidos();
+            f[0] = "Por factura Nro 001-001-000"+n.getFactura().getTalonario().getNroFactura();
             f[1] = n.getMonto();
             f[2] = null;
             f[3] = null;
@@ -563,6 +564,19 @@ public class FacturasEmpresas extends javax.swing.JFrame {
             jLabelNroFac.setText("Nro 001-001-00"+tal.getNroFactura());
         }
     
+    }
+
+    private void imprimirDetalleFactura() {
+        String reporte="C:\\Users\\user\\Google Drive\\UNA\\Odontosys2017\\OdontoSys\\src\\Reportes\\detalle_factura_empresa";
+        
+        int idFactura = facActual.getIdfacturaEmpresa();
+        
+        System.out.println("Factura "+idFactura);
+        
+        Map parametros = new HashMap();
+        parametros.put("id_facturaemp", idFactura);
+        
+        Configuraciones.imprimirReporteHB(reporte, parametros);
     }
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" language="groovy" pageWidth="600" pageHeight="350" orientation="Landscape" columnWidth="560" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="af3ca921-23e1-4548-b733-ef286a4cc05a">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" language="groovy" pageWidth="612" pageHeight="1008" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" isIgnorePagination="true" uuid="af3ca921-23e1-4548-b733-ef286a4cc05a">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -18,12 +18,12 @@
      factura.`descuento` AS factura_descuento,
      factura.`monto_total` AS factura_monto_total,
      detalle_orden.`precio` AS detalle_orden_precio,
+     servicio.`descripcion` AS servicio_descripcion,
+     convenio.nom_conv AS nombre_convenio,
      paciente.`Nombres` AS paciente_Nombres,
      paciente.`Apellidos` AS paciente_Apellidos,
      paciente.`Nro_CI` AS paciente_Nro_CI,
-     servicio.`descripcion` AS servicio_descripcion,
      paciente.`Direccion` AS paciente_Direccion,
-     convenio.nom_conv AS nombre_convenio,
      talonario.`nro_factura` AS nro_factura,
 	talonario.`timbrado` AS timbrado,
 	talonario.`ini_vigencia` AS inicio_vigencia,
@@ -31,29 +31,29 @@
 	datos.direccion AS direccion_empresa,
 	datos.*
 FROM
-     `orden_servicio` orden_servicio INNER JOIN `factura` factura ON orden_servicio.`idorden_servicio` = factura.`fk_orden`
-     INNER JOIN `detalle_orden` detalle_orden ON orden_servicio.`idorden_servicio` = detalle_orden.`fk_orden_servicio`
-     INNER JOIN `paciente` paciente ON orden_servicio.`fk_paciente` = paciente.`idPaciente`
-     AND paciente.`idPaciente` = factura.`fk_paciente`
-     INNER JOIN `servicio` servicio ON detalle_orden.`fk_servicio` = servicio.`idservicio`
+     orden_servicio INNER JOIN factura ON orden_servicio.idorden_servicio = factura.fk_orden
+     INNER JOIN detalle_orden ON orden_servicio.idorden_servicio = detalle_orden.fk_orden_servicio
+     INNER JOIN paciente ON orden_servicio.fk_paciente = paciente.idPaciente
+     INNER JOIN servicio ON detalle_orden.fk_servicio = servicio.idservicio
     INNER JOIN conv_paciente ON conv_paciente.fk_paciente = paciente.idpaciente
+INNER JOIN orden_empresa ON orden_empresa.fk_convpaciente = conv_paciente.idconv_paciente
     INNER JOIN convenio ON convenio.idconvenio = conv_paciente.fk_convenio
-	INNER JOIN `talonario` talonario ON talonario.`idtalonario` = factura.`fk_talonario`
-	JOIN `datos` datos
+	INNER JOIN talonario ON talonario.idtalonario = factura.fk_talonario
+	JOIN datos
 WHERE
-     factura.`idfactura` = $P{idFactura} AND datos.`iddatos` = 1]]>
+     factura.idfactura = $P{idFactura} AND datos.iddatos = 1]]>
 	</queryString>
 	<field name="factura_fecha" class="java.sql.Date"/>
 	<field name="factura_tipo_factura" class="java.lang.String"/>
 	<field name="factura_descuento" class="java.lang.Integer"/>
 	<field name="factura_monto_total" class="java.lang.Integer"/>
 	<field name="detalle_orden_precio" class="java.lang.Integer"/>
+	<field name="servicio_descripcion" class="java.lang.String"/>
+	<field name="nombre_convenio" class="java.lang.String"/>
 	<field name="paciente_Nombres" class="java.lang.String"/>
 	<field name="paciente_Apellidos" class="java.lang.String"/>
 	<field name="paciente_Nro_CI" class="java.lang.Integer"/>
-	<field name="servicio_descripcion" class="java.lang.String"/>
 	<field name="paciente_Direccion" class="java.lang.String"/>
-	<field name="nombre_convenio" class="java.lang.String"/>
 	<field name="nro_factura" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>

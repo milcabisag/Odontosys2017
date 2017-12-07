@@ -1311,10 +1311,11 @@ public class Empresas extends javax.swing.JFrame {
             jTextFieldNombreContacto.setText(empresa.getNombreContacto());
             jTextFieldTeléfonoContacto.setText(empresa.getTelContacto());
             jTextFieldObservaciones.setText(empresa.getObservaciones());
+            empresaActual = empresa;
             
-            obtenerConvenios(sesion);
-            obtenerEstadoCuenta(sesion);
-            obtenerPendientes(sesion);
+            obtenerConvenios();
+            obtenerEstadoCuenta();
+            obtenerPendientes();
             
         }else{
             JOptionPane.showMessageDialog(rootPane, "Empresa No encontrada", "aviso", WIDTH);
@@ -1360,7 +1361,7 @@ public class Empresas extends javax.swing.JFrame {
         tablaEstado.addColumn("Haber");    
     }
 
-    private void obtenerConvenios(Session sesion) {
+    private void obtenerConvenios() {
         listaconvenios = new ArrayList();
         listaconvenios = ConvenioControlador.BuscarConvenioEmpresa(empresaActual, sesion);
         if(listaconvenios != null){
@@ -1375,7 +1376,7 @@ public class Empresas extends javax.swing.JFrame {
         
     }
 
-    private void obtenerEstadoCuenta(Session sesion) {
+    private void obtenerEstadoCuenta() {
         listaEst = new ArrayList();
         listaRec = new ArrayList();
         Object[] f = new Object[4];
@@ -1416,7 +1417,7 @@ public class Empresas extends javax.swing.JFrame {
         }
     }
 
-    private void obtenerPendientes(Session sesion) {
+    private void obtenerPendientes() {
         Object[] f = null;
         listaOrd = new ArrayList();
         listaOrd = EmpresaControlador.ordenPendiente(empresaActual, sesion);
@@ -1479,12 +1480,12 @@ public class Empresas extends javax.swing.JFrame {
         if(empresaActual != null){
             Empresa e = empresaActual;
             limpiar();
+            BotonInvisibles();
             
             sesion = NewHibernateUtil.getSessionFactory().openSession();
             
-            BotonInvisibles();
             empresaActual = e;
-            escribirEmpresa(empresaActual);
+            escribirEmpresa(e);
             habilitarBotones();
             deshabilitarDatos();            
         }        

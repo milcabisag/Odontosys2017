@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 30/11/2017 03:54:29 PM by Hibernate Tools 3.6.0
+// Generated 01/12/2017 04:41:36 PM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -25,6 +25,7 @@ public class Factura  implements java.io.Serializable {
      private int montoTotal;
      private int saldo;
      private Set recibos = new HashSet(0);
+     private Set ordenEmpresas = new HashSet(0);
 
     public Factura() {
     }
@@ -43,7 +44,7 @@ public class Factura  implements java.io.Serializable {
         this.montoTotal = montoTotal;
         this.saldo = saldo;
     }
-    public Factura(Talonario talonario, OrdenServicio ordenServicio, Usuario usuario, Paciente paciente, Movimiento movimiento, Date fecha, String tipoFactura, int descuento, String estado, int montoTotal, int saldo, Set recibos) {
+    public Factura(Talonario talonario, OrdenServicio ordenServicio, Usuario usuario, Paciente paciente, Movimiento movimiento, Date fecha, String tipoFactura, int descuento, String estado, int montoTotal, int saldo, Set recibos, Set ordenEmpresas) {
        this.talonario = talonario;
        this.ordenServicio = ordenServicio;
        this.usuario = usuario;
@@ -56,6 +57,7 @@ public class Factura  implements java.io.Serializable {
        this.montoTotal = montoTotal;
        this.saldo = saldo;
        this.recibos = recibos;
+       this.ordenEmpresas = ordenEmpresas;
     }
    
     public Integer getIdfactura() {
@@ -148,6 +150,13 @@ public class Factura  implements java.io.Serializable {
     
     public void setRecibos(Set recibos) {
         this.recibos = recibos;
+    }
+    public Set getOrdenEmpresas() {
+        return this.ordenEmpresas;
+    }
+    
+    public void setOrdenEmpresas(Set ordenEmpresas) {
+        this.ordenEmpresas = ordenEmpresas;
     }
 
 

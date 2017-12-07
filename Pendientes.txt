@@ -1,6 +1,5 @@
 - En buscar servicios para convenio, no mostrar los servicios que ya se eligieron, para evitar duplicados
-- Revisar hoja clínica.
-UpDatePaciente - error de dos sessiones abiertas
+- Figurar en factura paciente el descuento por convenio "Descuento por convenio XXX"
 
 
 Funciones para session
