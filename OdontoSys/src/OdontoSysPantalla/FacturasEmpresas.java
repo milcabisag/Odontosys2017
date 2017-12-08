@@ -20,6 +20,7 @@ import OdontoSysUtil.TipoPago;
 import OdontoSysModelo.Usuario;
 import OdontoSysPantallaAuxiliares.ObtenerTipoPagoContado;
 import OdontoSysUtil.Configuraciones;
+import OdontoSysUtil.NewHibernateUtil;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -29,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
 
 /**
  *
@@ -55,6 +57,7 @@ public class FacturasEmpresas extends javax.swing.JFrame {
     FacturaEmpresa facActual = null;
     ArrayList<DetalleOrdenEmpresa> detOrdenEmp = new ArrayList();
     
+    Session sesion = null;
     
     public FacturasEmpresas() {
         initComponents();
@@ -384,15 +387,17 @@ public class FacturasEmpresas extends javax.swing.JFrame {
              jDialog.setVisible(true);
              tipo =  jDialog.getReturnStatus();
              if(tipo != null){
-                 facActual = FacturaControlador.insertarFacturaEmpresa(facActual, tal, user, listaOrden, tipo); 
+                 facActual = FacturaControlador.insertarFacturaEmpresa(sesion, facActual, tal, user, listaOrden, tipo); 
                  imprimirFactura();
                  imprimirDetalleFactura();
+                 limpiar();
                 this.dispose();   
              }
         }else{          //Factura Crédito
-                facActual = FacturaControlador.insertarFacturaEmpresa(facActual, tal, user, listaOrden, null);
+                facActual = FacturaControlador.insertarFacturaEmpresa(sesion, facActual, tal, user, listaOrden, null);
             imprimirFactura();
             imprimirDetalleFactura();
+            limpiar();
             Pacientes jF = new Pacientes();
             if(jF.isVisible()){
                 jF.actualizarForm();
@@ -555,9 +560,10 @@ public class FacturasEmpresas extends javax.swing.JFrame {
 
     private void setearFactura() {
         
+        sesion = NewHibernateUtil.getSessionFactory().openSession();
         
-        dat = TalonarioControlador.DatosdeFactura();
-        tal = TalonarioControlador.BuscarFacturaLibre();
+        dat = TalonarioControlador.DatosdeFactura(sesion);
+        tal = TalonarioControlador.BuscarFacturaLibre(sesion);
         if(tal != null && dat != null){
             jLabelRUC.setText("RUC "+dat.getRuc());
             jLabelTimbrado.setText("Timbrado "+tal.getTimbrado());
@@ -577,6 +583,22 @@ public class FacturasEmpresas extends javax.swing.JFrame {
         parametros.put("id_facturaemp", idFactura);
         
         Configuraciones.imprimirReporteHB(reporte, parametros);
+    }
+
+    private void limpiar() {
+         if(sesion != null){
+             sesion.close();
+         }
+         user = null;
+         empActual = null; 
+         listaOrden = null;         
+         total = 0;
+         tal = null;
+         dat = null;
+         facActual = null;
+         detOrdenEmp = null;
+         sesion = null;
+         Configuraciones.limpiarModelo(tabla);
     }
 
 

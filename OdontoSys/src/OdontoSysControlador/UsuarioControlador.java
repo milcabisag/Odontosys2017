@@ -157,4 +157,33 @@ public class UsuarioControlador {
         }
         return p;
     }
+    
+    public static ArrayList<Usuario> BuscarTodosUsuarios() {
+        ArrayList<Usuario> lista = new ArrayList<>();
+        Session session = null;
+        Transaction tx = null;
+        try {            
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            String hql = "FROM Usuario";            
+            Query query = session.createQuery(hql);
+            Iterator it = query.iterate();
+            if(it.hasNext()){
+                do{
+                    Usuario nuevo = (Usuario) it.next();
+                    lista.add(nuevo);
+               }while(it.hasNext());
+            }else{
+                lista = null;
+            }  
+            tx.commit();
+        } catch (HibernateException ex) {
+            tx.rollback();
+            System.out.println("Error al buscar user: "+ ex);
+              JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Usuario Controlador", JOptionPane.INFORMATION_MESSAGE);
+         }
+        
+        return lista;
+    }
+    
 }

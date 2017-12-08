@@ -3,14 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/user/Google%20Drive/UNA/Odontosys2017/OdontoSys/src/Reportes/subfactura2.jrxml</file>
-            <file>file:/C:/Users/user/Google%20Drive/UNA/Odontosys2017/OdontoSys/src/Reportes/factura.jrxml</file>
-            <file>file:/C:/Users/user/Google%20Drive/UNA/Odontosys2017/OdontoSys/src/OdontoSysPantalla/OdontogramaFrame.java</file>
-            <file>file:/C:/Users/user/Google%20Drive/UNA/Odontosys2017/OdontoSys/src/OdontoSysPantalla/Empresas.java</file>
+            <file>file:/C:/Users/user/Google%20Drive/UNA/Odontosys2017/OdontoSys/src/OdontoSysPantalla/ReporteServicios.java</file>
+            <file>file:/C:/Users/user/Google%20Drive/UNA/Odontosys2017/OdontoSys/src/OdontoSysPantallaAuxiliares/BuscarUsuarios.java</file>
             <file>file:/C:/Users/user/Google%20Drive/UNA/Odontosys2017/OdontoSys/src/OdontoSysPantalla/Facturas.java</file>
             <file>file:/C:/Users/user/Google%20Drive/UNA/Odontosys2017/OdontoSys/src/OdontoSysPantalla/Pacientes.java</file>
-            <file>file:/C:/Users/user/Google%20Drive/UNA/Odontosys2017/OdontoSys/src/OdontoSysControlador/FacturaControlador.java</file>
-            <file>file:/C:/Users/user/Google%20Drive/UNA/Odontosys2017/OdontoSys/src/OdontoSysPantalla/FacturasEmpresas.java</file>
+            <file>file:/C:/Users/user/Google%20Drive/UNA/Odontosys2017/OdontoSys/src/OdontoSysPantalla/Inicio.java</file>
+            <file>file:/C:/Users/user/Google%20Drive/UNA/Odontosys2017/OdontoSys/src/OdontoSysControlador/TalonarioControlador.java</file>
         </group>
     </open-files>
 </project-private>

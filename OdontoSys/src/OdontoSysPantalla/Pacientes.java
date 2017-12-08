@@ -163,6 +163,17 @@ public class Pacientes extends javax.swing.JFrame {
         Citas = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableAgenda = new javax.swing.JTable();
+        jPanelHistorico = new javax.swing.JPanel();
+        jDCDesde = new com.toedter.calendar.JDateChooser();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jDCHasta = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabelNombrePaciente = new javax.swing.JLabel();
+        jButtonHistMed = new javax.swing.JButton();
+        jLabelNot = new javax.swing.JLabel();
         jButtonAtras = new javax.swing.JButton();
         botonActualizar = new javax.swing.JButton();
 
@@ -244,6 +255,10 @@ public class Pacientes extends javax.swing.JFrame {
                 jButtonMenuActionPerformed(evt);
             }
         });
+
+        jTabbedPane1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jPanelDatos.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         jLabelDNombres.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabelDNombres.setText("Nombres");
@@ -641,7 +656,7 @@ public class Pacientes extends javax.swing.JFrame {
                             .addComponent(jTextFieldDEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelEmail)))
                     .addComponent(jLabelDir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -701,7 +716,7 @@ public class Pacientes extends javax.swing.JFrame {
                         .addGap(69, 69, 69)
                         .addComponent(jButtonGenerarReporte))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         jPanelEstadoCuentaLayout.setVerticalGroup(
             jPanelEstadoCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -718,7 +733,7 @@ public class Pacientes extends javax.swing.JFrame {
                     .addGroup(jPanelEstadoCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(jTextFieldSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Estado de Cuenta", new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/grafico.png")), jPanelEstadoCuenta); // NOI18N
@@ -761,7 +776,7 @@ public class Pacientes extends javax.swing.JFrame {
                         .addGroup(jPanelConveniosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonInsertarConvenio)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         jPanelConveniosLayout.setVerticalGroup(
             jPanelConveniosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -791,26 +806,114 @@ public class Pacientes extends javax.swing.JFrame {
         jPanelAgendaLayout.setHorizontalGroup(
             jPanelAgendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAgendaLayout.createSequentialGroup()
-                .addGroup(jPanelAgendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelAgendaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelAgendaLayout.createSequentialGroup()
-                        .addGap(259, 259, 259)
-                        .addComponent(Citas)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addGroup(jPanelAgendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(Citas)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         jPanelAgendaLayout.setVerticalGroup(
             jPanelAgendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAgendaLayout.createSequentialGroup()
-                .addContainerGap(62, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
                 .addComponent(Citas)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Citas - Agenda", new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/agenda.png")), jPanelAgenda); // NOI18N
+
+        jDCDesde.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel2.setText("Desde");
+
+        jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel3.setText("Hasta");
+
+        jDCHasta.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel4.setText("Seleccione dos fechas para imprimir el historial");
+
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel5.setText("Historial Médico del Paciente");
+
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel6.setText("Paciente");
+
+        jLabelNombrePaciente.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelNombrePaciente.setText("Nombre");
+
+        jButtonHistMed.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButtonHistMed.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/diente.png"))); // NOI18N
+        jButtonHistMed.setText("Generar Historial");
+        jButtonHistMed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHistMedActionPerformed(evt);
+            }
+        });
+
+        jLabelNot.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelNot.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelNot.setText("Debe escoger dos fechas");
+
+        javax.swing.GroupLayout jPanelHistoricoLayout = new javax.swing.GroupLayout(jPanelHistorico);
+        jPanelHistorico.setLayout(jPanelHistoricoLayout);
+        jPanelHistoricoLayout.setHorizontalGroup(
+            jPanelHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelHistoricoLayout.createSequentialGroup()
+                .addGroup(jPanelHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelHistoricoLayout.createSequentialGroup()
+                        .addGap(221, 221, 221)
+                        .addGroup(jPanelHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabelNot)
+                            .addComponent(jButtonHistMed)))
+                    .addGroup(jPanelHistoricoLayout.createSequentialGroup()
+                        .addGap(288, 288, 288)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanelHistoricoLayout.createSequentialGroup()
+                        .addGap(270, 270, 270)
+                        .addGroup(jPanelHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(46, 46, 46)
+                        .addGroup(jPanelHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDCDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDCHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelNombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(174, Short.MAX_VALUE))
+        );
+        jPanelHistoricoLayout.setVerticalGroup(
+            jPanelHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelHistoricoLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addGap(82, 82, 82)
+                .addGroup(jPanelHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelNombrePaciente)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jDCDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jDCHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addComponent(jLabelNot)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonHistMed, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(62, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Historial Médico", new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/diente.png")), jPanelHistorico); // NOI18N
 
         jButtonAtras.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
@@ -1043,27 +1146,16 @@ public class Pacientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRealizarPagoActionPerformed
 
     private void jButtonGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarReporteActionPerformed
-        /*obtenerFechas.llamado = "EstadoCuenta";
-        obtenerFechas jFrame = new obtenerFechas(null, true);
-        jFrame.setVisible(true);
-
-        Date[] fechas = jFrame.getReturnStatus();
-        if(fechas[0] != null && fechas[1] != null){
-        int saldo = PacienteControlador.calcularSaldo(fechas[0], pac.getIdPaciente());*/
+        
         String reporte="C:\\Users\\user\\Google Drive\\UNA\\Odontosys2017\\OdontoSys\\src\\Reportes\\estado_cuenta_paciente";
 
         int idPaciente = pac.getIdPaciente();
 
         Map parametros = new HashMap();
         parametros.put("id_paciente", idPaciente);
-        /*parametros.put("fecha_ini", fechas[0]);
-        parametros.put("fecha_fin", fechas[1]);
-        parametros.put("saldo_ini", saldo);*/
 
         Configuraciones.imprimirReporteHB(reporte, parametros);
-        /*}else{
-            JOptionPane.showMessageDialog(null, "Favor ingrese un rango de fechas válidas", "Reporte Estado de Cuenta", JOptionPane.INFORMATION_MESSAGE);
-        }*/
+ 
     }//GEN-LAST:event_jButtonGenerarReporteActionPerformed
 
     private void jButtonInsertarConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarConvenioActionPerformed
@@ -1171,6 +1263,28 @@ public class Pacientes extends javax.swing.JFrame {
         actualizarForm();
     }//GEN-LAST:event_botonActualizarActionPerformed
 
+    private void jButtonHistMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHistMedActionPerformed
+        Date f1 = jDCDesde.getDate();
+        Date f2 = jDCHasta.getDate();
+        if(f1 != null && f2 != null){            
+            jLabelNot.setVisible(false);
+            SimpleDateFormat fec = new SimpleDateFormat("yyyy/MM/dd");
+            String ini = fec.format(f1);
+            String fin = fec.format(f2);
+            String f = "Desde "+fecha.format(f1)+" Hasta "+fecha.format(f2);
+            String reporte="C:\\Users\\user\\Google Drive\\UNA\\Odontosys2017\\OdontoSys\\src\\Reportes\\historial_medico";
+            int idPaciente = pacienteActual.getIdPaciente();
+            Map parametros = new HashMap();
+            parametros.put("idPaciente", idPaciente);
+            parametros.put("fecha_ini", ini);
+            parametros.put("fecha_fin", fin);
+            parametros.put("fechas", f);
+            Configuraciones.imprimirReporteHB(reporte, parametros);
+        }else{
+            jLabelNot.setVisible(true);
+        }
+    }//GEN-LAST:event_jButtonHistMedActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1222,6 +1336,7 @@ public class Pacientes extends javax.swing.JFrame {
     private javax.swing.JButton jButtonElimPaciente;
     private javax.swing.JButton jButtonGenerarReporte;
     private javax.swing.JButton jButtonGuardar;
+    private javax.swing.JButton jButtonHistMed;
     private javax.swing.JButton jButtonInsPaciente;
     private javax.swing.JButton jButtonInsertarConvenio;
     private javax.swing.JButton jButtonMenu;
@@ -1231,8 +1346,15 @@ public class Pacientes extends javax.swing.JFrame {
     private javax.swing.JButton jButtonRealizarPago;
     private javax.swing.JComboBox jCBciudad;
     private javax.swing.JComboBox jComboBoxSexo;
+    private com.toedter.calendar.JDateChooser jDCDesde;
+    private com.toedter.calendar.JDateChooser jDCHasta;
     private com.toedter.calendar.JDateChooser jDateChooserEdad;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabelApe;
     private javax.swing.JLabel jLabelCI;
     private javax.swing.JLabel jLabelCel;
@@ -1249,11 +1371,14 @@ public class Pacientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelDir;
     private javax.swing.JLabel jLabelEmail;
     private javax.swing.JLabel jLabelNom;
+    private javax.swing.JLabel jLabelNombrePaciente;
+    private javax.swing.JLabel jLabelNot;
     private javax.swing.JLabel jLabelTel;
     private javax.swing.JPanel jPanelAgenda;
     private javax.swing.JPanel jPanelConvenios;
     private javax.swing.JPanel jPanelDatos;
     private javax.swing.JPanel jPanelEstadoCuenta;
+    private javax.swing.JPanel jPanelHistorico;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1381,7 +1506,7 @@ public class Pacientes extends javax.swing.JFrame {
         jButtonRealizarPago.setVisible(false);
         jButtonGenerarReporte.setVisible(false);
         jButtonInsertarConvenio.setVisible(false);
-        
+        jButtonHistMed.setVisible(false);
         jButtonInsPaciente.setVisible(true);
         jButtonBuscar.setVisible(true);
         
@@ -1392,6 +1517,7 @@ public class Pacientes extends javax.swing.JFrame {
         jLabelCel.setVisible(false);
         jLabelDir.setVisible(false);
         jLabelEmail.setVisible(false);
+        jLabelNot.setVisible(false);
     }
 
     private void insertarPaciente() {
@@ -1433,6 +1559,9 @@ public class Pacientes extends javax.swing.JFrame {
             jTextFieldDDireccion.setText(paciente.getDireccion());
             jCBciudad.setSelectedItem(paciente.getCiudad());
             jTextFieldDEmail.setText(paciente.getEmail());
+            
+            jLabelNombrePaciente.setText(paciente.getNombres()+" "+paciente.getApellidos());
+            jButtonHistMed.setVisible(true);
             
             recuperarEstadoCuenta(paciente, sesion);
             recuperarCitas(paciente, sesion);
@@ -1643,4 +1772,6 @@ public class Pacientes extends javax.swing.JFrame {
         tablaConvenio.addColumn("Nombre convenio");
         tablaConvenio.addColumn("Observación");
     }
+
+ 
 }

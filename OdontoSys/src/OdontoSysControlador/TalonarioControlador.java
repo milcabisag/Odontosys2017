@@ -50,15 +50,10 @@ public class TalonarioControlador {
         return v;
     }
     
-    public static Talonario BuscarFacturaLibre(){
+    public static Talonario BuscarFacturaLibre(Session sesion){
     
         Talonario tal = null;
-        Session sesion;
-        Transaction tr = null;
         try{
-            sesion = NewHibernateUtil.getSessionFactory().openSession();
-            tr = sesion.beginTransaction();
-            
             tal = new Talonario();
             String hql1 = "SELECT min(idtalonario) FROM Talonario WHERE estado = 'Libre'";
             Query query = sesion.createQuery(hql1); 
@@ -73,9 +68,7 @@ public class TalonarioControlador {
                 tal = null;
             }
             
-            tr.commit();
         }catch(HibernateException ex){
-            tr.rollback();
              System.out.println("Mensaje "+ex.getMessage());
              JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Talonario Controlador", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -83,20 +76,14 @@ public class TalonarioControlador {
         return tal;
     }
 
-    public static Datos DatosdeFactura(){
+    public static Datos DatosdeFactura(Session sesion){
         
         Datos dat = null;
-        Session sesion;
-        try{
-             sesion = NewHibernateUtil.getSessionFactory().openSession();
-            sesion.getTransaction().begin();  
-            
+        try{            
             dat = new Datos();
             String hql = "FROM Datos WHERE idDatos = 1";
             Query query = sesion.createQuery(hql); 
             dat = (Datos) query.uniqueResult();
-            
-            sesion.close();
         }catch(HibernateException ex){
              System.out.println("Mensaje "+ex.getMessage());
              JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Talonario Controlador", JOptionPane.INFORMATION_MESSAGE);
@@ -106,12 +93,11 @@ public class TalonarioControlador {
     }
 
     public static void UsarFactura(Session sesion, Talonario tal) {
-       
+      
         try{
-            
-            tal.setEstado("Usado");
-            sesion.merge(tal);
-            sesion.refresh(tal);
+            String hql = "UPDATE Talonario SET estado = 'Usado' WHERE idtalonario = "+tal.getIdtalonario();
+            Query q = sesion.createQuery(hql);
+            q.executeUpdate();
             
         }catch(HibernateException ex){
              System.out.println("Mensaje "+ex.getMessage());
@@ -157,7 +143,6 @@ public class TalonarioControlador {
             
                     //Busca si queda factura libre
             hql = "FROM Talonario WHERE estado = 'Libre' AND finVigencia >= '"+fec+"'";
-            System.out.println(hql);
             Query query = sesion.createQuery(hql);
             Iterator it = query.iterate();
             if(it.hasNext()){

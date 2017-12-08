@@ -197,7 +197,7 @@ public class Inicio extends javax.swing.JFrame {
                 jButtonReporteServiciosActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonReporteServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 452, 200, 35));
+        jPanel1.add(jButtonReporteServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 410, 200, 35));
 
         jButtonAyuda.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/ayuda.png"))); // NOI18N
@@ -259,7 +259,7 @@ public class Inicio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -345,32 +345,17 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonServiciosActionPerformed
 
     private void jButtonReporteServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteServiciosActionPerformed
-        obtenerFechas.llamado = "Servicio";
-        obtenerFechas jDialog = new obtenerFechas(null, true);
-        jDialog.setVisible(true);
-        
-        Date[] fecha = jDialog.getReturnStatus();
-        if(fecha != null){
-            obtenerReporte(fecha[0]);
-        }
+        ReporteServicios.main(null);
     }//GEN-LAST:event_jButtonReporteServiciosActionPerformed
 
     private void jButtonAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAyudaActionPerformed
     
-        /*if(usuario.getRol().compareTo("Administrador") == 0){
-            AyudaAdministrador jFrameA = new AyudaAdministrador(null, true);
-            jFrameA.setVisible(true);
-        }else if(usuario.getRol().compareTo("Secretaria") == 0){
-            AyudaSecretaria jFrameS = new AyudaSecretaria(null, true);
-            jFrameS.setVisible(true);
-        }else if(usuario.getRol().compareTo("Doctor") == 0){
-            AyudaDoctor jFrameD = new AyudaDoctor(null, true);
-            jFrameD.setVisible(true);
-        }   */     
+        
     }//GEN-LAST:event_jButtonAyudaActionPerformed
 
     private void jButtonReporteCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteCajaActionPerformed
-       // Ver reporte
+       // Elegir intervalo de fechas
+        ReporteCaja.main(null);
     }//GEN-LAST:event_jButtonReporteCajaActionPerformed
 
     private void jButtonDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDatosActionPerformed
@@ -453,8 +438,9 @@ public class Inicio extends javax.swing.JFrame {
         jButtonPacientes.setVisible(true);
         jButtonEmpresas.setVisible(true);
         jButtonServicios.setVisible(true);
-        jButtonReporteServicios.setVisible(false);
-        jButtonReporteCaja.setVisible(false);
+        jButtonReporteServicios.setVisible(true);
+        jButtonReporteCaja.setVisible(true);
+        jButtonAyuda.setVisible(false);
     }
 
     private void rolSecret() {
@@ -467,6 +453,7 @@ public class Inicio extends javax.swing.JFrame {
         jButtonServicios.setVisible(false);
         jButtonReporteServicios.setVisible(true);
         jButtonReporteCaja.setVisible(false);
+        jButtonAyuda.setVisible(false);
     }
 
     private void rolDoctor() {
@@ -479,6 +466,7 @@ public class Inicio extends javax.swing.JFrame {
         jButtonServicios.setVisible(false);
         jButtonReporteServicios.setVisible(false);
         jButtonReporteCaja.setVisible(false);
+        jButtonAyuda.setVisible(false);
     }
 
     private void obtenerReporte(Date date) {

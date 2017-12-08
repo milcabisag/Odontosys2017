@@ -6,9 +6,13 @@
 
 package OdontoSysPantallaAuxiliares;
 
+import OdontoSysUtil.Configuraciones;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -22,13 +26,12 @@ import javax.swing.KeyStroke;
 public class obtenerFechas extends javax.swing.JDialog {
 
     /**
-     * A return status code - returned if Cancel button has been pressed
+     * Variables
      */
-    public static final Date[] fechas = new Date[2];
-    public static String llamado;
-    /**
-     * Creates new form obtenerFechas
-     */
+    Date hoy = new Date();
+    SimpleDateFormat formateador = new SimpleDateFormat("yyyy/MM/dd");
+    SimpleDateFormat fnormal = new SimpleDateFormat("dd/MM/yyyy");
+     
     public obtenerFechas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -40,25 +43,19 @@ public class obtenerFechas extends javax.swing.JDialog {
         ActionMap actionMap = getRootPane().getActionMap();
         actionMap.put(cancelName, new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                doClose(fechas);
+                doClose();
             }
         });
-        
-        if(llamado.compareTo("Servicio") == 0){
-            jLabelTitulo.setText("Seleccione una fecha");
-            jLabelFechaIni.setText("Fecha");
-            jDateChooser2.setVisible(false);
-            jLabelFechaFin.setVisible(false);
-        }
+        // Setear fecha de hoy automático
+        jDCF1.setDate(hoy);
+        jDCF2.setDate(hoy);
         
     }
 
     /**
      * @return the return status of this dialog - one of RET_OK or RET_CANCEL
      */
-    public Date[] getReturnStatus() {
-        return returnStatus;
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,10 +69,10 @@ public class obtenerFechas extends javax.swing.JDialog {
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         jLabelTitulo = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDCF1 = new com.toedter.calendar.JDateChooser();
         jLabelFechaIni = new javax.swing.JLabel();
         jLabelFechaFin = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jDCF2 = new com.toedter.calendar.JDateChooser();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -83,57 +80,64 @@ public class obtenerFechas extends javax.swing.JDialog {
             }
         });
 
-        okButton.setText("OK");
+        okButton.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        okButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/ingresar.png"))); // NOI18N
+        okButton.setText("Aceptar");
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
             }
         });
 
-        cancelButton.setText("Cancel");
+        cancelButton.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
+        cancelButton.setText("Cancelar");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
 
-        jLabelTitulo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabelTitulo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelTitulo.setText("Seleccione el rango de fechas a obtener");
 
-        jLabelFechaIni.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jDCF1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jLabelFechaIni.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         jLabelFechaIni.setText("Fecha Inicio");
 
-        jLabelFechaFin.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabelFechaFin.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         jLabelFechaFin.setText("Fecha Fin");
+
+        jDCF2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cancelButton)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabelFechaIni)
-                            .addGap(18, 18, 18)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabelTitulo, javax.swing.GroupLayout.Alignment.LEADING))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelFechaFin)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelTitulo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDCF2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelFechaFin)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelFechaIni)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jDCF1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cancelButton, okButton});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -144,15 +148,15 @@ public class obtenerFechas extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelFechaIni)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDCF1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jLabelFechaFin))
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                    .addComponent(jDCF2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelButton)
-                    .addComponent(okButton))
-                .addGap(26, 26, 26))
+                    .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22))
         );
 
         getRootPane().setDefaultButton(okButton);
@@ -162,31 +166,40 @@ public class obtenerFechas extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+        Date f1 = jDCF1.getDate();
+        Date f2 = jDCF2.getDate();
+        String fechas;
         
-        if(llamado.compareTo("EstadoCuenta") == 0){
-            fechas[0] = jDateChooser1.getDate();
-            fechas[1] = jDateChooser2.getDate();
-        }else if(llamado.compareTo("Servicio") == 0){
-            fechas[0] = jDateChooser1.getDate();
-            fechas[1] = null;
+        if(f1 != null && f2 != null){
+            if(f1.compareTo(f2) == 0){      //Misma fecha
+                fechas = "De fecha "+fnormal.format(f1);
+            }else{
+                fechas = "Desde "+fnormal.format(f1)+" Hasta "+fnormal.format(f2);
+            }
+            String ini = formateador.format(f1);
+            String fin = formateador.format(f2);
+            String reporte="C:\\Users\\user\\Google Drive\\UNA\\Odontosys2017\\OdontoSys\\src\\Reportes\\caja";
+            Map parametros = new HashMap();
+            parametros.put("fecha_ini", ini);
+            parametros.put("fecha_fin", fin);
+            parametros.put("fechas", fechas);
+            Configuraciones.imprimirReporteHB(reporte, parametros);
         }
-        llamado = "";
-        doClose(fechas);
+        
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        doClose(null);
+        doClose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     /**
      * Closes the dialog
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
-        doClose(null);
+        doClose();
     }//GEN-LAST:event_closeDialog
     
-    private void doClose(Date[] retStatus) {
-        returnStatus = retStatus;
+    private void doClose() {
         setVisible(false);
         dispose();
     }
@@ -235,13 +248,12 @@ public class obtenerFechas extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private com.toedter.calendar.JDateChooser jDCF1;
+    private com.toedter.calendar.JDateChooser jDCF2;
     private javax.swing.JLabel jLabelFechaFin;
     private javax.swing.JLabel jLabelFechaIni;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JButton okButton;
     // End of variables declaration//GEN-END:variables
 
-    private Date[] returnStatus = fechas;
 }

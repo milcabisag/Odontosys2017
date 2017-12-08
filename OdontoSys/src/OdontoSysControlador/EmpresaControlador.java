@@ -156,7 +156,7 @@ public class EmpresaControlador {
  
     public static ArrayList<FacturaEmpresa> ObtenerEstadoCuenta(Empresa emp, Session session) {
         ArrayList<FacturaEmpresa> lista = null;
-        try {            
+        try {          
             String hql = "FROM FacturaEmpresa WHERE empresa = "+emp.getIdempresa()+" AND estado = 'Pendiente'";
             Query query = session.createQuery(hql);
             Iterator it = query.iterate();
@@ -204,8 +204,8 @@ public class EmpresaControlador {
         OrdenEmpresa o = null;
         try{ 
             //tr = sesion.beginTransaction();
-            String hql = "SELECT o FROM OrdenEmpresa AS o JOIN o.convPaciente AS c JOIN c.convenio AS a "
-                    + "WHERE o.estado = 'Pendiente' AND a.empresa = "+emp.getIdempresa();
+            String hql = "SELECT o FROM OrdenEmpresa AS o JOIN o.convPaciente AS c JOIN c.convenio AS a " +
+                "WHERE o.estado = 'Pendiente' AND a.empresa = " + emp.getIdempresa()+ " ORDER BY o.idordenEmpresa";
             Query query = sesion.createQuery(hql); 
             if(query != null){
                 Iterator it = query.iterate();

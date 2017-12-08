@@ -836,10 +836,9 @@ public class Empresas extends javax.swing.JFrame {
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
 
-        limpiar();
-        
         sesion = NewHibernateUtil.getSessionFactory().openSession();
-            
+        tr = sesion.beginTransaction();
+        
         ObtenerEmpresa.sesion = sesion;
         ObtenerEmpresa jDialog= new ObtenerEmpresa(null, true);
         jDialog.setVisible(true);
@@ -1223,6 +1222,14 @@ public class Empresas extends javax.swing.JFrame {
         listaconvenios = null;
         listaRec = null;
         listaOrd = null;
+        
+        if(sesion != null){
+            tr.commit();
+            sesion.close();
+            sesion = null;
+            tr = null;
+        }
+        
     }
 
     
@@ -1277,10 +1284,6 @@ public class Empresas extends javax.swing.JFrame {
         jLabeltcon.setVisible(false);
         jLabelobs.setVisible(false);
         
-        if(sesion != null){
-            sesion.close();
-            sesion = null;
-        }
         
     }
 
@@ -1302,6 +1305,8 @@ public class Empresas extends javax.swing.JFrame {
 
     private void escribirEmpresa(Empresa empresa) {
         if(empresa!=null){ 
+            sesion.flush();
+            
             jTextFieldDNombres.setText(empresa.getNombre());
             jTextFieldRUC.setText(String.valueOf(empresa.getRuc()));
             jTextFieldDTel.setText(empresa.getTelefono());
@@ -1483,6 +1488,7 @@ public class Empresas extends javax.swing.JFrame {
             BotonInvisibles();
             
             sesion = NewHibernateUtil.getSessionFactory().openSession();
+            tr = sesion.beginTransaction();
             
             empresaActual = e;
             escribirEmpresa(e);

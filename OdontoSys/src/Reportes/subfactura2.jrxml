@@ -1,25 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subfactura" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="de5482ae-8cb1-4352-8a97-ec533b2eac17">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subfactura" pageWidth="554" pageHeight="842" columnWidth="554" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isFloatColumnFooter="true" isIgnorePagination="true" uuid="de5482ae-8cb1-4352-8a97-ec533b2eac17">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="94"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="idFactura" class="java.lang.String">
+	<parameter name="idOrden" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT talonario.nro_factura, orden_empresa.monto FROM talonario 
-	JOIN factura ON factura.fk_talonario = talonario.idtalonario
-	JOIN orden_empresa ON orden_empresa.fk_factura = factura.idfactura
-	JOIN factura_empresa ON factura_empresa.idfactura_empresa = orden_empresa.fk_facturaempresa
-WHERE 
-	factura_empresa.idfactura_empresa = $P{idFactura};]]>
+		<![CDATA[SELECT
+    detalle_orden.precio AS detalle_orden_precio,
+    servicio.descripcion AS servicio_descripcion,
+    convenio.nom_conv AS nombre_convenio,
+    factura.descuento AS descuento,
+	empresa.nombre AS empresa
+FROM
+     orden_servicio INNER JOIN detalle_orden ON detalle_orden.fk_orden_servicio = orden_servicio.idorden_servicio
+	INNER JOIN servicio ON servicio.idservicio = detalle_orden.fk_servicio
+	INNER JOIN factura ON factura.fk_orden = orden_servicio.idorden_servicio
+	LEFT JOIN orden_empresa ON orden_empresa.fk_factura = factura.idfactura
+	LEFT JOIN conv_paciente ON conv_paciente.idconv_paciente = orden_empresa.fk_convpaciente
+	LEFT JOIN convenio ON convenio.idconvenio = conv_paciente.fk_convenio		
+	LEFT JOIN empresa ON empresa.idempresa = convenio.fk_empresa
+WHERE
+     orden_servicio.idorden_servicio = $P{idOrden};]]>
 	</queryString>
-	<field name="nro_factura" class="java.lang.String">
+	<field name="detalle_orden_precio" class="java.lang.Integer"/>
+	<field name="servicio_descripcion" class="java.lang.String"/>
+	<field name="nombre_convenio" class="java.lang.String"/>
+	<field name="descuento" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="monto" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="empresa" class="java.lang.String"/>
+	<variable name="sum_detalle" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{detalle_orden_precio}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -35,7 +49,7 @@ WHERE
 					<rightPen lineWidth="0.25" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{detalle_orden_precio}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="292" height="14" uuid="9a62f8a5-6d02-49e6-a973-eb538663507b"/>
@@ -49,7 +63,7 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<paragraph lineSpacing="Single" leftIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Factura Nro 001-001-00"+$F{nro_factura}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{servicio_descripcion}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="372" y="0" width="60" height="14" uuid="a97992fb-6f53-45c6-9e85-b095c85c3611"/>
@@ -72,7 +86,7 @@ WHERE
 					<rightPen lineWidth="0.25" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{detalle_orden_precio}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="432" y="0" width="60" height="14" uuid="50da7a75-f1e5-4e57-9ba3-3b606e96d791"/>
@@ -87,4 +101,109 @@ WHERE
 			</staticText>
 		</band>
 	</detail>
+	<columnFooter>
+		<band height="28">
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="14" width="492" height="14" forecolor="#000000" backcolor="#FFFFFF" uuid="77cb210f-e147-4dc2-bf45-f20e62bee279"/>
+				<box rightPadding="3">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Subtotal]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="492" y="14" width="62" height="14" uuid="a81a29ce-ef0b-406f-ae2e-651f2ad48dfe"/>
+				<box>
+					<pen lineWidth="0.25" lineColor="#000000"/>
+					<topPen lineWidth="0.25" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineColor="#000000"/>
+					<bottomPen lineWidth="0.25" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sum_detalle}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="432" y="0" width="60" height="14" isRemoveLineWhenBlank="true" uuid="9a77ffce-349f-40d2-8e95-0a7841cc7992">
+					<printWhenExpression><![CDATA[!$F{nombre_convenio}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="492" y="0" width="62" height="14" isRemoveLineWhenBlank="true" uuid="3c300634-9884-481f-9c7c-51dbdb6fba5a">
+					<printWhenExpression><![CDATA[!$F{nombre_convenio}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="372" y="0" width="60" height="14" isRemoveLineWhenBlank="true" uuid="dc39f72c-685f-448b-857c-273492f324ea">
+					<printWhenExpression><![CDATA[!$F{nombre_convenio}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="292" y="0" width="80" height="14" isRemoveLineWhenBlank="true" uuid="90e51b29-1fc9-49a0-bf27-709457743f08">
+					<printWhenExpression><![CDATA[!$F{nombre_convenio}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<elementGroup>
+				<textField pattern="¤ #,##0" isBlankWhenNull="false">
+					<reportElement isPrintRepeatedValues="false" x="0" y="0" width="292" height="14" isRemoveLineWhenBlank="true" uuid="16db7545-f700-496c-92a8-27916e12a7f2">
+						<printWhenExpression><![CDATA[!$F{nombre_convenio}.isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="10">
+						<pen lineWidth="0.25" lineColor="#000000"/>
+						<topPen lineWidth="0.25" lineColor="#000000"/>
+						<leftPen lineWidth="0.25" lineColor="#000000"/>
+						<bottomPen lineWidth="0.25" lineColor="#000000"/>
+						<rightPen lineWidth="0.25" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<paragraph lineSpacing="Single" leftIndent="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Descuento por convenio con "+$F{empresa}+" - "+$F{nombre_convenio}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+		</band>
+	</columnFooter>
 </jasperReport>

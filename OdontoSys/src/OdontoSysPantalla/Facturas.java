@@ -27,6 +27,7 @@ import OdontoSysPantallaAuxiliares.ElegirConvenio;
 import OdontoSysPantallaAuxiliares.ObtenerTipoPagoContado;
 import OdontoSysPantallaAuxiliares.OrdenDeServicio;
 import OdontoSysUtil.Configuraciones;
+import OdontoSysUtil.NewHibernateUtil;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -36,6 +37,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -52,6 +55,8 @@ public class Facturas extends javax.swing.JFrame {
     public static ArrayList<DetalleOrden> lista = null;         //A pasarse desde el frame padre
     public static Factura facActual = null;
     public static int monto;
+    
+    Session sesion = null;
     
     ArrayList<DetalleOrdenEmpresa> detOrdenEmp = new ArrayList();
     OrdenEmpresa ordenEmp = null;
@@ -508,20 +513,22 @@ public class Facturas extends javax.swing.JFrame {
              tipo =  jDialog.getReturnStatus();
              if(tipo != null){
                  if(ordenEmp != null){
-                     facActual = FacturaControlador.insertarFactura(facActual, tal, user, tipo, ordenEmp, detOrdenEmp); 
+                     facActual = FacturaControlador.insertarFactura(sesion, facActual, tal, user, tipo, ordenEmp, detOrdenEmp); 
                  }else{
-                    facActual = FacturaControlador.insertarFactura(facActual, tal, user, tipo, null, null); 
+                    facActual = FacturaControlador.insertarFactura(sesion, facActual, tal, user, tipo, null, null); 
                  }
                  imprimirFactura();
+                 limpiar();
                 this.dispose();   
              }
         }else{          //Factura Crédito
             if(ordenEmp != null){
-                facActual = FacturaControlador.insertarFactura(facActual, tal, user, null, ordenEmp, detOrdenEmp);
+                facActual = FacturaControlador.insertarFactura(sesion, facActual, tal, user, null, ordenEmp, detOrdenEmp);
             }else{
-                facActual = FacturaControlador.insertarFactura(facActual, tal, user, null, null, null);
+                facActual = FacturaControlador.insertarFactura(sesion, facActual, tal, user, null, null, null);
             }
             imprimirFactura();
+            limpiar();
             Pacientes jF = new Pacientes();
             if(jF.isVisible()){
                 jF.actualizarForm();
@@ -551,6 +558,7 @@ public class Facturas extends javax.swing.JFrame {
     private void jButtonVerConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerConvenioActionPerformed
         // Abrir ElegirConvenio
         ElegirConvenio.pac = pacActual;
+        ElegirConvenio.sesion = sesion;
         ElegirConvenio jDialog= new ElegirConvenio(null, true);
         jDialog.setVisible(true);
         ConvPaciente c = jDialog.getReturnStatus();
@@ -777,9 +785,9 @@ public class Facturas extends javax.swing.JFrame {
 
     private void setearFactura() {
         
-        
-        dat = TalonarioControlador.DatosdeFactura();
-        tal = TalonarioControlador.BuscarFacturaLibre();
+        sesion = NewHibernateUtil.getSessionFactory().openSession();
+        dat = TalonarioControlador.DatosdeFactura(sesion);
+        tal = TalonarioControlador.BuscarFacturaLibre(sesion);
         if(tal != null && dat != null){
             jLabelRUC.setText("RUC "+dat.getRuc());
             jLabelTimbrado.setText("Timbrado "+tal.getTimbrado());
@@ -807,7 +815,6 @@ public class Facturas extends javax.swing.JFrame {
                     detalle.setServicio(lista.get(x).getServicio());
                     detalle.setMonto(descuento);
                     detOrdenEmp.add(detalle);
-                    System.out.println("Detalle "+detalle.getServicio().getDescripcion()+" monto "+detalle.getMonto());
                     detalle = null;
                 }
             }
@@ -824,6 +831,30 @@ public class Facturas extends javax.swing.JFrame {
             ordenEmp.setEstado("Pendiente");
             ordenEmp.setMonto(desc);
         }
+    
+    }
+
+    private void limpiar() {
+    
+        if(sesion != null){
+            sesion.close();
+        }
+        user = null;
+        pacActual = null;
+        ordenActual = null;
+        lista = null;
+        facActual = null;
+        monto = 0;
+        sesion = null;
+        detOrdenEmp = null;
+        ordenEmp = null;
+        total = 0;
+        subt = 0;
+        desc = 0;
+        tal = null;
+        dat = null;
+        elConvenio = null;
+        Configuraciones.limpiarModelo(tabla);
     
     }
 

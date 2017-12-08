@@ -130,8 +130,10 @@ public class DoctorControlador {
                     datos.add(doc);
                 }while(it.hasNext());
             }
-                        
+             tr.commit();           
         }catch(HibernateException ex){
+            tr.rollback();
+            System.out.println("Error en ConsultarDoctor: "+ex);
               JOptionPane.showMessageDialog(null, "Error al conectarse con Base de Datos", "Doctor Controlador", JOptionPane.INFORMATION_MESSAGE);
                    }
         

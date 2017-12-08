@@ -138,10 +138,7 @@ public class ConvenioControlador {
     public static ArrayList<ConvPaciente> BuscarConvenioPaciente(int pac, Session sesion){
         ArrayList<ConvPaciente> lis = null;
         String hql = null;
-        try{    
-            if(sesion == null){
-                sesion = NewHibernateUtil.getSessionFactory().openSession();
-            }
+        try{   
             if(pac > 0){
                 hql = "FROM ConvPaciente WHERE estado = 'Activo' AND paciente = "+pac;
                 Query query = sesion.createQuery(hql);

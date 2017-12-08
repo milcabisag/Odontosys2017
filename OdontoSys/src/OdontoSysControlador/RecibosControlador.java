@@ -19,6 +19,7 @@ import OdontoSysModelo.Usuario;
 import OdontoSysUtil.NewHibernateUtil;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
@@ -210,8 +211,9 @@ public class RecibosControlador {
         Caja c = new Caja();
         try{
             
-            if(m != null && det != null){
-                c.setDescripcion(m.getMovimiento());
+            if(m != null && det != null){           //Recibo de una factura de paciente
+                c.setDescripMovim(m.getMovimiento());
+                c.setFecha(new Date());
                 c.setEntrada(det.getMonto());
                 c.setMovimiento(m);
                 c.setSalida(0);
@@ -227,6 +229,8 @@ public class RecibosControlador {
                 c.setSalida(0);
                 c.setTipo(detemp.getFormaPago());
                 c.setUsuario(u);
+                c.setDescripMovim(e.getMovimiento());
+                c.setFecha(new Date());
             }
             
             sesion.save(c);

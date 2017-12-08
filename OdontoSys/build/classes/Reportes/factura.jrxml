@@ -13,18 +13,16 @@
 	<parameter name="total_letras" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
-     factura.`fecha` AS factura_fecha,
-     factura.`tipo_factura` AS factura_tipo_factura,
-     factura.`descuento` AS factura_descuento,
-     factura.`monto_total` AS factura_monto_total,
-     detalle_orden.`precio` AS detalle_orden_precio,
-     servicio.`descripcion` AS servicio_descripcion,
-     convenio.nom_conv AS nombre_convenio,
-     paciente.`Nombres` AS paciente_Nombres,
-     paciente.`Apellidos` AS paciente_Apellidos,
-     paciente.`Nro_CI` AS paciente_Nro_CI,
-     paciente.`Direccion` AS paciente_Direccion,
-     talonario.`nro_factura` AS nro_factura,
+    orden_servicio.idorden_servicio AS orden, 
+	factura.`fecha` AS factura_fecha,
+	factura.`tipo_factura` AS factura_tipo_factura,
+	factura.`descuento` AS factura_descuento,
+    factura.`monto_total` AS factura_monto_total,
+    paciente.`Nombres` AS paciente_Nombres,
+    paciente.`Apellidos` AS paciente_Apellidos,
+    paciente.`Nro_CI` AS paciente_Nro_CI,
+    paciente.`Direccion` AS paciente_Direccion,
+    talonario.`nro_factura` AS nro_factura,
 	talonario.`timbrado` AS timbrado,
 	talonario.`ini_vigencia` AS inicio_vigencia,
 	talonario.`fin_vigencia` AS fin_vigencia,
@@ -32,24 +30,17 @@
 	datos.*
 FROM
      orden_servicio INNER JOIN factura ON orden_servicio.idorden_servicio = factura.fk_orden
-     INNER JOIN detalle_orden ON orden_servicio.idorden_servicio = detalle_orden.fk_orden_servicio
      INNER JOIN paciente ON orden_servicio.fk_paciente = paciente.idPaciente
-     INNER JOIN servicio ON detalle_orden.fk_servicio = servicio.idservicio
-    INNER JOIN conv_paciente ON conv_paciente.fk_paciente = paciente.idpaciente
-INNER JOIN orden_empresa ON orden_empresa.fk_convpaciente = conv_paciente.idconv_paciente
-    INNER JOIN convenio ON convenio.idconvenio = conv_paciente.fk_convenio
 	INNER JOIN talonario ON talonario.idtalonario = factura.fk_talonario
 	JOIN datos
 WHERE
      factura.idfactura = $P{idFactura} AND datos.iddatos = 1]]>
 	</queryString>
+	<field name="orden" class="java.lang.Integer"/>
 	<field name="factura_fecha" class="java.sql.Date"/>
 	<field name="factura_tipo_factura" class="java.lang.String"/>
 	<field name="factura_descuento" class="java.lang.Integer"/>
 	<field name="factura_monto_total" class="java.lang.Integer"/>
-	<field name="detalle_orden_precio" class="java.lang.Integer"/>
-	<field name="servicio_descripcion" class="java.lang.String"/>
-	<field name="nombre_convenio" class="java.lang.String"/>
 	<field name="paciente_Nombres" class="java.lang.String"/>
 	<field name="paciente_Apellidos" class="java.lang.String"/>
 	<field name="paciente_Nro_CI" class="java.lang.Integer"/>
@@ -89,9 +80,6 @@ WHERE
 	<field name="telefono" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<variable name="detalle_orden_precio_1" class="java.lang.Integer" resetType="Column" calculation="Sum">
-		<variableExpression><![CDATA[$F{detalle_orden_precio}]]></variableExpression>
-	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -297,7 +285,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{paciente_Nro_CI}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Column header" x="14" y="53" width="282" height="27" forecolor="#000000" uuid="fb2579d7-0428-4163-ac2a-b52c0c70b068"/>
+				<reportElement style="Column header" x="4" y="53" width="292" height="27" forecolor="#000000" uuid="fb2579d7-0428-4163-ac2a-b52c0c70b068"/>
 				<box>
 					<pen lineWidth="0.25" lineColor="#000000"/>
 					<topPen lineWidth="0.25" lineColor="#000000"/>
@@ -357,73 +345,21 @@ WHERE
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="14" splitType="Stretch">
-			<textField>
-				<reportElement x="14" y="0" width="282" height="14" uuid="9a62f8a5-6d02-49e6-a973-eb538663507b"/>
-				<box>
-					<pen lineWidth="0.25" lineColor="#000000"/>
-					<topPen lineWidth="0.25" lineColor="#000000"/>
-					<leftPen lineWidth="0.25" lineColor="#000000"/>
-					<bottomPen lineWidth="0.25" lineColor="#000000"/>
-					<rightPen lineWidth="0.25" lineColor="#000000"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<paragraph lineSpacing="Single" leftIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{servicio_descripcion}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0">
-				<reportElement x="296" y="0" width="80" height="14" uuid="daa9e36d-1f4b-40b2-ac96-da4d47f8b5e8"/>
-				<box>
-					<pen lineWidth="0.25" lineColor="#000000"/>
-					<topPen lineWidth="0.25" lineColor="#000000"/>
-					<leftPen lineWidth="0.25" lineColor="#000000"/>
-					<bottomPen lineWidth="0.25" lineColor="#000000"/>
-					<rightPen lineWidth="0.25" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{detalle_orden_precio}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0">
-				<reportElement x="496" y="0" width="62" height="14" uuid="7f0e378c-734c-40d2-88df-fabbafec5993"/>
-				<box>
-					<pen lineWidth="0.25" lineColor="#000000"/>
-					<topPen lineWidth="0.25" lineColor="#000000"/>
-					<leftPen lineWidth="0.25" lineColor="#000000"/>
-					<bottomPen lineWidth="0.25" lineColor="#000000"/>
-					<rightPen lineWidth="0.25" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{detalle_orden_precio}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="376" y="0" width="60" height="14" uuid="a97992fb-6f53-45c6-9e85-b095c85c3611"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="436" y="0" width="60" height="14" uuid="50da7a75-f1e5-4e57-9ba3-3b606e96d791"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
+		<band height="28" splitType="Stretch">
+			<subreport>
+				<reportElement x="4" y="0" width="554" height="28" uuid="3f268700-918d-4020-b004-f1817e320603"/>
+				<subreportParameter name="idOrden">
+					<subreportParameterExpression><![CDATA[$F{orden}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["C:\\Users\\user\\Google Drive\\UNA\\Odontosys2017\\OdontoSys\\src\\Reportes\\subfactura2.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 	<columnFooter>
 		<band height="60" splitType="Stretch">
 			<textField pattern="#,##0">
-				<reportElement x="496" y="39" width="62" height="18" uuid="bda605f7-2c80-4fd8-b75f-b185085dcbce"/>
+				<reportElement x="496" y="18" width="62" height="18" uuid="bda605f7-2c80-4fd8-b75f-b185085dcbce"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -435,19 +371,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{factura_monto_total}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement x="496" y="3" width="62" height="18" uuid="a4bae4b8-3dc8-4665-be55-729cba8a29e0"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{detalle_orden_precio_1}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0">
-				<reportElement x="496" y="21" width="62" height="18" uuid="6b842703-35f3-4219-89a4-49d2e23f6371"/>
+				<reportElement x="496" y="0" width="62" height="18" uuid="6b842703-35f3-4219-89a4-49d2e23f6371"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -459,21 +383,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{factura_descuento}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="15" y="3" width="481" height="18" uuid="8c32ee32-2ab6-45bb-ae5b-fe9871dfce3b"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<paragraph rightIndent="2"/>
-				</textElement>
-				<text><![CDATA[Subtotal]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="435" y="21" width="61" height="18" uuid="fad8b0e9-0c0f-484f-8390-121d5aa7506c"/>
+				<reportElement x="435" y="0" width="61" height="18" uuid="fad8b0e9-0c0f-484f-8390-121d5aa7506c"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -487,7 +397,7 @@ WHERE
 				<text><![CDATA[Descuento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="435" y="39" width="61" height="18" uuid="647e9c92-d0fe-407a-abd9-4a443aa4b6d0"/>
+				<reportElement x="435" y="18" width="61" height="18" uuid="647e9c92-d0fe-407a-abd9-4a443aa4b6d0"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -501,7 +411,7 @@ WHERE
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="15" y="21" width="53" height="18" uuid="2b1f3150-a184-446b-aa63-1f010b6ba4ac"/>
+				<reportElement x="4" y="0" width="53" height="18" uuid="2b1f3150-a184-446b-aa63-1f010b6ba4ac"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -515,7 +425,7 @@ WHERE
 				<text><![CDATA[IVA 10%]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="153" y="21" width="45" height="18" uuid="ce0d3df0-4c7e-449f-b64b-972ffdfa3ffa"/>
+				<reportElement x="142" y="0" width="53" height="18" uuid="ce0d3df0-4c7e-449f-b64b-972ffdfa3ffa"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -529,7 +439,7 @@ WHERE
 				<text><![CDATA[IVA 5%]]></text>
 			</staticText>
 			<textField pattern="#,##0">
-				<reportElement x="68" y="21" width="85" height="18" uuid="1b1936c8-7424-4882-bf59-b34893e6b1a9"/>
+				<reportElement x="57" y="0" width="85" height="18" uuid="1b1936c8-7424-4882-bf59-b34893e6b1a9"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -543,7 +453,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{factura_monto_total} / 11]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="198" y="21" width="64" height="18" uuid="e9eae440-79a1-449a-865f-d1473ff12ceb"/>
+				<reportElement x="195" y="0" width="67" height="18" uuid="e9eae440-79a1-449a-865f-d1473ff12ceb"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -557,7 +467,7 @@ WHERE
 				<text><![CDATA[0]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="262" y="21" width="90" height="18" uuid="c010800a-30fe-4a30-b25d-1e1402992e83"/>
+				<reportElement x="262" y="0" width="90" height="18" uuid="c010800a-30fe-4a30-b25d-1e1402992e83"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -571,7 +481,7 @@ WHERE
 				<text><![CDATA[Total IVA]]></text>
 			</staticText>
 			<textField pattern="#,##0">
-				<reportElement x="352" y="21" width="83" height="18" uuid="ff76d6ce-4974-428b-ab6a-f2c2a1f96e3e"/>
+				<reportElement x="352" y="0" width="83" height="18" uuid="ff76d6ce-4974-428b-ab6a-f2c2a1f96e3e"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -585,7 +495,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{factura_monto_total} / 11]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="15" y="39" width="80" height="18" uuid="f474367c-00f2-4f0b-b71e-06e2469ce310"/>
+				<reportElement x="4" y="18" width="80" height="18" uuid="f474367c-00f2-4f0b-b71e-06e2469ce310"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -599,7 +509,7 @@ WHERE
 				<text><![CDATA[Total en letras]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="95" y="39" width="340" height="18" uuid="52bb030f-afa9-467b-af65-49f92a5e11de"/>
+				<reportElement x="84" y="18" width="351" height="18" uuid="52bb030f-afa9-467b-af65-49f92a5e11de"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>

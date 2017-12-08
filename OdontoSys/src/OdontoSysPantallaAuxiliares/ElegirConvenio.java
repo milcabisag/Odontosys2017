@@ -23,6 +23,7 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
 
     
 public class ElegirConvenio extends javax.swing.JDialog{
@@ -32,7 +33,7 @@ public class ElegirConvenio extends javax.swing.JDialog{
     private DefaultTableModel tabla = new DefaultTableModel();
     private ArrayList<ConvPaciente> lista = new ArrayList();
     public static Paciente pac = null;
-    
+    public static Session sesion = null;
     private ConvPaciente returnStatus = null;
     private static ConvPaciente conv = null;
     
@@ -274,7 +275,7 @@ public class ElegirConvenio extends javax.swing.JDialog{
     }
 
     private void realizarConsulta() {
-        lista = ConvenioControlador.BuscarConvenioPaciente(pac.getIdPaciente(), null);
+        lista = ConvenioControlador.BuscarConvenioPaciente(pac.getIdPaciente(), sesion);
         if(lista != null){
             for(ConvPaciente nuevo : lista){
                 Object[] f = new Object[3];

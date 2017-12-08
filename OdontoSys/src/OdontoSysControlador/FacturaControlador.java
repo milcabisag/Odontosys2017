@@ -19,6 +19,7 @@ import OdontoSysModelo.Usuario;
 import OdontoSysUtil.NewHibernateUtil;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
@@ -55,12 +56,10 @@ public class FacturaControlador {
         return datos;
     }
     
-    public static Factura insertarFactura(Factura nuevo, Talonario tal, Usuario user, ArrayList<TipoPago> tipo, OrdenEmpresa ordenEmp, ArrayList<DetalleOrdenEmpresa> detOrdEmp){
-        Session sesion;
-        try{
-            sesion = NewHibernateUtil.getSessionFactory().openSession();
-            sesion.getTransaction().begin();
-            
+    public static Factura insertarFactura(Session sesion, Factura nuevo, Talonario tal, Usuario user, ArrayList<TipoPago> tipo, OrdenEmpresa ordenEmp, ArrayList<DetalleOrdenEmpresa> detOrdEmp){
+        
+        try{       
+            Transaction tr = sesion.beginTransaction();
             
             Movimiento mov  = FacturaControlador.agregarMovimientoFactura(nuevo, sesion);
             
@@ -69,17 +68,19 @@ public class FacturaControlador {
             sesion.refresh(nuevo);
             
             modificarOrden(nuevo, sesion);
+            
+            sesion.clear();
+            
             TalonarioControlador.UsarFactura(sesion, tal);
+            
             if(nuevo.getTipoFactura().compareTo("Contado") == 0){
                 agregarCaja(sesion, nuevo, mov, user, tipo);      //Agregar entrada en caja
             }
             if(ordenEmp != null){
                 ordenEmp.setFactura(nuevo);
                 insertarOrdenEmpresa(ordenEmp, detOrdEmp, sesion);
-            }
-            
-            sesion.getTransaction().commit();
-            sesion.close();
+            }            
+            tr.commit();
         }catch(HibernateException ex){
             JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Factura Controlador", WIDTH );
         }    
@@ -239,12 +240,10 @@ public class FacturaControlador {
         return datos;
     }
     
-    public static FacturaEmpresa insertarFacturaEmpresa(FacturaEmpresa nuevo, Talonario tal, Usuario user, ArrayList<OrdenEmpresa> ordenEmp, ArrayList<TipoPago> tipo){
-        Session sesion;
-        Transaction tr = null;
+    public static FacturaEmpresa insertarFacturaEmpresa(Session sesion, FacturaEmpresa nuevo, Talonario tal, Usuario user, ArrayList<OrdenEmpresa> ordenEmp, ArrayList<TipoPago> tipo){
+        
         try{
-            sesion = NewHibernateUtil.getSessionFactory().openSession();
-            tr = sesion.beginTransaction();
+            Transaction tr = sesion.beginTransaction();
             
             MovimientoEmpresa mov  = FacturaControlador.insertarMovimientoEmpresa(nuevo, sesion);
             
@@ -258,11 +257,8 @@ public class FacturaControlador {
             }
             
             cancelarOrdenEmpresa(ordenEmp, nuevo, sesion);
-            
             tr.commit();
-            sesion.close();
         }catch(HibernateException ex){
-            tr.rollback();
             System.out.println("Error en insertarFacturaEmpresa: "+ex);
             JOptionPane.showMessageDialog(null,ex.getMessage(), "Insertar Factura Controlador", WIDTH );
         }    
@@ -338,7 +334,6 @@ public class FacturaControlador {
         Caja c = new Caja();
         try{
             for(TipoPago p : rec){
-                c.setDescripcion(mov.getMovimiento());
                 c.setMovimiento(mov);
                 c.setSalida(0);
                 c.setTipo(p.getTipo());         //Tipo de Pago
@@ -346,6 +341,8 @@ public class FacturaControlador {
                 c.setMovimientoEmpresa(null);
                 c.setUsuario(user);
                 c.setDescripcion("Entrada");
+                c.setFecha(new Date());
+                c.setDescripMovim(mov.getMovimiento());
                 
                 sesion.save(c);
                 sesion.refresh(c);
@@ -362,16 +359,13 @@ public class FacturaControlador {
         try{
             sesion.save(ordenEmp);
             sesion.refresh(ordenEmp);
-            System.out.println("Orden Empresa Nro "+ordenEmp.getIdordenEmpresa());
                     
             sesion.clear();
             
             for(DetalleOrdenEmpresa d : detOrdEmp){
-                System.out.println("Detalle "+d.getServicio().getDescripcion()+" precio "+d.getMonto());
                 d.setOrdenEmpresa(ordenEmp);
                 sesion.save(d);
                 sesion.refresh(d);
-                System.out.println("Detalle Orden Nro "+d.getIddetalleOrdenEmpresa());
             }
                         
         }catch(HibernateException ex){
@@ -392,6 +386,8 @@ private static void agregarCajaEmpresa(Session sesion, MovimientoEmpresa mov, Us
                 c.setEntrada(p.getMonto());     //Monto pagado con el tipo de pago elegido
                 c.setSalida(0);
                 c.setUsuario(user);
+                c.setFecha(new Date());
+                c.setDescripMovim(mov.getMovimiento());
                 
                 sesion.save(c);
                 sesion.refresh(c);
