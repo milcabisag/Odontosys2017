@@ -15,7 +15,10 @@ import OdontoSysPantalla.ConsultarAgenda;
 import OdontoSysPantallaAuxiliares.BuscarServicio;
 import OdontoSysPantallaAuxiliares.ObtenerDoctor;
 import OdontoSysPantallaAuxiliares.ObtenerPaciente;
+import OdontoSysUtil.Configuraciones;
 import OdontoSysVista.AgendaVista;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,9 +27,15 @@ import javax.swing.JOptionPane;
  */
 public class InsertarAgenda extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Agenda
-     */
+    
+    
+    //Variables Globales
+    Paciente pac = new Paciente();
+    Doctor doc = new Doctor();
+    Agenda nuevo = null;
+    Servicio mot = null;
+    int idAgenda = 0;
+    
     public InsertarAgenda() {
         initComponents();
     }
@@ -273,6 +282,18 @@ public class InsertarAgenda extends javax.swing.JFrame {
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         obtenerDatos();
+        if(idAgenda > 0){
+            String reporte="C:\\Users\\user\\Google Drive\\UNA\\Odontosys2017\\OdontoSys\\src\\Reportes\\agenda";
+            
+            Map parametros = new HashMap();
+            parametros.put("idAgenda", idAgenda);
+        
+            Configuraciones.imprimirReporteHB(reporte, parametros);
+        
+            ConsultarAgenda jFrame= new ConsultarAgenda();
+            jFrame.setVisible(true); //Abre Form
+            this.setVisible(false);  //Cierra Form Actual
+        }
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -327,12 +348,6 @@ public class InsertarAgenda extends javax.swing.JFrame {
             }
         });
     }
-    
-    //Variables Globales
-    Paciente pac = new Paciente();
-    Doctor doc = new Doctor();
-    Agenda nuevo = null;
-    Servicio mot = null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAceptar;
@@ -364,13 +379,11 @@ public class InsertarAgenda extends javax.swing.JFrame {
         nuevo.setDoctor(doc);
         nuevo.setEstado(String.valueOf(jComboBoxEstado.getSelectedItem()));
         int i = AgendaVista.validarAgenda(nuevo);
-        if(i == 0){            //registro insertado correctamente
+        if(i == 0){            //registro validado correctamente
             int a = AgendaControlador.InsertarCita(nuevo);
             if(a > 0){
+                idAgenda = a;
                 JOptionPane.showMessageDialog(rootPane, "Cita Agendada", "Insertar Cita", WIDTH);
-                ConsultarAgenda jFrame= new ConsultarAgenda();
-                jFrame.setVisible(true); //Abre Form
-                this.setVisible(false);  //Cierra Form Actual
             }else{                
                 JOptionPane.showMessageDialog(rootPane, "No se pudo insertar cita", "Insertar Cita", WIDTH);
             }
