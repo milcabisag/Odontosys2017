@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 08/12/2017 01:13:45 AM by Hibernate Tools 3.6.0
+// Generated 12/12/2017 03:57:45 PM by Hibernate Tools 3.6.0
 
 
 
@@ -13,17 +13,15 @@ public class Tratamiento  implements java.io.Serializable {
      private Odontograma odontograma;
      private Servicio servicio;
      private Diente diente;
-     private String estado;
      private String especificacion;
 
     public Tratamiento() {
     }
 
-    public Tratamiento(Odontograma odontograma, Servicio servicio, Diente diente, String estado, String especificacion) {
+    public Tratamiento(Odontograma odontograma, Servicio servicio, Diente diente, String especificacion) {
        this.odontograma = odontograma;
        this.servicio = servicio;
        this.diente = diente;
-       this.estado = estado;
        this.especificacion = especificacion;
     }
    
@@ -54,13 +52,6 @@ public class Tratamiento  implements java.io.Serializable {
     
     public void setDiente(Diente diente) {
         this.diente = diente;
-    }
-    public String getEstado() {
-        return this.estado;
-    }
-    
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
     public String getEspecificacion() {
         return this.especificacion;

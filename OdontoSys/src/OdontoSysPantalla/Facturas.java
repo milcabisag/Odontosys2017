@@ -50,10 +50,30 @@ public class Facturas extends javax.swing.JFrame {
      * Variables
      */
     public static Usuario user;
+
+    /**
+     *
+     */
     public static Paciente pacActual = null;                    //A pasarse desde el frame padre
+
+    /**
+     *
+     */
     public static OrdenServicio ordenActual = null;             //A pasarse desde el frame padre
+
+    /**
+     *
+     */
     public static ArrayList<DetalleOrden> lista = null;         //A pasarse desde el frame padre
+
+    /**
+     *
+     */
     public static Factura facActual = null;
+
+    /**
+     *
+     */
     public static int monto;
     
     Session sesion = null;
@@ -74,6 +94,9 @@ public class Facturas extends javax.swing.JFrame {
     Datos dat = new Datos();
     ConvPaciente elConvenio = null;
     
+    /**
+     *
+     */
     public Facturas() {
         initComponents();
         setearFactura();  

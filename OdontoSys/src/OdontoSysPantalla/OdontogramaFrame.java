@@ -54,21 +54,38 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         }};
     
     private static int tipoTransaction = 0;
+
+    /**
+     *
+     */
     public static int diag = 0;
+
+    /**
+     *
+     */
     public static Odontograma odon = null;
     
     private static ArrayList<DetalleHallazgo> hallazgosSet = new ArrayList();
     private static ArrayList<Tratamiento> listaTratamientos = new ArrayList();
     private static ArrayList<Servicio> servicios = new ArrayList();
     
+    /**
+     *
+     */
     public static Paciente elPaciente = null;
+
+    /**
+     *
+     */
     public static Usuario elUsuario;
     
     Boolean consulta = false; 
     
     Session sesion = null;
-    
-    
+
+    /**
+     *
+     */
     public OdontogramaFrame(){
         initComponents(); 
         columName(); 
@@ -77,14 +94,18 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         if(diag == 0){
         if(odon == null){ 
            mostrarDoctorPaciente();
-           Object seleccion = JOptionPane.showInputDialog(null, "Seleccione un tipo de odontograma", "Ventana Odontograma",
-           JOptionPane.QUESTION_MESSAGE, null, new Object[] { "O. Examen", "O. Tratamiento"}, 0);
-           if(seleccion != null){
-                if(seleccion.toString().compareTo("O. Examen") == 0){
-                    jButtonSelectHallazgo.doClick();
-                }else{
-                    jButtonSelectTratamiento.doClick();
-                }
+           if(elPaciente != null){
+               Object seleccion = JOptionPane.showInputDialog(null, "Seleccione un tipo de odontograma", "Ventana Odontograma",
+               JOptionPane.QUESTION_MESSAGE, null, new Object[] { "O. Examen", "O. Tratamiento"}, 0);
+               if(seleccion != null){
+                    if(seleccion.toString().compareTo("O. Examen") == 0){
+                        jButtonSelectHallazgo.doClick();
+                    }else{
+                        jButtonSelectTratamiento.doClick();
+                    }
+               }else{
+                   this.dispose();
+               }
            }else{
                this.dispose();
            }
@@ -1165,11 +1186,6 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         newOdont.setUsuario(elUsuario);
         newOdont.setPaciente(elPaciente);
         newOdont.setFecha(fecha);
-        if(elUsuario.getDoctor() != null){
-            newOdont.setDoctor(elUsuario.getDoctor());
-        }else{
-            newOdont.setDoctor(null);
-        }
         if(tipoTransaction == 1){
             newOdont.setTipo("Examen");
         }else{ 
@@ -1303,7 +1319,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             
             jTableContenedorDatos.setModel(modeloH);
         }else if(tipoTransaction == 2){
-            String row[] = new String[]{"Descripcion de Servicio", "PrecioServicio","NombreDiente", "Nomenclatura", "Estado", "Especificacion"};
+            String row[] = new String[]{"Descripcion de Servicio", "PrecioServicio","NombreDiente", "Nomenclatura", "Especificacion"};
             
                 modeloT.setColumnIdentifiers(row);
             
@@ -1351,13 +1367,12 @@ public class OdontogramaFrame extends javax.swing.JFrame {
     }
     
     private void cargarTablaTratamiento(Tratamiento nuevoTratamiento) {
-        String row[] = new String[6];
+        String row[] = new String[5];
         row[0] = nuevoTratamiento.getServicio().getDescripcion();
         row[1] = String.valueOf(nuevoTratamiento.getServicio().getPrecio());
         row[2] = nuevoTratamiento.getDiente().getNombre();
         row[3] = String.valueOf(nuevoTratamiento.getDiente().getNomenclatura());
-        row[4] = nuevoTratamiento.getEstado();
-        row[5] = nuevoTratamiento.getEspecificacion();
+        row[4] = nuevoTratamiento.getEspecificacion();
 
         modeloT.addRow(row);
     }
@@ -1491,6 +1506,8 @@ public class OdontogramaFrame extends javax.swing.JFrame {
                 for(DetalleHallazgo det : hallazgosSet){
                     cargarTablaHallazgo(det);
                 }
+            }else{
+                hallazgosSet = new ArrayList();
             }
         }else if(odon.getTipo().compareTo("Tratamiento") == 0){
             listaTratamientos= OdontogramaControlador.BuscarTratamientos(odon);
@@ -1498,6 +1515,8 @@ public class OdontogramaFrame extends javax.swing.JFrame {
                 for(Tratamiento tr : listaTratamientos){
                     cargarTablaTratamiento(tr);
                 }
+            }else{
+                listaTratamientos = new ArrayList();
             }
         }
     }
@@ -1534,6 +1553,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         
         if(sesion != null){
             sesion.close();
+            sesion = null;
         }
     }    
 

@@ -80,12 +80,11 @@ public class Inicio extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setExtendedState(MAXIMIZED_BOTH);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/muelita.jpg"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 11, -1, -1));
 
         jButtonOdontograma.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
         jButtonOdontograma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/diente.png"))); // NOI18N
@@ -97,7 +96,6 @@ public class Inicio extends javax.swing.JFrame {
                 jButtonOdontogramaActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonOdontograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 222, 200, 35));
 
         jButtonAgenda.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
         jButtonAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/agenda.png"))); // NOI18N
@@ -108,11 +106,9 @@ public class Inicio extends javax.swing.JFrame {
                 jButtonAgendaActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 268, 200, 35));
 
         jLabel1.setFont(new java.awt.Font("Californian FB", 0, 60)); // NOI18N
         jLabel1.setText("OdontoSys");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 31, -1, -1));
 
         jButtonPacientes.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
         jButtonPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/persona.png"))); // NOI18N
@@ -123,7 +119,6 @@ public class Inicio extends javax.swing.JFrame {
                 jButtonPacientesActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonPacientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 314, 200, 35));
 
         jButtonDoctores.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
         jButtonDoctores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/doctor.png"))); // NOI18N
@@ -134,11 +129,9 @@ public class Inicio extends javax.swing.JFrame {
                 jButtonDoctoresActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonDoctores, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 360, 200, 35));
 
         jLabel2.setFont(new java.awt.Font("Calibri Light", 0, 24)); // NOI18N
         jLabel2.setText("Escoja una opción");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 118, -1, -1));
 
         jButtonUsuarios.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
         jButtonUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/accesos.png"))); // NOI18N
@@ -150,7 +143,6 @@ public class Inicio extends javax.swing.JFrame {
                 jButtonUsuariosActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 222, 200, 35));
 
         jButtonCerrarSesion.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
@@ -162,7 +154,6 @@ public class Inicio extends javax.swing.JFrame {
                 jButtonCerrarSesionActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 54, -1, -1));
 
         jButtonEmpresas.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
         jButtonEmpresas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/persona.png"))); // NOI18N
@@ -173,7 +164,6 @@ public class Inicio extends javax.swing.JFrame {
                 jButtonEmpresasActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonEmpresas, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 406, 200, 35));
 
         jButtonServicios.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
         jButtonServicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/nota.png"))); // NOI18N
@@ -185,7 +175,6 @@ public class Inicio extends javax.swing.JFrame {
                 jButtonServiciosActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 268, 200, 35));
 
         jButtonReporteServicios.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
         jButtonReporteServicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/grafico.png"))); // NOI18N
@@ -197,7 +186,6 @@ public class Inicio extends javax.swing.JFrame {
                 jButtonReporteServiciosActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonReporteServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 410, 200, 35));
 
         jButtonAyuda.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/ayuda.png"))); // NOI18N
@@ -209,7 +197,6 @@ public class Inicio extends javax.swing.JFrame {
                 jButtonAyudaActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonAyuda, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 11, -1, -1));
 
         jButtonReporteCaja.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
         jButtonReporteCaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/grafico.png"))); // NOI18N
@@ -221,7 +208,6 @@ public class Inicio extends javax.swing.JFrame {
                 jButtonReporteCajaActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonReporteCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 452, 200, 35));
 
         jButtonDatos.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
         jButtonDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/acerca.png"))); // NOI18N
@@ -233,9 +219,9 @@ public class Inicio extends javax.swing.JFrame {
                 jButtonDatosActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 360, 200, 35));
 
         jButtonTalonario.setFont(new java.awt.Font("Calibri Light", 0, 18)); // NOI18N
+        jButtonTalonario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/agregar.png"))); // NOI18N
         jButtonTalonario.setText("Nuevo Talonario");
         jButtonTalonario.setToolTipText("Datos de Talonario, Timbrado y Número de Factura");
         jButtonTalonario.setMargin(new java.awt.Insets(2, 7, 2, 7));
@@ -244,24 +230,88 @@ public class Inicio extends javax.swing.JFrame {
                 jButtonTalonarioActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonTalonario, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 314, 200, 35));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(65, 65, 65)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonDoctores, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonTalonario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(146, 146, 146)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonReporteServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonReporteCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonEmpresas, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonOdontograma, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButtonAyuda)
+                                    .addComponent(jButtonCerrarSesion))
+                                .addGap(40, 40, 40)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButtonAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(64, 64, 64)
+                        .addComponent(jButtonOdontograma, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButtonAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(jButtonPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(jButtonDoctores, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButtonReporteServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(jButtonReporteCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(jButtonEmpresas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonTalonario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46))
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -408,7 +458,11 @@ public class Inicio extends javax.swing.JFrame {
     
     
     //Variables
-    public static Usuario usuario;
+
+    /**
+     *
+     */
+        public static Usuario usuario;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAgenda;
@@ -431,39 +485,45 @@ public class Inicio extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void rolAdmin() {
+        jButtonOdontograma.setVisible(true);
         jButtonUsuarios.setVisible(true);
         jButtonAgenda.setVisible(true);
-        jButtonDoctores.setVisible(true);
-        jButtonOdontograma.setVisible(true);
-        jButtonPacientes.setVisible(true);
-        jButtonEmpresas.setVisible(true);
         jButtonServicios.setVisible(true);
+        jButtonPacientes.setVisible(true);
+        jButtonTalonario.setVisible(true);
+        jButtonDoctores.setVisible(true);
+        jButtonDatos.setVisible(true);
+        jButtonEmpresas.setVisible(true);
         jButtonReporteServicios.setVisible(true);
         jButtonReporteCaja.setVisible(true);
         jButtonAyuda.setVisible(false);
     }
 
     private void rolSecret() {
+        jButtonOdontograma.setVisible(false);
         jButtonUsuarios.setVisible(false);
         jButtonAgenda.setVisible(true);
-        jButtonDoctores.setVisible(true);
-        jButtonOdontograma.setVisible(false);
-        jButtonPacientes.setVisible(true);
-        jButtonEmpresas.setVisible(true);
         jButtonServicios.setVisible(false);
+        jButtonPacientes.setVisible(true);
+        jButtonTalonario.setVisible(false);
+        jButtonDoctores.setVisible(true);
+        jButtonDatos.setVisible(false);
+        jButtonEmpresas.setVisible(true);
         jButtonReporteServicios.setVisible(true);
-        jButtonReporteCaja.setVisible(false);
+        jButtonReporteCaja.setVisible(true);
         jButtonAyuda.setVisible(false);
     }
 
     private void rolDoctor() {
+        jButtonOdontograma.setVisible(true);
         jButtonUsuarios.setVisible(false);
         jButtonAgenda.setVisible(true);
-        jButtonDoctores.setVisible(false);
-        jButtonOdontograma.setVisible(true);
-        jButtonPacientes.setVisible(true);
-        jButtonEmpresas.setVisible(false);
         jButtonServicios.setVisible(false);
+        jButtonPacientes.setVisible(true);
+        jButtonTalonario.setVisible(false);
+        jButtonDoctores.setVisible(false);
+        jButtonDatos.setVisible(false);
+        jButtonEmpresas.setVisible(false);
         jButtonReporteServicios.setVisible(false);
         jButtonReporteCaja.setVisible(false);
         jButtonAyuda.setVisible(false);

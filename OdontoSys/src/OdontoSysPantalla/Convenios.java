@@ -30,9 +30,25 @@ import org.hibernate.Session;
 public class Convenios extends javax.swing.JFrame {
 
      //Variables
-    public static Usuario user = null;
+
+    /**
+     *
+     */
+        public static Usuario user = null;
+
+    /**
+     *
+     */
     public static Empresa empresaActual = null;
+
+    /**
+     *
+     */
     public static Convenio conv = null;  
+
+    /**
+     *
+     */
     public static Session sesion = null;
     
     String llamado = null;
@@ -49,8 +65,9 @@ public class Convenios extends javax.swing.JFrame {
             }
         }};
 
-    
-    
+    /**
+     *
+     */
     public Convenios() {
         initComponents();
         
@@ -329,7 +346,7 @@ public class Convenios extends javax.swing.JFrame {
         boolean v= false;
         if(llamado.compareTo("insertar") == 0){
             obtenerNuevoConvenio();
-            v = ConvenioVista.validarConvenio(conv,det);
+            v = ConvenioVista.validarConvenio(conv, det);
             if(v && det.size() >= 0){
                 v = ConvenioControlador.insertarConvenio(conv, det);
                 if(v){
@@ -372,7 +389,7 @@ public class Convenios extends javax.swing.JFrame {
         jButtonInsertarServicio.setVisible(true);
         jButtonModificar.setVisible(false);
         jTextFieldNombConv.setEnabled(true);
-        jTextAreaObs.setEnabled(true);
+        jTextAreaObs.setEditable(true);
         llamado = "modificar";
         
     }//GEN-LAST:event_jButtonModificarActionPerformed

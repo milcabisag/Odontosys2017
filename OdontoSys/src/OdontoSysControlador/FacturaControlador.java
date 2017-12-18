@@ -298,12 +298,13 @@ public class FacturaControlador {
             m = new MovimientoEmpresa();
             m.setEmpresa(nuevo.getEmpresa());
             m.setFecha(nuevo.getFecha());
-            m.setMovimiento("Factura Nro 000"+nuevo.getTalonario().getNroFactura());
             m.setDebe(nuevo.getMontoTotal());
             if(nuevo.getTipo().compareTo("Contado") == 0){
                 m.setHaber(nuevo.getMontoTotal());
+                m.setMovimiento("Factura Contado Nro 000"+nuevo.getTalonario().getNroFactura());
             }else{
                 m.setHaber(0);
+                m.setMovimiento("Factura Crédito Nro 000"+nuevo.getTalonario().getNroFactura());
             }            
             sesion.save(m);
             sesion.refresh(m);

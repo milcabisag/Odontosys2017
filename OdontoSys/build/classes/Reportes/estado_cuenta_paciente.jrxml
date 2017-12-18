@@ -4,25 +4,95 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="ireport.callouts" value="##Tue Jul 08 13:07:46 PYT 2014"/>
+	<subDataset name="New Dataset 1" uuid="e850e6d5-d0fd-449f-acc3-8eaf84d15078">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     paciente.`idPaciente` AS paciente_idPaciente,
+     paciente.`Nombres` AS paciente_Nombres,
+     paciente.`Apellidos` AS paciente_Apellidos,
+     paciente.`Nro_CI` AS paciente_Nro_CI,
+     movimiento.`idmovimiento` AS movimiento_idmovimiento,
+     movimiento.`fk_paciente` AS movimiento_fk_paciente,
+     movimiento.`fecha` AS movimiento_fecha,
+     movimiento.`movimiento` AS movimiento_movimiento,
+     movimiento.`debe` AS movimiento_debe,
+     movimiento.`haber` AS movimiento_haber,
+     datos.`iddatos` AS datos_iddatos,
+     datos.`nombre_empresa` AS datos_nombre_empresa,
+     datos.`nombre_propietario` AS datos_nombre_propietario,
+     datos.`actividad` AS datos_actividad,
+     datos.`ruc` AS datos_ruc,
+     datos.`direccion` AS datos_direccion,
+     datos.`ciudad` AS datos_ciudad,
+     datos.`telefono` AS datos_telefono
+FROM
+     `paciente` paciente INNER JOIN `movimiento` movimiento ON paciente.`idPaciente` = movimiento.`fk_paciente`,
+     `datos` datos]]>
+		</queryString>
+		<field name="paciente_idPaciente" class="java.lang.Integer"/>
+		<field name="paciente_Nombres" class="java.lang.String"/>
+		<field name="paciente_Apellidos" class="java.lang.String"/>
+		<field name="paciente_Nro_CI" class="java.lang.Integer"/>
+		<field name="movimiento_idmovimiento" class="java.lang.Integer"/>
+		<field name="movimiento_fk_paciente" class="java.lang.Integer"/>
+		<field name="movimiento_fecha" class="java.sql.Date"/>
+		<field name="movimiento_movimiento" class="java.lang.String"/>
+		<field name="movimiento_debe" class="java.lang.Integer"/>
+		<field name="movimiento_haber" class="java.lang.Integer"/>
+		<field name="datos_iddatos" class="java.lang.Integer"/>
+		<field name="datos_nombre_empresa" class="java.lang.String"/>
+		<field name="datos_nombre_propietario" class="java.lang.String"/>
+		<field name="datos_actividad" class="java.lang.String"/>
+		<field name="datos_ruc" class="java.lang.String"/>
+		<field name="datos_direccion" class="java.lang.String"/>
+		<field name="datos_ciudad" class="java.lang.String"/>
+		<field name="datos_telefono" class="java.lang.String"/>
+		<group name="paciente_idPaciente">
+			<groupExpression><![CDATA[$F{paciente_idPaciente}]]></groupExpression>
+		</group>
+	</subDataset>
 	<parameter name="id_paciente" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT
-     paciente.`Nombres` AS paciente_Nombres,
-     paciente.`Apellidos` AS paciente_Apellidos,
-     paciente.`Nro_CI` AS paciente_Nro_CI,
-     movimiento.`fecha` AS movimiento_fecha,
-     movimiento.`movimiento` AS movimiento_movimiento,
-     movimiento.`debe` AS movimiento_debe,
-     movimiento.`haber` AS movimiento_haber
-FROM
-     `paciente` paciente INNER JOIN `movimiento` movimiento ON paciente.`idPaciente` = movimiento.`fk_paciente`
-WHERE
-     paciente.`idPaciente` = $P{id_paciente} AND
-     movimiento.`fecha` BETWEEN $P{fecha_ini} AND $P{fecha_fin}
-ORDER BY
-     movimiento.`fecha`]]>
+		<![CDATA[SELECT 
+     paciente.nombres AS paciente_Nombres,
+     paciente.apellidos AS paciente_Apellidos,
+     paciente.nro_ci AS paciente_Nro_CI,
+     movimiento.fecha AS movimiento_fecha,
+     movimiento.movimiento AS movimiento_movimiento,
+     movimiento.debe AS movimiento_debe,
+     movimiento.haber AS movimiento_haber,
+     datos.nombre_empresa AS emp_nom,   
+     datos.nombre_propietario AS emp_prop,
+     datos.actividad AS emp_actividad,
+     datos.direccion AS emp_direccion,
+     datos.ciudad AS emp_ciudad,
+     datos.telefono AS emp_telefono,
+     movimiento.idmovimiento AS idmov
+FROM movimiento JOIN datos JOIN paciente
+WHERE idmovimiento IN (SELECT fk_movimiento FROM factura WHERE estado = 'Pendiente' AND factura.fk_paciente = $P{id_paciente})
+ AND datos.iddatos = 1 AND paciente.idPaciente = $P{id_paciente}
+UNION
+SELECT 
+     paciente.nombres AS paciente_Nombres,
+     paciente.apellidos AS paciente_Apellidos,
+     paciente.nro_ci AS paciente_Nro_CI,
+     movimiento.fecha AS movimiento_fecha,
+     movimiento.movimiento AS movimiento_movimiento,
+     movimiento.debe AS movimiento_debe,
+     movimiento.haber AS movimiento_haber,
+     datos.nombre_empresa AS emp_nom,   
+     datos.nombre_propietario AS emp_prop,
+     datos.actividad AS emp_actividad,
+     datos.direccion AS emp_direccion,
+     datos.ciudad AS emp_ciudad,
+     datos.telefono AS emp_telefono,
+     movimiento.idmovimiento AS idmov
+FROM movimiento JOIN datos JOIN paciente
+WHERE idmovimiento IN (SELECT r.fk_movimiento FROM recibo r JOIN factura ON factura.idfactura = r.fk_factura 
+WHERE factura.estado = 'Pendiente' AND factura.fk_paciente = $P{id_paciente}) AND datos.iddatos = 1 AND paciente.idPaciente = $P{id_paciente} 
+ORDER BY idmov ASC]]>
 	</queryString>
 	<field name="paciente_Nombres" class="java.lang.String"/>
 	<field name="paciente_Apellidos" class="java.lang.String"/>
@@ -31,6 +101,12 @@ ORDER BY
 	<field name="movimiento_movimiento" class="java.lang.String"/>
 	<field name="movimiento_debe" class="java.lang.Integer"/>
 	<field name="movimiento_haber" class="java.lang.Integer"/>
+	<field name="emp_nom" class="java.lang.String"/>
+	<field name="emp_prop" class="java.lang.String"/>
+	<field name="emp_actividad" class="java.lang.String"/>
+	<field name="emp_direccion" class="java.lang.String"/>
+	<field name="emp_ciudad" class="java.lang.String"/>
+	<field name="emp_telefono" class="java.lang.String"/>
 	<variable name="movimiento_debe_1" class="java.lang.Integer" resetType="Column" calculation="Sum">
 		<variableExpression><![CDATA[$F{movimiento_debe}]]></variableExpression>
 	</variable>
@@ -38,25 +114,50 @@ ORDER BY
 		<variableExpression><![CDATA[$F{movimiento_haber}]]></variableExpression>
 	</variable>
 	<variable name="saldo" class="java.lang.String"/>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
 	<title>
 		<band height="79" splitType="Stretch">
-			<rectangle>
-				<reportElement x="-20" y="-20" width="599" height="99" backcolor="#006699" uuid="93c3b01b-dd3f-4469-aa6e-18ca54875072"/>
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="561" height="45" uuid="ef9bff59-c5ce-408e-baeb-16d2e523b431"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="-1" y="0" width="561" height="52" forecolor="#FFFFFF" uuid="993a1dd0-a8c5-4658-a73e-418ad0cba4c9"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="34" isBold="true"/>
+				<reportElement x="0" y="46" width="561" height="30" forecolor="#006699" uuid="993a1dd0-a8c5-4658-a73e-418ad0cba4c9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Estado de Cuenta del Paciente]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="260" y="31" width="300" height="14" uuid="d65b4fc0-033d-4afe-85dd-2f325a8cb237"/>
+				<textElement textAlignment="Left" markup="none">
+					<font size="8" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Dirección: "+$F{emp_direccion}+" - "+$F{emp_ciudad}+"  -  Teléfono: "+$F{emp_telefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="10" width="250" height="29" uuid="b8b05fa8-108e-4572-99eb-33b471878935"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{emp_nom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="17" width="300" height="13" uuid="2c7a281d-7c85-4647-af3a-bd2e06f64932"/>
+				<textElement textAlignment="Left" markup="none">
+					<font size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{emp_actividad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="3" width="300" height="13" uuid="8c31702f-574f-45c7-be29-47759995d1cd"/>
+				<textElement textAlignment="Left" markup="none">
+					<font size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["De "+$F{emp_prop}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="25" splitType="Stretch">
+		<band height="27" splitType="Stretch">
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="76" height="25" forecolor="#006699" backcolor="#EEEDFF" uuid="a904ce2d-c609-43bf-a8d0-12567f3ffd4a"/>
 				<box>
@@ -71,7 +172,7 @@ ORDER BY
 				<text><![CDATA[Paciente]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="79" y="0" width="100" height="25" uuid="b1e05f29-85f2-44b1-90d5-7db26c7aeeec"/>
+				<reportElement x="76" y="0" width="287" height="25" uuid="b1e05f29-85f2-44b1-90d5-7db26c7aeeec"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -79,31 +180,25 @@ ORDER BY
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<paragraph leftIndent="1"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<paragraph leftIndent="3"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{paciente_Nombres}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{paciente_Nombres}+" "+$F{paciente_Apellidos}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="186" y="0" width="133" height="25" uuid="b762cf88-7061-420f-afcb-b55a87060be3"/>
+				<reportElement x="363" y="0" width="197" height="25" uuid="0e30efad-b453-47a7-a180-0b5a1ee845fc"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
 					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.25"/>
 				</box>
-				<textElement verticalAlignment="Middle">
-					<paragraph leftIndent="1"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{paciente_Apellidos}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="363" y="0" width="100" height="25" uuid="0e30efad-b453-47a7-a180-0b5a1ee845fc"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
-				<textFieldExpression><![CDATA["C.I. Nro: "+$F{movimiento_fecha}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["C.I. Nro: "+$F{paciente_Nro_CI}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -124,7 +219,7 @@ ORDER BY
 				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="99" y="0" width="262" height="30" backcolor="#E6E6E6" uuid="ef772fdc-fb0f-4878-964c-76ce04263ffe"/>
+				<reportElement x="100" y="0" width="262" height="30" backcolor="#E6E6E6" uuid="ef772fdc-fb0f-4878-964c-76ce04263ffe"/>
 				<box>
 					<pen lineWidth="0.5" lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -138,7 +233,7 @@ ORDER BY
 				<text><![CDATA[Descripción]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="361" y="0" width="100" height="30" backcolor="#E6E6E6" uuid="229c7097-56ad-4a46-b4c6-51544a0e8c57"/>
+				<reportElement x="362" y="0" width="100" height="30" backcolor="#E6E6E6" uuid="229c7097-56ad-4a46-b4c6-51544a0e8c57"/>
 				<box>
 					<pen lineWidth="0.5" lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -152,7 +247,7 @@ ORDER BY
 				<text><![CDATA[Debe]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="460" y="0" width="100" height="30" backcolor="#E6E6E6" uuid="5dd82c75-d242-44e9-8407-6f3c933423bb"/>
+				<reportElement x="462" y="0" width="98" height="30" backcolor="#E6E6E6" uuid="5dd82c75-d242-44e9-8407-6f3c933423bb"/>
 				<box>
 					<pen lineWidth="0.5" lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -196,7 +291,7 @@ ORDER BY
 				<textFieldExpression><![CDATA[$F{movimiento_movimiento}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement x="361" y="0" width="100" height="20" uuid="81785374-38cb-4a99-86b7-301d20e4863c"/>
+				<reportElement x="362" y="0" width="100" height="20" uuid="81785374-38cb-4a99-86b7-301d20e4863c"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -208,7 +303,7 @@ ORDER BY
 				<textFieldExpression><![CDATA[$F{movimiento_debe}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement x="460" y="0" width="100" height="20" uuid="d0f33e15-4e4f-4b77-8cc4-7643f2b5dd0a"/>
+				<reportElement x="462" y="0" width="98" height="20" uuid="d0f33e15-4e4f-4b77-8cc4-7643f2b5dd0a"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -246,10 +341,10 @@ ORDER BY
 					<rightPen lineWidth="0.25" lineStyle="Double"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[SUM($V{movimiento_debe_1})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{movimiento_debe_1}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement x="460" y="0" width="100" height="25" uuid="5257e8fd-5f23-4b9a-9f8f-ae91f9459651"/>
+				<reportElement x="462" y="0" width="98" height="25" uuid="5257e8fd-5f23-4b9a-9f8f-ae91f9459651"/>
 				<box>
 					<pen lineWidth="0.25" lineStyle="Double"/>
 					<topPen lineWidth="0.25" lineStyle="Double"/>
@@ -258,7 +353,7 @@ ORDER BY
 					<rightPen lineWidth="0.25" lineStyle="Double"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[SUM($V{movimiento_haber_1})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{movimiento_haber_1}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="24" width="362" height="25" forecolor="#006699" backcolor="#EEEDFF" uuid="9eed7ceb-5e9e-4d5c-ad09-473cba5c4f3e"/>

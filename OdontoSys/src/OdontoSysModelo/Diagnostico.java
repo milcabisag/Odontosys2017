@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 08/12/2017 01:13:45 AM by Hibernate Tools 3.6.0
+// Generated 12/12/2017 03:57:45 PM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -20,7 +20,6 @@ public class Diagnostico  implements java.io.Serializable {
      private String tipo;
      private String empresa;
      private String observaciones;
-     private String diagnosticocol;
 
     public Diagnostico() {
     }
@@ -34,7 +33,7 @@ public class Diagnostico  implements java.io.Serializable {
         this.planTratamiento = planTratamiento;
         this.tipo = tipo;
     }
-    public Diagnostico(Odontograma odontograma, Usuario usuario, Paciente paciente, Date fecha, String resumenHallazgos, String planTratamiento, String tipo, String empresa, String observaciones, String diagnosticocol) {
+    public Diagnostico(Odontograma odontograma, Usuario usuario, Paciente paciente, Date fecha, String resumenHallazgos, String planTratamiento, String tipo, String empresa, String observaciones) {
        this.odontograma = odontograma;
        this.usuario = usuario;
        this.paciente = paciente;
@@ -44,7 +43,6 @@ public class Diagnostico  implements java.io.Serializable {
        this.tipo = tipo;
        this.empresa = empresa;
        this.observaciones = observaciones;
-       this.diagnosticocol = diagnosticocol;
     }
    
     public Integer getIdDiagnostico() {
@@ -116,13 +114,6 @@ public class Diagnostico  implements java.io.Serializable {
     
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
-    }
-    public String getDiagnosticocol() {
-        return this.diagnosticocol;
-    }
-    
-    public void setDiagnosticocol(String diagnosticocol) {
-        this.diagnosticocol = diagnosticocol;
     }
 
 

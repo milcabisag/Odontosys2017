@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 08/12/2017 01:13:56 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 12/12/2017 03:57:56 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.Tratamiento" table="tratamiento" catalog="odontosys">
         <id name="idtratamiento" type="java.lang.Integer">
@@ -17,9 +17,6 @@
         <many-to-one name="diente" class="OdontoSysModelo.Diente" fetch="select">
             <column name="fk_diente" not-null="true" />
         </many-to-one>
-        <property name="estado" type="string">
-            <column name="estado" length="20" not-null="true" />
-        </property>
         <property name="especificacion" type="string">
             <column name="especificacion" not-null="true" />
         </property>

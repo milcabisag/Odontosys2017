@@ -160,12 +160,7 @@ public class ConvenioControlador {
     
     public static boolean modificarConvenio(Convenio conv, ArrayList<DetalleConvenio> det, Session session) {
         boolean val = false;
-        //Session session;
-        Transaction tr = null;
         try{
-            //session = NewHibernateUtil.getSessionFactory().openSession();
-            tr = session.beginTransaction();
-            
             session.clear();
             
             session.merge(conv);
@@ -182,34 +177,28 @@ public class ConvenioControlador {
                 }
                 System.out.println("Detalle: "+d.getIddetalleConvenio()+" Porcentaje: "+d.getPorcentaje()+" Estado: "+d.getEstado());
             }           
-            tr.commit();      
-            //session.close();  
        
             val = true;
         }catch(HibernateException ex){
-            tr.rollback();
             System.out.println("Error en modificarConvenio: "+ex);
             JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Convenio", WIDTH );
        }        
         return val;
     }
 
-    public static boolean modificarConvenioPaciente(ConvPaciente conv) {
+    public static boolean modificarConvenioPaciente(ConvPaciente conv, Session session) {
         boolean val = false;
-        Session session;
-        Transaction tr = null;
         try{
-            session = NewHibernateUtil.getSessionFactory().openSession();
-            tr = session.beginTransaction();
-            
-            session.update(conv);
-            
-            tr.commit();      
-            session.close();  
+            String hql = "UPDATE ConvPaciente SET "
+                    + "convenio = "+ conv.getConvenio().getIdconvenio()
+                    + ", observacion = '"+ conv.getObservacion().toString()
+                    + "' WHERE idconvPaciente = "+conv.getIdconvPaciente();
+            Query q = session.createQuery(hql);
+            q.executeUpdate();
+            session.refresh(conv);
        
             val = true;
         }catch(HibernateException ex){
-            tr.rollback();
             System.out.println("Error en modificarConvenioPaciente: "+ex);
             JOptionPane.showMessageDialog(null,ex.getMessage(), "Modificar Convenio del Paciente", WIDTH );
        }        
@@ -266,23 +255,16 @@ public class ConvenioControlador {
         return val;
     }
 
-    public static boolean eliminarConvenioPaciente(ConvPaciente conv) {
+    public static boolean eliminarConvenioPaciente(ConvPaciente conv, Session session) {
         boolean val = false;
-        Session session;
-        Transaction tr = null;
         try{
-            session = NewHibernateUtil.getSessionFactory().openSession();
-            tr = session.beginTransaction(); 
-            
-            conv.setEstado("Inactivo");
-            session.merge(conv);
-            
-            tr.commit();           
-            session.close();  
+            String hql = "UPDATE ConvPaciente SET estado = 'Inactivo' WHERE idconvPaciente = "+conv.getIdconvPaciente();
+            Query q = session.createQuery(hql);
+            q.executeUpdate();
+            session.refresh(conv);
             
             val = true;
         }catch(HibernateException ex){
-            tr.rollback();
             JOptionPane.showMessageDialog(null,ex.getMessage(), "Eliminar Convenio", WIDTH );
        }        
         return val;

@@ -1,20 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package OdontoSysPantalla;
 
-import OdontoSysControlador.DiagnosticoControlador;
-import OdontoSysControlador.DoctorControlador;
-import OdontoSysControlador.PacienteControlador;
 import OdontoSysModelo.Diagnostico;
 import OdontoSysModelo.Odontograma;
 import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Usuario;
 import OdontoSysVista.DiagnosticoVista;
-import java.awt.TextField;
 import static java.awt.image.ImageObserver.WIDTH;
 import javax.swing.JOptionPane;
 
@@ -23,7 +14,34 @@ import javax.swing.JOptionPane;
  * @author user
  */
 public class Diagnosticos extends javax.swing.JFrame {
+    
+    
+    //Variables Globales
 
+    /**
+     *
+     */
+        public static Diagnostico dactual = null;
+
+    /**
+     *
+     */
+    public static Paciente pacienteActual;
+
+    /**
+     *
+     */
+    public static Usuario user = null;
+    Diagnostico nuevo = null;
+
+    /**
+     *
+     */
+    public static Odontograma odont = null;
+
+    /**
+     *
+     */
     public Diagnosticos() {
         initComponents();
         
@@ -35,8 +53,7 @@ public class Diagnosticos extends javax.swing.JFrame {
         jTextFieldObservaciones.setWrapStyleWord(true);
         
         if(dactual == null){     //Llamada a insertar
-            actual = PacienteControlador.BuscarID(idPaciente);                      //Obtiene el paciente actual
-            jLabelPaciente.setText(actual.getNombres() + " " + actual.getApellidos());
+            jLabelPaciente.setText(pacienteActual.getNombres() + " " + pacienteActual.getApellidos());
             habilitarTodo();
             jButtonModificar.setVisible(false);
             jButtonModCambios.setVisible(false);
@@ -324,7 +341,8 @@ public class Diagnosticos extends javax.swing.JFrame {
             int ok = DiagnosticoVista.InsertarNuevo(nuevo);
             if(ok > 0){
                 JOptionPane.showMessageDialog(rootPane, "Se insertó correctamente", "Insertar Diagnóstico", WIDTH);
-                PacienteHojaClinica.pacienteActual = actual;
+                PacienteHojaClinica.pacienteActual = pacienteActual;
+                PacienteHojaClinica.user = user;
                 PacienteHojaClinica.main(null);
                 limpiar();            
                 this.setVisible(false);
@@ -342,12 +360,12 @@ public class Diagnosticos extends javax.swing.JFrame {
         jButtonModificar.setVisible(false);
         jButtonGuardar.setVisible(false);
         jButtonModCambios.setVisible(true);
-        jButtonIngresarOdontograma.setVisible(true);
+        jButtonIngresarOdontograma.setVisible(false);
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     private void jButtonIngresarOdontogramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarOdontogramaActionPerformed
         OdontogramaFrame.diag = 1;
-        OdontogramaFrame.elPaciente = actual;
+        OdontogramaFrame.elPaciente = pacienteActual;
         OdontogramaFrame.elUsuario = user;
         OdontogramaFrame jFrame = new OdontogramaFrame();
         jFrame.setVisible(true);
@@ -431,13 +449,6 @@ public class Diagnosticos extends javax.swing.JFrame {
             }
         });
     }
-    //Variables Globales
-    public static Diagnostico dactual = null;
-    public static int idPaciente;
-    public static Usuario user = null;
-    Diagnostico nuevo = null;
-    Paciente actual = null;
-    public static Odontograma odont = null;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
@@ -476,7 +487,7 @@ public class Diagnosticos extends javax.swing.JFrame {
             nuevo.setResumenHallazgos(jTextFieldResumenHallazgos.getText());
             nuevo.setPlanTratamiento(jTextFieldPlanTratamiento.getText());
             nuevo.setObservaciones(jTextFieldObservaciones.getText());
-            nuevo.setPaciente(actual);
+            nuevo.setPaciente(pacienteActual);
             nuevo.setOdontograma(odont);
             nuevo.setUsuario(user);
         }else{
@@ -494,12 +505,12 @@ public class Diagnosticos extends javax.swing.JFrame {
         jLabelPaciente.setText("");
         jDateChooserFecha.setDate(null);
         dactual = null;
-        actual = null;
+        pacienteActual = null;
         
     }
 
     private void habilitarTodo() {
-        jComboBoxTipo.setEnabled(true);
+        jComboBoxTipo.setEnabled(false);
         jTextFieldEmpresa.setEditable(true);
         jTextFieldObservaciones.setEditable(true);
         jTextFieldPlanTratamiento.setEditable(true);

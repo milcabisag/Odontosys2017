@@ -26,8 +26,17 @@ import javax.swing.KeyStroke;
 public class InsertarTratamientoAct extends javax.swing.JDialog {
 
     private static Tratamiento elTratamiento = null;
+
+    /**
+     *
+     */
     public static Servicio elServicio = null;
     
+    /**
+     *
+     * @param parent
+     * @param modal
+     */
     public InsertarTratamientoAct(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -66,8 +75,6 @@ public class InsertarTratamientoAct extends javax.swing.JDialog {
         jButtonBuscarServicio = new javax.swing.JButton();
         jTextFieldServicio = new javax.swing.JTextField();
         labelBuscarDiente1 = new java.awt.Label();
-        labelBuscarDiente2 = new java.awt.Label();
-        jTextFieldEstado = new javax.swing.JTextField();
         label1 = new java.awt.Label();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaEspecificacion = new javax.swing.JTextArea();
@@ -114,13 +121,6 @@ public class InsertarTratamientoAct extends javax.swing.JDialog {
         labelBuscarDiente1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         labelBuscarDiente1.setText("Servicio");
 
-        labelBuscarDiente2.setAlignment(java.awt.Label.CENTER);
-        labelBuscarDiente2.setBackground(new java.awt.Color(204, 204, 204));
-        labelBuscarDiente2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        labelBuscarDiente2.setText("Estado");
-
-        jTextFieldEstado.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-
         label1.setBackground(new java.awt.Color(204, 204, 204));
         label1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         label1.setText("Especificación");
@@ -144,22 +144,13 @@ public class InsertarTratamientoAct extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelBuscarDiente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelBuscarDiente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextFieldServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButtonBuscarServicio)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(labelPrecioServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(labelBuscarDiente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(jTextFieldServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonBuscarServicio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addComponent(labelPrecioServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,7 +158,11 @@ public class InsertarTratamientoAct extends javax.swing.JDialog {
                                 .addComponent(okButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cancelButton))
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -179,15 +174,13 @@ public class InsertarTratamientoAct extends javax.swing.JDialog {
                     .addComponent(jTextFieldServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelPrecioServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonBuscarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelBuscarDiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 42, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -204,15 +197,12 @@ public class InsertarTratamientoAct extends javax.swing.JDialog {
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         if(elServicio!=null){
-            String estado = jTextFieldEstado.getText().trim();
-            String especificacion = jTextAreaEspecificacion.getText().trim();
-            
+            String especificacion = jTextAreaEspecificacion.getText();
             
             elTratamiento = new Tratamiento();
             elTratamiento.setDiente(null);
             elTratamiento.setServicio(elServicio);
             elTratamiento.setOdontograma(null);
-            elTratamiento.setEstado(estado);
             elTratamiento.setEspecificacion(especificacion);
             
             doClose(elTratamiento);
@@ -297,6 +287,10 @@ public class InsertarTratamientoAct extends javax.swing.JDialog {
         });
     }
 
+    /**
+     *
+     * @param nomenclatura
+     */
     public void GraficarDiente(String nomenclatura) {
         String url = "/ImagenesOdontosys/DienteSanos/"+nomenclatura+".jpg";
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource(url)));        
@@ -312,11 +306,9 @@ public class InsertarTratamientoAct extends javax.swing.JDialog {
     private javax.swing.JButton jButtonBuscarServicio;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaEspecificacion;
-    private javax.swing.JTextField jTextFieldEstado;
     private javax.swing.JTextField jTextFieldServicio;
     private java.awt.Label label1;
     private java.awt.Label labelBuscarDiente1;
-    private java.awt.Label labelBuscarDiente2;
     private java.awt.Label labelPrecioServicio;
     private javax.swing.JButton okButton;
     // End of variables declaration//GEN-END:variables

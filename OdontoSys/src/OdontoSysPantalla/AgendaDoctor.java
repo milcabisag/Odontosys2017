@@ -1,21 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package OdontoSysPantalla;
 
 import OdontoSysControlador.AgendaControlador;
 import OdontoSysModelo.Agenda;
-import OdontoSysModelo.Doctor;
 import OdontoSysPantallaAuxiliares.DetalleAgenda;
-import OdontoSysPantallaAuxiliares.ObtenerDoctor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -202,6 +194,10 @@ public class AgendaDoctor extends javax.swing.JFrame {
     DefaultTableModel tabla = new DefaultTableModel();
     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
     ArrayList<Agenda> lista = new ArrayList<>();
+
+    /**
+     *
+     */
     public static int idDoctor;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

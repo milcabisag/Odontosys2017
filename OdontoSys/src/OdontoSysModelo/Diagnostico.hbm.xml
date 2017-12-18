@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 08/12/2017 01:13:56 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 12/12/2017 03:57:56 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.Diagnostico" table="diagnostico" catalog="odontosys">
         <id name="idDiagnostico" type="java.lang.Integer">
@@ -34,9 +34,6 @@
         </property>
         <property name="observaciones" type="string">
             <column name="observaciones" length="300" />
-        </property>
-        <property name="diagnosticocol" type="string">
-            <column name="diagnosticocol" length="45" />
         </property>
     </class>
 </hibernate-mapping>

@@ -28,6 +28,9 @@ public class ReporteServicios extends javax.swing.JFrame {
     SimpleDateFormat fnormal = new SimpleDateFormat("dd/MM/yyyy");
     Usuario elUsuario = null;
     
+    /**
+     *
+     */
     public ReporteServicios() {
         initComponents();
         jLabelNot.setVisible(false);

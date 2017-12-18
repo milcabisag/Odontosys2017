@@ -24,8 +24,10 @@ public class ReporteCaja extends javax.swing.JFrame {
     Date hoy = new Date();
     SimpleDateFormat formateador = new SimpleDateFormat("yyyy/MM/dd");
     SimpleDateFormat fnormal = new SimpleDateFormat("dd/MM/yyyy");
-    
-    
+
+    /**
+     *
+     */
     public ReporteCaja() {
         initComponents();
         

@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 08/12/2017 01:13:45 AM by Hibernate Tools 3.6.0
+// Generated 12/12/2017 03:57:45 PM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;
@@ -27,7 +27,6 @@ public class Doctor  implements java.io.Serializable {
      private String estado;
      private Set agendas = new HashSet(0);
      private Set usuarios = new HashSet(0);
-     private Set odontogramas = new HashSet(0);
 
     public Doctor() {
     }
@@ -43,7 +42,7 @@ public class Doctor  implements java.io.Serializable {
         this.ciudad = ciudad;
         this.regProf = regProf;
     }
-    public Doctor(String nombre, String apellido, int nroCi, Date fechaNac, String sexo, String teLb, String telCel, String direccion, String ciudad, String email, String regProf, String estado, Set agendas, Set usuarios, Set odontogramas) {
+    public Doctor(String nombre, String apellido, int nroCi, Date fechaNac, String sexo, String teLb, String telCel, String direccion, String ciudad, String email, String regProf, String estado, Set agendas, Set usuarios) {
        this.nombre = nombre;
        this.apellido = apellido;
        this.nroCi = nroCi;
@@ -58,7 +57,6 @@ public class Doctor  implements java.io.Serializable {
        this.estado = estado;
        this.agendas = agendas;
        this.usuarios = usuarios;
-       this.odontogramas = odontogramas;
     }
    
     public Integer getIdDoctor() {
@@ -165,13 +163,6 @@ public class Doctor  implements java.io.Serializable {
     
     public void setUsuarios(Set usuarios) {
         this.usuarios = usuarios;
-    }
-    public Set getOdontogramas() {
-        return this.odontogramas;
-    }
-    
-    public void setOdontogramas(Set odontogramas) {
-        this.odontogramas = odontogramas;
     }
 
 

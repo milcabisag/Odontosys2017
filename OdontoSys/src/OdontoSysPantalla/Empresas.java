@@ -25,6 +25,8 @@ import static java.lang.Integer.parseInt;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.HibernateException;
@@ -39,6 +41,10 @@ public class Empresas extends javax.swing.JFrame {
 
     //Variables Globales
     Empresa empresaActual = null;
+
+    /**
+     *
+     */
     public static Usuario user = null;
         
     Session sesion = null;
@@ -72,9 +78,10 @@ public class Empresas extends javax.swing.JFrame {
     
     DecimalFormat formateador = new DecimalFormat("###,###");
     SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
-    
-    
-    
+
+    /**
+     *
+     */
     public Empresas() {
         initComponents();
         BotonInvisibles();
@@ -145,6 +152,7 @@ public class Empresas extends javax.swing.JFrame {
         jButtonRealizarPago = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldSaldo = new javax.swing.JTextField();
+        jButtonGenerarReporte = new javax.swing.JButton();
         jButtonBuscar = new javax.swing.JButton();
         jButtonInsertar = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
@@ -642,9 +650,12 @@ public class Empresas extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Pendientes", new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/hoja.png")), jPanelPendientes); // NOI18N
 
+        jPanelEstadoCuenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabelTitulo2.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabelTitulo2.setText("Estado de Cuenta de la Empresa");
         jLabelTitulo2.setToolTipText("");
+        jPanelEstadoCuenta.add(jLabelTitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 13, -1, -1));
 
         jTableEstadoCuenta.setModel(tablaEstado);
         jTableEstadoCuenta.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -654,6 +665,8 @@ public class Empresas extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTableEstadoCuenta);
 
+        jPanelEstadoCuenta.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 52, 730, 270));
+
         jButtonRealizarPago.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonRealizarPago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/dinero.png"))); // NOI18N
         jButtonRealizarPago.setText("Realizar un Pago");
@@ -662,46 +675,24 @@ public class Empresas extends javax.swing.JFrame {
                 jButtonRealizarPagoActionPerformed(evt);
             }
         });
+        jPanelEstadoCuenta.add(jButtonRealizarPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 328, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel1.setText("Saldo hasta la fecha");
+        jPanelEstadoCuenta.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(536, 332, -1, -1));
 
         jTextFieldSaldo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jPanelEstadoCuenta.add(jTextFieldSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(657, 328, 114, 25));
 
-        javax.swing.GroupLayout jPanelEstadoCuentaLayout = new javax.swing.GroupLayout(jPanelEstadoCuenta);
-        jPanelEstadoCuenta.setLayout(jPanelEstadoCuentaLayout);
-        jPanelEstadoCuentaLayout.setHorizontalGroup(
-            jPanelEstadoCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelEstadoCuentaLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanelEstadoCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelEstadoCuentaLayout.createSequentialGroup()
-                        .addComponent(jButtonRealizarPago)
-                        .addGap(359, 359, 359)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEstadoCuentaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelTitulo2)
-                .addGap(221, 221, 221))
-        );
-        jPanelEstadoCuentaLayout.setVerticalGroup(
-            jPanelEstadoCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelEstadoCuentaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelTitulo2)
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelEstadoCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextFieldSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonRealizarPago))
-                .addContainerGap())
-        );
+        jButtonGenerarReporte.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jButtonGenerarReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/hoja.png"))); // NOI18N
+        jButtonGenerarReporte.setText("Generar Reporte");
+        jButtonGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGenerarReporteActionPerformed(evt);
+            }
+        });
+        jPanelEstadoCuenta.add(jButtonGenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(622, 11, -1, -1));
 
         jTabbedPane1.addTab("Estado de Cuenta", new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/grafico.png")), jPanelEstadoCuenta); // NOI18N
 
@@ -870,7 +861,7 @@ public class Empresas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonInsertarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-       int eliminar = JOptionPane.showConfirmDialog( null, "Eliminar empresa "+empresaActual.getNombre()+"con RUC "+empresaActual.getRuc()+"??");
+       int eliminar = JOptionPane.showConfirmDialog( null, "Eliminar empresa "+empresaActual.getNombre()+" con RUC "+empresaActual.getRuc()+"??");
         if(JOptionPane.YES_OPTION == eliminar){
             boolean i = EmpresaControlador.EliminarEmpresa(empresaActual, sesion);
             if(i){
@@ -1096,6 +1087,19 @@ public class Empresas extends javax.swing.JFrame {
         repaintForm();
     }//GEN-LAST:event_botonActualizarActionPerformed
 
+    private void jButtonGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarReporteActionPerformed
+
+        String reporte="C:\\Users\\user\\Google Drive\\UNA\\Odontosys2017\\OdontoSys\\src\\Reportes\\estado_cuenta_empresa";
+
+        int idEmpresa = empresaActual.getIdempresa();
+
+        Map parametros = new HashMap();
+        parametros.put("idEmpresa", idEmpresa);
+
+        Configuraciones.imprimirReporteHB(reporte, parametros);
+
+    }//GEN-LAST:event_jButtonGenerarReporteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1141,6 +1145,7 @@ public class Empresas extends javax.swing.JFrame {
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonFacturar;
+    private javax.swing.JButton jButtonGenerarReporte;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonGuardarModificacion;
     private javax.swing.JButton jButtonInsertar;
@@ -1227,7 +1232,6 @@ public class Empresas extends javax.swing.JFrame {
             tr.commit();
             sesion.close();
             sesion = null;
-            tr = null;
         }
         
     }
@@ -1274,6 +1278,7 @@ public class Empresas extends javax.swing.JFrame {
         jButtonBuscar.setVisible(true);
         jButtonRealizarPago.setVisible(false);
         jButtonFacturar.setVisible(false);
+        jButtonGenerarReporte.setVisible(false);
         
         jLabelnomb.setVisible(false);
         jLabelruc.setVisible(false);
@@ -1305,7 +1310,6 @@ public class Empresas extends javax.swing.JFrame {
 
     private void escribirEmpresa(Empresa empresa) {
         if(empresa!=null){ 
-            sesion.flush();
             
             jTextFieldDNombres.setText(empresa.getNombre());
             jTextFieldRUC.setText(String.valueOf(empresa.getRuc()));
@@ -1334,7 +1338,7 @@ public class Empresas extends javax.swing.JFrame {
         empresa.setRuc(jTextFieldRUC.getText());
         empresa.setTelefono(jTextFieldDTel.getText());
         empresa.setDireccion(jTextFieldDDireccion.getText());
-        empresa.setCiudad(jCBciudad.getSelectedObjects().toString());
+        empresa.setCiudad(jCBciudad.getSelectedItem().toString());
         empresa.setEmail(jTextFieldDEmail.getText());   
         empresa.setNombreContacto(jTextFieldNombreContacto.getText());
         empresa.setTelContacto(jTextFieldTeléfonoContacto.getText());
@@ -1417,6 +1421,7 @@ public class Empresas extends javax.swing.JFrame {
         if(saldo > 0){
             jTextFieldSaldo.setText(formateador.format(saldo));
             jButtonRealizarPago.setVisible(true);
+            jButtonGenerarReporte.setVisible(true);
         }else{
             jTextFieldSaldo.setText("0");
         }
@@ -1433,7 +1438,7 @@ public class Empresas extends javax.swing.JFrame {
                 f[0] = fecha.format(oe.getFecha());
                 f[1] = oe.getIdordenEmpresa();
                 f[2] = oe.getConvPaciente().getPaciente().getNombres() + " " +  oe.getConvPaciente().getPaciente().getApellidos();
-                f[3] = oe.getMonto();
+                f[3] = formateador.format(oe.getMonto());
                 total = total + oe.getMonto();
                 
                 tablaPendientes.addRow(f);
@@ -1480,6 +1485,9 @@ public class Empresas extends javax.swing.JFrame {
         }
     }
 
+    /**
+     *
+     */
     public void repaintForm() {
         
         if(empresaActual != null){

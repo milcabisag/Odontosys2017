@@ -34,7 +34,7 @@ public class EmpresaVista {
             JOptionPane.showMessageDialog(null, "El RUC debe tener entre 6 y 15 caracteres");
             return false;
         }else if(tel == 0 || tel < 6 || tel > 20){
-            JOptionPane.showMessageDialog(null, "El teléfeno debe tener entre 6 y 20 caracteres");
+            JOptionPane.showMessageDialog(null, "El teléfono debe tener entre 6 y 20 caracteres");
             return false;
         }else if(dir == 0 || dir < 5 || dir > 50){
             JOptionPane.showMessageDialog(null, "La dirección debe tener entre 5 y 50 caracteres");

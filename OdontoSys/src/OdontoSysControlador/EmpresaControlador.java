@@ -55,11 +55,9 @@ public class EmpresaControlador {
     public static boolean UpdateEmpresa(Empresa empresa, Session session) {
        boolean v = false;
         try{ ;
-            Transaction tr = session.beginTransaction();
             session.clear();
             session.merge(empresa);
             session.refresh(empresa);
-            tr.commit();
             v = true;
        }catch(HibernateException ex){
            System.out.println("Error en UpdateEmpresa: "+ex.getMessage());
@@ -71,11 +69,9 @@ public class EmpresaControlador {
     public static boolean EliminarEmpresa(Empresa empActual, Session session) {
         boolean i = false;
         try{   
-            Transaction tr = session.beginTransaction();
             session.clear();
             empActual.setEstado("Inactivo");
             session.merge(empActual);
-            tr.commit();
             i = true;
        }catch(HibernateException ex){
             System.out.println("Error en EliminarEmpresa: "+ex);

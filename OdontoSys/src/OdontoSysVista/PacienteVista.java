@@ -57,10 +57,10 @@ public class PacienteVista {
         
         
         if(nom == 0 || nom < 3 || nom > 25){
-            JOptionPane.showMessageDialog(null, "El nombre debe tener entre 3 y 25 caracteres");
+            JOptionPane.showMessageDialog(null, "El nombre debe tener entre 4 y 25 caracteres");
             return -1;
         }else if(ape == 0 || ape < 3 || ape > 25){
-            JOptionPane.showMessageDialog(null, "El apellido debe tener entre 6 y 15 caracteres");
+            JOptionPane.showMessageDialog(null, "El apellido debe tener entre 4 y 25 caracteres");
             return -1;
         }else if(ci < 10000 || ci > 99999999 ){
             JOptionPane.showMessageDialog(null, "La cédula debe tener entre 5 y 8 cifras");
@@ -75,7 +75,7 @@ public class PacienteVista {
             JOptionPane.showMessageDialog(null, "Debe cargar por lo menos un teléfono");
             return -1;
         }else if(dir == 0 || dir < 5 || dir > 50){
-            JOptionPane.showMessageDialog(null, "La direccion  debe tener entre 5 y 50 caracteres");
+            JOptionPane.showMessageDialog(null, "La direccion  debe tener entre 4 y 50 caracteres");
             return -1;
         }else if(em > 20){
             JOptionPane.showMessageDialog(null, "El email puede tener 20 caracteres como máximo");

@@ -42,7 +42,15 @@ public class FacturasEmpresas extends javax.swing.JFrame {
      * Variables
      */
     public static Usuario user;
+
+    /**
+     *
+     */
     public static Empresa empActual = null;                    //A pasarse desde el frame padre
+
+    /**
+     *
+     */
     public static ArrayList<OrdenEmpresa> listaOrden = null;
         
     DefaultTableModel tabla = new DefaultTableModel(){
@@ -59,6 +67,9 @@ public class FacturasEmpresas extends javax.swing.JFrame {
     
     Session sesion = null;
     
+    /**
+     *
+     */
     public FacturasEmpresas() {
         initComponents();
         setearFactura();  

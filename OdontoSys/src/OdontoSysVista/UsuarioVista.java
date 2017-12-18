@@ -22,10 +22,7 @@ public class UsuarioVista {
         int n = nuevo.getNombre().trim().compareTo("");
         int c = nuevo.getPassw().trim().compareTo(""); 
         
-        if(r == "Doctor" && nuevo.getDoctor().getIdDoctor() == null){
-            JOptionPane.showMessageDialog(null, "Favor ingrese un Doctor", "Validación de Usuario", WIDTH);
-            return -1;
-        }else if(n==0  || n < 3 || n > 10){
+        if(n==0  || n < 3 || n > 10){
             JOptionPane.showMessageDialog(null, "El nombre debe tener entre 3 y 10 caracteres", "Validación de Usuario", WIDTH);
             return -1;
         }else if(c == 0 || c < 4 || c > 10){

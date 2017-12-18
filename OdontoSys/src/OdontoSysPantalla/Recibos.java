@@ -38,8 +38,34 @@ import org.hibernate.Transaction;
  */
 public class Recibos extends javax.swing.JFrame {
 
+    //Variables Globales
+    Recibo reciboActual = null;
+    ArrayList<DetalleRecibo> detalle = new ArrayList();   //Guarda el detalle de las formas de pago del recibo actual
+
     /**
-     * Creates new form Recibo
+     *
+     */
+    public static Paciente pac = null;       //Si es llamado desde un frame con el paciente ya ingresado
+
+    /**
+     *
+     */
+    public static Factura fac = null;       //Si es llamado desde un frame con la factura ya ingresada
+
+    /**
+     *
+     */
+    public static Usuario user;
+    DefaultTableModel tabla = new DefaultTableModel(){
+        public boolean isCellEditable(int row, int column) {            
+                return false;            
+        }};
+    DecimalFormat formateador = new DecimalFormat("###,###");
+    int monto = 0;                  //Calcula la suma de los montos de las formas de pago
+    int saldo = 0;                  //Obtiene el saldo de la factura a pagar
+
+    /**
+     *
      */
     public Recibos() {
         initComponents();
@@ -330,6 +356,7 @@ public class Recibos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonBuscarFacturaActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        limpiar();
         this.setVisible(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -387,6 +414,7 @@ public class Recibos extends javax.swing.JFrame {
         int f = jTableFormaPago.getSelectedRow();
         int mont = detalle.get(f).getMonto();
         monto = monto - mont;
+        saldo = saldo + mont;
         jTextFieldRecMonto.setText(NumberToLetterConverter.convertNumberToLetter(monto));
         tabla.removeRow(f);
         detalle.remove(f);
@@ -444,19 +472,6 @@ public class Recibos extends javax.swing.JFrame {
             }
         });
     }
-    //Variables Globales
-    Recibo reciboActual = null;
-    ArrayList<DetalleRecibo> detalle = new ArrayList();   //Guarda el detalle de las formas de pago del recibo actual
-    public static Paciente pac = null;       //Si es llamado desde un frame con el paciente ya ingresado
-    public static Factura fac = null;       //Si es llamado desde un frame con la factura ya ingresada
-    public static Usuario user;
-    DefaultTableModel tabla = new DefaultTableModel(){
-        public boolean isCellEditable(int row, int column) {            
-                return false;            
-        }};
-    DecimalFormat formateador = new DecimalFormat("###,###");
-    int monto = 0;                  //Calcula la suma de los montos de las formas de pago
-    int saldo = 0;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBorrarSeleccion1;

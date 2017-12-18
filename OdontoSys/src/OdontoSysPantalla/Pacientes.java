@@ -55,6 +55,10 @@ public class Pacientes extends javax.swing.JFrame {
     Session sesion = null;
     Transaction tr = null;
     OrdenServicio ordenPendiente = null;
+
+    /**
+     *
+     */
     public static Usuario user = null;
     
     DecimalFormat formateador = new DecimalFormat("###,###");
@@ -84,9 +88,10 @@ public class Pacientes extends javax.swing.JFrame {
     ArrayList<Agenda> agen = null;
     ArrayList<ConvPaciente> con = null;
     ArrayList<Ciudad> ciudades = null;
-    
-    
-    
+
+    /**
+     *
+     */
     public Pacientes() {
         initComponents();
         recuperarCiudades();
@@ -1175,6 +1180,7 @@ public class Pacientes extends javax.swing.JFrame {
         DetalleConvenio.conv = ce;
         DetalleConvenio.user = user;
         DetalleConvenio.llamado = "consulta";
+        DetalleConvenio.sesion = sesion;
         DetalleConvenio.main(null);
     }//GEN-LAST:event_jTableConveniosMouseClicked
 
@@ -1735,6 +1741,9 @@ public class Pacientes extends javax.swing.JFrame {
         return fecha;
     }
 
+    /**
+     *
+     */
     public void actualizarForm() {
     
         if(pacienteActual != null){

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 08/12/2017 01:13:56 AM by Hibernate Tools 3.6.0 -->
+<!-- Generated 12/12/2017 03:57:56 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="OdontoSysModelo.Servicio" table="servicio" catalog="odontosys">
         <id name="idservicio" type="java.lang.Integer">
@@ -9,7 +9,7 @@
             <generator class="identity" />
         </id>
         <property name="descripcion" type="string">
-            <column name="descripcion" not-null="true" />
+            <column name="descripcion" length="70" not-null="true" />
         </property>
         <property name="precio" type="int">
             <column name="precio" not-null="true" />

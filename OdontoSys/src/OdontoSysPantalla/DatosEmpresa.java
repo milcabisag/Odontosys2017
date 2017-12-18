@@ -27,6 +27,9 @@ public class DatosEmpresa extends javax.swing.JFrame {
     
     Datos dat = null;
     
+    /**
+     *
+     */
     public DatosEmpresa() {
         initComponents();
         

@@ -36,6 +36,9 @@ public class InsertarAgenda extends javax.swing.JFrame {
     Servicio mot = null;
     int idAgenda = 0;
     
+    /**
+     *
+     */
     public InsertarAgenda() {
         initComponents();
     }

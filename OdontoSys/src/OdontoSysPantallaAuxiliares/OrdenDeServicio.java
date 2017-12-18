@@ -13,7 +13,6 @@ import OdontoSysModelo.Odontograma;
 import OdontoSysModelo.OrdenServicio;
 import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Servicio;
-import OdontoSysModelo.Tratamiento;
 import OdontoSysModelo.Usuario;
 import OdontoSysPantalla.Facturas;
 import OdontoSysPantalla.OdontogramaFrame;
@@ -57,7 +56,6 @@ public class OrdenDeServicio extends javax.swing.JFrame {
         if(ordenActual == null){        //Llamado desde el odontograma
             obtenerDatos();
             jTextFieldTotal.setText(String.valueOf(formateador.format(totales)));
-            jButtonVerOdontograma.setVisible(false);
             jButtonFacturar.setVisible(false);
         }
         else{                        //Llamado desde la factura o desde el buscador de orden
@@ -96,7 +94,6 @@ public class OrdenDeServicio extends javax.swing.JFrame {
         jButtonFacturar = new javax.swing.JButton();
         jTextFieldPaciente = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButtonVerOdontograma = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(662, 435));
@@ -106,6 +103,7 @@ public class OrdenDeServicio extends javax.swing.JFrame {
                 formMouseClicked(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTableOrdenServicio.setModel(tabla   );
         jTableOrdenServicio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -128,11 +126,15 @@ public class OrdenDeServicio extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableOrdenServicio);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 159, 577, 164));
+
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel6.setText("Total");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(433, 338, -1, -1));
 
         jTextFieldTotal.setEditable(false);
         jTextFieldTotal.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        getContentPane().add(jTextFieldTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 334, 149, 25));
 
         jButtonCancelar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
@@ -143,6 +145,7 @@ public class OrdenDeServicio extends javax.swing.JFrame {
                 jButtonCancelarActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(553, 394, -1, -1));
 
         jButtonGuardar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/guardar.png"))); // NOI18N
@@ -152,6 +155,7 @@ public class OrdenDeServicio extends javax.swing.JFrame {
                 jButtonGuardarActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 394, -1, -1));
 
         jButtonModificarPrecio.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonModificarPrecio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/modificar.png"))); // NOI18N
@@ -163,26 +167,36 @@ public class OrdenDeServicio extends javax.swing.JFrame {
                 jButtonModificarPrecioActionPerformed(evt);
             }
         });
+        getContentPane().add(jButtonModificarPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(604, 204, -1, -1));
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel4.setText("Odontograma Cod");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 99, -1, -1));
 
         jTextFieldOdontograma.setEditable(false);
         jTextFieldOdontograma.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jPanel1.add(jTextFieldOdontograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 95, 106, 25));
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel1.setText("Orden de Servicio");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(227, 11, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel2.setText("Paciente");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 56, -1, -1));
 
         jLabelFecha.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jPanel1.add(jLabelFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 52, 106, 25));
 
         jTextFieldEstado.setEditable(false);
         jTextFieldEstado.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jPanel1.add(jTextFieldEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 95, 100, 25));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel3.setText("Fecha");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(368, 52, -1, 25));
 
         jButtonFacturar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonFacturar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/dinero.png"))); // NOI18N
@@ -194,129 +208,17 @@ public class OrdenDeServicio extends javax.swing.JFrame {
                 jButtonFacturarActionPerformed(evt);
             }
         });
+        jPanel1.add(jButtonFacturar, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 95, -1, -1));
 
         jTextFieldPaciente.setEditable(false);
         jTextFieldPaciente.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jPanel1.add(jTextFieldPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 52, 160, 25));
 
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel5.setText("Estado");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(368, 99, -1, -1));
 
-        jButtonVerOdontograma.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jButtonVerOdontograma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/diente.png"))); // NOI18N
-        jButtonVerOdontograma.setText("Ver");
-        jButtonVerOdontograma.setToolTipText("Ver el odontograma asociado");
-        jButtonVerOdontograma.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        jButtonVerOdontograma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVerOdontogramaActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldOdontograma, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextFieldPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonVerOdontograma)
-                        .addGap(66, 66, 66)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(5, 5, 5)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldEstado)
-                    .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonFacturar)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextFieldPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonFacturar))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(jButtonVerOdontograma)
-                        .addComponent(jTextFieldOdontograma, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5)))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(441, 441, 441)
-                        .addComponent(jButtonGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonCancelar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonModificarPrecio))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(24, 24, 24)
-                                .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(15, 15, 15))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(jButtonModificarPrecio)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCancelar)
-                    .addComponent(jButtonGuardar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 11, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -404,13 +306,6 @@ public class OrdenDeServicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTableOrdenServicioMouseClicked
 
-    private void jButtonVerOdontogramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerOdontogramaActionPerformed
-        OdontogramaFrame.odon = odonActual;
-        OdontogramaFrame.elPaciente = pacActual;
-        OdontogramaFrame.elUsuario = user;
-        OdontogramaFrame.main(null);
-    }//GEN-LAST:event_jButtonVerOdontogramaActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -452,7 +347,6 @@ public class OrdenDeServicio extends javax.swing.JFrame {
     private javax.swing.JButton jButtonFacturar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonModificarPrecio;
-    private javax.swing.JButton jButtonVerOdontograma;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -1,5 +1,5 @@
 package OdontoSysModelo;
-// Generated 08/12/2017 01:13:45 AM by Hibernate Tools 3.6.0
+// Generated 12/12/2017 03:57:45 PM by Hibernate Tools 3.6.0
 
 
 import java.util.Date;

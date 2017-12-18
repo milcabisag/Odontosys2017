@@ -34,7 +34,15 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
 
    
     // Variables
-    public static Paciente pacienteActual = null;
+
+    /**
+     *
+     */
+        public static Paciente pacienteActual = null;
+
+    /**
+     *
+     */
     public static Usuario user = null;
     
     ArrayList<Diagnostico> Lista = null;
@@ -48,6 +56,9 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
     Session sesion = null;
     Transaction tr = null;
     
+    /**
+     *
+     */
     public PacienteHojaClinica() {
         initComponents();
         deshabilitarTodo();        
@@ -60,6 +71,10 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
         tablaOdontograma.addColumn("Tipo");
         tablaOdontograma.addColumn("Doctor");
         
+        if(pacienteActual != null){            
+               escribirPaciente(pacienteActual);
+               habilitarBotones();
+        }
        
         jTableDiagnosticos.addMouseListener(new MouseAdapter(){
             public void mouseClicked(MouseEvent e)
@@ -73,10 +88,6 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
       }
    });
         
-        if(pacienteActual != null){
-            escribirPaciente(pacienteActual);
-            habilitarBotones();
-        }
     }
 
     /**
@@ -475,7 +486,7 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldHPesoActionPerformed
 
     private void jButtonDiagnosticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDiagnosticoActionPerformed
-        Diagnosticos.idPaciente = pacienteActual.getIdPaciente();
+        Diagnosticos.pacienteActual = pacienteActual;
         Diagnosticos.user = user;
         Diagnosticos jFrame = new Diagnosticos();
         jFrame.setVisible(true);

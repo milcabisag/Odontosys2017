@@ -752,6 +752,7 @@ public class Doctores extends javax.swing.JFrame {
     }
 
     private void habilitarBotonInsertar() {
+        jButtonInsertarDoctor.setVisible(false);
         jButtonGuardar.setVisible(true);
         jButtonGuardar.setText("Guardar");
         jButtonAtras.setVisible(true);

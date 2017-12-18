@@ -39,9 +39,21 @@ public class RecibosEmpresa extends javax.swing.JFrame {
 
     //Variables Globales
     ReciboEmpresa reciboActual = null;
+
+    /**
+     *
+     */
     public static Empresa empActual = null;
+
+    /**
+     *
+     */
     public static FacturaEmpresa facActual = null;
-    ArrayList<DetalleReciboemp> detalle = new ArrayList();   //Guarda el detalle de las formas de pago del recibo actual
+    ArrayList<DetalleReciboemp> detalle = null;   //Guarda el detalle de las formas de pago del recibo actual
+
+    /**
+     *
+     */
     public static Usuario user;
     int monto = 0;                  //Calcula la suma de los montos de las formas de pago
     int saldo = 0;
@@ -51,15 +63,16 @@ public class RecibosEmpresa extends javax.swing.JFrame {
                 return false;            
         }};
     DecimalFormat formateador = new DecimalFormat("###,###");
-    
-    
-   
+
+    /**
+     *
+     */
     public RecibosEmpresa() {
         initComponents();
         inicializarTabla();
         jButtonBorrarSeleccion1.setVisible(false);
         obtenerHoy();
-        
+        detalle = new ArrayList();
         if(empActual != null){
             jTextFieldEmpresa.setText(empActual.getNombre());
             jButtonBuscarEmpresa.setVisible(false);
@@ -320,6 +333,7 @@ public class RecibosEmpresa extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        limpiar();
         this.setVisible(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -364,6 +378,7 @@ public class RecibosEmpresa extends javax.swing.JFrame {
         int f = jTableFormPago.getSelectedRow();
         int mont = Integer.parseInt(jTableFormPago.getValueAt(f, 1).toString().replace(".", ""));
         monto = monto - mont;
+        saldo = saldo + mont;
         jTextFieldMontoLetras.setText(NumberToLetterConverter.convertNumberToLetter(monto));
         tabla.removeRow(f);
         detalle.remove(f);

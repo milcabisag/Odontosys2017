@@ -318,7 +318,7 @@ public class DetalleConvenio extends javax.swing.JFrame {
             v = ConvenioControlador.insertarConvenioPaciente(conv);
         }else{          //Llamado a modificar
             obtenerConvenio();
-            v = ConvenioControlador.modificarConvenioPaciente(conv);
+            v = ConvenioControlador.modificarConvenioPaciente(conv, sesion);
         }
         if(v){
             JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
@@ -352,7 +352,7 @@ public class DetalleConvenio extends javax.swing.JFrame {
         int confirm = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el convenio entre Empresa "
                 +empresaActual.getNombre()+" y Paciente "+pacActual.getNombres()+" "+pacActual.getApellidos()+"?", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION);
         if(confirm == JOptionPane.YES_OPTION){
-            boolean i = ConvenioControlador.eliminarConvenioPaciente(conv);
+            boolean i = ConvenioControlador.eliminarConvenioPaciente(conv, sesion);
             if(i){
                 JOptionPane.showMessageDialog(null, "Convenio inactivado correctamente", "Inactivar Convenio", JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
@@ -368,6 +368,7 @@ public class DetalleConvenio extends javax.swing.JFrame {
         Convenios.empresaActual = empresaActual;
         Convenios.conv = conv.getConvenio();
         Convenios.user = user;
+        Convenios.sesion = sesion;
         Convenios.main(null);
     }//GEN-LAST:event_jButtonBuscarConvenioActionPerformed
     
