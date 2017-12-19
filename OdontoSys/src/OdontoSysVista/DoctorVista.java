@@ -9,6 +9,8 @@ package OdontoSysVista;
 import OdontoSysModelo.Doctor;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -56,7 +58,10 @@ public class DoctorVista {
         }else if(email == 0 || email > 20){
             JOptionPane.showMessageDialog(null, "El email puede tener hasta 20 caracteres");
             return false;
-        }if(reg == 0 || reg > 30){
+        }else if(!emailValido(doctor.getEmail())){
+            JOptionPane.showMessageDialog(null, "Ingrese un email válido");
+            return false;
+        }else if(reg == 0 || reg > 30){
             JOptionPane.showMessageDialog(null, "El registro puede tener hasta 30 caracteres");
             return false;
         }else if(doctor.getFechaNac().before(hoy)){              // Fecha es antes de hoy
@@ -66,5 +71,19 @@ public class DoctorVista {
             return false;
         }
         
+    }    
+       
+    public static boolean emailValido(String email) {  // Comprueba que el email tena @ y .com
+        
+        boolean valido = false;
+        
+        Pattern patronEmail = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        
+        Matcher mEmail = patronEmail.matcher(email.toLowerCase());
+        if (mEmail.find()){
+           valido = true;  
+        }
+        return valido;
     }
 }

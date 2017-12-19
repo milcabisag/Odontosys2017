@@ -10,6 +10,8 @@ import OdontoSysControlador.PacienteControlador;
 import OdontoSysModelo.Paciente;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
 
@@ -53,7 +55,10 @@ public class PacienteVista {
         int dir = nuevoPaciente.getDireccion().trim().compareTo("");
         int tel = nuevoPaciente.getTelCel().trim().compareTo("");
         int cel = nuevoPaciente.getTelCel().trim().compareTo("");
-        int em =  nuevoPaciente.getEmail().trim().compareTo("");
+        int em =  0;
+        if(nuevoPaciente.getEmail() != null){
+            em = nuevoPaciente.getEmail().trim().compareTo("");
+        }
         
         
         if(nom == 0 || nom < 3 || nom > 25){
@@ -80,9 +85,11 @@ public class PacienteVista {
         }else if(em > 20){
             JOptionPane.showMessageDialog(null, "El email puede tener 20 caracteres como máximo");
             return -1;
-        }
-        else{
-            return PacienteControlador.insertarPaciente(nuevoPaciente);
+        }else if(em < 20 && em > 0 && emailValido(nuevoPaciente.getEmail()) == false){
+            JOptionPane.showMessageDialog(null, "Ingrese un email válido");
+            return -1;       
+        }else{
+            return PacienteControlador.insertarPaciente(nuevoPaciente);             
         }
     }
 
@@ -96,8 +103,10 @@ public class PacienteVista {
         int dir = nuevoPaciente.getDireccion().trim().compareTo("");
         int tel = nuevoPaciente.getTelCel().trim().compareTo("");
         int cel = nuevoPaciente.getTelCel().trim().compareTo("");
-        int em =  nuevoPaciente.getEmail().trim().compareTo("");
-        
+        int em = 0;
+        if(nuevoPaciente.getEmail() != null){
+            em =  nuevoPaciente.getEmail().trim().compareTo("");
+        }        
         
         if(nom == 0 || nom < 3 || nom > 25){
             JOptionPane.showMessageDialog(null, "El nombre debe tener entre 3 y 25 caracteres");
@@ -123,9 +132,11 @@ public class PacienteVista {
         }else if(em > 20){
             JOptionPane.showMessageDialog(null, "El email puede tener 20 caracteres como máximo");
             return -1;
-        }
-        else{
-            return 0;
+        }else if(em < 20 && em > 0 && emailValido(nuevoPaciente.getEmail()) == false){
+            JOptionPane.showMessageDialog(null, "Ingrese un email válido");
+            return -1;
+        }else{
+            return 0;        
         }
     }    
     
@@ -148,5 +159,19 @@ public class PacienteVista {
             return -1;
         }        
     }    
+    
+    public static boolean emailValido(String email) {  // Comprueba que el email tena @ y .com
+        
+        boolean valido = false;
+        
+        Pattern patronEmail = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        
+        Matcher mEmail = patronEmail.matcher(email.toLowerCase());
+        if (mEmail.find()){
+           valido = true;  
+        }
+        return valido;
+    }
     
 }
