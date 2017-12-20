@@ -3,6 +3,9 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1000, 690]"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -18,19 +21,11 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-78,0,0,3,-24"/>
   </AuxValues>
 
-  <Layout>
-    <DimensionLayout dim="0">
-      <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
-      </Group>
-    </DimensionLayout>
-    <DimensionLayout dim="1">
-      <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-      </Group>
-    </DimensionLayout>
+  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+    <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jPanel1">
@@ -38,49 +33,62 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[965, 590]"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[965, 500]"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel1MouseClicked"/>
       </Events>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="10" y="11" width="-1" height="660"/>
+        </Constraint>
+      </Constraints>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Component id="jPanelBoca" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
-                  <Component id="jPanelDatosOdontograma" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
-                  <Component id="jScrollPane1" min="-2" pref="802" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButtonEliminar" alignment="1" min="-2" pref="170" max="-2" attributes="0"/>
-                      <Component id="jButtonGuardarOdonto" alignment="1" min="-2" pref="170" max="-2" attributes="0"/>
-                      <Component id="jButtonVolver" alignment="1" min="-2" pref="170" max="-2" attributes="0"/>
+                      <Component id="jPanelDatosOdontograma" max="32767" attributes="0"/>
+                      <Component id="jPanelBoca" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jScrollPane1" min="-2" pref="907" max="-2" attributes="0"/>
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Component id="jButtonEliminar" min="-2" pref="38" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="jButtonVolver" min="-2" pref="121" max="-2" attributes="0"/>
+                          <EmptySpace min="632" pref="632" max="-2" attributes="0"/>
+                          <Component id="jButtonGuardarOdonto" min="-2" pref="192" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <Component id="jPanelDatosOdontograma" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="jPanelBoca" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanelBoca" min="-2" max="-2" attributes="0"/>
-                      <Component id="jPanelDatosOdontograma" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="128" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jScrollPane1" min="-2" pref="159" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="130" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="jButtonEliminar" min="-2" pref="27" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonGuardarOdonto" min="-2" pref="27" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonVolver" min="-2" pref="27" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <EmptySpace min="31" pref="31" max="-2" attributes="0"/>
+                          <Component id="jButtonEliminar" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
+                  </Group>
+                  <EmptySpace min="28" pref="28" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jButtonVolver" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="jButtonGuardarOdonto" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -90,7 +98,7 @@
         <Container class="javax.swing.JPanel" name="jPanelDatosOdontograma">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+              <Color blue="f2" green="f2" red="f2" type="rgb"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -105,23 +113,27 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jLabel2" max="32767" attributes="0"/>
                           <Component id="jLabelElPaciente" max="32767" attributes="0"/>
                           <Component id="jLabel1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jTextFieldlUsuario" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="jTextFieldelPaciente" min="-2" pref="220" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="jButtonBuscarPaciente" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="jButtonSelectHallazgo" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonSelectTratamiento" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jTextFieldlUsuario" min="-2" pref="220" max="-2" attributes="0"/>
-                          <Component id="jTextFieldelPaciente" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
+                          <Component id="jLabel2" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButtonBuscarPaciente" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -131,22 +143,23 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel1" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="jTextFieldlUsuario" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabelElPaciente" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="jTextFieldelPaciente" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="jLabel1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="jTextFieldlUsuario" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jLabel2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jButtonBuscarPaciente" min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel2" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="jButtonSelectHallazgo" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="jButtonSelectTratamiento" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabelElPaciente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jTextFieldelPaciente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="jButtonSelectHallazgo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jButtonSelectTratamiento" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jButtonBuscarPaciente" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -157,7 +170,7 @@
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Calibri Light" size="14" style="1"/>
+                  <Font name="Calibri" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Usuario"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -185,7 +198,7 @@
             <Component class="javax.swing.JLabel" name="jLabelElPaciente">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Calibri Light" size="14" style="1"/>
+                  <Font name="Calibri" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Paciente"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -221,8 +234,9 @@
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Calibri Light" size="14" style="1"/>
+                  <Font name="Calibri" size="14" style="1"/>
                 </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Tipo"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -261,8 +275,8 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                <BevelBorder/>
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
               </Border>
             </Property>
           </Properties>
@@ -271,20 +285,20 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jPanelArribaDerecha" min="-2" pref="253" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
                               <Component id="jPanelArribaIzquierda" min="-2" pref="254" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jPanelAbajoDerecha" min="-2" pref="254" max="-2" attributes="0"/>
-                              <EmptySpace pref="54" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
                               <Component id="jPanelAbajoIzquierda" min="-2" pref="254" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -296,7 +310,7 @@
                           <Component id="jPanelArribaIzquierda" min="-2" max="-2" attributes="0"/>
                           <Component id="jPanelArribaDerecha" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="124" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanelAbajoDerecha" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="jPanelAbajoIzquierda" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -310,12 +324,7 @@
             <Container class="javax.swing.JPanel" name="jPanelArribaDerecha">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="99" red="99" type="rgb"/>
-                </Property>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                    <BevelBorder/>
-                  </Border>
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
               </Properties>
 
@@ -345,19 +354,22 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jButtonD17" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD18" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD16" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD13" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD15" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD14" alignment="1" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD12" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD11" alignment="0" pref="82" max="32767" attributes="0"/>
+                      <Component id="jButtonD18" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD16" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD13" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD15" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD14" alignment="1" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD12" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD11" alignment="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JButton" name="jButtonD18">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/ImagenesOdontosys/DienteSanos/18.jpg"/>
                     </Property>
@@ -369,10 +381,19 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jButtonD17">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/ImagenesOdontosys/DienteSanos/17.jpg"/>
                     </Property>
                     <Property name="iconTextGap" type="int" value="1"/>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[63, 91]"/>
+                    </Property>
+                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[63, 91]"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonD17ActionPerformed"/>
@@ -380,6 +401,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jButtonD16">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/ImagenesOdontosys/DienteSanos/16.jpg"/>
                     </Property>
@@ -391,6 +415,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jButtonD15">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/ImagenesOdontosys/DienteSanos/15.jpg"/>
                     </Property>
@@ -402,6 +429,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jButtonD14">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/ImagenesOdontosys/DienteSanos/14.jpg"/>
                     </Property>
@@ -413,6 +443,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jButtonD13">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/ImagenesOdontosys/DienteSanos/13.jpg"/>
                     </Property>
@@ -424,6 +457,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jButtonD12">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/ImagenesOdontosys/DienteSanos/12.jpg"/>
                     </Property>
@@ -435,6 +471,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jButtonD11">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/ImagenesOdontosys/DienteSanos/11.jpg"/>
                     </Property>
@@ -449,12 +488,7 @@
             <Container class="javax.swing.JPanel" name="jPanelAbajoDerecha">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="99" red="99" type="rgb"/>
-                </Property>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                    <BevelBorder/>
-                  </Border>
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
               </Properties>
 
@@ -484,13 +518,13 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jButtonD47" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD48" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD46" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD43" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD45" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD44" alignment="1" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD42" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD41" pref="82" max="32767" attributes="0"/>
+                      <Component id="jButtonD48" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD46" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD43" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD45" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD44" alignment="1" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD42" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD41" pref="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -588,12 +622,7 @@
             <Container class="javax.swing.JPanel" name="jPanelArribaIzquierda">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="99" red="99" type="rgb"/>
-                </Property>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                    <BevelBorder/>
-                  </Border>
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
               </Properties>
 
@@ -623,13 +652,13 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jButtonD22" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD21" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD23" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD26" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD24" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD25" alignment="1" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD27" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD28" alignment="0" pref="82" max="32767" attributes="0"/>
+                      <Component id="jButtonD21" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD23" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD26" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD24" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD25" alignment="1" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD27" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD28" alignment="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -727,12 +756,7 @@
             <Container class="javax.swing.JPanel" name="jPanelAbajoIzquierda">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="99" red="99" type="rgb"/>
-                </Property>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                    <BevelBorder/>
-                  </Border>
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
               </Properties>
 
@@ -762,13 +786,13 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jButtonD32" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD31" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD33" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD36" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD34" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD35" alignment="1" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD37" alignment="0" pref="82" max="32767" attributes="0"/>
-                      <Component id="jButtonD38" alignment="0" pref="82" max="32767" attributes="0"/>
+                      <Component id="jButtonD31" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD33" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD36" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD34" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD35" alignment="1" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD37" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonD38" alignment="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -880,7 +904,7 @@
                   </Border>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="13" style="1"/>
+                  <Font name="Calibri" size="14" style="1"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="4">
@@ -905,6 +929,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="14" style="1"/>
             </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/ImagenesOdontosys/DienteSanos/ingresar.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="GuardarOdontograma"/>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -923,7 +950,6 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/ImagenesOdontosys/DienteSanos/borrar.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Hallazgo"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[170, 25]"/>
             </Property>
@@ -940,7 +966,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/ImagenesOdontosys/DienteSanos/eliminar.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Volver"/>
+            <Property name="text" type="java.lang.String" value="Cancelar"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[170, 25]"/>
             </Property>

@@ -380,10 +380,9 @@ public class Facturas extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButtonAceptar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonCancelar))
+                                .addComponent(jButtonCancelar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonAceptar))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -480,13 +479,13 @@ public class Facturas extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jTextFieldConv, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -513,10 +512,10 @@ public class Facturas extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldFactTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCancelar)
-                    .addComponent(jButtonAceptar))
+                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -571,6 +570,7 @@ public class Facturas extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldFactDescuentoKeyTyped
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        limpiar();
         this.setVisible(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -748,48 +748,6 @@ public class Facturas extends javax.swing.JFrame {
         jTextFieldFactOrden.setText(ordenActual.getIdordenServicio().toString());
     }
 
- /*   private int verConvenio(DetalleOrden det) {     //Retorna el porcentaje total sobre el servicio que se le pasa  
-        Session sesion;
-        sesion = NewHibernateUtil.getSessionFactory().openSession();
-        Transaction tx = sesion.beginTransaction();
-        sesion.getTransaction().begin();
-         
-        int sum = 0;
-        if(cp != null){       //El paciente tiene convenio
-            for(ConvPaciente c : cp){
-                int a = ConvenioControlador.BuscarPorcentajeConvenio(pacActual.getIdPaciente(), e.getIdempresa(), det.getServicio().getIdservicio(), sesion);
-                int desc = det.getPrecio() * a /100;
-                sum = desc + sum;
-            }            
-        }
-        sesion.getTransaction().commit();            
-        sesion.close();
-        
-        return sum;
-    }*/
-
-   /* private boolean guardarFacturaConvenio(Session sesion) {
-        boolean v = false;       
-        for(Empresa e : empresas){
-            int total = 0;
-            for(DetalleOrden d : lista){
-                int c = ConvenioControlador.BuscarPorcentajeConvenio(pacActual.getIdPaciente(), e.getIdempresa(), d.getServicio().getIdservicio(), sesion);
-                int m =  d.getPrecio() * c / 100;
-                total = m + total;
-            }
-            if(total > 0){
-            FacturaConvenio fc = new FacturaConvenio();
-                fc.setFactura(facActual);
-                fc.setEstado("Pendiente");
-                fc.setEmpresa(e);
-                fc.setMonto(total);
-                FacturaControlador.insertarFacturaConvenio(fc, sesion);
-            }
-            v = true;
-        }
-        return v;
-    }
-*/
     private void imprimirFactura() {
         String reporte="C:\\Users\\user\\Google Drive\\UNA\\Odontosys2017\\OdontoSys\\src\\Reportes\\factura";
         
@@ -861,6 +819,7 @@ public class Facturas extends javax.swing.JFrame {
     
         if(sesion != null){
             sesion.close();
+            sesion = null;
         }
         user = null;
         pacActual = null;

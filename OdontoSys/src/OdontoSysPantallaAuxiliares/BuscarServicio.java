@@ -88,6 +88,7 @@ public class BuscarServicio extends javax.swing.JDialog {
                 closeDialog(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         okButton.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         okButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/ingresar.png"))); // NOI18N
@@ -97,6 +98,8 @@ public class BuscarServicio extends javax.swing.JDialog {
                 okButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(okButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 321, -1, 30));
+        getRootPane().setDefaultButton(okButton);
 
         cancelButton.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
@@ -106,11 +109,13 @@ public class BuscarServicio extends javax.swing.JDialog {
                 cancelButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 321, -1, 30));
 
         labelSercicio.setAlignment(java.awt.Label.CENTER);
         labelSercicio.setBackground(new java.awt.Color(240, 240, 240));
         labelSercicio.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         labelSercicio.setText("Servicios Disponibles");
+        getContentPane().add(labelSercicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 452, -1));
 
         jTable1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jTable1.setModel(tabla);
@@ -121,59 +126,21 @@ public class BuscarServicio extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        labelDescripcion.setAlignment(java.awt.Label.CENTER);
-        labelDescripcion.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        labelDescripcion.setText("Descripción");
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 96, -1, 219));
 
-        jTextFieldDescripcion.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        labelDescripcion.setAlignment(java.awt.Label.RIGHT);
+        labelDescripcion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        labelDescripcion.setText("Descripción");
+        getContentPane().add(labelDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 56, 105, 30));
+
+        jTextFieldDescripcion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jTextFieldDescripcion.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextFieldDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 describiendokeyPress(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(okButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(labelSercicio, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(labelSercicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelButton)
-                    .addComponent(okButton))
-                .addContainerGap())
-        );
-
-        getRootPane().setDefaultButton(okButton);
+        getContentPane().add(jTextFieldDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 56, 325, 30));
 
         pack();
         setLocationRelativeTo(null);

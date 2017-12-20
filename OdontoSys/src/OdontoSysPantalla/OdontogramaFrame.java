@@ -187,18 +187,22 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         jButtonVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1000, 690));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMinimumSize(new java.awt.Dimension(965, 590));
+        jPanel1.setPreferredSize(new java.awt.Dimension(965, 500));
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel1MouseClicked(evt);
             }
         });
 
-        jPanelDatosOdontograma.setBackground(new java.awt.Color(204, 204, 204));
+        jPanelDatosOdontograma.setBackground(new java.awt.Color(242, 242, 242));
         jPanelDatosOdontograma.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel1.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel1.setText("Usuario");
         jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -210,7 +214,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabelElPaciente.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
+        jLabelElPaciente.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabelElPaciente.setText("Paciente");
         jLabelElPaciente.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -225,7 +229,8 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Calibri Light", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Tipo");
         jLabel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -252,20 +257,22 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             .addGroup(jPanelDatosOdontogramaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelElPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldlUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelDatosOdontogramaLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jTextFieldelPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanelDatosOdontogramaLayout.createSequentialGroup()
                         .addComponent(jButtonSelectHallazgo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonSelectTratamiento))
-                    .addComponent(jTextFieldlUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldelPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelDatosOdontogramaLayout.setVerticalGroup(
@@ -273,28 +280,28 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             .addGroup(jPanelDatosOdontogramaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldlUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabelElPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextFieldelPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButtonBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldlUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSelectHallazgo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSelectTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelElPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldelPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonSelectHallazgo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonSelectTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanelBoca.setBackground(new java.awt.Color(255, 255, 255));
-        jPanelBoca.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelBoca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jPanelArribaDerecha.setBackground(new java.awt.Color(153, 153, 255));
-        jPanelArribaDerecha.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelArribaDerecha.setBackground(new java.awt.Color(255, 255, 255));
 
+        jButtonD18.setBackground(new java.awt.Color(255, 255, 255));
         jButtonD18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/18.jpg"))); // NOI18N
         jButtonD18.setIconTextGap(1);
         jButtonD18.addActionListener(new java.awt.event.ActionListener() {
@@ -303,14 +310,18 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             }
         });
 
+        jButtonD17.setBackground(new java.awt.Color(255, 255, 255));
         jButtonD17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/17.jpg"))); // NOI18N
         jButtonD17.setIconTextGap(1);
+        jButtonD17.setMaximumSize(new java.awt.Dimension(63, 91));
+        jButtonD17.setMinimumSize(new java.awt.Dimension(63, 91));
         jButtonD17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonD17ActionPerformed(evt);
             }
         });
 
+        jButtonD16.setBackground(new java.awt.Color(255, 255, 255));
         jButtonD16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/16.jpg"))); // NOI18N
         jButtonD16.setIconTextGap(1);
         jButtonD16.addActionListener(new java.awt.event.ActionListener() {
@@ -319,6 +330,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             }
         });
 
+        jButtonD15.setBackground(new java.awt.Color(255, 255, 255));
         jButtonD15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/15.jpg"))); // NOI18N
         jButtonD15.setIconTextGap(1);
         jButtonD15.addActionListener(new java.awt.event.ActionListener() {
@@ -327,6 +339,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             }
         });
 
+        jButtonD14.setBackground(new java.awt.Color(255, 255, 255));
         jButtonD14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/14.jpg"))); // NOI18N
         jButtonD14.setIconTextGap(1);
         jButtonD14.addActionListener(new java.awt.event.ActionListener() {
@@ -335,6 +348,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             }
         });
 
+        jButtonD13.setBackground(new java.awt.Color(255, 255, 255));
         jButtonD13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/13.jpg"))); // NOI18N
         jButtonD13.setIconTextGap(1);
         jButtonD13.addActionListener(new java.awt.event.ActionListener() {
@@ -343,6 +357,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             }
         });
 
+        jButtonD12.setBackground(new java.awt.Color(255, 255, 255));
         jButtonD12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/12.jpg"))); // NOI18N
         jButtonD12.setIconTextGap(1);
         jButtonD12.addActionListener(new java.awt.event.ActionListener() {
@@ -351,6 +366,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             }
         });
 
+        jButtonD11.setBackground(new java.awt.Color(255, 255, 255));
         jButtonD11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/11.jpg"))); // NOI18N
         jButtonD11.setIconTextGap(1);
         jButtonD11.addActionListener(new java.awt.event.ActionListener() {
@@ -384,17 +400,16 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         jPanelArribaDerechaLayout.setVerticalGroup(
             jPanelArribaDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jButtonD17, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD18, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD16, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD13, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD15, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD12, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD11, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
+            .addComponent(jButtonD18, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD16, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD13, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD15, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD12, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD11, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        jPanelAbajoDerecha.setBackground(new java.awt.Color(153, 153, 255));
-        jPanelAbajoDerecha.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelAbajoDerecha.setBackground(new java.awt.Color(255, 255, 255));
 
         jButtonD48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/48.jpg"))); // NOI18N
         jButtonD48.setIconTextGap(1);
@@ -485,17 +500,16 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         jPanelAbajoDerechaLayout.setVerticalGroup(
             jPanelAbajoDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jButtonD47, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD48, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD46, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD43, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD45, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD44, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD42, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD41, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
+            .addComponent(jButtonD48, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD46, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD43, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD45, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD44, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD42, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD41, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        jPanelArribaIzquierda.setBackground(new java.awt.Color(153, 153, 255));
-        jPanelArribaIzquierda.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelArribaIzquierda.setBackground(new java.awt.Color(255, 255, 255));
 
         jButtonD21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/21.jpg"))); // NOI18N
         jButtonD21.setIconTextGap(1);
@@ -586,17 +600,16 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         jPanelArribaIzquierdaLayout.setVerticalGroup(
             jPanelArribaIzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jButtonD22, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD21, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD23, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD26, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD24, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD25, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD27, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD28, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
+            .addComponent(jButtonD21, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD23, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD26, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD24, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD25, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD27, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD28, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        jPanelAbajoIzquierda.setBackground(new java.awt.Color(153, 153, 255));
-        jPanelAbajoIzquierda.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelAbajoIzquierda.setBackground(new java.awt.Color(255, 255, 255));
 
         jButtonD31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/31.jpg"))); // NOI18N
         jButtonD31.setIconTextGap(1);
@@ -687,13 +700,13 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         jPanelAbajoIzquierdaLayout.setVerticalGroup(
             jPanelAbajoIzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jButtonD32, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD31, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD33, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD36, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD34, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD35, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD37, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
-            .addComponent(jButtonD38, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
+            .addComponent(jButtonD31, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD33, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD36, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD34, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD35, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD37, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonD38, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanelBocaLayout = new javax.swing.GroupLayout(jPanelBoca);
@@ -701,17 +714,17 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         jPanelBocaLayout.setHorizontalGroup(
             jPanelBocaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBocaLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(150, 150, 150)
                 .addGroup(jPanelBocaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelBocaLayout.createSequentialGroup()
                         .addComponent(jPanelArribaDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(130, 130, 130)
                         .addComponent(jPanelArribaIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelBocaLayout.createSequentialGroup()
                         .addComponent(jPanelAbajoDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addGap(130, 130, 130)
                         .addComponent(jPanelAbajoIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGap(150, 150, 150))
         );
         jPanelBocaLayout.setVerticalGroup(
             jPanelBocaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -720,7 +733,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
                 .addGroup(jPanelBocaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelArribaIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanelArribaDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                .addGap(62, 62, 62)
                 .addGroup(jPanelBocaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelAbajoDerecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanelAbajoIzquierda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -728,7 +741,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         );
 
         jTableContenedorDatos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jTableContenedorDatos.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jTableContenedorDatos.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jTableContenedorDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -761,6 +774,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableContenedorDatos);
 
         jButtonGuardarOdonto.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jButtonGuardarOdonto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/ingresar.png"))); // NOI18N
         jButtonGuardarOdonto.setText("GuardarOdontograma");
         jButtonGuardarOdonto.setEnabled(false);
         jButtonGuardarOdonto.setPreferredSize(new java.awt.Dimension(170, 25));
@@ -772,7 +786,6 @@ public class OdontogramaFrame extends javax.swing.JFrame {
 
         jButtonEliminar.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/borrar.png"))); // NOI18N
-        jButtonEliminar.setText("Hallazgo");
         jButtonEliminar.setPreferredSize(new java.awt.Dimension(170, 25));
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -782,7 +795,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
 
         jButtonVolver.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jButtonVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
-        jButtonVolver.setText("Volver");
+        jButtonVolver.setText("Cancelar");
         jButtonVolver.setPreferredSize(new java.awt.Dimension(170, 25));
         jButtonVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -795,46 +808,38 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanelBoca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120)
-                .addComponent(jPanelDatosOdontograma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 802, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonGuardarOdonto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonVolver, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jPanelDatosOdontograma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelBoca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 907, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButtonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(632, 632, 632)
+                        .addComponent(jButtonGuardarOdonto, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanelDatosOdontograma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(jPanelBoca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelBoca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelDatosOdontograma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonGuardarOdonto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))))
+                        .addGap(31, 31, 31)
+                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonGuardarOdonto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, 660));
 
         pack();
         setLocationRelativeTo(null);
@@ -920,7 +925,6 @@ public class OdontogramaFrame extends javax.swing.JFrame {
     private void jButtonSelectHallazgoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectHallazgoActionPerformed
         // TODO add your handling code here:
         jButtonSelectTratamiento.setEnabled(false);
-        jButtonEliminar.setText("Hallazgo");
         //jButtonSelectAtras.setEnabled(true);
         
         tipoTransaction = 1;
@@ -933,7 +937,6 @@ public class OdontogramaFrame extends javax.swing.JFrame {
     private void jButtonSelectTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectTratamientoActionPerformed
         // TODO add your handling code here:
         jButtonSelectHallazgo.setEnabled(false);
-        jButtonEliminar.setText("Tratamiento");
         //jButtonSelectAtras.setEnabled(true);
         
         tipoTransaction = 2;

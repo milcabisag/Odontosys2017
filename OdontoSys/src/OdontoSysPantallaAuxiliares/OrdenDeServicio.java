@@ -97,13 +97,13 @@ public class OrdenDeServicio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(662, 435));
+        setPreferredSize(new java.awt.Dimension(650, 500));
         setResizable(false);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
             }
         });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTableOrdenServicio.setModel(tabla   );
         jTableOrdenServicio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -126,26 +126,21 @@ public class OrdenDeServicio extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableOrdenServicio);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 159, 577, 164));
-
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel6.setText("Total");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(433, 338, -1, -1));
 
         jTextFieldTotal.setEditable(false);
         jTextFieldTotal.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        getContentPane().add(jTextFieldTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 334, 149, 25));
 
         jButtonCancelar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
-        jButtonCancelar.setText("Volver");
+        jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setActionCommand("");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(553, 394, -1, -1));
 
         jButtonGuardar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/guardar.png"))); // NOI18N
@@ -155,7 +150,6 @@ public class OrdenDeServicio extends javax.swing.JFrame {
                 jButtonGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 394, -1, -1));
 
         jButtonModificarPrecio.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonModificarPrecio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/modificar.png"))); // NOI18N
@@ -167,7 +161,6 @@ public class OrdenDeServicio extends javax.swing.JFrame {
                 jButtonModificarPrecioActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonModificarPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(604, 204, -1, -1));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -177,7 +170,7 @@ public class OrdenDeServicio extends javax.swing.JFrame {
 
         jTextFieldOdontograma.setEditable(false);
         jTextFieldOdontograma.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jPanel1.add(jTextFieldOdontograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 95, 106, 25));
+        jPanel1.add(jTextFieldOdontograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 95, 106, 30));
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel1.setText("Orden de Servicio");
@@ -188,11 +181,11 @@ public class OrdenDeServicio extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 56, -1, -1));
 
         jLabelFecha.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jPanel1.add(jLabelFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 52, 106, 25));
+        jPanel1.add(jLabelFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 52, 106, 30));
 
         jTextFieldEstado.setEditable(false);
         jTextFieldEstado.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jPanel1.add(jTextFieldEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 95, 100, 25));
+        jPanel1.add(jTextFieldEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 95, 100, 30));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel3.setText("Fecha");
@@ -208,17 +201,66 @@ public class OrdenDeServicio extends javax.swing.JFrame {
                 jButtonFacturarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonFacturar, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 95, -1, -1));
+        jPanel1.add(jButtonFacturar, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 95, -1, 30));
 
         jTextFieldPaciente.setEditable(false);
         jTextFieldPaciente.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jPanel1.add(jTextFieldPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 52, 160, 25));
+        jPanel1.add(jTextFieldPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 52, 160, 30));
 
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel5.setText("Estado");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(368, 99, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 11, -1, -1));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonGuardar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(439, 439, 439)
+                            .addComponent(jLabel6)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jButtonCancelar)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(6, 6, 6)
+                                    .addComponent(jButtonModificarPrecio))))))
+                .addGap(20, 20, 20))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jButtonModificarPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
+        );
 
         pack();
         setLocationRelativeTo(null);

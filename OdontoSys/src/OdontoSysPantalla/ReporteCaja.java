@@ -59,6 +59,8 @@ public class ReporteCaja extends javax.swing.JFrame {
         jLabelNot = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(450, 350));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         okButton.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         okButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/ingresar.png"))); // NOI18N
@@ -68,6 +70,8 @@ public class ReporteCaja extends javax.swing.JFrame {
                 okButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(okButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 248, 110, 30));
+        getRootPane().setDefaultButton(okButton);
 
         cancelButton.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
@@ -77,91 +81,34 @@ public class ReporteCaja extends javax.swing.JFrame {
                 cancelButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 248, 110, 30));
 
         jLabelTitulo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelTitulo.setText("Seleccione el rango de fechas a obtener");
+        getContentPane().add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 66, -1, -1));
 
         jDCF1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        getContentPane().add(jDCF1, new org.netbeans.lib.awtextra.AbsoluteConstraints(199, 107, 138, 25));
 
         jLabelFechaIni.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         jLabelFechaIni.setText("Fecha Inicio");
+        getContentPane().add(jLabelFechaIni, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 107, -1, -1));
 
         jLabelFechaFin.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         jLabelFechaFin.setText("Fecha Fin");
+        getContentPane().add(jLabelFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 150, -1, -1));
 
         jDCF2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        getContentPane().add(jDCF2, new org.netbeans.lib.awtextra.AbsoluteConstraints(199, 145, 138, 25));
 
         jLabelTitulo1.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabelTitulo1.setText("Reporte de Caja");
+        getContentPane().add(jLabelTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 22, -1, -1));
 
         jLabelNot.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelNot.setForeground(new java.awt.Color(255, 0, 0));
         jLabelNot.setText("Seleccione dos fechas");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addComponent(jLabelNot)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelFechaFin)
-                        .addContainerGap(306, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelFechaIni)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabelTitulo1)
-                            .addComponent(jLabelTitulo)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(199, 199, 199)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jDCF2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDCF1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabelTitulo1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabelTitulo)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelFechaIni)
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabelFechaFin))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jDCF1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(38, 38, 38))
-                        .addComponent(jDCF2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jLabelNot)
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22))
-        );
-
-        getRootPane().setDefaultButton(okButton);
+        getContentPane().add(jLabelNot, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 197, -1, -1));
 
         pack();
         setLocationRelativeTo(null);

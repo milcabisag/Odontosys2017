@@ -49,17 +49,21 @@ public class ReporteServicios extends javax.swing.JFrame {
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         jLabelTitulo = new javax.swing.JLabel();
-        jLabelMes = new javax.swing.JLabel();
-        jLabelYear = new javax.swing.JLabel();
         jLabelTitulo1 = new javax.swing.JLabel();
-        jLabelNot = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jMonth = new com.toedter.calendar.JMonthChooser();
+        jLabelNot = new javax.swing.JLabel();
+        jLabelDoc = new javax.swing.JLabel();
+        jLabelYear = new javax.swing.JLabel();
+        jLabelMes = new javax.swing.JLabel();
+        jButtonBuscar = new javax.swing.JButton();
         jYear = new com.toedter.calendar.JYearChooser();
         jLabelDoctor = new javax.swing.JLabel();
-        jLabelDoc = new javax.swing.JLabel();
-        jButtonBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(480, 430));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         okButton.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         okButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/ingresar.png"))); // NOI18N
@@ -69,6 +73,8 @@ public class ReporteServicios extends javax.swing.JFrame {
                 okButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(okButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 336, 110, 30));
+        getRootPane().setDefaultButton(okButton);
 
         cancelButton.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
@@ -78,32 +84,30 @@ public class ReporteServicios extends javax.swing.JFrame {
                 cancelButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 336, 110, 30));
 
-        jLabelTitulo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelTitulo.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabelTitulo.setText("Seleccione el mes, año y Doctor");
+        getContentPane().add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(123, 63, -1, -1));
 
-        jLabelMes.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabelMes.setText("Mes");
-
-        jLabelYear.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabelYear.setText("Año");
-
-        jLabelTitulo1.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabelTitulo1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabelTitulo1.setText("Reporte de Servicios Realizados");
+        getContentPane().add(jLabelTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 15, -1, -1));
+
+        jMonth.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         jLabelNot.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelNot.setForeground(new java.awt.Color(255, 0, 0));
         jLabelNot.setText("Favor complete todos los campos.");
 
-        jMonth.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-
-        jYear.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-
-        jLabelDoctor.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabelDoctor.setText("Doctor");
-
         jLabelDoc.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelDoc.setText("Nombre");
+
+        jLabelYear.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelYear.setText("Año");
+
+        jLabelMes.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelMes.setText("Mes");
 
         jButtonBuscar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/buscar.png"))); // NOI18N
@@ -113,74 +117,58 @@ public class ReporteServicios extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabelTitulo1)
-                    .addComponent(jLabelTitulo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jLabelDoctor.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabelDoctor.setText("Doctor");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelNot)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabelMes)
                             .addComponent(jLabelYear)
                             .addComponent(jLabelDoctor))
                         .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jMonth, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                            .addComponent(jLabelDoc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jMonth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 107, Short.MAX_VALUE))
+                .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelTitulo1)
-                .addGap(22, 22, 22)
-                .addComponent(jLabelTitulo)
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelMes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelYear))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jYear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelDoctor)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabelDoc)
                         .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addComponent(jLabelNot)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         getRootPane().setDefaultButton(okButton);
-        getRootPane().setDefaultButton(okButton);
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 114, 310, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -266,6 +254,7 @@ public class ReporteServicios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitulo1;
     private javax.swing.JLabel jLabelYear;
     private com.toedter.calendar.JMonthChooser jMonth;
+    private javax.swing.JPanel jPanel1;
     private com.toedter.calendar.JYearChooser jYear;
     private javax.swing.JButton okButton;
     // End of variables declaration//GEN-END:variables
