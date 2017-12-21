@@ -26,16 +26,20 @@ DROP TABLE IF EXISTS `orden_empresa`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orden_empresa` (
   `idorden_empresa` int(11) NOT NULL AUTO_INCREMENT,
-  `fk_convpaciente` int(11) NOT NULL,
-  `fecha` date DEFAULT NULL,
-  `estado` varchar(45) DEFAULT 'Pendiente',
   `fk_facturaempresa` int(11) DEFAULT NULL,
+  `fk_factura` int(11) DEFAULT NULL,
+  `fk_convpaciente` int(11) DEFAULT NULL,
+  `fecha` date NOT NULL,
+  `estado` varchar(45) NOT NULL DEFAULT 'Pendiente',
+  `monto` int(11) NOT NULL,
   PRIMARY KEY (`idorden_empresa`),
-  KEY `fk_orden_convPac_idx` (`fk_convpaciente`),
   KEY `fk_orden_facemp_idx` (`fk_facturaempresa`),
+  KEY `fk_orde_factpac_idx` (`fk_factura`),
+  KEY `fk_orden_convpac_idx` (`fk_convpaciente`),
+  CONSTRAINT `fk_orden_convPac` FOREIGN KEY (`fk_convpaciente`) REFERENCES `conv_paciente` (`idconv_paciente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_orden_facemp` FOREIGN KEY (`fk_facturaempresa`) REFERENCES `factura_empresa` (`idfactura_empresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_orden_convPac` FOREIGN KEY (`fk_convpaciente`) REFERENCES `conv_paciente` (`idconv_paciente`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_orden_facpac` FOREIGN KEY (`fk_factura`) REFERENCES `factura` (`idfactura`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -47,4 +51,4 @@ CREATE TABLE `orden_empresa` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-30 11:55:22
+-- Dump completed on 2017-12-21 13:47:00

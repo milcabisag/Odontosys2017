@@ -29,7 +29,6 @@ CREATE TABLE `tratamiento` (
   `fk_odontograma` int(11) NOT NULL,
   `fk_servicio` int(11) NOT NULL,
   `fk_diente` int(11) NOT NULL,
-  `estado` varchar(20) NOT NULL DEFAULT 'Pendiente',
   `especificacion` varchar(255) NOT NULL,
   PRIMARY KEY (`idtratamiento`),
   KEY `fk_tratodont_idx` (`fk_odontograma`),
@@ -38,7 +37,7 @@ CREATE TABLE `tratamiento` (
   CONSTRAINT `fk_tratdiente` FOREIGN KEY (`fk_diente`) REFERENCES `diente` (`iddiente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_tratodont` FOREIGN KEY (`fk_odontograma`) REFERENCES `odontograma` (`idodontograma`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_tratservic` FOREIGN KEY (`fk_servicio`) REFERENCES `servicio` (`idservicio`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +49,4 @@ CREATE TABLE `tratamiento` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-30 11:55:48
+-- Dump completed on 2017-12-21 13:47:24

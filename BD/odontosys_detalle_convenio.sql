@@ -35,7 +35,7 @@ CREATE TABLE `detalle_convenio` (
   KEY `fk_detconv_servicio_idx` (`fk_servicio`),
   CONSTRAINT `fk_detalle_convenio` FOREIGN KEY (`fk_convenio`) REFERENCES `convenio` (`idconvenio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_detconv_servicio` FOREIGN KEY (`fk_servicio`) REFERENCES `servicio` (`idservicio`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -47,4 +47,4 @@ CREATE TABLE `detalle_convenio` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-30 11:55:33
+-- Dump completed on 2017-12-21 13:47:09

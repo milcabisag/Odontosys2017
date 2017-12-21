@@ -28,14 +28,13 @@ CREATE TABLE `diagnostico` (
   `idDiagnostico` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` date NOT NULL,
   `fk_paciente` int(11) NOT NULL,
+  `fk_usuario` int(11) NOT NULL,
+  `fk_odontog_examen` int(11) DEFAULT NULL,
   `resumen_hallazgos` varchar(1500) NOT NULL,
   `plan_tratamiento` varchar(1500) NOT NULL,
   `tipo` varchar(45) NOT NULL DEFAULT 'Interno',
-  `fk_odontog_examen` int(11) DEFAULT NULL,
-  `fk_usuario` int(11) NOT NULL,
   `empresa` varchar(50) DEFAULT NULL,
   `observaciones` varchar(300) DEFAULT NULL,
-  `diagnosticocol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idDiagnostico`),
   UNIQUE KEY `idDiagnostico_UNIQUE` (`idDiagnostico`),
   KEY `fk_paciente_idx` (`fk_paciente`),
@@ -47,7 +46,7 @@ CREATE TABLE `diagnostico` (
   CONSTRAINT `fk_diagodontog_examen` FOREIGN KEY (`fk_odontog_examen`) REFERENCES `odontograma` (`idodontograma`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_diagpaciente` FOREIGN KEY (`fk_paciente`) REFERENCES `paciente` (`idPaciente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_diagusuario` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -59,4 +58,4 @@ CREATE TABLE `diagnostico` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-30 11:55:45
+-- Dump completed on 2017-12-21 13:47:20

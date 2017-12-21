@@ -17,7 +17,7 @@ import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Servicio;
 import OdontoSysModelo.Tratamiento;
 import OdontoSysModelo.Usuario;
-import OdontoSysPantallaAuxiliares.InsertarHallazgoActss;
+import OdontoSysPantallaAuxiliares.InsertarHallazgoAct;
 import OdontoSysPantallaAuxiliares.InsertarTratamientoAct;
 import OdontoSysPantallaAuxiliares.ObtenerPaciente;
 import OdontoSysPantallaAuxiliares.OrdenDeServicio;
@@ -1308,7 +1308,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             
             jTableContenedorDatos.setModel(modeloH);
         }else if(tipoTransaction == 2){
-            String row[] = new String[]{"Descripcion de Servicio", "PrecioServicio","NombreDiente", "Nomenclatura", "Especificacion"};
+            String row[] = new String[]{"Descripcion de Servicio","NombreDiente", "Nomenclatura", "Especificacion"};
             
                 modeloT.setColumnIdentifiers(row);
             
@@ -1356,12 +1356,11 @@ public class OdontogramaFrame extends javax.swing.JFrame {
     }
     
     private void cargarTablaTratamiento(Tratamiento nuevoTratamiento) {
-        String row[] = new String[5];
+        String row[] = new String[4];
         row[0] = nuevoTratamiento.getServicio().getDescripcion();
-        row[1] = String.valueOf(nuevoTratamiento.getServicio().getPrecio());
-        row[2] = nuevoTratamiento.getDiente().getNombre();
-        row[3] = String.valueOf(nuevoTratamiento.getDiente().getNomenclatura());
-        row[4] = nuevoTratamiento.getEspecificacion();
+        row[1] = nuevoTratamiento.getDiente().getNombre();
+        row[2] = String.valueOf(nuevoTratamiento.getDiente().getNomenclatura());
+        row[3] = nuevoTratamiento.getEspecificacion();
 
         modeloT.addRow(row);
     }
@@ -1376,7 +1375,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             dienteActual = DienteControlador.BuscarDiente(nomDiente);
             
             nuevoHallazgo = new DetalleHallazgo();
-            InsertarHallazgoActss InsertH = new InsertarHallazgoActss(this, true);
+            InsertarHallazgoAct InsertH = new InsertarHallazgoAct(this, true);
             InsertH.GraficarDiente(String.valueOf(nomDiente));
             InsertH.setVisible(rootPaneCheckingEnabled);
             nuevoHallazgo = InsertH.getReturnStatus();

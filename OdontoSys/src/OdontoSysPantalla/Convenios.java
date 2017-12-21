@@ -265,7 +265,7 @@ public class Convenios extends javax.swing.JFrame {
         if(llamado.compareTo("insertar") == 0){
             obtenerNuevoConvenio();
             v = ConvenioVista.validarConvenio(conv, det);
-            if(v && det.size() >= 0){
+            if(v && det.size() > 0){
                 v = ConvenioControlador.insertarConvenio(conv, det);
                 if(v){
                     JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
@@ -280,14 +280,17 @@ public class Convenios extends javax.swing.JFrame {
             if(det.size() >= 0){    //Existe por lo menos un detalle de convenio
                 conv.setNomConv(jTextFieldNombConv.getText());
                 conv.setObservacion(jTextAreaObs.getText());
-                v = ConvenioControlador.modificarConvenio(conv, det, sesion);
+                v = ConvenioVista.validarConvenio(conv, det);
                 if(v){
-                    JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
-                    limpiar();
-                    dispose();
-               }else {
-                    JOptionPane.showMessageDialog(null, "No se pudo guardar el convenio" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
-                } 
+                    v = ConvenioControlador.modificarConvenio(conv, det, sesion);
+                    if(v){
+                        JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
+                        limpiar();
+                        dispose();
+                    }else {
+                        JOptionPane.showMessageDialog(null, "No se pudo guardar el convenio" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
+                    } 
+                }
             }else{
                 JOptionPane.showMessageDialog(null, "Debe cargar por lo menos un servicio en el detalle" , "Convenios" , JOptionPane.QUESTION_MESSAGE );
             }

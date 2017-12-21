@@ -152,12 +152,8 @@
                               <Component id="jLabelElPaciente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="jTextFieldelPaciente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                              <Component id="jButtonSelectTratamiento" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButtonSelectHallazgo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <Component id="jButtonSelectTratamiento" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="jButtonSelectHallazgo" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="jButtonBuscarPaciente" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>

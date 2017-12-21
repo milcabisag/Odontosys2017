@@ -7,10 +7,12 @@
 package OdontoSysPantalla;
 
 import OdontoSysUtil.Configuraciones;
+import static java.awt.image.ImageObserver.WIDTH;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -118,22 +120,28 @@ public class ReporteCaja extends javax.swing.JFrame {
         Date f1 = jDCF1.getDate();
         Date f2 = jDCF2.getDate();
         String fechas;
+        
+        String ini = formateador.format(f1);
+        String fin = formateador.format(f2);
 
         if(f1 != null && f2 != null){
             jLabelNot.setVisible(false);
-            if(f1.compareTo(f2) == 0){      //Misma fecha
-                fechas = "De fecha "+fnormal.format(f1);
+            int comp = f1.compareTo(f2);
+            if(comp < 1){      //Fecha final menor a la inicial
+               if(ini.compareTo(fin) == 0){      //Misma fecha
+                    fechas = "De fecha "+fnormal.format(f1);
+                }else{
+                    fechas = "Desde "+fnormal.format(f1)+" Hasta "+fnormal.format(f2);
+                }
+                String reporte="C:\\Users\\user\\Google Drive\\UNA\\Odontosys2017\\OdontoSys\\src\\Reportes\\caja";
+                Map parametros = new HashMap();
+                parametros.put("fecha_ini", ini);
+                parametros.put("fecha_fin", fin);
+                parametros.put("fechas", fechas);
+                Configuraciones.imprimirReporteHB(reporte, parametros);
             }else{
-                fechas = "Desde "+fnormal.format(f1)+" Hasta "+fnormal.format(f2);
+                JOptionPane.showMessageDialog(null,"La fecha inicial debe ser anterior a la final", "Reporte Caja", WIDTH );
             }
-            String ini = formateador.format(f1);
-            String fin = formateador.format(f2);
-            String reporte="C:\\Users\\user\\Google Drive\\UNA\\Odontosys2017\\OdontoSys\\src\\Reportes\\caja";
-            Map parametros = new HashMap();
-            parametros.put("fecha_ini", ini);
-            parametros.put("fecha_fin", fin);
-            parametros.put("fechas", fechas);
-            Configuraciones.imprimirReporteHB(reporte, parametros);
         }else{
             jLabelNot.setVisible(true);
         }

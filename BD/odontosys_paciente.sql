@@ -45,7 +45,7 @@ CREATE TABLE `paciente` (
   `estado` varchar(8) NOT NULL DEFAULT 'Activo',
   PRIMARY KEY (`idPaciente`),
   UNIQUE KEY `idPaciente_UNIQUE` (`idPaciente`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -57,4 +57,4 @@ CREATE TABLE `paciente` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-30 11:55:21
+-- Dump completed on 2017-12-21 13:46:58

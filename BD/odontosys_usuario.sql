@@ -26,16 +26,16 @@ DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuario` (
   `idusuario` int(11) NOT NULL AUTO_INCREMENT,
+  `id_asoc` int(11) DEFAULT NULL,
   `nombre` varchar(50) NOT NULL,
   `passw` varchar(50) NOT NULL,
   `rol` varchar(45) NOT NULL,
-  `id_asoc` int(11) DEFAULT NULL,
   `estado` varchar(45) NOT NULL DEFAULT 'Activo',
   `observacion` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idusuario`),
   KEY `fk_usisasoc_idx` (`id_asoc`),
   CONSTRAINT `fk_usisasoc` FOREIGN KEY (`id_asoc`) REFERENCES `doctor` (`idDoctor`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -47,4 +47,4 @@ CREATE TABLE `usuario` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-30 11:55:55
+-- Dump completed on 2017-12-21 13:47:31

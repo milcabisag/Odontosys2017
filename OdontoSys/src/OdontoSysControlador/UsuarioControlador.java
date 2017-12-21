@@ -165,7 +165,7 @@ public class UsuarioControlador {
         try {            
             session = NewHibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
-            String hql = "FROM Usuario";            
+            String hql = "FROM Usuario WHERE rol IN ('Administrador', 'Doctor')";            
             Query query = session.createQuery(hql);
             Iterator it = query.iterate();
             if(it.hasNext()){

@@ -28,11 +28,13 @@ CREATE TABLE `caja` (
   `idcaja` int(11) NOT NULL AUTO_INCREMENT,
   `fk_mov_empresa` int(11) DEFAULT NULL,
   `fk_mov_paciente` int(11) DEFAULT NULL,
-  `descripcion` varchar(300) NOT NULL,
+  `descripcion` varchar(10) NOT NULL,
   `entrada` int(11) DEFAULT NULL,
   `salida` int(11) DEFAULT NULL,
-  `tipo` varchar(100) NOT NULL,
+  `tipo` varchar(25) NOT NULL,
   `fk_usuario` int(11) NOT NULL,
+  `fecha` date DEFAULT NULL,
+  `descripMovim` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`idcaja`),
   KEY `fk_caja_movempresa_idx` (`fk_mov_empresa`),
   KEY `fk_caja_movpaciente_idx` (`fk_mov_paciente`),
@@ -41,7 +43,7 @@ CREATE TABLE `caja` (
   CONSTRAINT `fk_caja_movempresa` FOREIGN KEY (`fk_mov_empresa`) REFERENCES `movimiento_empresa` (`idmovimiento_empresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_caja_movpaciente` FOREIGN KEY (`fk_mov_paciente`) REFERENCES `movimiento` (`idmovimiento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_caja_usuario` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +55,4 @@ CREATE TABLE `caja` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-30 11:55:51
+-- Dump completed on 2017-12-21 13:47:27

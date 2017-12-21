@@ -22,7 +22,7 @@ public class ConvenioVista {
         if(c.getEmpresa()== null){
             JOptionPane.showMessageDialog(null, "Favor escoja la empresa");
             return false;
-        }else if(d == null){
+        }else if(d == null || d.size() <= 0){
             JOptionPane.showMessageDialog(null, "Complete por lo menos un servicio con convenio");
             return false;
         }else{

@@ -27,18 +27,15 @@ DROP TABLE IF EXISTS `odontograma`;
 CREATE TABLE `odontograma` (
   `idodontograma` int(11) NOT NULL AUTO_INCREMENT,
   `fk_paciente` int(11) NOT NULL,
-  `fk_doctor` int(11) DEFAULT NULL,
+  `fk_usuario` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `tipo` varchar(20) NOT NULL,
-  `fk_usuario` int(11) NOT NULL,
   PRIMARY KEY (`idodontograma`),
-  KEY `fk_docOdont_idx` (`fk_doctor`),
   KEY `fk_pacOdont_idx` (`fk_paciente`),
   KEY `fk_usOdont_idx` (`fk_usuario`),
-  CONSTRAINT `fk_docOdont` FOREIGN KEY (`fk_doctor`) REFERENCES `doctor` (`idDoctor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_pacOdont` FOREIGN KEY (`fk_paciente`) REFERENCES `paciente` (`idPaciente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuOdont` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +47,4 @@ CREATE TABLE `odontograma` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-30 11:55:31
+-- Dump completed on 2017-12-21 13:47:07

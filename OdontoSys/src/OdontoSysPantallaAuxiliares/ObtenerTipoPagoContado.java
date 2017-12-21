@@ -109,6 +109,9 @@ public class ObtenerTipoPagoContado extends javax.swing.JDialog {
         jButtonFormaPago = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(442, 300));
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
@@ -196,7 +199,7 @@ public class ObtenerTipoPagoContado extends javax.swing.JDialog {
      * Closes the dialog
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
-        doClose(tipo);
+        //doClose(tipo);
     }//GEN-LAST:event_closeDialog
 
     private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
@@ -220,7 +223,7 @@ public class ObtenerTipoPagoContado extends javax.swing.JDialog {
                 try{
                     int m = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese monto pagado", "Monto", JOptionPane.QUESTION_MESSAGE));
                     if(m > montoFactura || m > saldo){
-                        JOptionPane.showMessageDialog(null, "El monto no debe superar a Gs. "+formateador.format(montoFactura) , "Saldo pendiente" , JOptionPane.QUESTION_MESSAGE );
+                        JOptionPane.showMessageDialog(null, "El monto total no debe superar a Gs. "+formateador.format(montoFactura) , "Saldo pendiente" , JOptionPane.QUESTION_MESSAGE );
                         bandera = false;
                     }else{
                         fila[1] = m;
@@ -246,9 +249,11 @@ public class ObtenerTipoPagoContado extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonFormaPagoActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        
-        doClose(tipo);
-        
+        if(total == montoFactura && saldo == 0){
+            doClose(tipo);
+        }else{
+            JOptionPane.showMessageDialog(null, "Favor especifique la forma de pago; saldo Gs. "+formateador.format(saldo) , "Saldo" , JOptionPane.QUESTION_MESSAGE );
+        }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
     
     private void doClose(ArrayList<TipoPago> retStatus) {

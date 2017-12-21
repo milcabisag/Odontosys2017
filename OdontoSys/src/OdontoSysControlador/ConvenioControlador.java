@@ -23,7 +23,7 @@ import org.hibernate.Transaction;
 
 /**
  *
- * @author Tito
+ * 
  */
 public class ConvenioControlador {
  
@@ -242,6 +242,18 @@ public class ConvenioControlador {
                 d.setEstado("Inactivo");
                 session.merge(d);
             }
+            
+            //Buscar conv_paciente con el convenio actual e inactivarlos
+            String hql = "FROM ConvPaciente WHERE convenio = "+conv.getIdconvenio();
+            Query query = session.createQuery(hql); 
+            Iterator<ConvPaciente> iter = query.iterate();
+            ConvPaciente c = new ConvPaciente();
+            while(iter.hasNext()){
+                c = (ConvPaciente) iter.next();
+                c.setEstado("Inactivo");
+                session.merge(c);
+            }
+            
             tr.commit();           
             session.close();  
             

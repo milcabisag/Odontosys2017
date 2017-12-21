@@ -27,14 +27,14 @@ DROP TABLE IF EXISTS `factura_empresa`;
 CREATE TABLE `factura_empresa` (
   `idfactura_empresa` int(11) NOT NULL AUTO_INCREMENT,
   `fk_empresa` int(11) NOT NULL,
+  `fk_usuario` int(11) NOT NULL,
+  `fk_talonario` int(11) NOT NULL,
+  `fk_movimiento_emp` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `tipo` varchar(45) NOT NULL DEFAULT 'Contado',
   `estado` varchar(45) NOT NULL DEFAULT 'Cancelado',
   `montoTotal` int(11) NOT NULL,
   `saldo` int(11) NOT NULL DEFAULT '0',
-  `fk_usuario` int(11) NOT NULL,
-  `fk_talonario` int(11) NOT NULL,
-  `fk_movimiento_emp` int(11) NOT NULL,
   PRIMARY KEY (`idfactura_empresa`),
   KEY `fk_empfactura_idx` (`fk_empresa`),
   KEY `fk_empfacusuario_idx` (`fk_usuario`),
@@ -44,7 +44,7 @@ CREATE TABLE `factura_empresa` (
   CONSTRAINT `fk_empfactalonario` FOREIGN KEY (`fk_talonario`) REFERENCES `talonario` (`idtalonario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_empfactura` FOREIGN KEY (`fk_empresa`) REFERENCES `empresa` (`idempresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_empfacusuario` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +56,4 @@ CREATE TABLE `factura_empresa` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-30 11:55:24
+-- Dump completed on 2017-12-21 13:47:01

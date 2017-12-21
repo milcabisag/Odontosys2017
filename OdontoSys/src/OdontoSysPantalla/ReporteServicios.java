@@ -94,7 +94,7 @@ public class ReporteServicios extends javax.swing.JFrame {
         jLabelTitulo1.setText("Reporte de Servicios Realizados");
         getContentPane().add(jLabelTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 15, -1, -1));
 
-        jMonth.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jMonth.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
 
         jLabelNot.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelNot.setForeground(new java.awt.Color(255, 0, 0));
@@ -116,6 +116,8 @@ public class ReporteServicios extends javax.swing.JFrame {
                 jButtonBuscarActionPerformed(evt);
             }
         });
+
+        jYear.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
 
         jLabelDoctor.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelDoctor.setText("Doctor");
@@ -146,20 +148,18 @@ public class ReporteServicios extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabelMes)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelYear))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jYear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelMes))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jYear, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelYear, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelDoctor)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabelDoc)
+                        .addComponent(jLabelDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27)
                 .addComponent(jLabelNot)
