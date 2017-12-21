@@ -32,10 +32,12 @@ public class DoctorVista {
         int dir = doctor.getDireccion().trim().compareTo("");
         int email = doctor.getEmail().trim().compareTo("");
         int reg = doctor.getRegProf().trim().compareTo("");
-        
-        
         Date hoy = new Date();
-               
+        int f = 0;
+        if(doctor.getFechaNac() != null){
+            f = doctor.getFechaNac().compareTo(hoy);
+        }
+                       
         
         if(nom == 0 || nom < 3 || nom > 30){
             JOptionPane.showMessageDialog(null, "El nombre debe tener entre 3 y 30 caracteres");
@@ -63,6 +65,9 @@ public class DoctorVista {
             return false;
         }else if(reg == 0 || reg > 30){
             JOptionPane.showMessageDialog(null, "El registro puede tener hasta 30 caracteres");
+            return false;
+        }else if(f >= 0){
+            JOptionPane.showMessageDialog(null, "Ingrese una fecha de nacimiento válida");
             return false;
         }else if(doctor.getFechaNac().before(hoy)){              // Fecha es antes de hoy
             return true;

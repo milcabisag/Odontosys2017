@@ -98,11 +98,11 @@ public class PacienteControlador {
     public static ArrayList<Paciente> ConsultarPaciente(Session sesion){
         ArrayList<Paciente> datos = null;
         Paciente pac = new Paciente();
-            if(sesion == null){
+            if(sesion == null  || !sesion.isOpen()){
                 sesion = NewHibernateUtil.getSessionFactory().openSession();
             }
         try{ 
-            String hql = "FROM Paciente WHERE estado = 'Activo'";
+            String hql = "FROM Paciente WHERE estado = 'Activo' ORDER BY nombres";
             Query query = sesion.createQuery(hql); 
             Iterator it = query.iterate();
             if(it.hasNext()){

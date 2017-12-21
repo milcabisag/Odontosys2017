@@ -346,6 +346,8 @@ public class DetalleConvenio extends javax.swing.JFrame {
         jButtonBuscarConvenio.setVisible(false);
         jButtonBuscarEmpresa.setVisible(true);
         
+        jTextAreaObs.setEditable(true);
+        
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -444,6 +446,7 @@ public class DetalleConvenio extends javax.swing.JFrame {
         
         jTextFieldEmpresa.setEditable(false);
         jTextFieldPaciente.setEditable(false);
+        jTextAreaObs.setEditable(false);
     }
 
     private void mostrarConvenio() {
@@ -458,6 +461,7 @@ public class DetalleConvenio extends javax.swing.JFrame {
         
         jTextFieldEmpresa.setEditable(false);
         jTextFieldPaciente.setEditable(false);
+        jTextAreaObs.setEditable(false);
        
     }
 

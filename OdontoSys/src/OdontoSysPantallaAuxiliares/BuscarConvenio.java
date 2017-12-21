@@ -86,16 +86,13 @@ public class BuscarConvenio extends javax.swing.JDialog{
         jButtonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setPreferredSize(new java.awt.Dimension(490, 420));
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel1.setText("Convenios de la Empresa");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 12, -1, -1));
 
         jTableUsuarios.setModel(tabla);
         jScrollPane1.setViewportView(jTableUsuarios);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 101, -1, 149));
 
         jButtonMenu.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar_1.png"))); // NOI18N
@@ -106,23 +103,18 @@ public class BuscarConvenio extends javax.swing.JDialog{
                 jButtonMenuActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 302, 94, 30));
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel2.setText("Empresa");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         jLabelEmp.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelEmp.setText("Empresa");
-        getContentPane().add(jLabelEmp, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 60, 372, -1));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel3.setText("Convenio");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 268, -1, -1));
 
         jLabelNom.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelNom.setText("Nombre");
-        getContentPane().add(jLabelNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 268, 305, -1));
 
         jButtonOk.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/ingresar.png"))); // NOI18N
@@ -133,7 +125,54 @@ public class BuscarConvenio extends javax.swing.JDialog{
                 jButtonOkActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(368, 302, 94, 30));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(118, 118, 118)
+                .addComponent(jLabel1))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelNom, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jButtonMenu)
+                .addGap(275, 275, 275)
+                .addComponent(jButtonOk))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabelEmp))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabelNom))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonOk, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
+        );
 
         pack();
         setLocationRelativeTo(null);

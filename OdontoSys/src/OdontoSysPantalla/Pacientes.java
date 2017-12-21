@@ -56,9 +56,6 @@ public class Pacientes extends javax.swing.JFrame {
     Transaction tr = null;
     OrdenServicio ordenPendiente = null;
 
-    /**
-     *
-     */
     public static Usuario user = null;
     
     DecimalFormat formateador = new DecimalFormat("###,###");
@@ -791,8 +788,8 @@ public class Pacientes extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonInsertarConvenio)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addComponent(jButtonInsertarConvenio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Convenios", new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/hoja.png")), jPanelConvenios); // NOI18N
@@ -1072,6 +1069,7 @@ public class Pacientes extends javax.swing.JFrame {
             boolean i = PacienteControlador.Eliminar(pacienteActual, sesion);
             if(i){
                 JOptionPane.showMessageDialog(rootPane, "Se eliminó correctamente", "Eliminar Paciente", WIDTH);
+                tr.commit();
                 limpiar();
                 BotonInvisibles();
             }else{
@@ -1107,6 +1105,7 @@ public class Pacientes extends javax.swing.JFrame {
                 if(i == 0 ){
                     v = PacienteControlador.UpDatePaciente(pacienteActual, sesion);
                     if(v){
+                        tr.commit();
                         JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Paciente", WIDTH);
                         escribirPaciente(pacienteActual);
                         deshabilitarDatos();
@@ -1421,9 +1420,9 @@ public class Pacientes extends javax.swing.JFrame {
         Configuraciones.limpiarModelo(tablaConvenio);
         Configuraciones.limpiarModelo(tablaAgenda);
 
-        if(sesion != null){
-            tr.commit();
+        if(sesion != null && sesion.isOpen()){
             sesion.close();
+            sesion = null;
         }
         
     }
@@ -1476,9 +1475,11 @@ public class Pacientes extends javax.swing.JFrame {
         p.setDireccion(jTextFieldDDireccion.getText());
         
         Date fechanac = jDateChooserEdad.getDate();
-        if(fechanac != null){   
+        if(fechanac != null && !jDateChooserEdad.isValid()){   
             p.setFechaNac(fechanac);
-        }else{  p.setFechaNac(new Date());}
+        }else{  
+            p.setFechaNac(null);
+        }
         
         p.setEmail(jTextFieldDEmail.getText());
         p.setSexo(jComboBoxSexo.getSelectedItem().toString());
@@ -1498,7 +1499,7 @@ public class Pacientes extends javax.swing.JFrame {
     private void BotonInvisibles() {
         jButtonGuardar.setVisible(false);
         jButtonModificar.setVisible(false);
-        jButtonAtras.setVisible(false);
+        jButtonAtras.setVisible(true);
         
         jButtonModPaciente.setVisible(false);
         jButtonElimPaciente.setVisible(false);
@@ -1530,6 +1531,10 @@ public class Pacientes extends javax.swing.JFrame {
             //registro insertado correctamente
             JOptionPane.showMessageDialog(rootPane, "Registro insertado correctamente", "Insertar Paciente", WIDTH);
             BotonInvisibles();  
+            
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            tr = sesion.beginTransaction();
+        
             escribirPaciente(p);
         }else if(i <= 0){
             JOptionPane.showMessageDialog(rootPane, "Ingrese Datos Correctamente", "Insertar Paciente", WIDTH);
@@ -1594,8 +1599,12 @@ public class Pacientes extends javax.swing.JFrame {
         pacienteActual.setTelCel(jTextFieldDCel.getText());
         pacienteActual.setCiudad(ciudades.get(jCBciudad.getSelectedIndex()).getNombre());
         pacienteActual.setDireccion(jTextFieldDDireccion.getText());
-        Date fechaNac = jDateChooserEdad.getDate();             
-        pacienteActual.setFechaNac(fechaNac);
+        if(jDateChooserEdad.isValid()){
+            Date fechaNac = jDateChooserEdad.getDate(); 
+            pacienteActual.setFechaNac(fechaNac);
+        }else{
+            pacienteActual.setFechaNac(null);
+        }
         pacienteActual.setEmail(jTextFieldDEmail.getText());
         pacienteActual.setSexo(jComboBoxSexo.getSelectedItem().toString());        
         pacienteActual.setEnfermedades("Ninguna");
@@ -1742,6 +1751,9 @@ public class Pacientes extends javax.swing.JFrame {
     public void actualizarForm() {
     
         if(pacienteActual != null){
+            if(sesion.isOpen() && tr.isActive()){
+                tr.commit();
+            }
             Paciente p = pacienteActual;
             limpiar();
             

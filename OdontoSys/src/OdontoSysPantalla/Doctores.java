@@ -93,7 +93,7 @@ public class Doctores extends javax.swing.JFrame {
                 jButtonAtrasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(523, 555, 109, 30));
+        getContentPane().add(jButtonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(523, 555, -1, 30));
 
         jButtonGuardar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/guardar.png"))); // NOI18N
@@ -743,9 +743,15 @@ public class Doctores extends javax.swing.JFrame {
         }
         doctorActual.setNombre(jTextFieldDocNomb.getText());
         doctorActual.setApellido(jTextFieldDocApe.getText());
-        doctorActual.setNroCi(Integer.parseInt(jTextFieldDocCed.getText().replace(".", "")));
-        Date fechaNac = jDateChooserDocFecha.getDate();             
-        doctorActual.setFechaNac(fechaNac);
+        if(!jTextFieldDocCed.getText().isEmpty()){
+            doctorActual.setNroCi(Integer.parseInt(jTextFieldDocCed.getText().replace(".", "")));
+        }
+        Date fechaNac = jDateChooserDocFecha.getDate();  
+        if(fechaNac != null && !jDateChooserDocFecha.isValid()){   
+            doctorActual.setFechaNac(fechaNac);
+        }else{  
+            doctorActual.setFechaNac(null);
+        }
         doctorActual.setSexo(jComboBoxSexo.getSelectedItem().toString());
         doctorActual.setTeLb(jTextFieldDocTel.getText());
         doctorActual.setTelCel(jTextFieldDocCel.getText());

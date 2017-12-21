@@ -83,12 +83,12 @@ public class BuscarServicio extends javax.swing.JDialog {
         jTextFieldDescripcion = new javax.swing.JTextField();
 
         setTitle("Servicos");
+        setPreferredSize(new java.awt.Dimension(510, 430));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
             }
         });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         okButton.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         okButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/ingresar.png"))); // NOI18N
@@ -98,8 +98,6 @@ public class BuscarServicio extends javax.swing.JDialog {
                 okButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(okButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 321, -1, 30));
-        getRootPane().setDefaultButton(okButton);
 
         cancelButton.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
@@ -109,15 +107,13 @@ public class BuscarServicio extends javax.swing.JDialog {
                 cancelButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 321, -1, 30));
 
         labelSercicio.setAlignment(java.awt.Label.CENTER);
         labelSercicio.setBackground(new java.awt.Color(240, 240, 240));
-        labelSercicio.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        labelSercicio.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         labelSercicio.setText("Servicios Disponibles");
-        getContentPane().add(labelSercicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 452, -1));
 
-        jTable1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        jTable1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jTable1.setModel(tabla);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -126,21 +122,58 @@ public class BuscarServicio extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 96, -1, 219));
-
         labelDescripcion.setAlignment(java.awt.Label.RIGHT);
-        labelDescripcion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        labelDescripcion.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         labelDescripcion.setText("Descripción");
-        getContentPane().add(labelDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 56, 105, 30));
 
-        jTextFieldDescripcion.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jTextFieldDescripcion.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         jTextFieldDescripcion.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextFieldDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 describiendokeyPress(evt);
             }
         });
-        getContentPane().add(jTextFieldDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 56, 325, 30));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(labelSercicio, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(22, 22, 22)
+                            .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 29, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(labelSercicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        getRootPane().setDefaultButton(okButton);
+
+        getAccessibleContext().setAccessibleName("Servicios");
 
         pack();
         setLocationRelativeTo(null);

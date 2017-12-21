@@ -35,14 +35,7 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
    
     // Variables
 
-    /**
-     *
-     */
-        public static Paciente pacienteActual = null;
-
-    /**
-     *
-     */
+    public static Paciente pacienteActual = null;
     public static Usuario user = null;
     
     ArrayList<Diagnostico> Lista = null;
@@ -56,12 +49,13 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
     Session sesion = null;
     Transaction tr = null;
     
-    /**
-     *
-     */
+    
     public PacienteHojaClinica() {
         initComponents();
         deshabilitarTodo();        
+            
+        sesion = NewHibernateUtil.getSessionFactory().openSession();
+        tr = sesion.beginTransaction();
         
         tabla.addColumn("Tipo");
         tabla.addColumn("Fecha");
@@ -100,6 +94,7 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
     private void initComponents() {
 
         jButtonBuscar = new javax.swing.JButton();
+        botonActualizar = new javax.swing.JButton();
         jButtonModPaciente = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
         jButtonAtras = new javax.swing.JButton();
@@ -139,6 +134,13 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBuscarActionPerformed(evt);
+            }
+        });
+
+        botonActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/actualizar.png"))); // NOI18N
+        botonActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarActionPerformed(evt);
             }
         });
 
@@ -187,11 +189,15 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
+        jPanelHojaClinica.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel1.setText("Hoja Clínica");
+        jPanelHojaClinica.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 11, -1, -1));
 
         jLabelHPeso.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabelHPeso.setText("Peso (Kg.)");
+        jPanelHojaClinica.add(jLabelHPeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 81, -1, -1));
 
         jTextFieldHPeso.setEditable(false);
         jTextFieldHPeso.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -205,44 +211,58 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
                 jTextFieldHPesoPacienteKeyReleased(evt);
             }
         });
+        jPanelHojaClinica.add(jTextFieldHPeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 78, 30, -1));
 
         jLabelHEnferm.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabelHEnferm.setText("Enfermedades");
+        jPanelHojaClinica.add(jLabelHEnferm, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 113, -1, -1));
 
         jLabelHMedic.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabelHMedic.setText("Medicamentos");
+        jPanelHojaClinica.add(jLabelHMedic, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 149, -1, -1));
 
         jLabelHAlerg.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabelHAlerg.setText("Alergias");
+        jPanelHojaClinica.add(jLabelHAlerg, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 185, -1, -1));
 
         jLabelHCirug.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabelHCirug.setText("Cirugías");
+        jPanelHojaClinica.add(jLabelHCirug, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 221, -1, -1));
 
         jLabelHObs.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabelHObs.setText("Observaciones");
+        jPanelHojaClinica.add(jLabelHObs, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 257, -1, -1));
 
         jTextFieldHEnferm.setEditable(false);
         jTextFieldHEnferm.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jPanelHojaClinica.add(jTextFieldHEnferm, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 107, 350, 30));
 
         jTextFieldHMedic.setEditable(false);
         jTextFieldHMedic.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jPanelHojaClinica.add(jTextFieldHMedic, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 143, 350, 30));
 
         jTextFieldHAlerg.setEditable(false);
         jTextFieldHAlerg.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jPanelHojaClinica.add(jTextFieldHAlerg, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 179, 350, 30));
 
         jTextFieldHCirug.setEditable(false);
         jTextFieldHCirug.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jPanelHojaClinica.add(jTextFieldHCirug, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 215, 350, 30));
 
         jTextFieldHObs.setEditable(false);
         jTextFieldHObs.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jPanelHojaClinica.add(jTextFieldHObs, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 251, 350, 30));
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel2.setText("Nombre");
+        jPanelHojaClinica.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 55, -1, -1));
 
         jLabelNombrePaciente.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jPanelHojaClinica.add(jLabelNombrePaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 47, 350, 25));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel3.setText("Diagnósticos");
+        jPanelHojaClinica.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 292, -1, -1));
 
         jButtonDiagnostico.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonDiagnostico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/hoja.png"))); // NOI18N
@@ -253,94 +273,12 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
                 jButtonDiagnosticoActionPerformed(evt);
             }
         });
+        jPanelHojaClinica.add(jButtonDiagnostico, new org.netbeans.lib.awtextra.AbsoluteConstraints(472, 294, -1, 30));
 
         jTableDiagnosticos.setModel(tabla);
         jScrollPane1.setViewportView(jTableDiagnosticos);
 
-        javax.swing.GroupLayout jPanelHojaClinicaLayout = new javax.swing.GroupLayout(jPanelHojaClinica);
-        jPanelHojaClinica.setLayout(jPanelHojaClinicaLayout);
-        jPanelHojaClinicaLayout.setHorizontalGroup(
-            jPanelHojaClinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelHojaClinicaLayout.createSequentialGroup()
-                .addGap(104, 104, 104)
-                .addGroup(jPanelHojaClinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelHojaClinicaLayout.createSequentialGroup()
-                        .addGroup(jPanelHojaClinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelHojaClinicaLayout.createSequentialGroup()
-                                .addGroup(jPanelHojaClinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelHEnferm)
-                                    .addComponent(jLabelHPeso)
-                                    .addComponent(jLabelHAlerg)
-                                    .addComponent(jLabelHCirug)
-                                    .addComponent(jLabelHObs)
-                                    .addComponent(jLabel2))
-                                .addGap(21, 21, 21))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHojaClinicaLayout.createSequentialGroup()
-                                .addComponent(jLabelHMedic)
-                                .addGap(18, 18, 18)))
-                        .addGroup(jPanelHojaClinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelNombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanelHojaClinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextFieldHPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextFieldHEnferm)
-                                .addComponent(jTextFieldHMedic)
-                                .addComponent(jTextFieldHAlerg)
-                                .addComponent(jTextFieldHCirug)
-                                .addComponent(jTextFieldHObs, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHojaClinicaLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(256, 256, 256))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHojaClinicaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(65, 65, 65)
-                .addComponent(jButtonDiagnostico)
-                .addGap(36, 36, 36))
-        );
-        jPanelHojaClinicaLayout.setVerticalGroup(
-            jPanelHojaClinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHojaClinicaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelHojaClinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelNombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelHojaClinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldHPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelHPeso))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelHojaClinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldHEnferm, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelHEnferm))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelHojaClinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldHMedic, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelHMedic))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelHojaClinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldHAlerg, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelHAlerg))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelHojaClinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldHCirug, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelHCirug))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelHojaClinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldHObs, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelHObs))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelHojaClinicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jButtonDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
-        );
+        jPanelHojaClinica.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 335, 492, 93));
 
         jTabbedPane1.addTab("Hoja Clínica", jPanelHojaClinica);
 
@@ -395,7 +333,9 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
                         .addComponent(jButtonAtras))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonBuscar)
-                        .addGap(356, 356, 356)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(308, 308, 308)
                         .addComponent(jButtonModPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15))
@@ -404,9 +344,11 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonModPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonModPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botonActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -414,7 +356,7 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
                     .addComponent(jButtonAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -422,9 +364,10 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-    
-        sesion = NewHibernateUtil.getSessionFactory().openSession();
-        tr = sesion.beginTransaction();
+
+        if(sesion == null){
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+        }
         
         if(pacienteActual == null){
         ObtenerPaciente.sesion = sesion;
@@ -446,7 +389,8 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuActionPerformed
-        pacienteActual = null;
+        limpiar();
+        deshabilitarTodo();
         this.setVisible(false);//oculta el jFrame actual
     }//GEN-LAST:event_jButtonMenuActionPerformed
 
@@ -469,9 +413,10 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
            if(i == 0){
               boolean val = PacienteControlador.UpDatePaciente(pacienteActual, sesion);
               if(val){
-              JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Paciente", WIDTH);
-              limpiar();
-              deshabilitarTodo();
+                  tr.commit();
+                  JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Paciente", WIDTH);
+                  deshabilitarTodo();
+                  habilitarBotones();
               }else{
                   JOptionPane.showMessageDialog(rootPane, "No se pudo guardar los cambios", "Modificar Paciente", WIDTH);
               }
@@ -492,7 +437,6 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
         Diagnosticos.user = user;
         Diagnosticos jFrame = new Diagnosticos();
         jFrame.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButtonDiagnosticoActionPerformed
 
     private void jTableOdontogramasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableOdontogramasMouseClicked
@@ -503,6 +447,10 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
         OdontogramaFrame.elUsuario = user;
         OdontogramaFrame.main(null);
     }//GEN-LAST:event_jTableOdontogramasMouseClicked
+
+    private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
+        actualizarForm();
+    }//GEN-LAST:event_botonActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -540,6 +488,7 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonActualizar;
     private javax.swing.JButton jButtonAtras;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonDiagnostico;
@@ -615,9 +564,9 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
         jTextFieldHCirug.setEditable(false);
         jTextFieldHObs.setEditable(false);
         
-        if(sesion != null){
-            tr.commit();
+        if(sesion != null && sesion.isOpen()){
             sesion.close();
+            sesion = null;
         }
     }
 
@@ -696,5 +645,23 @@ public class PacienteHojaClinica extends javax.swing.JFrame {
             }
         }
         
+    }
+
+    public void actualizarForm() {
+        
+        if(pacienteActual != null){
+            if(sesion.isOpen() && tr.isActive()){
+                tr.commit();
+            }
+            Paciente p = pacienteActual;
+            limpiar();
+            
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            tr = sesion.beginTransaction();
+            
+            pacienteActual = p;
+            habilitarBotones();
+            escribirPaciente(p);
+        }
     }
 }

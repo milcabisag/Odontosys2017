@@ -444,30 +444,34 @@ public class DetalleAgenda extends javax.swing.JFrame {
         modificar.setPaciente(npac);
         
         if(modificar.getEstado().compareTo("Realizado") == 0){
-            ObtenerOrdenServicio.idPaciente = npac.getIdPaciente();
+            /*ObtenerOrdenServicio.idPaciente = npac.getIdPaciente();
             ObtenerOrdenServicio jDialog = new ObtenerOrdenServicio(null, true);
             jDialog.setVisible(true);
             
             OrdenServicio orden = jDialog.getReturnStatus();
             if(orden != null){
-                modificar.setOrdenServicio(orden);
-                modificarTodo(modificar);
-            }else{
-                JOptionPane.showMessageDialog(rootPane, "Favor Ingrese la orden de servicio correspondiente a la cita", "Realizar Cita", WIDTH);
-                jComboBoxEstado.setSelectedIndex(0);
-            }            
-        }else{
-            if(modificar.getEstado().compareTo("Cancelado") == 0){                
-                int i = AgendaControlador.CancelarCita(agenda);
-                if(i == 0){            //registro insertado correctamente
+                modificar.setOrdenServicio(orden);*/
+                int i = AgendaControlador.UpDateAgenda(modificar);
+                if(i > 0){            //registro insertado correctamente
                     JOptionPane.showMessageDialog(rootPane, "Cita Modificada", "Modificar Cita", WIDTH);
                     jButtonCancelar.doClick();
                 }else{               //no insertado
                     JOptionPane.showMessageDialog(rootPane, "No se pudo Modificar Cita", "Modificar Cita", WIDTH);
-                }            
-            }else{
-                modificarTodo(modificar);
-            }
+                }
+            /*}else{
+                JOptionPane.showMessageDialog(rootPane, "Favor Ingrese la orden de servicio correspondiente a la cita", "Realizar Cita", WIDTH);
+                jComboBoxEstado.setSelectedIndex(0);
+            }            */
+        }else if(modificar.getEstado().compareTo("Cancelado") == 0){                
+            int i = AgendaControlador.CancelarCita(agenda);
+            if(i == 0){            //registro insertado correctamente
+                JOptionPane.showMessageDialog(rootPane, "Cita Modificada", "Modificar Cita", WIDTH);
+                jButtonCancelar.doClick();
+            }else{               //no insertado
+                JOptionPane.showMessageDialog(rootPane, "No se pudo Modificar Cita", "Modificar Cita", WIDTH);
+            }  
+        }else{      // Estado Pendiente 
+            modificarTodo(modificar);
         }
     }
 

@@ -196,7 +196,6 @@ public class ConvenioControlador {
             Query q = session.createQuery(hql);
             q.executeUpdate();
             session.refresh(conv);
-       
             val = true;
         }catch(HibernateException ex){
             System.out.println("Error en modificarConvenioPaciente: "+ex);
@@ -262,7 +261,6 @@ public class ConvenioControlador {
             Query q = session.createQuery(hql);
             q.executeUpdate();
             session.refresh(conv);
-            
             val = true;
         }catch(HibernateException ex){
             JOptionPane.showMessageDialog(null,ex.getMessage(), "Eliminar Convenio", WIDTH );

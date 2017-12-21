@@ -31,24 +31,9 @@ public class Convenios extends javax.swing.JFrame {
 
      //Variables
 
-    /**
-     *
-     */
-        public static Usuario user = null;
-
-    /**
-     *
-     */
+    public static Usuario user = null;
     public static Empresa empresaActual = null;
-
-    /**
-     *
-     */
     public static Convenio conv = null;  
-
-    /**
-     *
-     */
     public static Session sesion = null;
     
     String llamado = null;
@@ -293,6 +278,8 @@ public class Convenios extends javax.swing.JFrame {
             }
         }else if(llamado.compareTo("modificar") == 0){          //Llamado a modificar
             if(det.size() >= 0){    //Existe por lo menos un detalle de convenio
+                conv.setNomConv(jTextFieldNombConv.getText());
+                conv.setObservacion(jTextAreaObs.getText());
                 v = ConvenioControlador.modificarConvenio(conv, det, sesion);
                 if(v){
                     JOptionPane.showMessageDialog(null, "Convenio guardado correctamente", "Convenios", WIDTH);
@@ -321,7 +308,7 @@ public class Convenios extends javax.swing.JFrame {
         jButtonEliminar.setVisible(false);
         jButtonInsertarServicio.setVisible(true);
         jButtonModificar.setVisible(false);
-        jTextFieldNombConv.setEnabled(true);
+        jTextFieldNombConv.setEditable(true);
         jTextAreaObs.setEditable(true);
         llamado = "modificar";
         

@@ -50,7 +50,10 @@ public class PacienteVista {
         int nom = nuevoPaciente.getNombres().trim().compareTo("");//n == 0 si existe cadena en nombre *
         int ape = nuevoPaciente.getApellidos().trim().compareTo("");//igual a * para apellido
         int ci = nuevoPaciente.getNroCi();
-        int f = nuevoPaciente.getFechaNac().compareTo(new Date());
+        int f = 0;
+        if(nuevoPaciente.getFechaNac() != null){
+            f = nuevoPaciente.getFechaNac().compareTo(new Date());
+        }
         int s = (nuevoPaciente.getSexo().compareToIgnoreCase("F") == 0) ? 0 : (nuevoPaciente.getSexo().compareToIgnoreCase("M") == 0 ? 0 : 1); 
         int dir = nuevoPaciente.getDireccion().trim().compareTo("");
         int tel = nuevoPaciente.getTelCel().trim().compareTo("");
@@ -70,8 +73,8 @@ public class PacienteVista {
         }else if(ci < 10000 || ci > 99999999 ){
             JOptionPane.showMessageDialog(null, "La cédula debe tener entre 5 y 8 cifras");
             return -1;
-        }else if(f > 0 ){
-            JOptionPane.showMessageDialog(null, "Elija la fecha de nacimiento");
+        }else if(f >= 0 ){
+            JOptionPane.showMessageDialog(null, "Escoja una fecha de nacimiento válida");
             return -1;
         }else if(s != 0){
             JOptionPane.showMessageDialog(null, "Escoja el sexo del paciente");
@@ -98,7 +101,10 @@ public class PacienteVista {
         int nom = nuevoPaciente.getNombres().trim().compareTo("");//n == 0 si existe cadena en nombre *
         int ape = nuevoPaciente.getApellidos().trim().compareTo("");//igual a * para apellido
         int ci = nuevoPaciente.getNroCi();
-        int f = nuevoPaciente.getFechaNac().compareTo(new Date());
+        int f = 0;
+        if(nuevoPaciente.getFechaNac() != null){
+            f = nuevoPaciente.getFechaNac().compareTo(new Date());
+        }
         int s = (nuevoPaciente.getSexo().compareToIgnoreCase("F") == 0) ? 0 : (nuevoPaciente.getSexo().compareToIgnoreCase("M") == 0 ? 0 : 1); 
         int dir = nuevoPaciente.getDireccion().trim().compareTo("");
         int tel = nuevoPaciente.getTelCel().trim().compareTo("");
@@ -117,8 +123,8 @@ public class PacienteVista {
         }else if(ci < 10000 || ci > 99999999 ){
             JOptionPane.showMessageDialog(null, "La cédula debe tener entre 5 y 8 cifras");
             return -1;
-        }else if(f > 0 ){
-            JOptionPane.showMessageDialog(null, "Elija la fecha de nacimiento");
+        }else if(f >= 0 ){
+            JOptionPane.showMessageDialog(null, "Escoja una fecha de nacimiento válida");
             return -1;
         }else if(s != 0){
             JOptionPane.showMessageDialog(null, "Escoja el sexo del paciente");

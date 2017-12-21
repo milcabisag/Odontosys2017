@@ -162,8 +162,7 @@ public class Empresas extends javax.swing.JFrame {
         botonActualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(830, 590));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setPreferredSize(new java.awt.Dimension(850, 590));
 
         jTabbedPane1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
@@ -450,8 +449,7 @@ public class Empresas extends javax.swing.JFrame {
                             .addComponent(jLabeltcon, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelobs, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelncon, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelemail, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
+                            .addComponent(jLabelemail, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelDatosLayout.createSequentialGroup()
                         .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelDCI)
@@ -473,16 +471,14 @@ public class Empresas extends javax.swing.JFrame {
                                     .addComponent(jLabelnomb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabelruc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabeltel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabeldir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanelDatosLayout.createSequentialGroup()
-                                .addComponent(jLabelTitulo)
-                                .addGap(28, 28, 28))))))
+                                    .addComponent(jLabeldir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabelTitulo))))
+                .addContainerGap(72, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosLayout.createSequentialGroup()
-                .addContainerGap(545, Short.MAX_VALUE)
-                .addComponent(jButtonGuardarModificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonGuardarModificacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanelDatosLayout.setVerticalGroup(
@@ -585,7 +581,7 @@ public class Empresas extends javax.swing.JFrame {
                         .addGroup(jPanelConveniosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonInsertarConvenio))))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanelConveniosLayout.setVerticalGroup(
             jPanelConveniosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -640,7 +636,7 @@ public class Empresas extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextFieldPendiente, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanelPendientesLayout.setVerticalGroup(
             jPanelPendientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -738,8 +734,6 @@ public class Empresas extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Estado de Cuenta", new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/grafico.png")), jPanelEstadoCuenta); // NOI18N
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, 413));
-
         jButtonBuscar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/buscar.png"))); // NOI18N
         jButtonBuscar.setText("Buscar Empresa");
@@ -752,7 +746,6 @@ public class Empresas extends javax.swing.JFrame {
                 jButtonBuscarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
 
         jButtonInsertar.setBackground(new java.awt.Color(204, 204, 204));
         jButtonInsertar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -766,7 +759,6 @@ public class Empresas extends javax.swing.JFrame {
                 jButtonInsertarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 11, 130, 30));
 
         jButtonModificar.setBackground(new java.awt.Color(204, 204, 204));
         jButtonModificar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -780,7 +772,6 @@ public class Empresas extends javax.swing.JFrame {
                 jButtonModificarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(542, 11, 130, 30));
 
         jButtonEliminar.setBackground(new java.awt.Color(204, 204, 204));
         jButtonEliminar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -794,7 +785,6 @@ public class Empresas extends javax.swing.JFrame {
                 jButtonEliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(678, 11, 130, 30));
 
         jButtonMenu.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/accesos.png"))); // NOI18N
@@ -809,7 +799,6 @@ public class Empresas extends javax.swing.JFrame {
                 jButtonMenuActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 513, 184, -1));
 
         jButtonAtras.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jButtonAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/eliminar.png"))); // NOI18N
@@ -821,7 +810,6 @@ public class Empresas extends javax.swing.JFrame {
                 jButtonAtrasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 513, -1, 30));
 
         botonActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesOdontosys/DienteSanos/actualizar.png"))); // NOI18N
         botonActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -829,7 +817,49 @@ public class Empresas extends javax.swing.JFrame {
                 botonActualizarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 11, 30, 30));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonAtras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTabbedPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(botonActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(206, 206, 206)
+                        .addComponent(jButtonInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 7, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12))
+        );
 
         pack();
         setLocationRelativeTo(null);
@@ -925,6 +955,7 @@ public class Empresas extends javax.swing.JFrame {
                 if(v){
                     v = EmpresaControlador.UpdateEmpresa(empresaActual, sesion);
                     if(v){
+                        tr.commit();                        
                         JOptionPane.showMessageDialog(rootPane, "Se modificó correctamente", "Modificar Empresa", WIDTH);
                         deshabilitarDatos();
                         habilitarBotones();
@@ -946,7 +977,6 @@ public class Empresas extends javax.swing.JFrame {
         boolean v = validaciones();
         if(v){
             insertarEmpresa();
-            BotonInvisibles();
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -1238,8 +1268,7 @@ public class Empresas extends javax.swing.JFrame {
         listaRec = null;
         listaOrd = null;
         
-        if(sesion != null){
-            tr.commit();
+        if(sesion != null && sesion.isOpen()){
             sesion.close();
             sesion = null;
         }
@@ -1309,6 +1338,7 @@ public class Empresas extends javax.swing.JFrame {
         if(v){            //registro validado correctamente
             int i = EmpresaControlador.insertarEmpresa(e);
             if(i>0){
+                tr.commit();
                 JOptionPane.showMessageDialog(null,"Se insertó correctamente", "Insertar Empresa", WIDTH );
                 limpiar();
                 BotonInvisibles();
@@ -1501,6 +1531,9 @@ public class Empresas extends javax.swing.JFrame {
     public void repaintForm() {
         
         if(empresaActual != null){
+            if(sesion.isOpen() && tr.isActive()){
+                tr.commit();
+            }
             Empresa e = empresaActual;
             limpiar();
             BotonInvisibles();

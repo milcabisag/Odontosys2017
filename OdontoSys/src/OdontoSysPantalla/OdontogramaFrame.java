@@ -17,7 +17,7 @@ import OdontoSysModelo.Paciente;
 import OdontoSysModelo.Servicio;
 import OdontoSysModelo.Tratamiento;
 import OdontoSysModelo.Usuario;
-import OdontoSysPantallaAuxiliares.InsertarHallazgoAct;
+import OdontoSysPantallaAuxiliares.InsertarHallazgoActss;
 import OdontoSysPantallaAuxiliares.InsertarTratamientoAct;
 import OdontoSysPantallaAuxiliares.ObtenerPaciente;
 import OdontoSysPantallaAuxiliares.OrdenDeServicio;
@@ -44,6 +44,11 @@ public class OdontogramaFrame extends javax.swing.JFrame {
     DetalleHallazgo nuevoHallazgo = null;
     Tratamiento nuevoTratamiento = null;
     
+    ArrayList<DetalleHallazgo> hallazgosSet = null;
+    ArrayList<Tratamiento> listaTratamientos = null;
+    ArrayList<Servicio> servicios = null;
+    
+    
     private static DefaultTableModel modeloH = new DefaultTableModel(){
         public boolean isCellEditable(int row, int column) {
             return false;
@@ -53,39 +58,17 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             return false;
         }};
     
-    private static int tipoTransaction = 0;
-
-    /**
-     *
-     */
-    public static int diag = 0;
-
-    /**
-     *
-     */
-    public static Odontograma odon = null;
-    
-    private static ArrayList<DetalleHallazgo> hallazgosSet = new ArrayList();
-    private static ArrayList<Tratamiento> listaTratamientos = new ArrayList();
-    private static ArrayList<Servicio> servicios = new ArrayList();
-    
-    /**
-     *
-     */
+    int tipoTransaction = 0;
     public static Paciente elPaciente = null;
-
-    /**
-     *
-     */
     public static Usuario elUsuario;
+    public static int diag = 0;
+    public static Odontograma odon = null;
     
     Boolean consulta = false; 
     
     Session sesion = null;
 
-    /**
-     *
-     */
+    
     public OdontogramaFrame(){
         initComponents(); 
         columName(); 
@@ -100,8 +83,11 @@ public class OdontogramaFrame extends javax.swing.JFrame {
                if(seleccion != null){
                     if(seleccion.toString().compareTo("O. Examen") == 0){
                         jButtonSelectHallazgo.doClick();
+                        hallazgosSet = new ArrayList();
                     }else{
                         jButtonSelectTratamiento.doClick();
+                        listaTratamientos = new ArrayList();
+                        servicios = new ArrayList();
                     }
                }else{
                    this.dispose();
@@ -187,7 +173,6 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         jButtonVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 690));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -289,9 +274,10 @@ public class OdontogramaFrame extends javax.swing.JFrame {
                     .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabelElPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextFieldelPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonSelectHallazgo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonSelectTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButtonSelectTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelDatosOdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonSelectHallazgo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jButtonBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1389,7 +1375,8 @@ public class OdontogramaFrame extends javax.swing.JFrame {
             
             dienteActual = DienteControlador.BuscarDiente(nomDiente);
             
-            InsertarHallazgoAct InsertH = new InsertarHallazgoAct(this, true);
+            nuevoHallazgo = new DetalleHallazgo();
+            InsertarHallazgoActss InsertH = new InsertarHallazgoActss(this, true);
             InsertH.GraficarDiente(String.valueOf(nomDiente));
             InsertH.setVisible(rootPaneCheckingEnabled);
             nuevoHallazgo = InsertH.getReturnStatus();
@@ -1406,6 +1393,7 @@ public class OdontogramaFrame extends javax.swing.JFrame {
         }else if(tipoTransaction == 2){
             dienteActual = DienteControlador.BuscarDiente(nomDiente);
             
+            nuevoTratamiento = new Tratamiento();
             InsertarTratamientoAct InsertT = new InsertarTratamientoAct(this, true);
             InsertT.GraficarDiente(String.valueOf(nomDiente));
             InsertT.setVisible(rootPaneCheckingEnabled);

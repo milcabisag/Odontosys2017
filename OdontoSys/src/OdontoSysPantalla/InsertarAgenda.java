@@ -189,6 +189,7 @@ public class InsertarAgenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButtonBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonBuscarPacienteActionPerformed
+       
         ObtenerPaciente jDialog= new ObtenerPaciente(null, true);
         jDialog.setVisible(true);
         pac= jDialog.getReturnStatus();
